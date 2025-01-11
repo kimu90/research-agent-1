@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  research-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      # Environment variables remain the same
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - EXA_API_KEY=${EXA_API_KEY}
+      - ZYTE_API_KEY=${ZYTE_API_KEY}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - YOUCOM_API_KEY=${YOUCOM_API_KEY}
+      - BRAVE_SEARCH_API_KEY=${BRAVE_SEARCH_API_KEY}
+      - SERPER_API_KEY=${SERPER_API_KEY}
+    volumes:
+      - .:/app
+    networks:
+      - research-network
+
+networks:
+  research-network:
+    driver: bridge

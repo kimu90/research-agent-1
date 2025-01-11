@@ -1,74 +1,76 @@
 import logging
 import dotenv
-
-# !Rename env to .env and add missing keys!
 dotenv.load_dotenv()
 logging.basicConfig(level=logging.INFO, format="%(asctime)s: %(message)s")
 
 from research_agent import ResearchAgent
-from eezo.agent import Agent
-from eezo import Eezo
 from tools import *
 
-
-e = Eezo()
-
-# To connect more sources, copy one of the existing tools in the tools/research
-# folder and connect it to your data source. Then, add it to the list below.
+# Define the tools
 tools = [YouComSearch(), SimilarWebSearch(), ExaCompanySearch(), NewsSearch()]
 
-# Check if the agent already exists, if not, create it.
-ra: Agent = e.get_agent("research-agent")
-if ra is None:
-    e.create_agent(
-        agent_id="research-agent",
-        description="Invoke when the user wants to perform a research task.",
-    )
-
-# Create an instance of the ResearchAgent class and pass the tools list to it.
+# Create an instance of the ResearchAgent class and pass the tools list to it
 research_agent = ResearchAgent(tools)
 
+# Create a simple mock context for demonstration
+class MockContext:
+    def new_message(self):
+        return MockMessage()
 
-# Define the handler for the research_agent event.
-@e.on("research-agent")
-def research_agent_handler(context, **kwargs):
-    research_agent.invoke(context, **kwargs)
+class MockMessage:
+    def add(self, type, text=""):
+        print(f"Message added: {text}")
+        return self
 
+    def notify(self):
+        print("Message notified")
 
-# Define the handlers for the tools.
-# We can use the same handler for all tools since they all have the same structure.
+def main():
+    # Demonstrate the research agent with a sample query
+    print("Starting research agent demo...")
+    
+    # Example queries for different tools
+    queries = [
+        {"query": "What is the latest trend in artificial intelligence?", "tool": handle_you_com_search},
+        {"query": "Anthropic company overview", "tool": handle_similar_web_search},
+        {"query": "OpenAI recent developments", "tool": handle_exa_company_search},
+        {"query": "AI technology news", "tool": handle_news_search}
+    ]
 
+    for query_info in queries:
+        print(f"\nPerforming research on: {query_info['query']}")
+        try:
+            context = MockContext()
+            query_info['tool'](context, query=query_info['query'])
+        except Exception as e:
+            print(f"Error during research: {e}")
 
-@e.on("you-com-search")
-def you_com_search_handler(context, **kwargs):
+    print("\nResearch demo completed.")
+
+# These functions simulate event handlers
+def handle_you_com_search(context, **kwargs):
     result = YouComSearch(include_summary=True).invoke(input=kwargs)
     m = context.new_message()
     m.add("text", text=result.summary)
     m.notify()
 
-
-@e.on("similar-web-search")
-def similar_web_search_handler(context, **kwargs):
+def handle_similar_web_search(context, **kwargs):
     result = SimilarWebSearch(include_summary=True).invoke(input=kwargs)
     m = context.new_message()
     m.add("text", text=result.summary)
     m.notify()
 
-
-@e.on("exa-company-search")
-def exa_company_search_handler(context, **kwargs):
+def handle_exa_company_search(context, **kwargs):
     result = ExaCompanySearch(include_summary=True).invoke(input=kwargs)
     m = context.new_message()
     m.add("text", text=result.summary)
     m.notify()
 
-
-@e.on("news-search")
-def news_search_handler(context, **kwargs):
+def handle_news_search(context, **kwargs):
     result = NewsSearch(include_summary=True).invoke(input=kwargs)
     m = context.new_message()
     m.add("text", text=result.summary)
     m.notify()
 
-
-e.connect()
+if __name__ == "__main__":
+    main()

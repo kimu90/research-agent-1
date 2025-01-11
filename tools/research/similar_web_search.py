@@ -1,110 +1,86 @@
 from .common.model_schemas import ContentItem, ResearchToolOutput
 from langchain.tools import BaseTool
 
-from utils.langfuse_model_wrapper import langfuse_model_wrapper
-from langchain.pydantic_v1 import BaseModel
-from eezo.interface.message import Message
+from utils.model_wrapper import model_wrapper
+from langchain.pydantic_v1 import BaseModel, Field
 from bs4 import BeautifulSoup
-from langfuse import Langfuse
 from prompts import Prompt
-from typing import Type
-from eezo.agent import Agent
-from eezo import Eezo
+from typing import Type, Optional
 
 import requests
+import logging
 import os
 
-l = Langfuse()
-e = Eezo()
-
-generate_paragraph = Prompt("summarize-text-into-three-paragraphs")
-summarize_similarweb = Prompt("summarize-similarweb-search-result")
-agent: Agent = e.get_agent("similar-web-search")
-if agent is None:
-    agent: Agent = e.create_agent(
-        agent_id="similar-web-search",
-        description="Search for a website on SimilarWeb and generate a detailed report.",
-        input_schema={
-            "entity_name": {
-                "type": "string",
-                "description": "Entity name to search for on SimilarWeb.",
-            },
-            "instructions": {
-                "type": "string",
-                "description": "Instructions on how to process the raw text.",
-            },
-        },
+class SimilarWebSearchInput(BaseModel):
+    entity_name: str = Field(description="Entity name to search for on SimilarWeb.")
+    instructions: Optional[str] = Field(
+        default=None, 
+        description="Instructions on how to process the raw text."
     )
 
-
 class SimilarWebSearch(BaseTool):
-    name: str = agent.agent_id
-    description: str = agent.description
-    args_schema: Type[BaseModel] = agent.input_model
-    user_prompt: str | None = None
-    chat_message: Message | None
+    name: str = "similar-web-search"
+    description: str = "Search for a website on SimilarWeb and generate a detailed report."
+    args_schema: Type[BaseModel] = SimilarWebSearchInput
+    user_prompt: Optional[str] = None
     include_summary: bool = False
 
     def __init__(
         self,
         include_summary: bool = False,
         user_prompt: str = "",
-        chat_message: Message | None = None,
     ):
         super().__init__()
         self.include_summary = include_summary
-        self.chat_message = chat_message
         self.user_prompt = user_prompt
 
-    def brave_search(self, query, count):
+    def brave_search(self, query: str, count: int) -> dict:
         """
         Perform a search query using Brave Search API.
 
         Args:
-        - query: The search query string.
+            query: The search query string
+            count: Number of results to return
 
         Returns:
-        - The search results as a JSON object.
+            Search results as a JSON object
         """
-        # Define the endpoint URL for the Brave Web Search API
+        logging.info(f"Performing Brave search for: {query}")
         url = "https://api.search.brave.com/res/v1/web/search"
-
-        # Prepare headers with the API key and accept headers
         headers = {
             "X-Subscription-Token": os.getenv("BRAVE_SEARCH_API_KEY"),
             "Accept": "application/json",
             "Accept-Encoding": "gzip",
         }
-
-        # Prepare query parameters
         params = {"q": query, "count": count}
 
-        # Make the GET request to the Brave Search API
         response = requests.get(url, headers=headers, params=params)
-
-        # Check if the request was successful
+        
         if response.status_code == 200:
+            logging.info("Brave search successful")
             return response.json()
         else:
+            logging.error(f"Brave search failed with status code: {response.status_code}")
             return {
                 "error": "Failed to fetch search results",
                 "status_code": response.status_code,
             }
 
     def _run(self, **kwargs) -> ResearchToolOutput:
+        """
+        Execute the SimilarWeb search tool
+        """
         entity_name = kwargs.get("entity_name")
         instructions = kwargs.get("instructions")
+        
+        logging.info(f"Starting SimilarWeb search for entity: {entity_name}")
 
+        # Get domain from Brave search
         search_results = self.brave_search(entity_name + " website", count=1)
         result = search_results["web"]["results"][0]
         domain = result["url"].split("/")[2]
 
-        if self.chat_message:
-            self.chat_message.add(
-                "text", text=f"Searching on SimilarWeb for [{entity_name}]({domain})..."
-            )
-            self.chat_message.notify()
-
+        # Fetch SimilarWeb data
         url = f"https://www.similarweb.com/website/{domain}/#overview"
         response = requests.post(
             "https://api.zyte.com/v1/extract",
@@ -112,17 +88,15 @@ class SimilarWebSearch(BaseTool):
             json={"url": url, "browserHtml": True},
         )
 
-        if self.chat_message:
-            self.chat_message.add("text", text="Generating a report...")
-            self.chat_message.notify()
-
         text = ""
         if response.status_code == 200:
+            logging.info("Successfully fetched SimilarWeb data")
             soup = BeautifulSoup(response.json().get("browserHtml", ""), "html.parser")
             text = soup.get_text(separator="\n", strip=True)
 
-            snippet = langfuse_model_wrapper(
-                name="GenerateParagraph",
+            # Generate snippet
+            generate_paragraph = Prompt("summarize-text-into-three-paragraphs")
+            snippet = model_wrapper(
                 system_prompt=generate_paragraph.compile(text=text),
                 prompt=generate_paragraph,
                 user_prompt=f"Generate a snippet based on the given text:\n{text}",
@@ -139,19 +113,26 @@ class SimilarWebSearch(BaseTool):
                     source="SimilarWeb",
                 )
             ]
+            logging.info("Generated snippet from SimilarWeb data")
         else:
+            logging.error(f"Failed to fetch SimilarWeb data: {response.status_code}")
             content = []
 
+        # Generate summary if requested
         summary = ""
         if self.include_summary and len(content) > 0:
+            summarize_similarweb = Prompt("summarize-similarweb-search-result")
             system_prompt = summarize_similarweb.compile(
-                text=text, instructions=instructions, user_prompt=self.user_prompt
+                text=text, 
+                instructions=instructions, 
+                user_prompt=self.user_prompt
             )
-            summary = langfuse_model_wrapper(
-                name="SimilarWebSearchSummary",
+            summary = model_wrapper(
                 system_prompt=system_prompt,
                 user_prompt="Generate a detailed report based on the given text.",
                 prompt=summarize_similarweb,
                 temperature=0.7,
             )
+            logging.info("Generated summary report")
+
         return ResearchToolOutput(content=content, summary=summary)
