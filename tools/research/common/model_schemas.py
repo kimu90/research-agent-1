@@ -1,19 +1,12 @@
+# tools/research/common/model_schemas.py
+
 from pydantic import BaseModel
 from typing import List, Optional
-
 
 class ContentItem(BaseModel):
     """
     Represents a single content item.
-
-    Attributes:
-        url (str): The URL of the content item.
-        title (str): The title of the content item.
-        snippet (str): A short snippet or description of the content item.
-        content (str): The full content of the item.
-        source (str): The source of the content item.
     """
-
     url: str
     title: str
     snippet: str
@@ -34,15 +27,16 @@ class ContentItem(BaseModel):
             "id": self.id,
         }
 
-
 class ResearchToolOutput(BaseModel):
     """
     Represents the output of a research tool.
-
-    Attributes:
-        content (List[ContentItem]): A list of content items generated or processed by the tool.
-        summary (str): A summary of the content items.
     """
-
     content: List[ContentItem]
     summary: str
+
+class ScrapeWebsiteInput(BaseModel):
+    """
+    Input schema for website scraping
+    """
+    objective: str = "Extract relevant information"
+    url: str

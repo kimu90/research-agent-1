@@ -9,10 +9,10 @@ from tools.research import (
     SimilarWebSearch, 
     ExaCompanySearch, 
     NewsSearch,
-    AmazonSearch,
-    GeneralSearch,
-    MarineSearch
+    AmazonSearch  # Added Amazon Search
 )
+
+# Set USER_AGENT
 
 # Load environment variables
 load_dotenv()
@@ -60,16 +60,8 @@ def run_tool(tool_name, query, additional_params=None):
             tool = NewsSearch(include_summary=True)
             result = tool.invoke(input={"query": query})
             
-        elif tool_name == "Amazon Search":
+        elif tool_name == "Amazon Search":  # Added Amazon Search handling
             tool = AmazonSearch(include_summary=True)
-            result = tool.invoke(input={"query": query})
-            
-        elif tool_name == "General Research":
-            tool = GeneralSearch(include_summary=True)
-            result = tool.invoke(input={"query": query})
-            
-        elif tool_name == "Marine Research":
-            tool = MarineSearch(include_summary=True)
             result = tool.invoke(input={"query": query})
         
         else:
@@ -102,9 +94,7 @@ def main():
             "SimilarWeb Search", 
             "Exa Company Search", 
             "News Search",
-            "Amazon Search",
-            "General Research",
-            "Marine Research"
+            "Amazon Search"  # Added Amazon Search option
         ]
         selected_tool = st.selectbox("Choose a Research Tool", tool_options)
         
@@ -115,7 +105,7 @@ def main():
                 "Entity Name", 
                 help="Specific entity to search on SimilarWeb"
             )
-        elif selected_tool == "Amazon Search":
+        elif selected_tool == "Amazon Search":  # Added Amazon-specific parameters if needed
             additional_params['include_reviews'] = st.checkbox(
                 "Include Customer Reviews",
                 help="Include detailed customer reviews in the results"
@@ -129,9 +119,7 @@ def main():
             "Brave": os.getenv("BRAVE_SEARCH_API_KEY") is not None,
             "OpenAI": os.getenv("OPENAI_API_KEY") is not None,
             "Groq": os.getenv("GROQ_API_KEY") is not None,
-            "Rainforest": os.getenv("RAINFOREST_API_KEY") is not None,
-            "Browserless": os.getenv("BROWSERLESS_API_KEY") is not None,
-            "Serper": os.getenv("SERPER_API_KEY") is not None
+            "Rainforest": os.getenv("RAINFOREST_API_KEY") is not None  # Added Rainforest API check
         }
         
         for api, status in api_checks.items():
@@ -140,14 +128,12 @@ def main():
             else:
                 st.warning(f"{api} API: Not Configured ⚠️")
 
-    # Main query input with dynamic placeholder
-    input_placeholder = {
-        "Amazon Search": "Enter product search query",
-        "Marine Research": "Enter marine research query",
-        "General Research": "Enter research query",
-    }.get(selected_tool, "Enter your search query")
-    
-    query = st.text_input(input_placeholder, key="query_input")
+    # Main query input
+    query = st.text_input(
+        "Enter your search query" if selected_tool != "Amazon Search" 
+        else "Enter product search query",
+        key="query_input"
+    )
     
     # Search button with improved styling
     col1, col2 = st.columns([3, 1])
@@ -171,7 +157,7 @@ def main():
                 
                 with tab1:
                     st.subheader("Research Summary")
-                    st.markdown(result.summary)
+                    st.write(result.summary)
                 
                 with tab2:
                     for item in result.content:

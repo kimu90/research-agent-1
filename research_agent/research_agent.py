@@ -144,7 +144,7 @@ class ResearchAgent:
                 ResearchTask(
                     id=question.id,
                     research_topic=question.text,
-                    dependencies=question.dependencies,# You might need to adjust this in ResearchTask
+                    dependencies=question.dependencies,
                 )
             )
 
