@@ -7,6 +7,7 @@ from langchain.tools import BaseTool
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 from prompts import Prompt
+from .tracers import CustomTracer, QueryTrace  # Add this import
 
 import json
 import logging
@@ -88,32 +89,66 @@ class ResearchAgent:
         Initializes the ResearchAgent with a list of tools.
         """
         self.tools = tools
+        self.tracer = CustomTracer()  # Add tracer initialization
 
-    def invoke(self, context: Optional[ResearchContext] = None, **kwargs) -> None:
-        """
-        Executes the research process.
-        """
+    
+    def invoke(self, context: Optional[ResearchContext] = None, **kwargs) -> str:  # Return final_report
         if context is None:
             context = ResearchContext()
 
-        self._send_message(context, "Generating outline...")
+        # Initialize trace for this query
+        trace = QueryTrace(kwargs["query"])
         
-        outline: str = self._generate_outline(kwargs["query"])
-        self._send_message(context, "Generating outline... done.", outline)
-        
-        research_outline: ResearchOutline = self._convert_outline_to_dag(outline)
-        self._send_message(context, "Planning tasks... done.")
-        
-        results: List[TaskResult] = self._plan_and_execute(
-            research_outline, context
-        )
-        
-        final_report = self._generate_final_report(results)
-        self._send_message(context, "Generating final report...", final_report)
-        
-        self._save_final_report(
-            outline, kwargs["query"], research_outline, results, final_report
-        )
+        try:
+            self._send_message(context, "Generating outline...")
+            
+            # Track outline generation
+            self.tracer.log_step(trace, "start_outline_generation")
+            outline: str = self._generate_outline(kwargs["query"])
+            trace.data["outline"] = outline
+            self._send_message(context, "Generating outline... done.", outline)
+            
+            # Track DAG conversion
+            self.tracer.log_step(trace, "start_dag_conversion")
+            research_outline: ResearchOutline = self._convert_outline_to_dag(outline)
+            trace.data["dag"] = research_outline.to_dict()
+            self._send_message(context, "Planning tasks... done.")
+            
+            # Track task execution
+            self.tracer.log_step(trace, "start_task_execution")
+            results: List[TaskResult] = self._plan_and_execute(
+                research_outline, context
+            )
+            trace.data["results"] = [r.to_dict() for r in results]
+            
+            # Track final report generation
+            self.tracer.log_step(trace, "start_report_generation")
+            final_report = self._generate_final_report(results)
+            trace.data["final_report"] = final_report
+            self._send_message(context, "Generating final report...", final_report)
+            
+            self._save_final_report(
+                outline, kwargs["query"], research_outline, results, final_report
+            )
+            
+            return final_report  # Return the final report
+
+        except Exception as e:
+            error_msg = f"Error during research: {str(e)}"
+            trace.data["error"] = error_msg
+            logging.error(error_msg)
+            self._send_message(context, error_msg)
+            raise
+
+        finally:
+            # Complete the trace
+            trace.data["end_time"] = datetime.now().isoformat()
+            start_time = datetime.fromisoformat(trace.data["start_time"])
+            end_time = datetime.fromisoformat(trace.data["end_time"])
+            trace.data["duration"] = (end_time - start_time).total_seconds()
+            
+            # Save the trace
+            self.tracer.save_trace(trace)
 
     # Rest of the methods remain the same
     def _generate_outline(self, query: str) -> str:

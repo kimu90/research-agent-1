@@ -2,7 +2,7 @@
 
 from .common.model_schemas import ContentItem, ResearchToolOutput
 from langchain.tools import BaseTool
-from langchain.pydantic_v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 from typing import Type, List
 import requests
 import logging

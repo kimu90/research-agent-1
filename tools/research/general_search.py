@@ -1,28 +1,42 @@
-# tools/research/general_search.py
-
-from .common.model_schemas import ContentItem, ResearchToolOutput
-from langchain.tools import BaseTool
-from langchain.pydantic_v1 import BaseModel, Field
 from typing import Type, List
+from pydantic import BaseModel, Field
+from langchain_community.chat_models import ChatOpenAI
+from langchain_core.prompts import MessagesPlaceholder
 from langchain.agents import initialize_agent, Tool, AgentType
-from langchain.chat_models import ChatOpenAI
-from langchain.prompts import MessagesPlaceholder
 from langchain.memory import ConversationSummaryBufferMemory
 from langchain.schema import SystemMessage
+from langchain.tools import BaseTool
+from .common.model_schemas import ContentItem, ResearchToolOutput
 from .google_scraper import WebScraper
 import logging
 
 class GeneralSearchInput(BaseModel):
     query: str = Field(description="Search query for general research")
 
+class GeneralSearchConfig(BaseModel):
+    include_summary: bool = Field(default=False)
+    name: str = Field(default="general-search")
+    description: str = Field(
+        default="Comprehensive research tool for general topics and analysis"
+    )
+
 class GeneralSearch(BaseTool):
     name: str = "general-search"
     description: str = "Comprehensive research tool for general topics and analysis"
     args_schema: Type[BaseModel] = GeneralSearchInput
-    include_summary: bool = Field(default=False)
-    web_scraper: WebScraper = Field(default_factory=WebScraper)  # Add this line
-
-    GENERAL_PROMPT = """Utilizing the provided query, your task is to conduct detailed research and produce a factual and data-backed report. Your goal is to gather comprehensive information and provide a thorough analysis based on the data collected. 
+    
+    def __init__(self, include_summary: bool = False):
+        """
+        Initialize the GeneralSearch tool
+        
+        Args:
+            include_summary (bool): Whether to include a summary in the output
+        """
+        super().__init__()
+        self.include_summary = include_summary
+        self.web_scraper = WebScraper()
+        
+        self.GENERAL_PROMPT = """Utilizing the provided query, your task is to conduct detailed research and produce a factual and data-backed report. Your goal is to gather comprehensive information and provide a thorough analysis based on the data collected. 
 
 Please complete the objective with the following guidelines:
 1. Conduct extensive research to gather as much information as possible about the topic.
@@ -33,11 +47,16 @@ Please complete the objective with the following guidelines:
 
 Ensure the final output is clear, accurate, and fully substantiated by the gathered data."""
 
-    def __init__(self, include_summary: bool = False):
-        super().__init__()
-        self.include_summary = include_summary
-
     def execute_research(self, query: str) -> str:
+        """
+        Execute the research using LangChain agents
+        
+        Args:
+            query (str): The research query to investigate
+            
+        Returns:
+            str: The research results
+        """
         llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo", max_tokens=1000)
         memory = ConversationSummaryBufferMemory(
             memory_key="memory",
@@ -73,15 +92,21 @@ Ensure the final output is clear, accurate, and fully substantiated by the gathe
         result = agent({"input": query})
         return result['output']
 
-    def _run(self, **kwargs) -> ResearchToolOutput:
+    def _run(self, query: str) -> ResearchToolOutput:
         """
         Execute the general research tool
+        
+        Args:
+            query (str): The research query to investigate
+            
+        Returns:
+            ResearchToolOutput: The research results with content and optional summary
         """
-        logging.info(f"Starting general research for query: {kwargs['query']}")
+        logging.info(f"Starting general research for query: {query}")
         
         try:
             # Get research results
-            research_output = self.execute_research(kwargs["query"])
+            research_output = self.execute_research(query)
             
             # Create a single ContentItem for the research results
             content = [
@@ -96,7 +121,7 @@ Ensure the final output is clear, accurate, and fully substantiated by the gathe
             
             return ResearchToolOutput(
                 content=content,
-                summary=research_output
+                summary=research_output if self.include_summary else ""
             )
             
         except Exception as e:
@@ -106,5 +131,11 @@ Ensure the final output is clear, accurate, and fully substantiated by the gathe
                 summary=f"Error performing research: {str(e)}"
             )
 
-    def _arun(self, *args, **kwargs):
+    async def _arun(self, *args, **kwargs):
+        """
+        Async version of the tool - Not implemented
+        
+        Raises:
+            NotImplementedError: Always raised as async version is not implemented
+        """
         raise NotImplementedError("Async version not implemented")

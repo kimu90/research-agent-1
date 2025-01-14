@@ -99,7 +99,7 @@ class ContentDB:
 
     def upsert_doc(self, doc: ContentItem):
         """
-        Inserts a new document or updates an existing one based on either ID or URL conflict.
+        Inserts a new document or updates an existing one based on the URL conflict.
 
         Args:
             doc (ContentItem): A ContentItem instance containing the document data.
@@ -111,18 +111,12 @@ class ContentDB:
                     """
                     INSERT INTO content (id, url, title, snippet, content, source)
                     VALUES (:id, :url, :title, :snippet, :content, :source)
-                    ON CONFLICT(id) DO UPDATE SET
-                        url=excluded.url,
-                        title=excluded.title,
-                        snippet=excluded.snippet,
-                        content=excluded.content,
-                        source=excluded.source
                     ON CONFLICT(url) DO UPDATE SET
-                        id=excluded.id,
-                        title=excluded.title,
-                        snippet=excluded.snippet,
-                        content=excluded.content,
-                        source=excluded.source
+                    id=excluded.id,
+                    title=excluded.title,
+                    snippet=excluded.snippet,
+                    content=excluded.content,
+                    source=excluded.source
                     """,
                     doc.to_dict(),
                 )

@@ -2,7 +2,7 @@ from .common.model_schemas import ContentItem, ResearchToolOutput
 from langchain.tools import BaseTool
 
 from utils.model_wrapper import model_wrapper
-from langchain.pydantic_v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 from bs4 import BeautifulSoup
 from prompts import Prompt
 from typing import Type, Optional

@@ -1,3 +1,4 @@
+# docker-compose.yml
 version: '3.8'
 
 services:
@@ -7,8 +8,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
+      - "8501:8501"  # Streamlit default port
     environment:
-      # Environment variables remain the same
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - EXA_API_KEY=${EXA_API_KEY}
       - ZYTE_API_KEY=${ZYTE_API_KEY}
@@ -16,10 +17,18 @@ services:
       - YOUCOM_API_KEY=${YOUCOM_API_KEY}
       - BRAVE_SEARCH_API_KEY=${BRAVE_SEARCH_API_KEY}
       - SERPER_API_KEY=${SERPER_API_KEY}
+      - DB_PATH=/data/content.db
     volumes:
       - .:/app
+      - content-data:/data
     networks:
       - research-network
+    command: >
+      sh -c "python init_db.py && streamlit run main.py --server.address=0.0.0.0"
+
+volumes:
+  content-data:
+    driver: local
 
 networks:
   research-network:

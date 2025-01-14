@@ -4,7 +4,7 @@ from langchain.tools import BaseTool
 
 from langchain_community.document_loaders import WebBaseLoader
 from utils.model_wrapper import model_wrapper
-from langchain.pydantic_v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 from typing import Type, List
 from prompts import Prompt
 

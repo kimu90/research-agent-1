@@ -2,25 +2,34 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies in a single layer to reduce image size
 RUN apt-get update && apt-get install -y \
     git \
+    wget \
+    unzip \
+    chromium \
+    chromium-driver \
+    sqlite3 \
     && rm -rf /var/lib/apt/lists/*
+
+# Set environment variables
+ENV CHROME_BIN=/usr/bin/chromium \
+    CHROMEDRIVER_PATH=/usr/bin/chromedriver \
+    USER_AGENT="ResearchAgent/1.0" \
+    PYTHONPATH=/app \
+    DB_PATH=/data/content.db
 
 # Copy requirements file
 COPY requirements.txt .
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Install Python dependencies including Streamlit
+RUN pip install --no-cache-dir -r requirements.txt streamlit selenium
+
+# Create directory for database
+RUN mkdir -p /data
 
 # Copy project files
 COPY . .
 
-# Set environment variables
-ENV PYTHONPATH=/app
-
-# Expose port for application
-EXPOSE 8000
-
-# Command to run the application
-CMD ["python", "app.py"]
+# Expose ports for both Streamlit and the application
+EXPOSE 8000 8501

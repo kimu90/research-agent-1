@@ -1,0 +1,128 @@
+2025-01-14 08:51:33,532: Database connection initialized successfully
+2025-01-14 08:51:50,181: Database connection initialized successfully
+2025-01-14 08:51:54,010: Database connection initialized successfully
+2025-01-14 08:51:54,148: Database connection initialized successfully
+2025-01-14 08:51:54,161: Starting news search for query: latest news on google
+2025-01-14 08:51:55,204: Starting structured inference with model gpt-3.5-turbo
+2025-01-14 08:51:55,880: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-14 08:51:55,888: Completion generated in 0.66s
+2025-01-14 08:51:55,888: Token usage - Input: 618, Output: 13, Total: 631
+2025-01-14 08:51:55,888: Processing rate: 959.37 tokens/sec
+2025-01-14 08:51:55,889: Response successfully validated against ModelResponse schema
+2025-01-14 08:51:55,889: Selected 3 articles from 10 total results
+2025-01-14 08:51:55,889: Starting to scrape 3 news pages
+2025-01-14 08:51:58,704: Successfully scraped 3 news pages
+2025-01-14 08:51:58,709: Start inference with model llama3-70b-8192 on host groq
+2025-01-14 08:52:00,819: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-14 08:52:00,822: Inference completed in 2.11s
+2025-01-14 08:52:00,822: Tokens used - Input: 574, Output: 559, Total: 1133
+2025-01-14 08:52:00,822: Processing speed - 536.58 tokens/second
+2025-01-14 08:52:00,823: Generated summary of news articles
+2025-01-14 08:52:00,827: Document inserted/updated successfully: 
+2025-01-14 08:52:00,831: Document inserted/updated successfully: 
+2025-01-14 08:52:00,835: Document inserted/updated successfully: 
+2025-01-14 08:52:00,837: Document inserted/updated successfully: 
+2025-01-14 08:52:00,841: Document inserted/updated successfully: 
+2025-01-14 08:52:00,844: Document inserted/updated successfully: 
+2025-01-14 08:52:00,849: Document inserted/updated successfully: 
+2025-01-14 08:52:00,851: Document inserted/updated successfully: 
+2025-01-14 08:52:00,854: Document inserted/updated successfully: 
+2025-01-14 08:52:00,857: Document inserted/updated successfully: 
+2025-01-14 08:52:00,858: Trace saved successfully: latest news on google
+2025-01-14 09:01:14,365: Database connection initialized successfully
+2025-01-14 09:32:59,674: Database connection initialized successfully
+2025-01-14 09:33:38,460: Database connection initialized successfully
+2025-01-14 09:33:42,027: Database connection initialized successfully
+2025-01-14 09:33:42,175: Database connection initialized successfully
+2025-01-14 09:33:42,185: Starting Amazon search for query: what are some of the uses of sea cucumber
+2025-01-14 09:33:42,185: Performing Amazon search for: what are some of the uses of sea cucumber
+2025-01-14 09:33:50,106: Document inserted/updated successfully: 
+2025-01-14 09:33:50,110: Document inserted/updated successfully: 
+2025-01-14 09:33:50,114: Document inserted/updated successfully: 
+2025-01-14 09:33:50,118: Document inserted/updated successfully: 
+2025-01-14 09:33:50,119: Trace saved successfully: what are some of the uses of sea cucumber
+2025-01-14 09:33:50,119: Error during research: display_research_results() takes 2 positional arguments but 3 were given
+2025-01-14 09:50:39,217: Database connection initialized successfully
+2025-01-14 09:54:18,149: Database connection initialized successfully
+2025-01-14 09:54:25,753: Database connection initialized successfully
+2025-01-14 09:54:25,903: Database connection initialized successfully
+2025-01-14 09:54:25,910: Starting Amazon search for query: what are some of the uses of sea cucumber
+2025-01-14 09:54:25,921: Performing Amazon search for: what are some of the uses of sea cucumber
+2025-01-14 09:54:30,275: Document inserted/updated successfully: 
+2025-01-14 09:54:30,278: Document inserted/updated successfully: 
+2025-01-14 09:54:30,281: Document inserted/updated successfully: 
+2025-01-14 09:54:30,283: Document inserted/updated successfully: 
+2025-01-14 09:54:30,286: Document inserted/updated successfully: 
+2025-01-14 09:54:30,289: Document inserted/updated successfully: 
+2025-01-14 09:54:30,290: Trace saved successfully: what are some of the uses of sea cucumber
+2025-01-14 09:54:30,527: Critical error in main application: There are multiple `plotly_chart` elements with the same auto-generated ID. When this element is created, it is assigned an internal ID based on the element type and provided parameters. Multiple elements with the same type and parameters will cause this error.
+
+To fix this error, please pass a unique `key` argument to the `plotly_chart` element.
+2025-01-14 10:09:23,792: Database connection initialized successfully
+2025-01-14 10:09:35,844: Database connection initialized successfully
+2025-01-14 10:09:39,022: Database connection initialized successfully
+2025-01-14 10:09:39,191: Database connection initialized successfully
+2025-01-14 10:09:39,195: Starting news search for query: what is the latest news on google?
+2025-01-14 10:09:40,028: Starting structured inference with model gpt-3.5-turbo
+2025-01-14 10:09:40,748: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-14 10:09:40,752: Completion generated in 0.70s
+2025-01-14 10:09:40,752: Token usage - Input: 619, Output: 15, Total: 634
+2025-01-14 10:09:40,753: Processing rate: 909.06 tokens/sec
+2025-01-14 10:09:40,753: Response successfully validated against ModelResponse schema
+2025-01-14 10:09:40,753: Selected 4 articles from 10 total results
+2025-01-14 10:09:40,754: Starting to scrape 4 news pages
+2025-01-14 10:09:41,763: Successfully scraped 4 news pages
+2025-01-14 10:09:41,768: Start inference with model llama3-70b-8192 on host groq
+2025-01-14 10:09:44,046: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-14 10:09:44,049: Inference completed in 2.28s
+2025-01-14 10:09:44,049: Tokens used - Input: 564, Output: 610, Total: 1174
+2025-01-14 10:09:44,049: Processing speed - 514.95 tokens/second
+2025-01-14 10:09:44,049: Generated summary of news articles
+2025-01-14 10:09:44,054: Document inserted/updated successfully: 
+2025-01-14 10:09:44,057: Document inserted/updated successfully: 
+2025-01-14 10:09:44,060: Document inserted/updated successfully: 
+2025-01-14 10:09:44,064: Document inserted/updated successfully: 
+2025-01-14 10:09:44,066: Document inserted/updated successfully: 
+2025-01-14 10:09:44,069: Document inserted/updated successfully: 
+2025-01-14 10:09:44,072: Document inserted/updated successfully: 
+2025-01-14 10:09:44,074: Document inserted/updated successfully: 
+2025-01-14 10:09:44,078: Document inserted/updated successfully: 
+2025-01-14 10:09:44,081: Document inserted/updated successfully: 
+2025-01-14 10:09:44,082: Trace saved successfully: what is the latest news on google?
+2025-01-14 10:09:44,224: Critical error in main application: There are multiple elements with the same `key='tools_distribution_chart'`. To fix this, please make sure that the `key` argument is unique for each element you create.
+2025-01-14 10:15:18,999: Database connection initialized successfully
+2025-01-14 10:15:39,763: Database connection initialized successfully
+2025-01-14 10:15:42,824: Database connection initialized successfully
+2025-01-14 10:15:42,968: Database connection initialized successfully
+2025-01-14 10:15:42,973: Starting news search for query: latest news on google
+2025-01-14 10:15:43,905: Starting structured inference with model gpt-3.5-turbo
+2025-01-14 10:15:44,537: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-14 10:15:44,546: Completion generated in 0.61s
+2025-01-14 10:15:44,546: Token usage - Input: 622, Output: 13, Total: 635
+2025-01-14 10:15:44,547: Processing rate: 1033.93 tokens/sec
+2025-01-14 10:15:44,547: Response successfully validated against ModelResponse schema
+2025-01-14 10:15:44,547: Selected 3 articles from 10 total results
+2025-01-14 10:15:44,547: Starting to scrape 3 news pages
+2025-01-14 10:15:45,436: Successfully scraped 3 news pages
+2025-01-14 10:15:45,440: Start inference with model llama3-70b-8192 on host groq
+2025-01-14 10:15:47,985: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-14 10:15:47,988: Inference completed in 2.55s
+2025-01-14 10:15:47,988: Tokens used - Input: 598, Output: 719, Total: 1317
+2025-01-14 10:15:47,988: Processing speed - 517.05 tokens/second
+2025-01-14 10:15:47,989: Generated summary of news articles
+2025-01-14 10:15:47,996: Document inserted/updated successfully: 
+2025-01-14 10:15:48,000: Document inserted/updated successfully: 
+2025-01-14 10:15:48,002: Document inserted/updated successfully: 
+2025-01-14 10:15:48,005: Document inserted/updated successfully: 
+2025-01-14 10:15:48,008: Document inserted/updated successfully: 
+2025-01-14 10:15:48,011: Document inserted/updated successfully: 
+2025-01-14 10:15:48,013: Document inserted/updated successfully: 
+2025-01-14 10:15:48,016: Document inserted/updated successfully: 
+2025-01-14 10:15:48,020: Document inserted/updated successfully: 
+2025-01-14 10:15:48,022: Document inserted/updated successfully: 
+2025-01-14 10:15:48,023: Trace saved successfully: latest news on google
+2025-01-14 10:26:02,308: Database connection initialized successfully
+2025-01-14 10:26:32,089: Database connection initialized successfully
+2025-01-14 10:26:34,367: Database connection initialized successfully
+2025-01-14 10:26:34,371: Error running Marine Research: "WebScraper" object has no field "chrome_options"
+2025-01-14 10:26:34,372: Trace saved successfully: what are some of the useful marine products

@@ -2,7 +2,7 @@
 
 from .common.model_schemas import ContentItem, ResearchToolOutput
 from langchain.tools import BaseTool
-from langchain.pydantic_v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 from typing import Type, List
 from langchain.agents import initialize_agent, Tool, AgentType
 from langchain.chat_models import ChatOpenAI
@@ -11,6 +11,8 @@ from langchain.memory import ConversationSummaryBufferMemory
 from langchain.schema import SystemMessage
 from .google_scraper import WebScraper
 import logging
+from typing import ClassVar
+
 
 class MarineSearchInput(BaseModel):
     query: str = Field(description="Search query for marine research")
@@ -22,7 +24,7 @@ class MarineSearch(BaseTool):
     include_summary: bool = Field(default=False)
     web_scraper: WebScraper = Field(default_factory=WebScraper)  # Add this line
 
-    MARINE_PROMPT = """You are a world-class marine scientific researcher, who can do detailed research on marine natural products, compounds, genetics, and produce fact-based results.
+    MARINE_PROMPT: ClassVar[str] = """You are a world-class marine scientific researcher, who can do detailed research on marine natural products, compounds, genetics, and produce fact-based results.
 
 Please make sure you complete the research with the following rules:
 1. You should do enough research to gather as much information as possible about the objective.
