@@ -1,19 +1,11 @@
 from .common.model_schemas import ResearchToolOutput, ContentItem
 from .base_tool import ResearchTool
 
-from .exa_company_search import ExaCompanySearch
-from .news_search import NewsSearch
-from .similar_web_search import SimilarWebSearch
-from .you_com_search import YouComSearch
-from .amazon_search import AmazonSearch
-from .general_search import GeneralSearch  # Add these
-from .marine_search import MarineSearch   
+from .general_agent import GeneralAgent
+from .marine_agent import MarineAgent
+from .amazon_agent import AmazonAgent
 __all__ = [
-    "ExaCompanySearch",
-    "NewsSearch",
-    "SimilarWebSearch",
-    "YouComSearch",
-    'AmazonSearch',
-    'GeneralSearch',   
-    'MarineSearch'
+    "GeneralAgent",
+    "MarineAgent",
+    'AmazonAgent',
 ]

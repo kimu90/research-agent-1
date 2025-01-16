@@ -126,3 +126,637 @@ To fix this error, please pass a unique `key` argument to the `plotly_chart` ele
 2025-01-14 10:26:34,367: Database connection initialized successfully
 2025-01-14 10:26:34,371: Error running Marine Research: "WebScraper" object has no field "chrome_options"
 2025-01-14 10:26:34,372: Trace saved successfully: what are some of the useful marine products
+2025-01-14 10:39:02,218: Database connection initialized successfully
+2025-01-14 10:48:15,152: Database connection initialized successfully
+2025-01-14 10:48:15,308: Critical error in main application: name 'tool_name' is not defined
+2025-01-14 10:57:04,238: Database connection initialized successfully
+2025-01-14 10:57:04,415: Critical error in main application: cannot access local variable 'trace' where it is not associated with a value
+2025-01-14 10:58:42,629: Database connection initialized successfully
+2025-01-14 10:58:42,795: Critical error in main application: cannot access local variable 'trace' where it is not associated with a value
+2025-01-14 11:02:36,559: Database connection initialized successfully
+2025-01-14 11:03:04,420: Database connection initialized successfully
+2025-01-14 11:03:04,527: Database connection initialized successfully
+2025-01-14 11:03:04,532: Starting You.com search for query: what is the latest news on google?
+2025-01-14 11:03:04,532: Performing You.com search for: what is the latest news on google?
+2025-01-14 11:03:05,181: You.com search failed with status code: 403
+2025-01-14 11:03:05,182: Processed 0 search results
+2025-01-14 11:03:05,187: Start inference with model llama3-70b-8192 on host groq
+2025-01-14 11:03:06,598: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-14 11:03:06,601: Inference completed in 1.41s
+2025-01-14 11:03:06,601: Tokens used - Input: 89, Output: 325, Total: 414
+2025-01-14 11:03:06,602: Processing speed - 292.85 tokens/second
+2025-01-14 11:03:06,602: Generated summary of search results
+2025-01-14 11:03:06,604: Trace saved successfully: what is the latest news on google?
+2025-01-14 11:03:26,431: Database connection initialized successfully
+2025-01-14 11:03:28,948: Database connection initialized successfully
+2025-01-14 11:09:56,235: Database connection initialized successfully
+2025-01-14 11:10:01,777: Database connection initialized successfully
+2025-01-14 11:10:06,801: Database connection initialized successfully
+2025-01-14 11:10:06,950: Database connection initialized successfully
+2025-01-14 11:10:06,954: Error running General Research: "GeneralSearch" object has no field "include_summary"
+2025-01-14 11:10:06,955: Trace saved successfully: latest news on google
+2025-01-14 11:10:53,009: Database connection initialized successfully
+2025-01-14 11:10:55,017: Database connection initialized successfully
+2025-01-14 11:10:55,022: Starting news search for query: latest news on google
+2025-01-14 11:10:55,870: Starting structured inference with model gpt-3.5-turbo
+2025-01-14 11:10:56,485: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-14 11:10:56,495: Completion generated in 0.60s
+2025-01-14 11:10:56,496: Token usage - Input: 611, Output: 13, Total: 624
+2025-01-14 11:10:56,497: Processing rate: 1041.54 tokens/sec
+2025-01-14 11:10:56,498: Response successfully validated against ModelResponse schema
+2025-01-14 11:10:56,498: Selected 3 articles from 10 total results
+2025-01-14 11:10:56,498: Starting to scrape 3 news pages
+2025-01-14 11:10:57,480: Successfully scraped 3 news pages
+2025-01-14 11:10:57,482: Start inference with model llama3-70b-8192 on host groq
+2025-01-14 11:10:59,523: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-14 11:10:59,527: Inference completed in 2.04s
+2025-01-14 11:10:59,527: Tokens used - Input: 561, Output: 542, Total: 1103
+2025-01-14 11:10:59,527: Processing speed - 539.51 tokens/second
+2025-01-14 11:10:59,527: Generated summary of news articles
+2025-01-14 11:10:59,534: Document inserted/updated successfully: 
+2025-01-14 11:10:59,538: Document inserted/updated successfully: 
+2025-01-14 11:10:59,541: Document inserted/updated successfully: 
+2025-01-14 11:10:59,544: Document inserted/updated successfully: 
+2025-01-14 11:10:59,546: Document inserted/updated successfully: 
+2025-01-14 11:10:59,552: Document inserted/updated successfully: 
+2025-01-14 11:10:59,555: Document inserted/updated successfully: 
+2025-01-14 11:10:59,559: Document inserted/updated successfully: 
+2025-01-14 11:10:59,565: Document inserted/updated successfully: 
+2025-01-14 11:10:59,568: Document inserted/updated successfully: 
+2025-01-14 11:10:59,569: Trace saved successfully: latest news on google
+2025-01-14 11:11:24,815: Database connection initialized successfully
+2025-01-14 11:11:32,517: Database connection initialized successfully
+2025-01-14 11:11:32,650: Database connection initialized successfully
+2025-01-14 11:11:32,655: Starting Amazon search for query: what are some of the uses of sea cucumber
+2025-01-14 11:11:32,656: Performing Amazon search for: what are some of the uses of sea cucumber
+2025-01-14 11:11:37,240: Document inserted/updated successfully: 
+2025-01-14 11:11:37,244: Document inserted/updated successfully: 
+2025-01-14 11:11:37,247: Document inserted/updated successfully: 
+2025-01-14 11:11:37,250: Document inserted/updated successfully: 
+2025-01-14 11:11:37,254: Document inserted/updated successfully: 
+2025-01-14 11:11:37,258: Document inserted/updated successfully: 
+2025-01-14 11:11:37,261: Document inserted/updated successfully: 
+2025-01-14 11:11:37,265: Document inserted/updated successfully: 
+2025-01-14 11:11:37,267: Document inserted/updated successfully: 
+2025-01-14 11:11:37,270: Document inserted/updated successfully: 
+2025-01-14 11:11:37,271: Trace saved successfully: what are some of the uses of sea cucumber
+2025-01-14 11:14:31,758: Database connection initialized successfully
+2025-01-14 11:14:42,591: Database connection initialized successfully
+2025-01-14 11:14:50,000: Database connection initialized successfully
+2025-01-14 11:14:50,151: Database connection initialized successfully
+2025-01-14 11:14:50,156: Starting news search for query: how is google
+2025-01-14 11:14:51,014: Starting structured inference with model gpt-3.5-turbo
+2025-01-14 11:14:51,705: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-14 11:14:51,711: Completion generated in 0.67s
+2025-01-14 11:14:51,711: Token usage - Input: 658, Output: 13, Total: 671
+2025-01-14 11:14:51,711: Processing rate: 1000.92 tokens/sec
+2025-01-14 11:14:51,711: Response successfully validated against ModelResponse schema
+2025-01-14 11:14:51,711: Selected 3 articles from 10 total results
+2025-01-14 11:14:51,711: Starting to scrape 3 news pages
+2025-01-14 11:14:53,877: Successfully scraped 3 news pages
+2025-01-14 11:14:53,882: Start inference with model llama3-70b-8192 on host groq
+2025-01-14 11:14:56,594: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-14 11:14:56,597: Inference completed in 2.71s
+2025-01-14 11:14:56,597: Tokens used - Input: 604, Output: 758, Total: 1362
+2025-01-14 11:14:56,597: Processing speed - 501.73 tokens/second
+2025-01-14 11:14:56,598: Generated summary of news articles
+2025-01-14 11:14:56,602: Document inserted/updated successfully: 
+2025-01-14 11:14:56,606: Document inserted/updated successfully: 
+2025-01-14 11:14:56,609: Document inserted/updated successfully: 
+2025-01-14 11:14:56,612: Document inserted/updated successfully: 
+2025-01-14 11:14:56,615: Document inserted/updated successfully: 
+2025-01-14 11:14:56,619: Document inserted/updated successfully: 
+2025-01-14 11:14:56,622: Document inserted/updated successfully: 
+2025-01-14 11:14:56,625: Document inserted/updated successfully: 
+2025-01-14 11:14:56,628: Document inserted/updated successfully: 
+2025-01-14 11:14:56,631: Document inserted/updated successfully: 
+2025-01-14 11:14:56,632: Trace saved successfully: how is google
+2025-01-14 11:15:02,419: Database connection initialized successfully
+2025-01-14 11:15:09,744: Database connection initialized successfully
+2025-01-14 11:15:10,414: Database connection initialized successfully
+2025-01-14 11:15:10,418: Starting Amazon search for query: what are some product from sea cucumber
+2025-01-14 11:15:10,418: Performing Amazon search for: what are some product from sea cucumber
+2025-01-14 11:15:13,427: Document inserted/updated successfully: 
+2025-01-14 11:15:13,431: Document inserted/updated successfully: 
+2025-01-14 11:15:13,434: Document inserted/updated successfully: 
+2025-01-14 11:15:13,438: Document inserted/updated successfully: 
+2025-01-14 11:15:13,441: Document inserted/updated successfully: 
+2025-01-14 11:15:13,444: Document inserted/updated successfully: 
+2025-01-14 11:15:13,447: Document inserted/updated successfully: 
+2025-01-14 11:15:13,450: Document inserted/updated successfully: 
+2025-01-14 11:15:13,451: Trace saved successfully: what are some product from sea cucumber
+2025-01-14 11:15:13,481: Error during research: There are multiple elements with the same `key='content_3241767818111463268'`. To fix this, please make sure that the `key` argument is unique for each element you create.
+2025-01-14 11:15:23,330: Database connection initialized successfully
+2025-01-14 11:20:22,643: Database connection initialized successfully
+2025-01-14 11:20:30,265: Database connection initialized successfully
+2025-01-14 11:22:36,061: Database connection initialized successfully
+2025-01-14 11:40:01,815: Database connection initialized successfully
+2025-01-14 11:40:01,960: Database connection initialized successfully
+2025-01-14 11:40:01,965: Starting news search for query: google recent developments
+2025-01-14 11:40:02,906: Starting structured inference with model gpt-3.5-turbo
+2025-01-14 11:40:03,607: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-14 11:40:03,611: Completion generated in 0.68s
+2025-01-14 11:40:03,612: Token usage - Input: 609, Output: 13, Total: 622
+2025-01-14 11:40:03,612: Processing rate: 915.71 tokens/sec
+2025-01-14 11:40:03,612: Response successfully validated against ModelResponse schema
+2025-01-14 11:40:03,612: Selected 3 articles from 10 total results
+2025-01-14 11:40:03,613: Starting to scrape 3 news pages
+2025-01-14 11:40:05,105: Successfully scraped 3 news pages
+2025-01-14 11:40:05,109: Start inference with model llama3-70b-8192 on host groq
+2025-01-14 11:40:07,118: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-14 11:40:07,121: Inference completed in 2.01s
+2025-01-14 11:40:07,121: Tokens used - Input: 577, Output: 519, Total: 1096
+2025-01-14 11:40:07,121: Processing speed - 544.92 tokens/second
+2025-01-14 11:40:07,121: Generated summary of news articles
+2025-01-14 11:40:07,127: Document inserted/updated successfully: 
+2025-01-14 11:40:07,130: Document inserted/updated successfully: 
+2025-01-14 11:40:07,133: Document inserted/updated successfully: 
+2025-01-14 11:40:07,137: Document inserted/updated successfully: 
+2025-01-14 11:40:07,140: Document inserted/updated successfully: 
+2025-01-14 11:40:07,143: Document inserted/updated successfully: 
+2025-01-14 11:40:07,147: Document inserted/updated successfully: 
+2025-01-14 11:40:07,150: Document inserted/updated successfully: 
+2025-01-14 11:40:07,154: Document inserted/updated successfully: 
+2025-01-14 11:40:07,156: Document inserted/updated successfully: 
+2025-01-14 11:40:07,157: Trace saved successfully: google recent developments
+2025-01-14 11:43:09,643: Database connection initialized successfully
+2025-01-14 11:43:16,940: Database connection initialized successfully
+2025-01-14 11:46:09,235: Database connection initialized successfully
+2025-01-14 11:46:09,394: Database connection initialized successfully
+2025-01-14 11:46:09,400: Starting Amazon search for query: what are some product from sea cucumber
+2025-01-14 11:46:09,400: Performing Amazon search for: what are some product from sea cucumber
+2025-01-14 11:46:13,030: Document inserted/updated successfully: 
+2025-01-14 11:46:13,033: Document inserted/updated successfully: 
+2025-01-14 11:46:13,035: Document inserted/updated successfully: 
+2025-01-14 11:46:13,038: Document inserted/updated successfully: 
+2025-01-14 11:46:13,041: Document inserted/updated successfully: 
+2025-01-14 11:46:13,044: Document inserted/updated successfully: 
+2025-01-14 11:46:13,047: Document inserted/updated successfully: 
+2025-01-14 11:46:13,050: Document inserted/updated successfully: 
+2025-01-14 11:46:13,051: Trace saved successfully: what are some product from sea cucumber
+2025-01-14 11:50:16,787: Database connection initialized successfully
+2025-01-14 11:50:28,008: Database connection initialized successfully
+2025-01-14 11:50:28,156: Database connection initialized successfully
+2025-01-14 11:50:28,160: Starting news search for query: how is google
+2025-01-14 11:50:29,560: Starting structured inference with model gpt-3.5-turbo
+2025-01-14 11:50:30,307: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-14 11:50:30,311: Completion generated in 0.73s
+2025-01-14 11:50:30,312: Token usage - Input: 665, Output: 13, Total: 678
+2025-01-14 11:50:30,313: Processing rate: 935.07 tokens/sec
+2025-01-14 11:50:30,313: Response successfully validated against ModelResponse schema
+2025-01-14 11:50:30,313: Selected 3 articles from 10 total results
+2025-01-14 11:50:30,313: Starting to scrape 3 news pages
+2025-01-14 11:50:32,401: Successfully scraped 3 news pages
+2025-01-14 11:50:32,405: Start inference with model llama3-70b-8192 on host groq
+2025-01-14 11:50:35,166: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-14 11:50:35,167: Inference completed in 2.76s
+2025-01-14 11:50:35,167: Tokens used - Input: 600, Output: 732, Total: 1332
+2025-01-14 11:50:35,168: Processing speed - 482.34 tokens/second
+2025-01-14 11:50:35,168: Generated summary of news articles
+2025-01-14 11:50:35,172: Document inserted/updated successfully: 
+2025-01-14 11:50:35,176: Document inserted/updated successfully: 
+2025-01-14 11:50:35,179: Document inserted/updated successfully: 
+2025-01-14 11:50:35,183: Document inserted/updated successfully: 
+2025-01-14 11:50:35,186: Document inserted/updated successfully: 
+2025-01-14 11:50:35,189: Document inserted/updated successfully: 
+2025-01-14 11:50:35,192: Document inserted/updated successfully: 
+2025-01-14 11:50:35,195: Document inserted/updated successfully: 
+2025-01-14 11:50:35,200: Document inserted/updated successfully: 
+2025-01-14 11:50:35,204: Document inserted/updated successfully: 
+2025-01-14 11:50:35,204: Trace saved successfully: how is google
+2025-01-14 11:50:50,307: Database connection initialized successfully
+2025-01-14 11:50:50,460: Database connection initialized successfully
+2025-01-14 11:50:50,464: Starting news search for query: how is meta
+2025-01-14 11:50:51,329: Starting structured inference with model gpt-3.5-turbo
+2025-01-14 11:50:51,968: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-14 11:50:51,971: Completion generated in 0.61s
+2025-01-14 11:50:51,971: Token usage - Input: 605, Output: 13, Total: 618
+2025-01-14 11:50:51,971: Processing rate: 1012.70 tokens/sec
+2025-01-14 11:50:51,971: Response successfully validated against ModelResponse schema
+2025-01-14 11:50:51,971: Selected 3 articles from 10 total results
+2025-01-14 11:50:51,971: Starting to scrape 3 news pages
+2025-01-14 11:50:53,742: Successfully scraped 3 news pages
+2025-01-14 11:50:53,747: Start inference with model llama3-70b-8192 on host groq
+2025-01-14 11:50:56,367: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-14 11:50:56,368: Inference completed in 2.62s
+2025-01-14 11:50:56,368: Tokens used - Input: 603, Output: 687, Total: 1290
+2025-01-14 11:50:56,369: Processing speed - 492.31 tokens/second
+2025-01-14 11:50:56,369: Generated summary of news articles
+2025-01-14 11:50:56,373: Document inserted/updated successfully: 
+2025-01-14 11:50:56,376: Document inserted/updated successfully: 
+2025-01-14 11:50:56,379: Document inserted/updated successfully: 
+2025-01-14 11:50:56,383: Document inserted/updated successfully: 
+2025-01-14 11:50:56,386: Document inserted/updated successfully: 
+2025-01-14 11:50:56,389: Document inserted/updated successfully: 
+2025-01-14 11:50:56,391: Document inserted/updated successfully: 
+2025-01-14 11:50:56,395: Document inserted/updated successfully: 
+2025-01-14 11:50:56,398: Document inserted/updated successfully: 
+2025-01-14 11:50:56,402: Document inserted/updated successfully: 
+2025-01-14 11:50:56,402: Trace saved successfully: how is meta
+2025-01-14 11:51:05,820: Database connection initialized successfully
+2025-01-14 11:51:05,966: Database connection initialized successfully
+2025-01-14 11:51:05,971: Starting news search for query: how is youtube
+2025-01-14 11:51:06,812: Starting structured inference with model gpt-3.5-turbo
+2025-01-14 11:51:09,640: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-14 11:51:09,655: Completion generated in 2.80s
+2025-01-14 11:51:09,656: Token usage - Input: 650, Output: 15, Total: 665
+2025-01-14 11:51:09,656: Processing rate: 237.18 tokens/sec
+2025-01-14 11:51:09,656: Response successfully validated against ModelResponse schema
+2025-01-14 11:51:09,656: Selected 4 articles from 10 total results
+2025-01-14 11:51:09,657: Starting to scrape 4 news pages
+2025-01-14 11:51:12,176: Successfully scraped 4 news pages
+2025-01-14 11:51:12,181: Start inference with model llama3-70b-8192 on host groq
+2025-01-14 11:51:14,339: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-14 11:51:14,341: Inference completed in 2.16s
+2025-01-14 11:51:14,341: Tokens used - Input: 529, Output: 622, Total: 1151
+2025-01-14 11:51:14,341: Processing speed - 533.37 tokens/second
+2025-01-14 11:51:14,341: Generated summary of news articles
+2025-01-14 11:51:14,347: Document inserted/updated successfully: 
+2025-01-14 11:51:14,353: Document inserted/updated successfully: 
+2025-01-14 11:51:14,358: Document inserted/updated successfully: 
+2025-01-14 11:51:14,360: Document inserted/updated successfully: 
+2025-01-14 11:51:14,363: Document inserted/updated successfully: 
+2025-01-14 11:51:14,368: Document inserted/updated successfully: 
+2025-01-14 11:51:14,372: Document inserted/updated successfully: 
+2025-01-14 11:51:14,375: Document inserted/updated successfully: 
+2025-01-14 11:51:14,378: Document inserted/updated successfully: 
+2025-01-14 11:51:14,380: Document inserted/updated successfully: 
+2025-01-14 11:51:14,381: Trace saved successfully: how is youtube
+2025-01-16 08:45:31,610: Database connection initialized successfully
+2025-01-16 08:45:50,884: Database connection initialized successfully
+2025-01-16 08:45:55,167: Database connection initialized successfully
+2025-01-16 09:03:59,093: Database connection initialized successfully
+2025-01-16 09:03:59,229: Database connection initialized successfully
+2025-01-16 09:03:59,238: Starting Amazon search for query: what are some product from sea cucumber
+2025-01-16 09:03:59,238: Performing Amazon search for: what are some product from sea cucumber
+2025-01-16 09:04:01,951: Document inserted/updated successfully: 
+2025-01-16 09:04:01,955: Document inserted/updated successfully: 
+2025-01-16 09:04:01,958: Document inserted/updated successfully: 
+2025-01-16 09:04:01,961: Document inserted/updated successfully: 
+2025-01-16 09:04:01,963: Document inserted/updated successfully: 
+2025-01-16 09:04:01,964: Trace saved successfully: what are some product from sea cucumber
+2025-01-16 09:51:07,124: Database connection initialized successfully
+2025-01-16 09:51:12,782: Database connection initialized successfully
+2025-01-16 09:51:12,937: Database connection initialized successfully
+2025-01-16 09:51:12,942: Starting SimilarWeb search for entity: 
+2025-01-16 09:51:12,942: Performing Brave search for:  website
+2025-01-16 09:51:14,010: Brave search successful
+2025-01-16 09:51:14,774: Failed to fetch SimilarWeb data: 401
+2025-01-16 09:51:14,775: Trace saved successfully: facebook
+2025-01-16 09:51:37,814: Database connection initialized successfully
+2025-01-16 09:51:40,343: Database connection initialized successfully
+2025-01-16 09:51:40,348: Starting SimilarWeb search for entity: facebook
+2025-01-16 09:51:40,349: Performing Brave search for: facebook website
+2025-01-16 09:51:41,401: Brave search successful
+2025-01-16 09:51:42,142: Failed to fetch SimilarWeb data: 401
+2025-01-16 09:51:42,143: Trace saved successfully: facebook
+2025-01-16 09:54:55,222: Database connection initialized successfully
+2025-01-16 09:54:59,532: Database connection initialized successfully
+2025-01-16 09:55:04,368: Database connection initialized successfully
+2025-01-16 09:55:04,491: Database connection initialized successfully
+2025-01-16 09:55:04,495: Starting You.com search for query: how is google
+2025-01-16 09:55:04,495: Performing You.com search for: how is google
+2025-01-16 09:55:05,177: You.com search failed with status code: 403
+2025-01-16 09:55:05,178: Processed 0 search results
+2025-01-16 09:55:05,183: Start inference with model llama3-70b-8192 on host groq
+2025-01-16 09:55:06,654: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-16 09:55:06,657: Inference completed in 1.47s
+2025-01-16 09:55:06,657: Tokens used - Input: 80, Output: 336, Total: 416
+2025-01-16 09:55:06,657: Processing speed - 282.34 tokens/second
+2025-01-16 09:55:06,657: Generated summary of search results
+2025-01-16 09:55:06,658: Trace saved successfully: how is google
+2025-01-16 10:02:56,607: Database connection initialized successfully
+2025-01-16 10:03:00,406: Database connection initialized successfully
+2025-01-16 10:03:04,617: Database connection initialized successfully
+2025-01-16 10:03:04,736: Database connection initialized successfully
+2025-01-16 10:03:04,740: Starting You.com search for query: latest news on google
+2025-01-16 10:03:04,741: Performing You.com search for: latest news on google
+2025-01-16 10:03:05,416: You.com search failed with status code: 403
+2025-01-16 10:03:05,417: Processed 0 search results
+2025-01-16 10:03:05,421: Start inference with model llama3-70b-8192 on host groq
+2025-01-16 10:03:06,889: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-16 10:03:06,890: Inference completed in 1.47s
+2025-01-16 10:03:06,890: Tokens used - Input: 82, Output: 316, Total: 398
+2025-01-16 10:03:06,890: Processing speed - 271.01 tokens/second
+2025-01-16 10:03:06,890: Generated summary of search results
+2025-01-16 10:03:06,891: Trace saved successfully: latest news on google
+2025-01-16 10:03:12,095: Database connection initialized successfully
+2025-01-16 10:03:13,822: Database connection initialized successfully
+2025-01-16 10:03:13,826: Starting news search for query: latest news on google
+2025-01-16 10:03:14,968: Starting structured inference with model gpt-3.5-turbo
+2025-01-16 10:03:16,223: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-16 10:03:16,227: Completion generated in 1.23s
+2025-01-16 10:03:16,228: Token usage - Input: 603, Output: 13, Total: 616
+2025-01-16 10:03:16,228: Processing rate: 499.34 tokens/sec
+2025-01-16 10:03:16,229: Response successfully validated against ModelResponse schema
+2025-01-16 10:03:16,231: Selected 3 articles from 10 total results
+2025-01-16 10:03:16,231: Starting to scrape 3 news pages
+2025-01-16 10:03:16,968: Successfully scraped 3 news pages
+2025-01-16 10:03:16,975: Start inference with model llama3-70b-8192 on host groq
+2025-01-16 10:03:19,035: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-16 10:03:19,036: Inference completed in 2.06s
+2025-01-16 10:03:19,036: Tokens used - Input: 561, Output: 530, Total: 1091
+2025-01-16 10:03:19,036: Processing speed - 529.37 tokens/second
+2025-01-16 10:03:19,037: Generated summary of news articles
+2025-01-16 10:03:19,040: Document inserted/updated successfully: 
+2025-01-16 10:03:19,043: Document inserted/updated successfully: 
+2025-01-16 10:03:19,046: Document inserted/updated successfully: 
+2025-01-16 10:03:19,048: Document inserted/updated successfully: 
+2025-01-16 10:03:19,051: Document inserted/updated successfully: 
+2025-01-16 10:03:19,053: Document inserted/updated successfully: 
+2025-01-16 10:03:19,056: Document inserted/updated successfully: 
+2025-01-16 10:03:19,060: Document inserted/updated successfully: 
+2025-01-16 10:03:19,065: Document inserted/updated successfully: 
+2025-01-16 10:03:19,069: Document inserted/updated successfully: 
+2025-01-16 10:03:19,069: Trace saved successfully: latest news on google
+2025-01-16 10:03:23,384: Database connection initialized successfully
+2025-01-16 10:03:40,745: Database connection initialized successfully
+2025-01-16 10:03:40,878: Database connection initialized successfully
+2025-01-16 10:04:14,217: Database connection initialized successfully
+2025-01-16 10:04:17,579: Database connection initialized successfully
+2025-01-16 10:04:24,602: Database connection initialized successfully
+2025-01-16 10:04:26,247: Database connection initialized successfully
+2025-01-16 10:07:19,484: Database connection initialized successfully
+2025-01-16 10:07:23,179: Database connection initialized successfully
+2025-01-16 10:07:26,071: Database connection initialized successfully
+2025-01-16 10:07:26,168: Database connection initialized successfully
+2025-01-16 10:07:26,172: Starting Amazon search for query: what are some of the uses of sea cucumber
+2025-01-16 10:07:26,173: Performing Amazon search for: what are some of the uses of sea cucumber
+2025-01-16 10:07:29,981: Document inserted/updated successfully: 
+2025-01-16 10:07:29,985: Document inserted/updated successfully: 
+2025-01-16 10:07:29,987: Document inserted/updated successfully: 
+2025-01-16 10:07:29,989: Document inserted/updated successfully: 
+2025-01-16 10:07:29,992: Document inserted/updated successfully: 
+2025-01-16 10:07:29,995: Document inserted/updated successfully: 
+2025-01-16 10:07:29,997: Document inserted/updated successfully: 
+2025-01-16 10:07:29,998: Trace saved successfully: what are some of the uses of sea cucumber
+2025-01-16 10:07:38,957: Database connection initialized successfully
+2025-01-16 10:07:39,094: Database connection initialized successfully
+2025-01-16 10:07:39,098: Starting Amazon search for query: what are some of the uses of marine products
+2025-01-16 10:07:39,099: Performing Amazon search for: what are some of the uses of marine products
+2025-01-16 10:07:43,570: Document inserted/updated successfully: 
+2025-01-16 10:07:43,573: Document inserted/updated successfully: 
+2025-01-16 10:07:43,577: Document inserted/updated successfully: 
+2025-01-16 10:07:43,580: Document inserted/updated successfully: 
+2025-01-16 10:07:43,583: Document inserted/updated successfully: 
+2025-01-16 10:07:43,586: Document inserted/updated successfully: 
+2025-01-16 10:07:43,589: Document inserted/updated successfully: 
+2025-01-16 10:07:43,591: Document inserted/updated successfully: 
+2025-01-16 10:07:43,594: Document inserted/updated successfully: 
+2025-01-16 10:07:43,597: Document inserted/updated successfully: 
+2025-01-16 10:07:43,600: Document inserted/updated successfully: 
+2025-01-16 10:07:43,602: Document inserted/updated successfully: 
+2025-01-16 10:07:43,605: Document inserted/updated successfully: 
+2025-01-16 10:07:43,607: Document inserted/updated successfully: 
+2025-01-16 10:07:43,611: Document inserted/updated successfully: 
+2025-01-16 10:07:43,614: Document inserted/updated successfully: 
+2025-01-16 10:07:43,617: Document inserted/updated successfully: 
+2025-01-16 10:07:43,619: Document inserted/updated successfully: 
+2025-01-16 10:07:43,623: Document inserted/updated successfully: 
+2025-01-16 10:07:43,625: Document inserted/updated successfully: 
+2025-01-16 10:07:43,628: Document inserted/updated successfully: 
+2025-01-16 10:07:43,631: Document inserted/updated successfully: 
+2025-01-16 10:07:43,633: Document inserted/updated successfully: 
+2025-01-16 10:07:43,636: Document inserted/updated successfully: 
+2025-01-16 10:07:43,639: Document inserted/updated successfully: 
+2025-01-16 10:07:43,642: Document inserted/updated successfully: 
+2025-01-16 10:07:43,644: Document inserted/updated successfully: 
+2025-01-16 10:07:43,648: Document inserted/updated successfully: 
+2025-01-16 10:07:43,651: Document inserted/updated successfully: 
+2025-01-16 10:07:43,653: Document inserted/updated successfully: 
+2025-01-16 10:07:43,656: Document inserted/updated successfully: 
+2025-01-16 10:07:43,658: Document inserted/updated successfully: 
+2025-01-16 10:07:43,661: Document inserted/updated successfully: 
+2025-01-16 10:07:43,664: Document inserted/updated successfully: 
+2025-01-16 10:07:43,665: Trace saved successfully: what are some of the uses of marine products
+2025-01-16 10:13:36,571: Database connection initialized successfully
+2025-01-16 10:13:41,027: Database connection initialized successfully
+2025-01-16 10:13:54,990: Database connection initialized successfully
+2025-01-16 10:13:55,113: Database connection initialized successfully
+2025-01-16 10:13:55,117: Error during research: name 'additional_params' is not defined
+2025-01-16 10:15:13,716: Database connection initialized successfully
+2025-01-16 10:15:19,853: Database connection initialized successfully
+2025-01-16 10:15:24,102: Database connection initialized successfully
+2025-01-16 10:15:24,201: Database connection initialized successfully
+2025-01-16 10:15:24,205: Starting news search for query: what is the latest news on google?
+2025-01-16 10:15:25,952: Starting structured inference with model gpt-3.5-turbo
+2025-01-16 10:15:26,605: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-16 10:15:26,608: Completion generated in 0.63s
+2025-01-16 10:15:26,608: Token usage - Input: 629, Output: 15, Total: 644
+2025-01-16 10:15:26,608: Processing rate: 1020.44 tokens/sec
+2025-01-16 10:15:26,608: Response successfully validated against ModelResponse schema
+2025-01-16 10:15:26,608: Selected 4 articles from 10 total results
+2025-01-16 10:15:26,610: Starting to scrape 4 news pages
+2025-01-16 10:15:28,179: Successfully scraped 4 news pages
+2025-01-16 10:15:28,180: Start inference with model llama3-70b-8192 on host groq
+2025-01-16 10:15:30,470: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-16 10:15:30,472: Inference completed in 2.29s
+2025-01-16 10:15:30,472: Tokens used - Input: 586, Output: 540, Total: 1126
+2025-01-16 10:15:30,473: Processing speed - 491.22 tokens/second
+2025-01-16 10:15:30,473: Generated summary of news articles
+2025-01-16 10:15:30,476: Document inserted/updated successfully: 
+2025-01-16 10:15:30,480: Document inserted/updated successfully: 
+2025-01-16 10:15:30,484: Document inserted/updated successfully: 
+2025-01-16 10:15:30,487: Document inserted/updated successfully: 
+2025-01-16 10:15:30,490: Document inserted/updated successfully: 
+2025-01-16 10:15:30,493: Document inserted/updated successfully: 
+2025-01-16 10:15:30,495: Document inserted/updated successfully: 
+2025-01-16 10:15:30,498: Document inserted/updated successfully: 
+2025-01-16 10:15:30,500: Document inserted/updated successfully: 
+2025-01-16 10:15:30,504: Document inserted/updated successfully: 
+2025-01-16 10:15:30,504: Trace saved successfully: what is the latest news on google?
+2025-01-16 10:15:33,743: Database connection initialized successfully
+2025-01-16 10:15:47,805: Database connection initialized successfully
+2025-01-16 10:15:47,936: Database connection initialized successfully
+2025-01-16 10:15:47,939: Starting Amazon search for query: what products made of sheep wool
+2025-01-16 10:15:47,939: Performing Amazon search for: what products made of sheep wool
+2025-01-16 10:15:52,735: Document inserted/updated successfully: 
+2025-01-16 10:15:52,737: Document inserted/updated successfully: 
+2025-01-16 10:15:52,739: Document inserted/updated successfully: 
+2025-01-16 10:15:52,742: Document inserted/updated successfully: 
+2025-01-16 10:15:52,745: Document inserted/updated successfully: 
+2025-01-16 10:15:52,747: Document inserted/updated successfully: 
+2025-01-16 10:15:52,749: Document inserted/updated successfully: 
+2025-01-16 10:15:52,752: Document inserted/updated successfully: 
+2025-01-16 10:15:52,754: Document inserted/updated successfully: 
+2025-01-16 10:15:52,757: Document inserted/updated successfully: 
+2025-01-16 10:15:52,760: Document inserted/updated successfully: 
+2025-01-16 10:15:52,762: Document inserted/updated successfully: 
+2025-01-16 10:15:52,765: Document inserted/updated successfully: 
+2025-01-16 10:15:52,767: Document inserted/updated successfully: 
+2025-01-16 10:15:52,770: Document inserted/updated successfully: 
+2025-01-16 10:15:52,772: Document inserted/updated successfully: 
+2025-01-16 10:15:52,775: Document inserted/updated successfully: 
+2025-01-16 10:15:52,778: Document inserted/updated successfully: 
+2025-01-16 10:15:52,780: Document inserted/updated successfully: 
+2025-01-16 10:15:52,783: Document inserted/updated successfully: 
+2025-01-16 10:15:52,785: Document inserted/updated successfully: 
+2025-01-16 10:15:52,788: Document inserted/updated successfully: 
+2025-01-16 10:15:52,790: Document inserted/updated successfully: 
+2025-01-16 10:15:52,792: Document inserted/updated successfully: 
+2025-01-16 10:15:52,795: Document inserted/updated successfully: 
+2025-01-16 10:15:52,797: Document inserted/updated successfully: 
+2025-01-16 10:15:52,800: Document inserted/updated successfully: 
+2025-01-16 10:15:52,803: Document inserted/updated successfully: 
+2025-01-16 10:15:52,805: Document inserted/updated successfully: 
+2025-01-16 10:15:52,809: Document inserted/updated successfully: 
+2025-01-16 10:15:52,812: Document inserted/updated successfully: 
+2025-01-16 10:15:52,815: Document inserted/updated successfully: 
+2025-01-16 10:15:52,817: Document inserted/updated successfully: 
+2025-01-16 10:15:52,819: Document inserted/updated successfully: 
+2025-01-16 10:15:52,822: Document inserted/updated successfully: 
+2025-01-16 10:15:52,824: Document inserted/updated successfully: 
+2025-01-16 10:15:52,829: Document inserted/updated successfully: 
+2025-01-16 10:15:52,833: Document inserted/updated successfully: 
+2025-01-16 10:15:52,839: Document inserted/updated successfully: 
+2025-01-16 10:15:52,842: Document inserted/updated successfully: 
+2025-01-16 10:15:52,844: Document inserted/updated successfully: 
+2025-01-16 10:15:52,847: Document inserted/updated successfully: 
+2025-01-16 10:15:52,849: Document inserted/updated successfully: 
+2025-01-16 10:15:52,852: Document inserted/updated successfully: 
+2025-01-16 10:15:52,855: Document inserted/updated successfully: 
+2025-01-16 10:15:52,857: Document inserted/updated successfully: 
+2025-01-16 10:15:52,860: Document inserted/updated successfully: 
+2025-01-16 10:15:52,863: Document inserted/updated successfully: 
+2025-01-16 10:15:52,865: Document inserted/updated successfully: 
+2025-01-16 10:15:52,868: Document inserted/updated successfully: 
+2025-01-16 10:15:52,870: Document inserted/updated successfully: 
+2025-01-16 10:15:52,873: Document inserted/updated successfully: 
+2025-01-16 10:15:52,874: Trace saved successfully: what products made of sheep wool
+2025-01-16 10:15:57,965: Database connection initialized successfully
+2025-01-16 10:16:12,482: Database connection initialized successfully
+2025-01-16 10:16:12,607: Database connection initialized successfully
+2025-01-16 10:16:12,610: Starting You.com search for query: what are some of the uses of whale
+2025-01-16 10:16:12,611: Performing You.com search for: what are some of the uses of whale
+2025-01-16 10:16:13,264: You.com search failed with status code: 403
+2025-01-16 10:16:13,265: Processed 0 search results
+2025-01-16 10:16:13,268: Start inference with model llama3-70b-8192 on host groq
+2025-01-16 10:16:14,594: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-16 10:16:14,595: Inference completed in 1.33s
+2025-01-16 10:16:14,595: Tokens used - Input: 90, Output: 349, Total: 439
+2025-01-16 10:16:14,596: Processing speed - 330.79 tokens/second
+2025-01-16 10:16:14,596: Generated summary of search results
+2025-01-16 10:16:14,596: Trace saved successfully: what are some of the uses of whale
+2025-01-16 10:17:38,509: Database connection initialized successfully
+2025-01-16 10:17:41,311: Database connection initialized successfully
+2025-01-16 10:17:44,443: Database connection initialized successfully
+2025-01-16 10:17:44,447: Starting news search for query: what are some of the uses of whale
+2025-01-16 10:17:45,751: Starting structured inference with model gpt-3.5-turbo
+2025-01-16 10:17:46,468: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-16 10:17:46,470: Completion generated in 0.69s
+2025-01-16 10:17:46,471: Token usage - Input: 643, Output: 13, Total: 656
+2025-01-16 10:17:46,471: Processing rate: 944.21 tokens/sec
+2025-01-16 10:17:46,471: Response successfully validated against ModelResponse schema
+2025-01-16 10:17:46,471: Selected 3 articles from 10 total results
+2025-01-16 10:17:46,472: Starting to scrape 3 news pages
+2025-01-16 10:17:47,965: Successfully scraped 3 news pages
+2025-01-16 10:17:47,968: Start inference with model llama3-70b-8192 on host groq
+2025-01-16 10:17:50,084: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-16 10:17:50,086: Inference completed in 2.12s
+2025-01-16 10:17:50,086: Tokens used - Input: 536, Output: 512, Total: 1048
+2025-01-16 10:17:50,086: Processing speed - 495.07 tokens/second
+2025-01-16 10:17:50,087: Generated summary of news articles
+2025-01-16 10:17:50,091: Document inserted/updated successfully: 
+2025-01-16 10:17:50,093: Document inserted/updated successfully: 
+2025-01-16 10:17:50,097: Document inserted/updated successfully: 
+2025-01-16 10:17:50,100: Document inserted/updated successfully: 
+2025-01-16 10:17:50,103: Document inserted/updated successfully: 
+2025-01-16 10:17:50,107: Document inserted/updated successfully: 
+2025-01-16 10:17:50,110: Document inserted/updated successfully: 
+2025-01-16 10:17:50,112: Document inserted/updated successfully: 
+2025-01-16 10:17:50,115: Document inserted/updated successfully: 
+2025-01-16 10:17:50,118: Document inserted/updated successfully: 
+2025-01-16 10:17:50,119: Trace saved successfully: what are some of the uses of whale
+2025-01-16 10:17:54,101: Database connection initialized successfully
+2025-01-16 10:18:08,003: Database connection initialized successfully
+2025-01-16 10:18:08,149: Database connection initialized successfully
+2025-01-16 10:18:08,153: Starting Amazon search for query: product from cow skin
+2025-01-16 10:18:08,153: Performing Amazon search for: product from cow skin
+2025-01-16 10:18:14,619: Document inserted/updated successfully: 
+2025-01-16 10:18:14,622: Document inserted/updated successfully: 
+2025-01-16 10:18:14,624: Document inserted/updated successfully: 
+2025-01-16 10:18:14,627: Document inserted/updated successfully: 
+2025-01-16 10:18:14,630: Document inserted/updated successfully: 
+2025-01-16 10:18:14,633: Document inserted/updated successfully: 
+2025-01-16 10:18:14,635: Document inserted/updated successfully: 
+2025-01-16 10:18:14,638: Document inserted/updated successfully: 
+2025-01-16 10:18:14,641: Document inserted/updated successfully: 
+2025-01-16 10:18:14,644: Document inserted/updated successfully: 
+2025-01-16 10:18:14,646: Document inserted/updated successfully: 
+2025-01-16 10:18:14,649: Document inserted/updated successfully: 
+2025-01-16 10:18:14,652: Document inserted/updated successfully: 
+2025-01-16 10:18:14,654: Document inserted/updated successfully: 
+2025-01-16 10:18:14,656: Document inserted/updated successfully: 
+2025-01-16 10:18:14,659: Document inserted/updated successfully: 
+2025-01-16 10:18:14,661: Document inserted/updated successfully: 
+2025-01-16 10:18:14,664: Document inserted/updated successfully: 
+2025-01-16 10:18:14,667: Document inserted/updated successfully: 
+2025-01-16 10:18:14,670: Document inserted/updated successfully: 
+2025-01-16 10:18:14,672: Document inserted/updated successfully: 
+2025-01-16 10:18:14,675: Document inserted/updated successfully: 
+2025-01-16 10:18:14,678: Document inserted/updated successfully: 
+2025-01-16 10:18:14,680: Document inserted/updated successfully: 
+2025-01-16 10:18:14,683: Document inserted/updated successfully: 
+2025-01-16 10:18:14,685: Document inserted/updated successfully: 
+2025-01-16 10:18:14,688: Document inserted/updated successfully: 
+2025-01-16 10:18:14,691: Document inserted/updated successfully: 
+2025-01-16 10:18:14,694: Document inserted/updated successfully: 
+2025-01-16 10:18:14,696: Document inserted/updated successfully: 
+2025-01-16 10:18:14,698: Document inserted/updated successfully: 
+2025-01-16 10:18:14,701: Document inserted/updated successfully: 
+2025-01-16 10:18:14,703: Document inserted/updated successfully: 
+2025-01-16 10:18:14,705: Document inserted/updated successfully: 
+2025-01-16 10:18:14,708: Document inserted/updated successfully: 
+2025-01-16 10:18:14,710: Document inserted/updated successfully: 
+2025-01-16 10:18:14,713: Document inserted/updated successfully: 
+2025-01-16 10:18:14,716: Document inserted/updated successfully: 
+2025-01-16 10:18:14,719: Document inserted/updated successfully: 
+2025-01-16 10:18:14,721: Document inserted/updated successfully: 
+2025-01-16 10:18:14,723: Document inserted/updated successfully: 
+2025-01-16 10:18:14,725: Document inserted/updated successfully: 
+2025-01-16 10:18:14,728: Document inserted/updated successfully: 
+2025-01-16 10:18:14,731: Document inserted/updated successfully: 
+2025-01-16 10:18:14,733: Document inserted/updated successfully: 
+2025-01-16 10:18:14,735: Document inserted/updated successfully: 
+2025-01-16 10:18:14,738: Document inserted/updated successfully: 
+2025-01-16 10:18:14,740: Document inserted/updated successfully: 
+2025-01-16 10:18:14,743: Document inserted/updated successfully: 
+2025-01-16 10:18:14,746: Document inserted/updated successfully: 
+2025-01-16 10:18:14,749: Document inserted/updated successfully: 
+2025-01-16 10:18:14,752: Document inserted/updated successfully: 
+2025-01-16 10:18:14,752: Trace saved successfully: product from cow skin
+2025-01-16 10:18:18,937: Database connection initialized successfully
+2025-01-16 10:18:29,727: Database connection initialized successfully
+2025-01-16 10:18:29,844: Database connection initialized successfully
+2025-01-16 10:18:29,848: Starting news search for query: how is google
+2025-01-16 10:18:32,548: Starting structured inference with model gpt-3.5-turbo
+2025-01-16 10:18:33,436: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-16 10:18:33,442: Completion generated in 0.87s
+2025-01-16 10:18:33,442: Token usage - Input: 191, Output: 13, Total: 204
+2025-01-16 10:18:33,443: Processing rate: 234.82 tokens/sec
+2025-01-16 10:18:33,443: Response successfully validated against ModelResponse schema
+2025-01-16 10:18:33,443: Selected 0 articles from 0 total results
+2025-01-16 10:18:33,443: Starting to scrape 0 news pages
+2025-01-16 10:18:33,444: Successfully scraped 0 news pages
+2025-01-16 10:18:33,450: Start inference with model llama3-70b-8192 on host groq
+2025-01-16 10:18:35,716: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-16 10:18:35,717: Inference completed in 2.27s
+2025-01-16 10:18:35,718: Tokens used - Input: 106, Output: 619, Total: 725
+2025-01-16 10:18:35,718: Processing speed - 319.85 tokens/second
+2025-01-16 10:18:35,718: Generated summary of news articles
+2025-01-16 10:18:35,719: Trace saved successfully: how is google
+2025-01-16 10:23:03,847: Database connection initialized successfully
+2025-01-16 10:23:13,589: Database connection initialized successfully
+2025-01-16 10:23:13,759: Database connection initialized successfully
+2025-01-16 10:23:13,763: Starting You.com search for query: products from fish
+2025-01-16 10:23:13,764: Performing You.com search for: products from fish
+2025-01-16 10:23:14,355: You.com search failed with status code: 403
+2025-01-16 10:23:14,356: Processed 0 search results
+2025-01-16 10:23:14,359: Start inference with model llama3-70b-8192 on host groq
+2025-01-16 10:23:15,607: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-16 10:23:15,608: Inference completed in 1.25s
+2025-01-16 10:23:15,609: Tokens used - Input: 80, Output: 311, Total: 391
+2025-01-16 10:23:15,609: Processing speed - 312.98 tokens/second
+2025-01-16 10:23:15,609: Generated summary of search results
+2025-01-16 10:23:15,610: Trace saved successfully: products from fish
+2025-01-16 10:23:59,567: Database connection initialized successfully

@@ -12,13 +12,13 @@ from prompts import Prompt
 import logging
 import os
 
-class NewsSearchInput(BaseModel):
-    query: str = Field(description="News search query")
+class GeneralAgentInput(BaseModel):
+    query: str = Field(description="Search anything General")
 
-class NewsSearch(BaseTool):
-    name: str = "news-search"
+class GeneralAgent(BaseTool):
+    name: str = "general-agent"
     description: str = "Invoke when user wants to search for news."
-    args_schema: Type[BaseModel] = NewsSearchInput
+    args_schema: Type[BaseModel] = GeneralAgentInput
     include_summary: bool = False
 
     def __init__(self, include_summary: bool = False):

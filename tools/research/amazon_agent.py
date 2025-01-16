@@ -8,13 +8,13 @@ import requests
 import logging
 import os
 
-class AmazonSearchInput(BaseModel):
+class AmazonAgentInput(BaseModel):
     query: str = Field(description="Search query for Amazon products")
 
-class AmazonSearch(BaseTool):
+class AmazonAgent(BaseTool):
     name: str = "amazon-search"
     description: str = "Search for products on Amazon and get details including prices, ratings and reviews."
-    args_schema: Type[BaseModel] = AmazonSearchInput
+    args_schema: Type[BaseModel] = AmazonAgentInput
     include_summary: bool = Field(default=False)
     rainforest_api_key: str = Field(default_factory=lambda: os.getenv("RAINFOREST_API_KEY"))
 

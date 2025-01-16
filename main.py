@@ -12,14 +12,10 @@ import pandas as pd
 # Import research components
 from research_agent import ResearchAgent
 from tools import (
-    YouComSearch, 
-    SimilarWebSearch, 
-    ExaCompanySearch, 
-    NewsSearch,
-    AmazonSearch,
-    GeneralSearch,
-    MarineSearch
-)
+    MarineAgent, 
+    GeneralAgent,
+    AmazonAgent
+    )
 from research_agent.db.db import ContentDB
 from research_agent.tracers import CustomTracer
 from tools.research.common.model_schemas import ContentItem, ResearchToolOutput
@@ -75,7 +71,7 @@ def save_trace(trace_data):
     except Exception as e:
         logger.error(f"Error saving trace: {str(e)}")
 
-def run_tool(tool_name: str, query: str, additional_params: Optional[Dict] = None):
+def run_tool(tool_name: str, query: str):
     """Run a specific research tool and track its execution"""
     context = StreamlitContext()
     start_time = datetime.now()
@@ -102,43 +98,24 @@ def run_tool(tool_name: str, query: str, additional_params: Optional[Dict] = Non
         # Capture tool initialization step
         trace = capture_processing_steps(trace, "Initializing search tool")
         
-        if tool_name == "YouCom Search":
-            tool = YouComSearch(include_summary=True)
-            trace = capture_processing_steps(trace, "Configured YouCom Search")
+        if tool_name == "Marine Agent":
+            tool = MarineAgent(include_summary=True)
+            trace = capture_processing_steps(trace, "Configured Marine Search")
             result = tool.invoke(input={"query": query})
         
-        elif tool_name == "SimilarWeb Search":
-            tool = SimilarWebSearch(include_summary=True)
-            trace = capture_processing_steps(trace, "Configured SimilarWeb Search")
-            result = tool.invoke(input={
-                "query": query,
-                "entity_name": additional_params.get('entity_name', query)
-            })
+         
         
-        elif tool_name == "Exa Company Search":
-            tool = ExaCompanySearch(include_summary=True)
-            trace = capture_processing_steps(trace, "Configured Exa Company Search")
+        elif tool_name == "General Agent":
+            tool = GeneralAgent(include_summary=True)
+            trace = capture_processing_steps(trace, "Configured GeneralSearch")
             result = tool.invoke(input={"query": query})
+            
+        elif tool_name == "Amazon Agent":
+            tool = AmazonAgent(include_summary=True)
+            trace = capture_processing_steps(trace, "Configured Amazon Agent")
+            result = tool.invoke(input={"query": query})
+            
         
-        elif tool_name == "News Search":
-            tool = NewsSearch(include_summary=True)
-            trace = capture_processing_steps(trace, "Configured News Search")
-            result = tool.invoke(input={"query": query})
-            
-        elif tool_name == "Amazon Search":
-            tool = AmazonSearch(include_summary=True)
-            trace = capture_processing_steps(trace, "Configured Amazon Search")
-            result = tool.invoke(input={"query": query})
-            
-        elif tool_name == "General Research":
-            tool = GeneralSearch(include_summary=True)
-            trace = capture_processing_steps(trace, "Configured General Research")
-            result = tool.invoke(input={"query": query})
-            
-        elif tool_name == "Marine Research":
-            tool = MarineSearch(include_summary=True)
-            trace = capture_processing_steps(trace, "Configured Marine Research")
-            result = tool.invoke(input={"query": query})
         
         else:
             st.error(f"Tool {tool_name} not found")
@@ -241,7 +218,7 @@ def display_research_results(result, selected_tool):
                     st.write(f"**URL:** {item.url}")
                     st.write(f"**Snippet:** {item.snippet}")
                     
-                    if selected_tool == "Amazon Search":
+                    if selected_tool == "Amazon Agent":
                         st.write("**Product Details:**")
                         details = item.content.split('\n')
                         for detail in details:
@@ -412,29 +389,15 @@ def main():
         st.title("🛠 Research Tools")
         
         tool_options = [
-            "YouCom Search", 
-            "SimilarWeb Search", 
-            "Exa Company Search", 
-            "News Search",
-            "Amazon Search",
-            "General Research",
-            "Marine Research"
+            
+            "General Agent",
+            "Amazon Agent",
+            "Marine Agent",
+            
         ]
         selected_tool = st.selectbox("Choose a Research Tool", tool_options)
         
-        # Tool-specific parameters
-        additional_params = {}
-        if selected_tool == "SimilarWeb Search":
-            additional_params['entity_name'] = st.text_input(
-                "Entity Name", 
-                help="Specific entity to search on SimilarWeb"
-            )
-        elif selected_tool == "Amazon Search":
-            additional_params['include_reviews'] = st.checkbox(
-                "Include Customer Reviews",
-                help="Include detailed customer reviews in the results"
-            )
-        
+       
         
 
     # Main research interface
@@ -447,7 +410,7 @@ def main():
     if search_button and query:
         with st.spinner(f"Researching with {selected_tool}..."):
             try:
-                result, trace = run_tool(selected_tool, query, additional_params)
+                result, trace = run_tool(selected_tool, query)
                 
                 if result:
                     # Display research results

@@ -9,13 +9,13 @@ import requests
 import logging
 import os
 
-class YouComSearchInput(BaseModel):
+class MarineAgentInput(BaseModel):
     query: str = Field(description="Search query for You.com")
 
-class YouComSearch(BaseTool):
+class MarineAgent(BaseTool):
     name: str = "you-com-search"
     description: str = "Invoke when the user asks a general question. It works like Google Search. Don't use this to search for companies."
-    args_schema: Type[BaseModel] = YouComSearchInput
+    args_schema: Type[BaseModel] = MarineAgentInput
     include_summary: bool = False
 
     def __init__(self, include_summary: bool = False):
