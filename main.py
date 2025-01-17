@@ -226,85 +226,34 @@ def display_research_results(result, selected_tool):
         with tab3:
             display_analytics()
 
-def display_prompt_analytics():
-    """Display prompt usage analytics with datetime-based insights"""
+def display_prompt_analytics(traces):
+    """Display prompt usage analytics"""
     st.subheader("🔄 Prompt Usage Analysis")
     
-    traces = load_research_history()
     if not traces:
         st.info("No prompt history available yet.")
         return
 
-    # Collect prompt usage data with enhanced datetime handling
+    # Collect prompt usage data 
     prompt_usage = []
     for trace in traces:
-        for prompt in trace.get("prompts_used", []):
-            try:
-                prompt_timestamp = datetime.fromisoformat(prompt["timestamp"])
-                prompt_usage.append({
-                    "prompt_id": prompt.get("prompt_id", "Unknown"),
-                    "agent_type": prompt.get("agent_type", "Unknown"),
-                    "timestamp": prompt_timestamp,
-                    "query": trace.get("query", "No Query"),
-                    "date": prompt_timestamp.strftime('%Y-%m-%d'),  # Convert to string
-                    "hour": prompt_timestamp.hour
-                })
-            except (KeyError, ValueError) as e:
-                logging.warning(f"Could not process prompt timestamp: {e}")
+        prompt_usage.extend(trace.get("prompts_used", []))
 
     if prompt_usage:
         df = pd.DataFrame(prompt_usage)
         
-        # Prompt usage by agent type
-        fig_agent = px.pie(
-            df, 
-            names="agent_type", 
-            title="Prompt Usage by Agent Type"
-        )
-        st.plotly_chart(fig_agent)
-
-        # Prompt usage over time (daily)
-        daily_usage = df.groupby('date').size().reset_index(name='count')
-        fig_daily = px.line(
-            daily_usage,
-            x='date',
-            y='count',
-            title='Daily Prompt Usage'
-        )
-        st.plotly_chart(fig_daily)
-
-        # Hourly usage distribution
-        hourly_usage = df.groupby('hour').size().reset_index(name='count')
-        fig_hourly = px.bar(
-            hourly_usage, 
-            x='hour', 
-            y='count',
-            title='Hourly Prompt Usage Distribution'
-        )
-        st.plotly_chart(fig_hourly)
-
-        # Most used prompts with datetime insights
+        # Prompt usage over time 
+        usage_over_time = df.groupby([pd.Grouper(key='timestamp', freq='D'), 'prompt_id']).size().reset_index(name='count')
+        fig_timeline = px.line(usage_over_time, x='timestamp', y='count', color='prompt_id', 
+                               title='Prompt Usage Over Time', labels={'prompt_id': 'Prompt ID'})
+        st.plotly_chart(fig_timeline)
+        
+        # Most used prompts  
         st.subheader("Most Used Prompts")
         prompt_counts = df['prompt_id'].value_counts()
-        st.bar_chart(prompt_counts)
-
-        # Additional datetime-based insights
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            st.metric("Total Unique Prompts", len(df['prompt_id'].unique()))
-        with col2:
-            st.metric("Busiest Day", df['date'].value_counts().index[0] if not df.empty else "N/A")
-        with col3:
-            st.metric("Peak Hour", df['hour'].value_counts().index[0] if not df.empty else "N/A")
-
-        # Time series of agent type usage
-        st.subheader("Agent Type Usage Over Time")
-        agent_time_series = df.groupby([df['date'], 'agent_type']).size().unstack(fill_value=0)
-        fig_agent_time = px.line(
-            agent_time_series, 
-            title="Agent Type Usage Timeline"
-        )
-        st.plotly_chart(fig_agent_time)
+        fig_prompts = px.bar(prompt_counts, x=prompt_counts.index, y=prompt_counts.values,
+                             title='Most Used Prompts', labels={'x': 'Prompt ID', 'y': 'Usage Count'})
+        st.plotly_chart(fig_prompts)
 
 def enhance_trace_visualization():
     """Enhanced visualization of research traces"""
@@ -443,7 +392,7 @@ def display_analytics():
         st.metric("Success Rate", f"{success_rate:.1f}%")
 
     st.markdown("---")
-    display_prompt_analytics()
+    display_prompt_analytics(traces)
     # Enhanced trace visualization with processing steps
     enhance_trace_visualization()
 

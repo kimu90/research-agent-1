@@ -53,27 +53,26 @@ class CustomTracer:
         self.logger = logging.getLogger(__name__)
 
     
-    def log_prompt_usage(self, trace: QueryTrace, prompt_id: str, agent_type: str, 
-                        variables: dict, result: str):
-        """Log prompt usage with variables and result"""
+    def log_prompt_usage(self, trace: QueryTrace, prompt_id: str, variables: dict, result: str, metadata: dict):
+        """Log prompt usage with variables, result, and metadata"""
         step_data = {
             "step": "prompt_compilation",
             "prompt_id": prompt_id,
-            "agent_type": agent_type,
             "variables": variables,
             "result": result,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
+            "metadata": metadata
         }
         trace.data["steps"].append(step_data)
-        trace.add_prompt_usage(prompt_id, agent_type, result)
+        trace.add_prompt_usage(prompt_id, result, metadata)
         
         self.logger.info(
             f"Prompt used: {prompt_id}",
             extra={
                 'trace_id': trace.trace_id,
                 'prompt_details': {
-                    'agent_type': agent_type,
-                    'variables': variables
+                    'variables': variables,
+                    'metadata': metadata
                 }
             }
         )

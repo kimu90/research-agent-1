@@ -2,125 +2,79 @@ metadata:
   created_at: "2024-01-17T00:00:00"
   version: "1.0.0"
 
-agents:
-  general:
-    prompts:
-      research-agent-select-content:
-        content: |
-          Analyze the following news articles and select the most relevant ones:
-          Research Topic: {{research_topic}}
-          
-          Available Articles:
-          {{formatted_snippets}}
-          
-          Return the indices of the most relevant articles.
-        created_at: "2024-01-17T00:00:00"
-        metadata:
-          type: "content_selection"
-          version: "1.0"
-      
-      summarize-search-results:
-        content: |
-          Analyze and summarize the following search results:
-          
-          Query: {{user_prompt}}
-          
-          Search Results:
-          {{search_results_str}}
-          
-          Provide a comprehensive summary grouped by themes and include relevant links.
-        created_at: "2024-01-17T00:00:00"
-        metadata:
-          type: "summarization"
-          version: "1.0"
-  
-  research:
-    prompts:
-      research-agent-generate-outline:
-        content: |
-          Generate a research outline for the following topic:
-          {{user_prompt}}
-          
-          Create a structured outline that:
-          1. Identifies key research areas
-          2. Breaks down subtopics
-          3. Lists specific questions to investigate
-        created_at: "2024-01-17T00:00:00"
-        metadata:
-          type: "outline_generation"
-          version: "1.0"
+prompts:
+  research-agent-select-content:
+    content: |
+      Analyze the following news articles and select the most relevant ones:
+      Research Topic: {{research_topic}}
+              
+      Available Articles:
+      {{formatted_snippets}}
+              
+      Return the indices of the most relevant articles.
+    created_at: "2024-01-17T00:00:00"
+    metadata:
+      type: "content_selection"
+      version: "1.0"
 
-      research-agent-outline-to-dag-conversion:
-        content: |
-          Convert this outline to a structured format:
-          {{outline}}
-          
-          Output Schema: {{output_schema}}
-          
-          Ensure each item has:
-          1. Unique ID
-          2. Clear dependencies
-          3. Proper hierarchical structure
-        created_at: "2024-01-17T00:00:00"
-        metadata:
-          type: "dag_conversion"
-          version: "1.0"
+  summarize-search-results:
+    content: |
+      Analyze and summarize the following search results:
+              
+      Query: {{user_prompt}}
+              
+      Search Results:
+      {{search_results_str}}
+              
+      Provide a comprehensive summary grouped by themes and include relevant links.
+    created_at: "2024-01-17T00:00:00"
+    metadata:
+      type: "summarization"
+      version: "1.0"
 
-      research-section-summarizer:
-        content: |
-          Summarize the research findings for:
-          Topic: {{research_topic}}
-          
-          Research Notes:
-          {{section_notes}}
-          
-          Provide a clear summary with:
-          1. Key findings
-          2. Supporting evidence
-          3. Important conclusions
-        created_at: "2024-01-17T00:00:00"
-        metadata:
-          type: "summarization"
-          version: "1.0"
+  research-agent-generate-outline:
+    content: |
+      Generate a research outline for the following topic:
+      {{user_prompt}}
+              
+      Create a structured outline that:
+      1. Identifies key research areas
+      2. Breaks down subtopics
+      3. Lists specific questions to investigate
+    created_at: "2024-01-17T00:00:00"
+    metadata:
+      type: "outline_generation"
+      version: "1.0"
 
-  amazon:
-    prompts:
-      amazon-product-formatting:
-        content: |
-          Format these Amazon product details:
-          Price: {{price}}
-          Rating: {{rating}}
-          Reviews: {{reviews}}
-          Features: {{features}}
-          
-          Create a clear, structured description that highlights:
-          1. Price point and value
-          2. Customer satisfaction metrics
-          3. Key product features
-        created_at: "2024-01-17T00:00:00"
-        metadata:
-          type: "formatting"
-          version: "1.0"
-      
-      amazon-summary-generation:
-        content: |
-          Create a comprehensive analysis of these Amazon products:
-          Query: {{query}}
-          
-          Available Products:
-          {{products}}
-          
-          Format the response in markdown with:
-          ## Commercial Products: TRUE/FALSE
-          ## Summary
-          - Overall product availability
-          - Price range analysis
-          - Key features comparison
-          ## Commercial Products Details
-          - Individual product listings
-          ## References
-          - Product links and references
-        created_at: "2024-01-17T00:00:00"
-        metadata:
-          type: "summary"
-          version: "1.0"
+  research-agent-outline-to-dag-conversion:
+    content: |
+      Convert this outline to a structured format:
+      {{outline}}
+              
+      Output Schema: {{output_schema}}
+              
+      Ensure each item has:
+      1. Unique ID
+      2. Clear dependencies
+      3. Proper hierarchical structure
+    created_at: "2024-01-17T00:00:00"
+    metadata:
+      type: "dag_conversion"
+      version: "1.0"
+
+  research-section-summarizer:
+    content: |
+      Summarize the research findings for:
+      Topic: {{research_topic}}
+              
+      Research Notes:
+      {{section_notes}}
+              
+      Provide a clear summary with:
+      1. Key findings
+      2. Supporting evidence
+      3. Important conclusions
+    created_at: "2024-01-17T00:00:00"
+    metadata:
+      type: "summarization"
+      version: "1.0"
