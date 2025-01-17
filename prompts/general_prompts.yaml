@@ -1,0 +1,59 @@
+metadata:
+  created_at: "2025-01-17T00:00:00"
+  version: "1.0.0"
+
+prompts:
+  research-detailed:
+    id: "research-detailed"
+    content: |
+      Analyze the following news articles with a detailed focus:
+      Research Topic: {{research_topic}}
+      
+      Available Articles:
+      {{formatted_snippets}}
+      
+      Consider the following aspects for each article:
+      1. Relevance to the research topic
+      2. Credibility of the source
+      3. Recency of information
+      4. Depth of coverage
+      
+      Return the indices of articles that best match these criteria.
+    metadata:
+      type: "content_selection"
+      description: "Detailed research analysis prompt"
+      use_case: "In-depth research"
+
+  research-concise:
+    id: "research-concise"
+    content: |
+      Select the most relevant articles for: {{research_topic}}
+      
+      Articles:
+      {{formatted_snippets}}
+      
+      Pick only the most directly relevant articles.
+    metadata:
+      type: "content_selection"
+      description: "Concise research prompt"
+      use_case: "Quick research"
+
+  research-technical:
+    id: "research-technical"
+    content: |
+      Perform a technical analysis of articles for: {{research_topic}}
+      
+      Available Sources:
+      {{formatted_snippets}}
+      
+      Focus on:
+      - Technical specifications
+      - Implementation details
+      - Methodology descriptions
+      - Data and metrics
+      
+      Select articles with the most technical depth.
+    metadata:
+      type: "content_selection"
+      description: "Technical research prompt"
+      use_case: "Technical deep-dives"

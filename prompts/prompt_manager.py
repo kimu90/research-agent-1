@@ -2,7 +2,7 @@ import yaml
 import os
 from datetime import datetime
 from typing import Dict, Optional
-from prompt import Prompt
+from prompts.prompt import Prompt
 
 class PromptManager:
     """

@@ -63,10 +63,12 @@ class GeneralAgent(BaseTool):
     description: str = "Invoke when user wants to search for news."
     args_schema: Type[BaseModel] = GeneralAgentInput
     include_summary: bool = False
+    custom_prompt: Optional[Prompt] = Field(default=None)  # Add this line to declare the field
 
-    def __init__(self, include_summary: bool = False):
+    def __init__(self, include_summary: bool = False, custom_prompt: Optional[Prompt] = None):
         super().__init__()
         self.include_summary = include_summary
+        self.custom_prompt = custom_prompt or SELECT_CONTENT_PROMPT  # Use default if none provided
 
     def scrape_pages(self, urls: List[str]) -> List[Document]:
         """Scrape content from provided URLs using Browserless API"""
@@ -104,30 +106,59 @@ class GeneralAgent(BaseTool):
         self, content: List[dict], research_topic: str
     ) -> List[dict]:
         """Decide which news articles to include based on relevance"""
-        formatted_snippets = ""
-        for i, doc in enumerate(content):
-            formatted_snippets += f"{i}: {doc['title']}: {doc['snippet']}\n"
+        try:
+            # Add logging to see what's coming in
+            logging.info(f"Processing {len(content)} articles for topic: {research_topic}")
+            
+            formatted_snippets = ""
+            for i, doc in enumerate(content):
+                formatted_snippets += f"{i}: {doc['title']}: {doc['snippet']}\n"
+            
+            logging.info("Formatted snippets created")
+            
+            # Use custom prompt if available, otherwise use default
+            prompt_to_use = self.custom_prompt or SELECT_CONTENT_PROMPT
+            
+            system_prompt = prompt_to_use.compile(
+                research_topic=research_topic, 
+                formatted_snippets=formatted_snippets
+            )
+            
+            logging.info("Compiled system prompt")
 
-        system_prompt = SELECT_CONTENT_PROMPT.compile(
-            research_topic=research_topic, 
-            formatted_snippets=formatted_snippets
-        )
+            class ModelResponse(BaseModel):
+                snippet_indeces: List[int]
 
-        class ModelResponse(BaseModel):
-            snippet_indeces: List[int]
-
-        response: ModelResponse = json_model_wrapper(
-            system_prompt=system_prompt,
-            user_prompt="Pick the snippets you want to include in the summary.",
-            prompt=SELECT_CONTENT_PROMPT,
-            base_model=ModelResponse,
-            model="gpt-3.5-turbo",
-            temperature=0
-        )
-
-        indices = [i for i in response.snippet_indeces if i < len(content)]
-        logging.info(f"Selected {len(indices)} articles from {len(content)} total results")
-        return [content[i] for i in indices]
+            # Add error handling for json_model_wrapper
+            response = json_model_wrapper(
+                system_prompt=system_prompt,
+                user_prompt="Pick the snippets you want to include in the summary.",
+                prompt=prompt_to_use,
+                base_model=ModelResponse,
+                model="gpt-3.5-turbo",
+                temperature=0
+            )
+            
+            logging.info(f"Received response: {response}")
+            
+            # Add validation and fallback
+            if response is None or not hasattr(response, 'snippet_indeces'):
+                logging.warning("No valid response received, using all articles")
+                return content  # Return all content as fallback
+                
+            indices = [i for i in response.snippet_indeces if i < len(content)]
+            
+            if not indices:  # If no valid indices, return all content
+                logging.warning("No valid indices found, using all articles")
+                return content
+                
+            logging.info(f"Selected {len(indices)} articles from {len(content)} total results")
+            return [content[i] for i in indices]
+            
+        except Exception as e:
+            logging.error(f"Error in decide_what_to_use: {str(e)}")
+            # Return all content as fallback in case of error
+            return content
 
     def _run(self, **kwargs) -> ResearchToolOutput:
         """Execute the news search tool"""

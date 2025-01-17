@@ -15,7 +15,7 @@ from tools import GeneralAgent
 from research_agent.db.db import ContentDB
 from research_agent.tracers import CustomTracer
 from tools.research.common.model_schemas import ContentItem, ResearchToolOutput
-
+from prompts.prompt_manager import PromptManager
 # Load environment variables
 load_dotenv()
 
@@ -240,20 +240,56 @@ def display_prompt_analytics(traces):
         prompt_usage.extend(trace.get("prompts_used", []))
 
     if prompt_usage:
-        df = pd.DataFrame(prompt_usage)
-        
-        # Prompt usage over time 
-        usage_over_time = df.groupby([pd.Grouper(key='timestamp', freq='D'), 'prompt_id']).size().reset_index(name='count')
-        fig_timeline = px.line(usage_over_time, x='timestamp', y='count', color='prompt_id', 
-                               title='Prompt Usage Over Time', labels={'prompt_id': 'Prompt ID'})
-        st.plotly_chart(fig_timeline)
-        
-        # Most used prompts  
-        st.subheader("Most Used Prompts")
-        prompt_counts = df['prompt_id'].value_counts()
-        fig_prompts = px.bar(prompt_counts, x=prompt_counts.index, y=prompt_counts.values,
-                             title='Most Used Prompts', labels={'x': 'Prompt ID', 'y': 'Usage Count'})
-        st.plotly_chart(fig_prompts)
+        try:
+            # Create DataFrame and convert timestamp to datetime
+            df = pd.DataFrame(prompt_usage)
+            
+            # Convert timestamp column to datetime
+            df['timestamp'] = pd.to_datetime(df['timestamp'])
+            
+            # Now group by timestamp
+            usage_over_time = (
+                df.groupby([
+                    pd.Grouper(key='timestamp', freq='D'),
+                    'prompt_id'
+                ])
+                .size()
+                .reset_index(name='count')
+            )
+            
+            # Create timeline chart
+            fig_timeline = px.line(
+                usage_over_time, 
+                x='timestamp', 
+                y='count', 
+                color='prompt_id', 
+                title='Prompt Usage Over Time',
+                labels={'prompt_id': 'Prompt ID'}
+            )
+            st.plotly_chart(fig_timeline)
+            
+            # Most used prompts  
+            st.subheader("Most Used Prompts")
+            prompt_counts = df['prompt_id'].value_counts()
+            fig_prompts = px.bar(
+                prompt_counts, 
+                x=prompt_counts.index, 
+                y=prompt_counts.values,
+                title='Most Used Prompts', 
+                labels={'x': 'Prompt ID', 'y': 'Usage Count'}
+            )
+            st.plotly_chart(fig_prompts)
+            
+        except Exception as e:
+            st.error(f"Error processing prompt analytics: {str(e)}")
+            logging.error(f"Error in prompt analytics: {str(e)}")
+            
+            # Fallback to simple statistics
+            st.write("Basic Prompt Usage Statistics:")
+            prompt_ids = [p['prompt_id'] for p in prompt_usage]
+            for prompt_id in set(prompt_ids):
+                count = prompt_ids.count(prompt_id)
+                st.write(f"- {prompt_id}: {count} uses")
 
 def enhance_trace_visualization():
     """Enhanced visualization of research traces"""
@@ -405,19 +441,42 @@ def main():
     Select a tool from the sidebar and discover insights!
     """)
 
+    # In your Streamlit app
     with st.sidebar:
         st.title("🛠 Research Tools")
         
-        tool_options = [
-            
-            "General Agent",
-            
-            
-        ]
+        # Tool Selection
+        tool_options = ["General Agent"]
         selected_tool = st.selectbox("Choose a Research Tool", tool_options)
         
-       
+        # Initialize PromptManager with the correct path
+        prompt_manager = PromptManager(
+            agent_type="general",
+            config_path="prompts"  # This should point to your prompts directory
+        )
         
+        # Get available prompts
+        available_prompts = prompt_manager.list_prompts()
+        
+        # Add prompt selector if prompts are available
+        if available_prompts:
+            st.markdown("### 📝 Select Research Style")
+            selected_prompt_id = st.selectbox(
+                "Choose Research Approach",
+                options=available_prompts,
+                format_func=lambda x: prompt_manager.get_prompt(x).metadata.get('description', x)
+            )
+            
+            # Show prompt details
+            if selected_prompt_id:
+                prompt = prompt_manager.get_prompt(selected_prompt_id)
+                with st.expander("Prompt Details"):
+                    st.markdown(f"**Use Case:** {prompt.metadata.get('use_case', 'General research')}")
+                    st.markdown(f"**Type:** {prompt.metadata.get('type', 'Not specified')}")
+        else:
+            st.warning("No prompts found. Please check the prompts directory.")
+        
+            
 
     # Main research interface
     query = st.text_input("Enter your research query:", key="query_input")
@@ -429,6 +488,15 @@ def main():
     if search_button and query:
         with st.spinner(f"Researching with {selected_tool}..."):
             try:
+                # Get selected prompt
+                current_prompt = prompt_manager.get_prompt(selected_prompt_id)
+                
+                # Initialize tool with selected prompt
+                tool = GeneralAgent(
+                    include_summary=True,
+                    custom_prompt=current_prompt
+                )
+                
                 result, trace = run_tool(selected_tool, query)
                 
                 if result:
