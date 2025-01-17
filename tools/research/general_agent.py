@@ -1,19 +1,62 @@
-from .common.model_schemas import ContentItem, ResearchToolOutput
-from langchain.tools import BaseTool
+import os
+import logging
+import requests
+from typing import Type, List, Optional
+from dotenv import load_dotenv
+from openai import OpenAI
+import instructor
+import time
 
+# Langchain and external imports
+from langchain.tools import BaseTool
+from langchain.docstore.document import Document
+from langchain_community.utilities import GoogleSerperAPIWrapper
+from langchain_community.document_loaders import WebBaseLoader
+
+# Pydantic and custom imports
+from pydantic import BaseModel, Field
+from prompts import Prompt
+from .common.model_schemas import ContentItem, ResearchToolOutput
 from utils.model_wrapper import model_wrapper
 from utils.json_model_wrapper import json_model_wrapper
-from langchain_community.document_loaders import WebBaseLoader
-from langchain_community.utilities import GoogleSerperAPIWrapper
-from pydantic import BaseModel, Field
-from typing import Type, List, Optional
-from prompts import Prompt
 
-import logging
-import os
+# Load environment variables
+load_dotenv()
+
+# API Keys
+BROWSERLESS_API_KEY = os.getenv('BROWSERLESS_API_KEY')
+SERPER_API_KEY = os.getenv('SERPER_API_KEY')
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+GROQ_API_KEY = os.getenv('GROQ_API_KEY')
 
 class GeneralAgentInput(BaseModel):
     query: str = Field(description="Search anything General")
+
+# Define prompts at module level with proper initialization
+SELECT_CONTENT_PROMPT = Prompt(
+    id="research-agent-select-content",
+    content="""Analyze the following news articles and select the most relevant ones:
+    Research Topic: {{research_topic}}
+    
+    Available Articles:
+    {{formatted_snippets}}
+    
+    Return the indices of the most relevant articles.""",
+    metadata={"type": "content_selection"}
+)
+
+SUMMARIZE_RESULTS_PROMPT = Prompt(
+    id="summarize-search-results",
+    content="""Analyze and summarize the following search results:
+    
+    Query: {{user_prompt}}
+    
+    Search Results:
+    {{search_results_str}}
+    
+    Provide a comprehensive summary grouped by themes and include relevant links.""",
+    metadata={"type": "summarization"}
+)
 
 class GeneralAgent(BaseTool):
     name: str = "general-agent"
@@ -25,44 +68,47 @@ class GeneralAgent(BaseTool):
         super().__init__()
         self.include_summary = include_summary
 
-    def scrape_pages(self, urls: List[str]):
-        """
-        Scrape content from provided URLs using WebBaseLoader
-        """
+    def scrape_pages(self, urls: List[str]) -> List[Document]:
+        """Scrape content from provided URLs using Browserless API"""
         logging.info(f"Starting to scrape {len(urls)} news pages")
-        loader = WebBaseLoader(
-            urls,
-            proxies={
-                scheme: f"http://{os.getenv('ZYTE_API_KEY')}:@api.zyte.com:8011"
-                for scheme in ("http", "https")
-            },
-        )
-        loader.requests_per_second = 5
-        try:
-            docs = loader.aload()
-            for doc in docs:
-                while "\n\n" in doc.page_content:
-                    doc.page_content = doc.page_content.replace("\n\n", "\n")
-                while "  " in doc.page_content:
-                    doc.page_content = doc.page_content.replace("  ", " ")
-            logging.info(f"Successfully scraped {len(docs)} news pages")
-        except Exception as error:
-            logging.error(f"Error scraping news content: {error}")
-            docs = []
+        docs = []
+
+        for url in urls:
+            try:
+                # Use Browserless API to fetch page content
+                response = requests.get(
+                    f"https://api.browserless.io/content",
+                    params={"token": BROWSERLESS_API_KEY},
+                    json={"url": url}
+                )
+                response.raise_for_status()
+                
+                page_content = response.text
+                
+                # Clean up the content
+                while "\n\n" in page_content:
+                    page_content = page_content.replace("\n\n", "\n")
+                while "  " in page_content:
+                    page_content = page_content.replace("  ", " ")
+                
+                docs.append(Document(page_content=page_content, metadata={"source": url}))
+                logging.info(f"Successfully scraped {url}")
+            
+            except Exception as error:
+                logging.error(f"Error scraping {url}: {error}")
+        
+        logging.info(f"Successfully scraped {len(docs)} news pages")
         return docs
 
     def decide_what_to_use(
         self, content: List[dict], research_topic: str
     ) -> List[dict]:
-        """
-        Decide which news articles to include based on relevance
-        """
-        select_content = Prompt("research-agent-select-content")
+        """Decide which news articles to include based on relevance"""
         formatted_snippets = ""
         for i, doc in enumerate(content):
             formatted_snippets += f"{i}: {doc['title']}: {doc['snippet']}\n"
 
-        system_prompt = select_content.compile(
+        system_prompt = SELECT_CONTENT_PROMPT.compile(
             research_topic=research_topic, 
             formatted_snippets=formatted_snippets
         )
@@ -73,8 +119,10 @@ class GeneralAgent(BaseTool):
         response: ModelResponse = json_model_wrapper(
             system_prompt=system_prompt,
             user_prompt="Pick the snippets you want to include in the summary.",
-            prompt=select_content,
+            prompt=SELECT_CONTENT_PROMPT,
             base_model=ModelResponse,
+            model="gpt-3.5-turbo",
+            temperature=0
         )
 
         indices = [i for i in response.snippet_indeces if i < len(content)]
@@ -82,15 +130,17 @@ class GeneralAgent(BaseTool):
         return [content[i] for i in indices]
 
     def _run(self, **kwargs) -> ResearchToolOutput:
-        """
-        Execute the news search tool
-        """
+        """Execute the news search tool"""
         logging.info(f"Starting news search for query: {kwargs['query']}")
         
-        # Execute Google Serper search
-        google_serper = GoogleSerperAPIWrapper(type="news", k=10)
+        # Execute Serper search
+        google_serper = GoogleSerperAPIWrapper(
+            type="news", 
+            k=10, 
+            serper_api_key=SERPER_API_KEY
+        )
         response = google_serper.results(query=kwargs["query"])
-        news_results = response["news"]
+        news_results = response.get("news", [])
 
         # Normalize results data
         for news in news_results:
@@ -132,16 +182,15 @@ class GeneralAgent(BaseTool):
         # Generate summary if requested
         summary = ""
         if self.include_summary:
-            summarize_search_results = Prompt("summarize-search-results")
             formatted_content = "\n\n".join([f"### {item}" for item in content])
-            system_prompt = summarize_search_results.compile(
+            system_prompt = SUMMARIZE_RESULTS_PROMPT.compile(
                 search_results_str=formatted_content, 
                 user_prompt=kwargs["query"]
             )
 
             summary = model_wrapper(
                 system_prompt=system_prompt,
-                prompt=summarize_search_results,
+                prompt=SUMMARIZE_RESULTS_PROMPT,
                 user_prompt=f"Summarize and group the search results based on this: '{kwargs['query']}'. Include links, dates, and snippets from the search results.",
                 model="llama3-70b-8192",
                 host="groq",

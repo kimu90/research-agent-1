@@ -11,11 +11,7 @@ import pandas as pd
 
 # Import research components
 from research_agent import ResearchAgent
-from tools import (
-    MarineAgent, 
-    GeneralAgent,
-    AmazonAgent
-    )
+from tools import GeneralAgent
 from research_agent.db.db import ContentDB
 from research_agent.tracers import CustomTracer
 from tools.research.common.model_schemas import ContentItem, ResearchToolOutput
@@ -71,6 +67,18 @@ def save_trace(trace_data):
     except Exception as e:
         logger.error(f"Error saving trace: {str(e)}")
 
+def track_prompt_usage(trace, prompt_id, agent_type):
+    """Track prompt usage in the trace dictionary"""
+    if 'prompts_used' not in trace:
+        trace['prompts_used'] = []
+    
+    trace['prompts_used'].append({
+        "prompt_id": prompt_id,
+        "agent_type": agent_type,
+        "timestamp": datetime.now().isoformat()
+    })
+    return trace
+
 def run_tool(tool_name: str, query: str):
     """Run a specific research tool and track its execution"""
     context = StreamlitContext()
@@ -98,25 +106,12 @@ def run_tool(tool_name: str, query: str):
         # Capture tool initialization step
         trace = capture_processing_steps(trace, "Initializing search tool")
         
-        if tool_name == "Marine Agent":
-            tool = MarineAgent(include_summary=True)
-            trace = capture_processing_steps(trace, "Configured Marine Search")
-            result = tool.invoke(input={"query": query})
-        
-         
-        
-        elif tool_name == "General Agent":
+        if tool_name == "General Agent":
             tool = GeneralAgent(include_summary=True)
             trace = capture_processing_steps(trace, "Configured GeneralSearch")
+            trace = track_prompt_usage(trace, "general_agent_search", "general")
             result = tool.invoke(input={"query": query})
             
-        elif tool_name == "Amazon Agent":
-            tool = AmazonAgent(include_summary=True)
-            trace = capture_processing_steps(trace, "Configured Amazon Agent")
-            result = tool.invoke(input={"query": query})
-            
-        
-        
         else:
             st.error(f"Tool {tool_name} not found")
             trace = capture_processing_steps(trace, f"Error: Tool {tool_name} not found")
@@ -218,13 +213,6 @@ def display_research_results(result, selected_tool):
                     st.write(f"**URL:** {item.url}")
                     st.write(f"**Snippet:** {item.snippet}")
                     
-                    if selected_tool == "Amazon Agent":
-                        st.write("**Product Details:**")
-                        details = item.content.split('\n')
-                        for detail in details:
-                            if detail.strip():
-                                st.write(detail.strip())
-                    
                     st.markdown("---")
                     meta_col1, meta_col2 = st.columns(2)
                     with meta_col1:
@@ -237,6 +225,86 @@ def display_research_results(result, selected_tool):
         
         with tab3:
             display_analytics()
+
+def display_prompt_analytics():
+    """Display prompt usage analytics with datetime-based insights"""
+    st.subheader("🔄 Prompt Usage Analysis")
+    
+    traces = load_research_history()
+    if not traces:
+        st.info("No prompt history available yet.")
+        return
+
+    # Collect prompt usage data with enhanced datetime handling
+    prompt_usage = []
+    for trace in traces:
+        for prompt in trace.get("prompts_used", []):
+            try:
+                prompt_timestamp = datetime.fromisoformat(prompt["timestamp"])
+                prompt_usage.append({
+                    "prompt_id": prompt.get("prompt_id", "Unknown"),
+                    "agent_type": prompt.get("agent_type", "Unknown"),
+                    "timestamp": prompt_timestamp,
+                    "query": trace.get("query", "No Query"),
+                    "date": prompt_timestamp.strftime('%Y-%m-%d'),  # Convert to string
+                    "hour": prompt_timestamp.hour
+                })
+            except (KeyError, ValueError) as e:
+                logging.warning(f"Could not process prompt timestamp: {e}")
+
+    if prompt_usage:
+        df = pd.DataFrame(prompt_usage)
+        
+        # Prompt usage by agent type
+        fig_agent = px.pie(
+            df, 
+            names="agent_type", 
+            title="Prompt Usage by Agent Type"
+        )
+        st.plotly_chart(fig_agent)
+
+        # Prompt usage over time (daily)
+        daily_usage = df.groupby('date').size().reset_index(name='count')
+        fig_daily = px.line(
+            daily_usage,
+            x='date',
+            y='count',
+            title='Daily Prompt Usage'
+        )
+        st.plotly_chart(fig_daily)
+
+        # Hourly usage distribution
+        hourly_usage = df.groupby('hour').size().reset_index(name='count')
+        fig_hourly = px.bar(
+            hourly_usage, 
+            x='hour', 
+            y='count',
+            title='Hourly Prompt Usage Distribution'
+        )
+        st.plotly_chart(fig_hourly)
+
+        # Most used prompts with datetime insights
+        st.subheader("Most Used Prompts")
+        prompt_counts = df['prompt_id'].value_counts()
+        st.bar_chart(prompt_counts)
+
+        # Additional datetime-based insights
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("Total Unique Prompts", len(df['prompt_id'].unique()))
+        with col2:
+            st.metric("Busiest Day", df['date'].value_counts().index[0] if not df.empty else "N/A")
+        with col3:
+            st.metric("Peak Hour", df['hour'].value_counts().index[0] if not df.empty else "N/A")
+
+        # Time series of agent type usage
+        st.subheader("Agent Type Usage Over Time")
+        agent_time_series = df.groupby([df['date'], 'agent_type']).size().unstack(fill_value=0)
+        fig_agent_time = px.line(
+            agent_time_series, 
+            title="Agent Type Usage Timeline"
+        )
+        st.plotly_chart(fig_agent_time)
 
 def enhance_trace_visualization():
     """Enhanced visualization of research traces"""
@@ -313,6 +381,7 @@ def enhance_trace_visualization():
             else:
                 st.info("No detailed information available for this step.")
 
+
 def display_analytics():
     """Display research analytics dashboard"""
     traces = load_research_history()
@@ -372,7 +441,9 @@ def display_analytics():
         st.metric("Average Duration", f"{avg_duration:.2f}s")
     with stats_col3:
         st.metric("Success Rate", f"{success_rate:.1f}%")
-    
+
+    st.markdown("---")
+    display_prompt_analytics()
     # Enhanced trace visualization with processing steps
     enhance_trace_visualization()
 
@@ -391,8 +462,7 @@ def main():
         tool_options = [
             
             "General Agent",
-            "Amazon Agent",
-            "Marine Agent",
+            
             
         ]
         selected_tool = st.selectbox("Choose a Research Tool", tool_options)
