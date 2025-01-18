@@ -374,63 +374,151 @@ def display_analytics():
         st.info("No research history available yet. Run some searches to see analytics!")
         return
 
-    # Existing analytics from previous implementation
+    # Success Rate Over Time
+    st.subheader("📈 Success Rate Over Time")
+    
+    # Calculate success rate by date
+    df = pd.DataFrame(traces)
+    df['date'] = pd.to_datetime(df['start_time']).dt.date
+    success_by_date = (
+        df.groupby('date')
+        .agg({
+            'success': ['count', lambda x: x.sum() / len(x) * 100]
+        })
+        .reset_index()
+    )
+    success_by_date.columns = ['date', 'total', 'success_rate']
+    
+    fig_success_timeline = px.line(
+        success_by_date,
+        x='date',
+        y='success_rate',
+        title='Success Rate Trend',
+        labels={'success_rate': 'Success Rate (%)', 'date': 'Date'}
+    )
+    fig_success_timeline.update_layout(yaxis_range=[0, 100])
+    st.plotly_chart(fig_success_timeline, use_container_width=True)
+
+    # Current success rate gauge
     col1, col2 = st.columns(2)
-    
     with col1:
-        # Tool usage distribution
-        tool_usage = {}
-        for trace in traces:
-            tool = trace.get('tool', 'Unknown')
-            tool_usage[tool] = tool_usage.get(tool, 0) + 1
-        
-        fig_tools = px.pie(
-            values=list(tool_usage.values()),
-            names=list(tool_usage.keys()),
-            title="Research Tools Distribution"
-        )
-        st.plotly_chart(fig_tools, use_container_width=True, key="tools_distribution_chart")
-    
-    with col2:
-        # Success rate gauge
         success_count = len([t for t in traces if t.get('success', False)])
         success_rate = (success_count / len(traces)) * 100 if traces else 0
         fig_success = go.Figure(go.Indicator(
             mode="gauge+number",
             value=success_rate,
-            title={'text': "Success Rate (%)"},
-            gauge={'axis': {'range': [None, 100]}}
+            title={'text': "Overall Success Rate (%)"},
+            gauge={
+                'axis': {'range': [None, 100]},
+                'bar': {'color': "#10b981"},
+                'steps': [
+                    {'range': [0, 50], 'color': "#fee2e2"},
+                    {'range': [50, 80], 'color': "#fef3c7"},
+                    {'range': [80, 100], 'color': "#dcfce7"}
+                ]
+            }
         ))
-        st.plotly_chart(fig_success, use_container_width=True, key="success_rate_chart")
+        st.plotly_chart(fig_success, use_container_width=True)
 
-    # Research timeline
-    st.subheader("Research Timeline")
-    df = pd.DataFrame(traces)
-    df['start_time'] = pd.to_datetime(df['start_time'])
-    fig_timeline = px.line(
-        df,
-        x='start_time',
-        y='duration',
-        title='Query Duration Timeline'
-    )
-    st.plotly_chart(fig_timeline, use_container_width=True, key="timeline_chart")
+    # Average Step Duration
+    st.subheader("⏱️ Processing Steps Analysis")
+    
+    # Calculate step durations
+    all_steps = []
+    step_durations = {}
+    
 
-    # Statistics summary
-    # Statistics summary
-    st.subheader("Research Statistics")
-    stats_col1, stats_col2, stats_col3 = st.columns(3)
+    # Statistics Summary Cards
+    st.subheader("📊 Research Statistics")
+    stats_col1, stats_col2, stats_col3, stats_col4 = st.columns(4)
+    
     with stats_col1:
-        st.metric("Total Researches", len(traces))
+        st.metric(
+            "Total Researches",
+            len(traces)
+        )
     with stats_col2:
         avg_duration = df['duration'].mean() if not df.empty else 0
-        st.metric("Average Duration", f"{avg_duration:.2f}s")
+        st.metric(
+            "Average Duration",
+            f"{avg_duration:.2f}s"
+        )
     with stats_col3:
-        st.metric("Success Rate", f"{success_rate:.1f}%")
+        st.metric(
+            "Success Rate",
+            f"{success_rate:.1f}%"
+        )
+    with stats_col4:
+        total_content = sum(t.get('content_new', 0) + t.get('content_reused', 0) for t in traces)
+        st.metric(
+            "Total Content Processed",
+            total_content
+        )
 
-    st.markdown("---")
-    display_prompt_analytics(traces)
-    # Enhanced trace visualization with processing steps
-    enhance_trace_visualization()
+    # Content Analysis
+    st.subheader("📚 Content Analysis")
+    content_col1, content_col2 = st.columns(2)
+    
+    with content_col1:
+        new_vs_reused = pd.DataFrame([{
+            'type': 'New Content',
+            'count': sum(t.get('content_new', 0) for t in traces)
+        }, {
+            'type': 'Reused Content',
+            'count': sum(t.get('content_reused', 0) for t in traces)
+        }])
+        
+        fig_content = px.pie(
+            new_vs_reused,
+            values='count',
+            names='type',
+            title='New vs Reused Content Distribution'
+        )
+        st.plotly_chart(fig_content, use_container_width=True)
+
+    with content_col2:
+        # Content trends over time
+        df['date'] = pd.to_datetime(df['start_time']).dt.date
+        content_over_time = df.groupby('date').agg({
+            'content_new': 'sum',
+            'content_reused': 'sum'
+        }).reset_index()
+        
+        fig_content_trend = px.line(
+            content_over_time,
+            x='date',
+            y=['content_new', 'content_reused'],
+            title='Content Processing Trends',
+            labels={
+                'content_new': 'New Content',
+                'content_reused': 'Reused Content',
+                'date': 'Date'
+            }
+        )
+        st.plotly_chart(fig_content_trend, use_container_width=True)
+
+    # Processing Steps Breakdown
+    st.subheader("🔄 Processing Steps Breakdown")
+    all_steps = []
+    for trace in traces:
+        if 'processing_steps' in trace:
+            all_steps.extend(trace['processing_steps'])
+    
+    if all_steps:
+        step_counts = pd.DataFrame(
+            pd.Series(all_steps).value_counts()
+        ).reset_index()
+        step_counts.columns = ['Step', 'Count']
+        
+        fig_steps = px.bar(
+            step_counts,
+            x='Step',
+            y='Count',
+            title='Processing Steps Frequency',
+            labels={'Count': 'Occurrences', 'Step': 'Processing Step'}
+        )
+        fig_steps.update_layout(xaxis_tickangle=-45)
+        st.plotly_chart(fig_steps, use_container_width=True)
 
 def main():
     st.set_page_config(page_title="Research Agent Dashboard", layout="wide")
