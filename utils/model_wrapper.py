@@ -67,13 +67,27 @@ def model_wrapper(
         logging.info(f"Processing speed - {total_tokens/duration:.2f} tokens/second")
         
         # Track token usage if trace is provided
-        if trace and hasattr(completion, 'usage'):
-            trace.add_token_usage(
-                prompt_tokens=input_tokens,
-                completion_tokens=output_tokens,
-                model_name=model,
-                prompt_id=prompt.id if hasattr(prompt, 'id') else None
-            )
+        if trace:
+            trace.data["token_usage"] = {
+                "total_usage": {
+                    "prompt_tokens": input_tokens,
+                    "completion_tokens": output_tokens,
+                    "total_tokens": total_tokens
+                },
+                "usage_by_model": {
+                    model: {
+                        "prompt_tokens": input_tokens,
+                        "completion_tokens": output_tokens,
+                        "total_tokens": total_tokens
+                    }
+                },
+                "usage_timeline": [{
+                    "timestamp": datetime.now().isoformat(),
+                    "prompt_tokens": input_tokens,
+                    "completion_tokens": output_tokens,
+                    "model": model
+                }]
+            }
         
         return result
         

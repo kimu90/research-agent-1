@@ -200,65 +200,104 @@ def run_tool(tool_name: str, query: str):
         save_trace(trace)
         
         return None, trace
-
-def display_tool_token_usage(trace: Dict[str, Any]):
-    """Display token usage for a tool execution"""
-    if "token_usage" not in trace:
-        st.info("No token usage data available for this execution.")
-        return
-        
-    token_usage = trace["token_usage"]
+def display_token_usage(trace: QueryTrace):
+    """Display token usage for a single trace"""
+    # Add more debugging print statements
+    print("DEBUG: Trace data received:")
+    print(json.dumps(trace.data.get('token_usage', {}), indent=2))
     
-    # Display token usage metrics
-    col1, col2, col3 = st.columns(3)
+    token_stats = trace.data.get('token_usage', {})
     
-    with col1:
+    # Fallback to token tracker if trace data is empty
+    if not token_stats or token_stats.get('total_usage', {}).get('total_tokens', 0) == 0:
+        print("DEBUG: Falling back to token tracker")
+        token_stats = trace.token_tracker.get_usage_stats() if hasattr(trace, 'token_tracker') else {}
+    
+    st.subheader("Token Usage Summary")
+    
+    # Extract token usage with fallback
+    total_tokens = token_stats.get('total_usage', {}).get('total_tokens', 0)
+    prompt_tokens = token_stats.get('total_usage', {}).get('prompt_tokens', 0)
+    completion_tokens = token_stats.get('total_usage', {}).get('completion_tokens', 0)
+    
+    cols = st.columns(3)
+    
+    with cols[0]:
         st.metric(
             "Total Tokens",
-            f"{token_usage['total_usage']['total_tokens']:,}",
-            help="Total tokens used in this execution"
+            f"{total_tokens:,}",
+            help="Total tokens used in this research"
         )
-        
-    with col2:
+    
+    with cols[1]:
         st.metric(
             "Prompt Tokens",
-            f"{token_usage['total_usage']['prompt_tokens']:,}",
+            f"{prompt_tokens:,}",
             help="Tokens used in prompts"
         )
-        
-    with col3:
+    
+    with cols[2]:
         st.metric(
             "Completion Tokens",
-            f"{token_usage['total_usage']['completion_tokens']:,}",
+            f"{completion_tokens:,}",
             help="Tokens used in completions"
         )
-        
-    # Display model breakdown if available
-    if token_usage['usage_by_model']:
-        st.subheader("Token Usage by Model")
-        model_usage_df = pd.DataFrame([
-            {
-                'model': model,
-                'prompt_tokens': stats['prompt_tokens'],
-                'completion_tokens': stats['completion_tokens'],
-                'total_tokens': stats['total_tokens']
-            }
-            for model, stats in token_usage['usage_by_model'].items()
-        ])
-        
-        fig = px.bar(
-            model_usage_df,
-            x='model',
-            y=['prompt_tokens', 'completion_tokens'],
-            title='Token Distribution by Model',
-            barmode='stack',
-            labels={
-                'model': 'Model',
-                'value': 'Tokens',
-                'variable': 'Token Type'
-            }
+    
+    # Add print statements to help diagnose
+    print(f"Total Tokens: {total_tokens}")
+    print(f"Prompt Tokens: {prompt_tokens}")
+    print(f"Completion Tokens: {completion_tokens}")
+    
+    # Rest of your existing visualization code...
+def display_tool_token_usage(trace: QueryTrace):
+    """Display token usage for a single trace"""
+    # Add more debugging print statements
+    print("DEBUG: Trace data received:")
+    print(json.dumps(trace.data.get('token_usage', {}), indent=2))
+    
+    token_stats = trace.data.get('token_usage', {})
+    
+    # Fallback to token tracker if trace data is empty
+    if not token_stats or token_stats.get('total_usage', {}).get('total_tokens', 0) == 0:
+        print("DEBUG: Falling back to token tracker")
+        token_stats = trace.token_tracker.get_usage_stats() if hasattr(trace, 'token_tracker') else {}
+    
+    st.subheader("Token Usage Summary")
+    
+    # Extract token usage with fallback
+    total_tokens = token_stats.get('total_usage', {}).get('total_tokens', 0)
+    prompt_tokens = token_stats.get('total_usage', {}).get('prompt_tokens', 0)
+    completion_tokens = token_stats.get('total_usage', {}).get('completion_tokens', 0)
+    
+    cols = st.columns(3)
+    
+    with cols[0]:
+        st.metric(
+            "Total Tokens",
+            f"{total_tokens:,}",
+            help="Total tokens used in this research"
         )
-        st.plotly_chart(fig, use_container_width=True)
+    
+    with cols[1]:
+        st.metric(
+            "Prompt Tokens",
+            f"{prompt_tokens:,}",
+            help="Tokens used in prompts"
+        )
+    
+    with cols[2]:
+        st.metric(
+            "Completion Tokens",
+            f"{completion_tokens:,}",
+            help="Tokens used in completions"
+        )
+    
+    # Add print statements to help diagnose
+    print(f"Total Tokens: {total_tokens}")
+    print(f"Prompt Tokens: {prompt_tokens}")
+    print(f"Completion Tokens: {completion_tokens}")
+    
+    # Rest of your existing visualization code...
 
 def load_research_history():
     """Load and process research history"""
