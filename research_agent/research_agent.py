@@ -116,13 +116,13 @@ class ResearchAgent:
             # Generate research outline
             self._send_message(context, "Generating outline...")
             self.tracer.log_step(trace, "start_outline_generation")
-            outline = self._generate_outline(kwargs["query"])
+            outline = self._generate_outline(kwargs["query"], trace)  # Pass trace object
             trace.data["outline"] = outline
             self._send_message(context, "Generating outline... done.", outline)
 
             # Convert outline to DAG
             self.tracer.log_step(trace, "start_dag_conversion")
-            research_outline = self._convert_outline_to_dag(outline)
+            research_outline = self._convert_outline_to_dag(outline, trace)  # Pass trace object
             trace.data["dag"] = research_outline.to_dict()
             self._send_message(context, "Planning tasks... done.")
 
@@ -136,6 +136,12 @@ class ResearchAgent:
             final_report = self._generate_final_report(results)
             trace.data["final_report"] = final_report
             self._send_message(context, "Generating final report...", final_report)
+
+            # Include token usage statistics in trace
+            if hasattr(trace, 'token_tracker'):
+                token_stats = trace.token_tracker.get_usage_stats()
+                trace.data["token_usage"] = token_stats
+                logging.info(f"Total tokens used: {token_stats['total_usage']['total_tokens']}")
 
             # Save research results
             self._save_final_report(
@@ -163,12 +169,13 @@ class ResearchAgent:
             trace.data["duration"] = (end_time - start_time).total_seconds()
             self.tracer.save_trace(trace)
 
-    def _generate_outline(self, query: str) -> str:
+    def _generate_outline(self, query: str, trace: Optional[QueryTrace] = None) -> str:
         """
         Generate research outline from query.
         
         Args:
             query: Research question/topic
+            trace: Optional QueryTrace object for token tracking
             
         Returns:
             str: Generated research outline
@@ -189,7 +196,8 @@ class ResearchAgent:
         return model_wrapper(
             system_prompt=system_prompt,
             prompt=generate_outline,
-            user_prompt=query
+            user_prompt=query,
+            trace=trace  # Pass trace object for token tracking
         )
 
     def _convert_outline_to_dag(self, outline: str) -> ResearchOutline:

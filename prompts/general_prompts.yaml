@@ -3,57 +3,107 @@ metadata:
   version: "1.0.0"
 
 prompts:
-  research-detailed:
-    id: "research-detailed"
+  research-biodiversity:
+    id: "research-biodiversity"
     content: |
-      Analyze the following news articles with a detailed focus:
+      Comprehensive Analysis of Biodiversity Research:
       Research Topic: {{research_topic}}
-      
-      Available Articles:
-      {{formatted_snippets}}
-      
-      Consider the following aspects for each article:
-      1. Relevance to the research topic
-      2. Credibility of the source
-      3. Recency of information
-      4. Depth of coverage
-      
-      Return the indices of articles that best match these criteria.
-    metadata:
-      type: "content_selection"
-      description: "Detailed research analysis prompt"
-      use_case: "In-depth research"
-
-  research-concise:
-    id: "research-concise"
-    content: |
-      Select the most relevant articles for: {{research_topic}}
-      
-      Articles:
-      {{formatted_snippets}}
-      
-      Pick only the most directly relevant articles.
-    metadata:
-      type: "content_selection"
-      description: "Concise research prompt"
-      use_case: "Quick research"
-
-  research-technical:
-    id: "research-technical"
-    content: |
-      Perform a technical analysis of articles for: {{research_topic}}
       
       Available Sources:
       {{formatted_snippets}}
       
-      Focus on:
-      - Technical specifications
-      - Implementation details
-      - Methodology descriptions
-      - Data and metrics
+      Analyze each source considering:
+      1. Species diversity and distribution
+      2. Ecosystem interactions
+      3. Conservation status
+      4. Ecological significance
+      5. Potential scientific or commercial applications
       
-      Select articles with the most technical depth.
+      Provide detailed insights into:
+      - Taxonomic classification
+      - Habitat characteristics
+      - Unique biological adaptations
+      - Threats to species or ecosystems
     metadata:
-      type: "content_selection"
-      description: "Technical research prompt"
-      use_case: "Technical deep-dives"
+      type: "biodiversity_research"
+      description: "In-depth biodiversity analysis"
+      use_case: "Ecological and species-focused research"
+
+  research-commercial-products:
+    id: "research-commercial-products"
+    content: |
+      Commercial Product Research and Analysis:
+      Research Topic: {{research_topic}}
+      
+      Available Sources:
+      {{formatted_snippets}}
+      
+      Evaluate sources based on:
+      1. Product innovation
+      2. Market potential
+      3. Technological applications
+      4. Economic impact
+      5. Competitive landscape
+      
+      Key Analysis Points:
+      - Product development stages
+      - Market positioning
+      - Technological differentiation
+      - Potential commercial viability
+    metadata:
+      type: "commercial_research"
+      description: "Comprehensive commercial product analysis"
+      use_case: "Market and product research"
+
+  research-compounds:
+    id: "research-compounds"
+    content: |
+      Compound Research and Characterization:
+      Research Topic: {{research_topic}}
+      
+      Available Sources:
+      {{formatted_snippets}}
+      
+      Comprehensive Compound Analysis:
+      1. Chemical structure
+      2. Molecular properties
+      3. Synthesis methods
+      4. Potential applications
+      5. Biological or industrial significance
+      
+      Detailed Evaluation:
+      - Molecular composition
+      - Physical and chemical characteristics
+      - Potential use cases
+      - Research and development insights
+    metadata:
+      type: "compound_research"
+      description: "In-depth compound analysis"
+      use_case: "Scientific and industrial compound research"
+
+  research-indigenous-languages:
+    id: "research-indigenous-languages"
+    content: |
+      Indigenous Languages Research:
+      Research Topic: {{research_topic}}
+      
+      Available Sources:
+      {{formatted_snippets}}
+      
+      Comprehensive Language Analysis:
+      1. Linguistic characteristics
+      2. Cultural context
+      3. Preservation efforts
+      4. Historical significance
+      5. Linguistic diversity
+      
+      Key Research Dimensions:
+      - Grammatical structure
+      - Linguistic origins
+      - Cultural preservation
+      - Endangered language status
+      - Sociolinguistic implications
+    metadata:
+      type: "language_research"
+      description: "Comprehensive indigenous language analysis"
+      use_case: "Linguistic and cultural research"
