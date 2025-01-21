@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 import plotly.express as px # type: ignore
 import plotly.graph_objects as go # type: ignore
 import pandas as pd
+
 # Import research components
 from research_agent import ResearchAgent
 from tools import GeneralAgent
@@ -18,6 +19,8 @@ from research_agent.tracers import CustomTracer, QueryTrace
 from tools.research.common.model_schemas import ContentItem, ResearchToolOutput
 from prompts.prompt_manager import PromptManager
 from utils.token_tracking import TokenUsageTracker
+from utils.evaluation import create_factual_accuracy_evaluator
+from research_agent.db.db import ContentDB
 
 # Load environment variables
 load_dotenv()
@@ -54,22 +57,30 @@ class StreamlitMessage:
     def notify(self):
         pass
 
-   
+
 def run_tool(tool_name: str, query: str, tool=None):
-    """Run a specific research tool and track its execution and token usage"""
-    pdb.set_trace()  # Breakpoint at the start of run_tool
+    """
+    Run a specific research tool and track its execution and token usage
+    
+    Args:
+        tool_name (str): Name of the research tool to use
+        query (str): Research query
+        tool (Optional): Preinitialized tool instance
+    
+    Returns:
+        Tuple[Optional[ResearchToolOutput], QueryTrace]: Research result and trace
+    """
+    pdb.set_trace()  # Initial breakpoint
+    
     context = StreamlitContext()
     start_time = datetime.now()
     
-    # Configure logging with more detail
+    # Detailed logging configuration
     logging.basicConfig(
         level=logging.INFO,
         format='%(asctime)s [%(levelname)s] %(message)s - %(filename)s:%(lineno)d'
     )
     logger = logging.getLogger(__name__)
-    
-    logger.info(f"Starting research tool execution - Tool: {tool_name}")
-    logger.info(f"Query received: {query}")
     
     # Create a new QueryTrace
     trace = QueryTrace(query)
@@ -79,125 +90,78 @@ def run_tool(tool_name: str, query: str, tool=None):
     trace.data["content_new"] = 0
     trace.data["content_reused"] = 0
     
-    logger.info(f"Query trace initialized - ID: {trace.id if hasattr(trace, 'id') else 'N/A'}")
-    
-    # Capture initial step
-    trace.data["processing_steps"].append(f"Started research with {tool_name}")
+    pdb.set_trace()  # Trace initialization breakpoint
     
     try:
-        # Capture tool initialization step
-        logger.info("Initializing research tool")
-        trace.data["processing_steps"].append("Initializing search tool")
-        
+        # Tool initialization and research
         if tool_name == "General Agent":
-            # Use the passed tool if available, otherwise create a new one
+            # Create or use existing tool
             if tool is None:
                 logger.info("Creating GeneralAgent instance")
                 tool = GeneralAgent(include_summary=True)
             
-            logger.info("Recording prompt usage")
-            trace.add_prompt_usage("general_agent_search", "general", "")
+            pdb.set_trace()  # Tool initialization breakpoint
             
+            # Invoke research tool
             logger.info("Invoking GeneralAgent with query")
             result = tool.invoke(input={"query": query})
-            logger.info("GeneralAgent invocation completed")
             
-        else:
-            error_msg = f"Tool {tool_name} not found"
-            logger.error(error_msg)
-            st.error(error_msg)
-            trace.data["processing_steps"].append(f"Error: {error_msg}")
-            return None, trace
-
-        # Content processing steps
-        if result and result.content and db:
-            content_count = len(result.content)
-            logger.info(f"Processing {content_count} content items")
-            trace.data["processing_steps"].append(f"Preparing to process {content_count} content items")
+            pdb.set_trace()  # Research result breakpoint
             
-            # Track new vs. reused content
-            new_content = 0
-            reused_content = 0
-            
-            for idx, item in enumerate(result.content, 1):
+            # Factual Accuracy Evaluation
+            try:
+                # Initialize accuracy evaluator
+                accuracy_evaluator = create_factual_accuracy_evaluator()
+                
+                # Evaluate factual accuracy
+                factual_score, accuracy_details = accuracy_evaluator.evaluate_factual_accuracy(result)
+                
+                pdb.set_trace()  # Accuracy evaluation breakpoint
+                
+                # Attach accuracy to trace
+                trace.data['factual_accuracy'] = {
+                    'score': factual_score,
+                    'details': accuracy_details
+                }
+                
+                # Store in database
                 try:
-                    logger.info(f"Processing content item {idx}/{content_count}")
-                    # Attempt to upsert document and track if it's new or existing
-                    is_new = db.upsert_doc(item)
-                    if is_new:
-                        new_content += 1
-                        logger.info(f"New content item stored (ID: {getattr(item, 'id', 'N/A')})")
-                    else:
-                        reused_content += 1
-                        logger.info(f"Existing content item updated (ID: {getattr(item, 'id', 'N/A')})")
-                except Exception as e:
-                    error_detail = f"Error storing content item {idx}: {str(e)}"
-                    logger.error(error_detail, exc_info=True)
-                    st.warning(f"Could not save results to database: {str(e)}")
-                    trace.data["processing_steps"].append(f"Database storage error: {error_detail}")
-
-            # Update trace with content tracking
-            logger.info(f"Content processing completed - New: {new_content}, Reused: {reused_content}")
-            trace.data["content_new"] = new_content
-            trace.data["content_reused"] = reused_content
-            trace.data["processing_steps"].append(
-                f"Content processed - New: {new_content}, Reused: {reused_content}"
-            )
-
-        # Update trace with success information
-        end_time = datetime.now()
-        duration = (end_time - start_time).total_seconds()
-        logger.info(f"Processing completed in {duration:.2f} seconds")
+                    db = get_db_connection()
+                    if db is not None:
+                        db.store_accuracy_evaluation({
+                            'query': query,
+                            'timestamp': datetime.now().isoformat(),
+                            'factual_score': factual_score,
+                            **accuracy_details
+                        })
+                except Exception as store_error:
+                    logger.warning(f"Failed to store accuracy evaluation: {store_error}")
+                
+                logger.info(f"Factual Accuracy Score: {factual_score}")
+                
+            except Exception as accuracy_error:
+                logger.warning(f"Factual accuracy evaluation failed: {str(accuracy_error)}")
+                trace.data['factual_accuracy'] = {
+                    'error': str(accuracy_error)
+                }
         
-        trace.data["duration"] = duration
+        # Successful execution
         trace.data["success"] = True
-        trace.data["content_count"] = len(result.content) if result and result.content else 0
+        trace.data["duration"] = (datetime.now() - start_time).total_seconds()
         
-        # Log final token usage
-        token_stats = trace.token_tracker.get_usage_stats()
-        logger.info(f"Final token usage stats: {token_stats}")
-        
-        if token_stats['tokens']['total'] > 0:
-            usage_msg = f"Total tokens used: {token_stats['tokens']['total']}"
-            logger.info(usage_msg)
-            trace.data["processing_steps"].append(usage_msg)
-        
-        # Final success step
-        logger.info("Research completed successfully")
-        trace.data["processing_steps"].append("Research completed successfully")
-        trace.data["end_time"] = datetime.now().isoformat()
-        
-        # Save the trace
-        logger.info("Saving successful trace")
-        tracer = CustomTracer()
-        tracer.save_trace(trace)
+        pdb.set_trace()  # Final processing breakpoint
         
         return result, trace
     
     except Exception as e:
-        error_msg = str(e)
-        logger.error(f"Error running {tool_name}: {error_msg}", exc_info=True)
-        st.error(f"Error running {tool_name}: {error_msg}")
+        logger.error(f"Error during research: {str(e)}")
         
-        # Update trace with error information
-        end_time = datetime.now()
-        duration = (end_time - start_time).total_seconds()
-        logger.info(f"Failed processing duration: {duration:.2f} seconds")
-        
-        trace.data["end_time"] = end_time.isoformat()
-        trace.data["duration"] = duration
-        trace.data["error"] = error_msg
+        # Error trace processing
+        trace.data["error"] = str(e)
         trace.data["success"] = False
+        trace.data["duration"] = (datetime.now() - start_time).total_seconds()
         
-        # Detailed error tracking
-        error_step = f"Research failed: {error_msg}"
-        logger.error(error_step)
-        trace.data["processing_steps"].append(error_step)
-        
-        # Save the error trace
-        logger.info("Saving error trace")
-        tracer = CustomTracer()
-        tracer.save_trace(trace)
+        pdb.set_trace()  # Error handling breakpoint
         
         return None, trace
 def update_token_stats(trace: QueryTrace, prompt_tokens: int, completion_tokens: int, 
@@ -252,7 +216,8 @@ def display_research_results(result, selected_tool):
         with tab3:
             # Load traces for analytics
             traces = load_research_history()
-            display_analytics(traces)
+            # Pass the global db connection
+            display_analytics(traces, db)
 
 def display_prompt_analytics(traces: List[QueryTrace]):
     """Display prompt usage analytics"""
@@ -470,70 +435,95 @@ def display_token_usage(trace: QueryTrace, show_visualizations: bool = True):
         trace: QueryTrace object containing token usage data
         show_visualizations: Boolean to control whether to show detailed visualizations
     """
-    # Always get stats from TokenUsageTracker for consistency
     token_stats = trace.token_tracker.get_usage_stats()
-
-    # Extensive debugging
-    print("Full token_stats structure:")
-    print(json.dumps(token_stats, indent=2))
-    print("Type of token_stats:", type(token_stats))
-    print("Keys in token_stats:", list(token_stats.keys()) if isinstance(token_stats, dict) else "Not a dictionary")
-
-    # Defensive programming to handle different possible structures
-    try:
-        # Try to extract tokens using the expected structure
-        total_tokens = token_stats.get('tokens', {}).get('total', 0)
-        prompt_tokens = token_stats.get('tokens', {}).get('input', 0)
-        completion_tokens = token_stats.get('tokens', {}).get('output', 0)
-        model = token_stats.get('model', 'Unknown')
-
-        st.subheader("Token Usage Summary")
-
-        cols = st.columns(3)
-        with cols[0]:
-            st.metric(
-                "Total Tokens",
-                f"{total_tokens:,}",
-                help="Total tokens used in this research"
+    
+    # Extract token counts from the correct structure
+    total_usage = token_stats.get('total_usage', {})
+    prompt_tokens = total_usage.get('prompt_tokens', 0)
+    completion_tokens = total_usage.get('completion_tokens', 0)
+    total_tokens = total_usage.get('total_tokens', 0)
+    
+    st.subheader("Token Usage Summary")
+    
+    cols = st.columns(3)
+    with cols[0]:
+        st.metric(
+            "Total Tokens",
+            f"{total_tokens:,}",
+            help="Total tokens used in this research"
+        )
+    
+    with cols[1]:
+        st.metric(
+            "Prompt Tokens",
+            f"{prompt_tokens:,}",
+            help="Tokens used in prompts"
+        )
+    
+    with cols[2]:
+        st.metric(
+            "Completion Tokens",
+            f"{completion_tokens:,}",
+            help="Tokens used in completions"
+        )
+    
+    if show_visualizations:
+        # Model Usage Visualization
+        usage_by_model = token_stats.get('usage_by_model', {})
+        if usage_by_model:
+            st.subheader("Model Usage Breakdown")
+            model_df = pd.DataFrame([
+                {
+                    'model': model,
+                    'prompt_tokens': stats.get('prompt_tokens', 0),
+                    'completion_tokens': stats.get('completion_tokens', 0),
+                    'total_tokens': stats.get('total_tokens', 0)
+                }
+                for model, stats in usage_by_model.items()
+            ])
+            
+            fig = px.bar(
+                model_df,
+                x='model',
+                y=['prompt_tokens', 'completion_tokens'],
+                title='Token Usage by Model',
+                labels={'value': 'Tokens', 'variable': 'Token Type'}
             )
-
-        with cols[1]:
-            st.metric(
-                "Prompt Tokens",
-                f"{prompt_tokens:,}",
-                help="Tokens used in prompts"
+            st.plotly_chart(fig)
+        
+        # Prompt Usage Visualization
+        usage_by_prompt = token_stats.get('usage_by_prompt', {})
+        if usage_by_prompt:
+            st.subheader("Prompt Usage Breakdown")
+            prompt_df = pd.DataFrame([
+                {
+                    'prompt_id': prompt_id,
+                    'total_tokens': stats.get('total_tokens', 0)
+                }
+                for prompt_id, stats in usage_by_prompt.items()
+            ])
+            
+            fig = px.pie(
+                prompt_df,
+                values='total_tokens',
+                names='prompt_id',
+                title='Token Distribution by Prompt'
             )
-
-        with cols[2]:
-            st.metric(
-                "Completion Tokens",
-                f"{completion_tokens:,}",
-                help="Tokens used in completions"
-            )
-
-        # Additional error handling for visualization
-        if show_visualizations:
-            # Simplified visualization
-            st.subheader("Model Usage")
-            st.write(f"Model: {model}")
-            st.write(f"Total Tokens: {total_tokens}")
-
-    except Exception as e:
-        st.error(f"Error processing token usage: {str(e)}")
-        print("Unexpected token_stats structure:", token_stats)
+            st.plotly_chart(fig)
 
 
-def display_analytics(traces: List[QueryTrace]):
+def display_analytics(traces: List[QueryTrace], content_db: ContentDB):
    """
    Display research analytics dashboard with token usage metrics
    Args:
        traces: List[QueryTrace objects]
+       content_db: ContentDB instance for retrieving accuracy data
    """
    if not traces:
        st.info("No research history available yet. Run some searches to see analytics!")
        return
 
-   tab1, tab2, tab3 = st.tabs(["General Analytics", "Token Usage", "Processing Steps"])
+   tab1, tab2, tab3, tab4 = st.tabs(["General Analytics", "Token Usage", "Processing Steps", "Content Analytics"])
    
    with tab1:
        # Convert traces to DataFrame for analysis
@@ -726,6 +716,120 @@ def display_analytics(traces: List[QueryTrace]):
 
    with tab3:
        enhance_trace_visualization(traces)
+
+   with tab4:  
+       st.subheader("📄 Content Accuracy Analytics")
+       
+       # Retrieve accuracy evaluations from the database
+       try:
+           # Assuming you have a method to get accuracy evaluations
+           accuracy_evals = content_db.get_accuracy_evaluations(limit=50)
+           
+           if accuracy_evals:
+               # Convert to DataFrame for easier analysis
+               accuracy_df = pd.DataFrame(accuracy_evals)
+               
+               # Overall Accuracy Metrics
+               metrics_col1, metrics_col2, metrics_col3 = st.columns(3)
+               
+               with metrics_col1:
+                   avg_factual_score = accuracy_df['factual_score'].mean()
+                   st.metric(
+                       "Avg Factual Score", 
+                       f"{avg_factual_score:.2f}", 
+                       help="Average factual accuracy score across research queries"
+                   )
+               
+               with metrics_col2:
+                   avg_citation_accuracy = accuracy_df['citation_accuracy'].mean()
+                   st.metric(
+                       "Avg Citation Accuracy", 
+                       f"{avg_citation_accuracy:.2%}", 
+                       help="Percentage of claims with strong source citations"
+                   )
+               
+               with metrics_col3:
+                   total_evaluated_sources = accuracy_df['total_sources'].sum()
+                   st.metric(
+                       "Total Sources Evaluated", 
+                       f"{total_evaluated_sources:,}", 
+                       help="Total number of sources analyzed for factual accuracy"
+                   )
+               
+               # Factual Score Distribution
+               st.subheader("Factual Score Distribution")
+               fig_score_dist = px.histogram(
+                   accuracy_df, 
+                   x='factual_score', 
+                   title='Distribution of Factual Scores',
+                   labels={'factual_score': 'Factual Score'},
+                   nbins=20
+               )
+               st.plotly_chart(fig_score_dist, use_container_width=True)
+               
+               # Citation Accuracy Over Time
+               st.subheader("Citation Accuracy Trend")
+               accuracy_df['timestamp'] = pd.to_datetime(accuracy_df['timestamp'])
+               citation_trend = (
+                   accuracy_df.set_index('timestamp')
+                   .resample('D')['citation_accuracy']
+                   .mean()
+                   .reset_index()
+               )
+               
+               fig_citation_trend = px.line(
+                   citation_trend,
+                   x='timestamp',
+                   y='citation_accuracy',
+                   title='Daily Citation Accuracy',
+                   labels={'citation_accuracy': 'Citation Accuracy', 'timestamp': 'Date'}
+               )
+               fig_citation_trend.update_layout(yaxis_range=[0, 1])
+               st.plotly_chart(fig_citation_trend, use_container_width=True)
+               
+               # Top Queries by Factual Score
+               st.subheader("Top Queries by Factual Score")
+               top_queries = accuracy_df.nlargest(5, 'factual_score')
+               
+               fig_top_queries = px.bar(
+                   top_queries, 
+                   x='query', 
+                   y='factual_score', 
+                   title='Top 5 Queries by Factual Score',
+                   labels={'query': 'Query', 'factual_score': 'Factual Score'}
+               )
+               fig_top_queries.update_layout(xaxis_tickangle=-45)
+               st.plotly_chart(fig_top_queries, use_container_width=True)
+               
+               # Detailed Claim Analysis
+               st.subheader("Detailed Claim Analysis")
+               all_claims = []
+               for row in accuracy_evals:
+                   claims = row.get('claim_details', [])
+                   for claim in claims:
+                       all_claims.append({
+                           'query': row['query'],
+                           'claim': claim['claim'],
+                           'score': claim['score']
+                       })
+               
+               claims_df = pd.DataFrame(all_claims)
+               fig_claims = px.scatter(
+                   claims_df, 
+                   x='query', 
+                   y='score', 
+                   color='score',
+                   title='Individual Claim Scores by Query',
+                   labels={'score': 'Claim Accuracy', 'query': 'Query'}
+               )
+               st.plotly_chart(fig_claims, use_container_width=True)
+               
+           else:
+               st.info("No content accuracy data available yet. Run some research queries to generate analytics!")
+       
+       except Exception as e:
+           logging.error(f"Error processing content analytics: {str(e)}")
+           st.error(f"Error displaying content analytics: {str(e)}")
 # At the top of your script, before the main function
 _db_instance = None
 
@@ -821,7 +925,6 @@ def main():
 
                     # Display research results
                     display_research_results(result, selected_tool)
-                    pdb.set_trace()
 
                     # Display trace information
                     st.markdown("### 🔍 Research Trace")

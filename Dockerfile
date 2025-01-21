@@ -23,7 +23,10 @@ ENV CHROME_BIN=/usr/bin/chromium \
 COPY requirements.txt .
 
 # Install Python dependencies including Streamlit
-RUN pip install --no-cache-dir -r requirements.txt streamlit selenium
+RUN pip install --no-cache-dir -r requirements.txt \
+    streamlit \
+    selenium \
+    https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.0/en_core_web_sm-3.7.0-py3-none-any.whl
 
 # Create directory for database
 RUN mkdir -p /data
