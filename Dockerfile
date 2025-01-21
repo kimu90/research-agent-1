@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -y \
     chromium \
     chromium-driver \
     sqlite3 \
+    build-essential \
+    libgomp1 \
     && rm -rf /var/lib/apt/lists/*
 
 # Set environment variables

@@ -58,6 +58,53 @@ class ContentDB:
                 )
                 """
             )
+
+            # Source coverage evaluation table
+            self.conn.execute("""
+                CREATE TABLE IF NOT EXISTS source_coverage_evaluations (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    query TEXT,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    coverage_score REAL,
+                    coverage_ratio REAL,
+                    diversity_score REAL,
+                    missed_sources TEXT,
+                    total_sources INTEGER
+                )
+            """)
+
+            # Logical coherence evaluation table
+            self.conn.execute("""
+                CREATE TABLE IF NOT EXISTS logical_coherence_evaluations (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    query TEXT,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    coherence_score REAL,
+                    flow_score REAL,
+                    has_argument_structure BOOLEAN,
+                    has_discourse_markers BOOLEAN,
+                    paragraph_score REAL,
+                    rough_transitions TEXT,
+                    total_sentences INTEGER,
+                    total_paragraphs INTEGER
+                )
+            """)
+
+            # Answer relevance evaluation table
+            self.conn.execute("""
+                CREATE TABLE IF NOT EXISTS answer_relevance_evaluations (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    query TEXT,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    relevance_score REAL,
+                    semantic_similarity REAL,
+                    entity_coverage REAL,
+                    keyword_coverage REAL,
+                    topic_focus REAL,
+                    off_topic_sentences TEXT,
+                    total_sentences INTEGER
+                )
+            """)
             
             self.conn.commit()
 
@@ -118,6 +165,7 @@ class ContentDB:
     def upsert_doc(self, doc: ContentItem) -> bool:
         """
         Inserts a new document or updates an existing one based on the URL conflict.
+        If ID already exists, generates a new unique ID.
 
         Args:
             doc (ContentItem): A ContentItem instance containing the document data.
@@ -128,10 +176,27 @@ class ContentDB:
         with self.lock:
             cursor = self.conn.cursor()
             try:
-                # Check if document already exists
+                # Check if document with this ID already exists
+                cursor.execute("SELECT 1 FROM content WHERE id = ?", (doc.id,))
+                id_exists = cursor.fetchone() is not None
+                
+                # If ID exists, generate a new unique ID
+                if id_exists:
+                    base_id = doc.id
+                    counter = 1
+                    while id_exists:
+                        new_id = f"{base_id}_{counter}"
+                        cursor.execute("SELECT 1 FROM content WHERE id = ?", (new_id,))
+                        id_exists = cursor.fetchone() is not None
+                        counter += 1
+                    doc.id = new_id
+                    logging.info(f"Generated new ID for document: {doc.id}")
+
+                # Check if URL exists (for determining if this is an insert or update)
                 cursor.execute("SELECT 1 FROM content WHERE url = ?", (doc.url,))
                 is_new = cursor.fetchone() is None
 
+                # Insert or update the document
                 cursor.execute(
                     """
                     INSERT INTO content (id, url, title, snippet, content, source)
@@ -148,10 +213,11 @@ class ContentDB:
                 self.conn.commit()
                 logging.info(f"Document {'inserted' if is_new else 'updated'} successfully: {doc.id}")
                 return is_new
+                
             except sqlite3.IntegrityError as e:
                 logging.error(f"Error inserting/updating document: {e}")
+                self.conn.rollback()
                 raise
-
     def store_accuracy_evaluation(self, accuracy_data: Dict[str, Any]):
         """
         Store factual accuracy evaluation results
@@ -189,6 +255,125 @@ class ContentDB:
                 logging.error(f"Error storing factual accuracy: {str(e)}")
                 self.conn.rollback()
                 return None
+
+    def store_source_coverage(self, data: Dict[str, Any]) -> int:
+        """
+        Store source coverage evaluation results
+        
+        Args:
+            data (Dict): Source coverage evaluation data
+        
+        Returns:
+            int: ID of the inserted record
+        """
+        with self.lock:
+            try:
+                cursor = self.conn.cursor()
+                cursor.execute(
+                    """
+                    INSERT INTO source_coverage_evaluations 
+                    (query, coverage_score, coverage_ratio, diversity_score, missed_sources, total_sources)
+                    VALUES (:query, :coverage_score, :coverage_ratio, :diversity_score, :missed_sources, :total_sources)
+                    """,
+                    {
+                        'query': data.get('query', 'Unknown'),
+                        'coverage_score': data.get('coverage_score', 0.0),
+                        'coverage_ratio': data.get('coverage_ratio', 0.0),
+                        'diversity_score': data.get('diversity_score', 0.0),
+                        'missed_sources': json.dumps(data.get('missed_sources', [])),
+                        'total_sources': data.get('total_sources', 0)
+                    }
+                )
+                self.conn.commit()
+                return cursor.lastrowid
+            
+            except sqlite3.Error as e:
+                logging.error(f"Error storing source coverage: {e}")
+                self.conn.rollback()
+                return -1
+
+    def store_logical_coherence(self, data: Dict[str, Any]) -> int:
+        """
+        Store logical coherence evaluation results
+        
+        Args:
+            data (Dict): Logical coherence evaluation data
+        
+        Returns:
+            int: ID of the inserted record
+        """
+        with self.lock:
+            try:
+                cursor = self.conn.cursor()
+                cursor.execute(
+                    """
+                    INSERT INTO logical_coherence_evaluations 
+                    (query, coherence_score, flow_score, has_argument_structure, 
+                    has_discourse_markers, paragraph_score, rough_transitions, 
+                    total_sentences, total_paragraphs)
+                    VALUES (:query, :coherence_score, :flow_score, :has_argument_structure, 
+                    :has_discourse_markers, :paragraph_score, :rough_transitions, 
+                    :total_sentences, :total_paragraphs)
+                    """,
+                    {
+                        'query': data.get('query', 'Unknown'),
+                        'coherence_score': data.get('coherence_score', 0.0),
+                        'flow_score': data.get('flow_score', 0.0),
+                        'has_argument_structure': data.get('has_argument_structure', False),
+                        'has_discourse_markers': data.get('has_discourse_markers', False),
+                        'paragraph_score': data.get('paragraph_score', 0.0),
+                        'rough_transitions': json.dumps(data.get('rough_transitions', [])),
+                        'total_sentences': data.get('total_sentences', 0),
+                        'total_paragraphs': data.get('total_paragraphs', 0)
+                    }
+                )
+                self.conn.commit()
+                return cursor.lastrowid
+            
+            except sqlite3.Error as e:
+                logging.error(f"Error storing logical coherence: {e}")
+                self.conn.rollback()
+                return -1
+
+    def store_answer_relevance(self, data: Dict[str, Any]) -> int:
+        """
+        Store answer relevance evaluation results
+        
+        Args:
+            data (Dict): Answer relevance evaluation data
+        
+        Returns:
+            int: ID of the inserted record
+        """
+        with self.lock:
+            try:
+                cursor = self.conn.cursor()
+                cursor.execute(
+                    """
+                    INSERT INTO answer_relevance_evaluations 
+                    (query, relevance_score, semantic_similarity, entity_coverage, 
+                    keyword_coverage, topic_focus, off_topic_sentences, total_sentences)
+                    VALUES (:query, :relevance_score, :semantic_similarity, :entity_coverage, 
+                    :keyword_coverage, :topic_focus, :off_topic_sentences, :total_sentences)
+                    """,
+                    {
+                        'query': data.get('query', 'Unknown'),
+                        'relevance_score': data.get('relevance_score', 0.0),
+                        'semantic_similarity': data.get('semantic_similarity', 0.0),
+                        'entity_coverage': data.get('entity_coverage', 0.0),
+                        'keyword_coverage': data.get('keyword_coverage', 0.0),
+                        'topic_focus': data.get('topic_focus', 0.0),
+                        'off_topic_sentences': json.dumps(data.get('off_topic_sentences', [])),
+                        'total_sentences': data.get('total_sentences', 0)
+                    }
+                )
+                self.conn.commit()
+                return cursor.lastrowid
+            
+            except sqlite3.Error as e:
+                logging.error(f"Error storing answer relevance: {e}")
+                self.conn.rollback()
+                return -1
 
     def get_accuracy_evaluations(self, query: Optional[str] = None, limit: int = 10):
         """
@@ -241,6 +426,183 @@ class ContentDB:
             except Exception as e:
                 logging.error(f"Error retrieving accuracy evaluations: {str(e)}")
                 return []
+
+    def get_source_coverage_evaluations(self, query: Optional[str] = None, limit: int = 10):
+        """
+        Retrieve source coverage evaluations
+        
+        Args:
+            query (Optional[str]): Optional query to filter results
+            limit (int): Maximum number of results to return
+        
+        Returns:
+            List of source coverage evaluation dictionaries
+        """
+        with self.lock:
+            cursor = self.conn.cursor()
+            try:
+                if query:
+                    cursor.execute(
+                        """
+                        SELECT id, query, timestamp, coverage_score, coverage_ratio, 
+                            diversity_score, missed_sources, total_sources
+                        FROM source_coverage_evaluations
+                        WHERE query LIKE ?
+                        ORDER BY timestamp DESC
+                        LIMIT ?
+                        """,
+                        (f'%{query}%', limit)
+                    )
+                else:
+                    cursor.execute(
+                        """
+                        SELECT id, query, timestamp, coverage_score, coverage_ratio, 
+                            diversity_score, missed_sources, total_sources
+                        FROM source_coverage_evaluations
+                        ORDER BY timestamp DESC
+                        LIMIT ?
+                        """,
+                        (limit,)
+                    )
+                
+                # Fetch and process results
+                columns = [
+                    'id', 'query', 'timestamp', 'coverage_score', 'coverage_ratio', 
+                    'diversity_score', 'missed_sources', 'total_sources'
+                ]
+                results = []
+                for row in cursor.fetchall():
+                    result = dict(zip(columns, row))
+                    # Parse JSON missed sources
+                    result['missed_sources'] = json.loads(result['missed_sources']) if result['missed_sources'] else []
+                    results.append(result)
+                
+                return results
+            except Exception as e:
+                logging.error(f"Error retrieving source coverage evaluations: {str(e)}")
+                return []
+
+def get_logical_coherence_evaluations(self, query: Optional[str] = None, limit: int = 10):
+    """
+    Retrieve logical coherence evaluations
+    
+    Args:
+        query (Optional[str]): Optional query to filter results
+        limit (int): Maximum number of results to return
+    
+    Returns:
+        List of logical coherence evaluation dictionaries
+    """
+    with self.lock:
+        cursor = self.conn.cursor()
+        try:
+            if query:
+                cursor.execute(
+                    """
+                    SELECT id, query, timestamp, coherence_score, flow_score, 
+                           has_argument_structure, has_discourse_markers, 
+                           paragraph_score, rough_transitions, 
+                           total_sentences, total_paragraphs
+                    FROM logical_coherence_evaluations
+                    WHERE query LIKE ?
+                    ORDER BY timestamp DESC
+                    LIMIT ?
+                    """,
+                    (f'%{query}%', limit)
+                )
+            else:
+                cursor.execute(
+                    """
+                    SELECT id, query, timestamp, coherence_score, flow_score, 
+                           has_argument_structure, has_discourse_markers, 
+                           paragraph_score, rough_transitions, 
+                           total_sentences, total_paragraphs
+                    FROM logical_coherence_evaluations
+                    ORDER BY timestamp DESC
+                    LIMIT ?
+                    """,
+                    (limit,)
+                )
+            
+            # Fetch and process results
+            columns = [
+                'id', 'query', 'timestamp', 'coherence_score', 'flow_score', 
+                'has_argument_structure', 'has_discourse_markers', 
+                'paragraph_score', 'rough_transitions', 
+                'total_sentences', 'total_paragraphs'
+            ]
+            results = []
+            for row in cursor.fetchall():
+                result = dict(zip(columns, row))
+                # Parse JSON rough transitions
+                result['rough_transitions'] = json.loads(result['rough_transitions']) if result['rough_transitions'] else []
+                results.append(result)
+            
+            return results
+        except Exception as e:
+            logging.error(f"Error retrieving logical coherence evaluations: {str(e)}")
+            return []
+
+def get_answer_relevance_evaluations(self, query: Optional[str] = None, limit: int = 10):
+    """
+    Retrieve answer relevance evaluations
+    
+    Args:
+        query (Optional[str]): Optional query to filter results
+        limit (int): Maximum number of results to return
+    
+    Returns:
+        List of answer relevance evaluation dictionaries
+    """
+    with self.lock:
+        cursor = self.conn.cursor()
+        try:
+            if query:
+                cursor.execute(
+                    """
+                    SELECT id, query, timestamp, relevance_score, 
+                           semantic_similarity, entity_coverage, 
+                           keyword_coverage, topic_focus, 
+                           off_topic_sentences, total_sentences
+                    FROM answer_relevance_evaluations
+                    WHERE query LIKE ?
+                    ORDER BY timestamp DESC
+                    LIMIT ?
+                    """,
+                    (f'%{query}%', limit)
+                )
+            else:
+                cursor.execute(
+                    """
+                    SELECT id, query, timestamp, relevance_score, 
+                           semantic_similarity, entity_coverage, 
+                           keyword_coverage, topic_focus, 
+                           off_topic_sentences, total_sentences
+                    FROM answer_relevance_evaluations
+                    ORDER BY timestamp DESC
+                    LIMIT ?
+                    """,
+                    (limit,)
+                )
+            
+            # Fetch and process results
+            columns = [
+                'id', 'query', 'timestamp', 'relevance_score', 
+                'semantic_similarity', 'entity_coverage', 
+                'keyword_coverage', 'topic_focus', 
+                'off_topic_sentences', 'total_sentences'
+            ]
+            results = []
+            for row in cursor.fetchall():
+                result = dict(zip(columns, row))
+                # Parse JSON off-topic sentences
+                result['off_topic_sentences'] = json.loads(result['off_topic_sentences']) if result['off_topic_sentences'] else []
+                results.append(result)
+            
+            return results
+        except Exception as e:
+            logging.error(f"Error retrieving answer relevance evaluations: {str(e)}")
+            return []
 
     def delete_doc(self, id: str):
         """

@@ -20,6 +20,11 @@ from tools.research.common.model_schemas import ContentItem, ResearchToolOutput
 from prompts.prompt_manager import PromptManager
 from utils.token_tracking import TokenUsageTracker
 from utils.evaluation import create_factual_accuracy_evaluator
+from utils.source_coverage import create_source_coverage_evaluator
+from utils.logical_coherence import create_logical_coherence_evaluator
+from utils.answer_relevance import create_answer_relevance_evaluator
+
+
 from research_agent.db.db import ContentDB
 
 # Load environment variables
@@ -82,6 +87,9 @@ def run_tool(tool_name: str, query: str, tool=None):
     )
     logger = logging.getLogger(__name__)
     
+    logger.info(f"Starting research tool execution - Tool: {tool_name}")
+    logger.info(f"Query received: {query}")
+    
     # Create a new QueryTrace
     trace = QueryTrace(query)
     trace.data["tool"] = tool_name
@@ -90,9 +98,22 @@ def run_tool(tool_name: str, query: str, tool=None):
     trace.data["content_new"] = 0
     trace.data["content_reused"] = 0
     
-    pdb.set_trace()  # Trace initialization breakpoint
+    logger.info(f"Query trace initialized - ID: {trace.id if hasattr(trace, 'id') else 'N/A'}")
+    
+    # Capture initial step
+    trace.data["processing_steps"].append(f"Started research with {tool_name}")
     
     try:
+        # Initialize evaluation tools
+        try:
+            accuracy_evaluator = create_factual_accuracy_evaluator()
+            source_coverage_evaluator = create_source_coverage_evaluator()
+            coherence_evaluator = create_logical_coherence_evaluator()
+            relevance_evaluator = create_answer_relevance_evaluator()
+        except Exception as eval_init_error:
+            logger.error(f"Evaluation tools initialization failed: {eval_init_error}")
+            accuracy_evaluator = source_coverage_evaluator = coherence_evaluator = relevance_evaluator = None
+    
         # Tool initialization and research
         if tool_name == "General Agent":
             # Create or use existing tool
@@ -100,66 +121,210 @@ def run_tool(tool_name: str, query: str, tool=None):
                 logger.info("Creating GeneralAgent instance")
                 tool = GeneralAgent(include_summary=True)
             
-            pdb.set_trace()  # Tool initialization breakpoint
+            logger.info("Recording prompt usage")
+            trace.add_prompt_usage("general_agent_search", "general", "")
             
-            # Invoke research tool
             logger.info("Invoking GeneralAgent with query")
             result = tool.invoke(input={"query": query})
+            logger.info("GeneralAgent invocation completed")
             
             pdb.set_trace()  # Research result breakpoint
             
-            # Factual Accuracy Evaluation
-            try:
-                # Initialize accuracy evaluator
-                accuracy_evaluator = create_factual_accuracy_evaluator()
-                
-                # Evaluate factual accuracy
-                factual_score, accuracy_details = accuracy_evaluator.evaluate_factual_accuracy(result)
-                
-                pdb.set_trace()  # Accuracy evaluation breakpoint
-                
-                # Attach accuracy to trace
-                trace.data['factual_accuracy'] = {
-                    'score': factual_score,
-                    'details': accuracy_details
-                }
-                
-                # Store in database
+            # Content processing steps
+            if result and result.content:
                 try:
+                    # Get database connection
                     db = get_db_connection()
-                    if db is not None:
+                    
+                    content_count = len(result.content)
+                    logger.info(f"Processing {content_count} content items")
+                    trace.data["processing_steps"].append(f"Preparing to process {content_count} content items")
+                    
+                    # Track new vs. reused content
+                    new_content = 0
+                    reused_content = 0
+                    
+                    for idx, item in enumerate(result.content, 1):
+                        try:
+                            logger.info(f"Processing content item {idx}/{content_count}")
+                            # Attempt to upsert document and track if it's new or existing
+                            if db:
+                                is_new = db.upsert_doc(item)
+                                if is_new:
+                                    new_content += 1
+                                    logger.info(f"New content item stored (ID: {getattr(item, 'id', 'N/A')})")
+                                else:
+                                    reused_content += 1
+                                    logger.info(f"Existing content item updated (ID: {getattr(item, 'id', 'N/A')})")
+                        except Exception as e:
+                            error_detail = f"Error storing content item {idx}: {str(e)}"
+                            logger.error(error_detail, exc_info=True)
+                            st.warning(f"Could not save results to database: {str(e)}")
+                            trace.data["processing_steps"].append(f"Database storage error: {error_detail}")
+                    
+                    # Update trace with content tracking
+                    logger.info(f"Content processing completed - New: {new_content}, Reused: {reused_content}")
+                    trace.data["content_new"] = new_content
+                    trace.data["content_reused"] = reused_content
+                    trace.data["processing_steps"].append(
+                        f"Content processed - New: {new_content}, Reused: {reused_content}"
+                    )
+                except Exception as content_processing_error:
+                    logger.error(f"Content processing failed: {content_processing_error}")
+                    trace.data["processing_steps"].append(f"Content processing error: {content_processing_error}")
+            
+            # Comprehensive evaluation
+            if result and accuracy_evaluator and source_coverage_evaluator and coherence_evaluator and relevance_evaluator:
+                try:
+                    # Prepare database connection
+                    db = get_db_connection()
+                    
+                    # Factual Accuracy Evaluation
+                    pdb.set_trace()  # Factual accuracy evaluation breakpoint
+                    factual_score, accuracy_details = accuracy_evaluator.evaluate_factual_accuracy(result)
+                    # Attach accuracy to trace
+                    trace.data['factual_accuracy'] = {
+                        'score': factual_score,
+                        'details': accuracy_details
+                    }
+                    if db:
                         db.store_accuracy_evaluation({
                             'query': query,
                             'timestamp': datetime.now().isoformat(),
                             'factual_score': factual_score,
                             **accuracy_details
                         })
-                except Exception as store_error:
-                    logger.warning(f"Failed to store accuracy evaluation: {store_error}")
+
+                    # Source Coverage Evaluation
+                    pdb.set_trace()  # Source coverage evaluation breakpoint
+                    coverage_score, coverage_details = source_coverage_evaluator.evaluate_source_coverage(result)
+                    trace.data['source_coverage'] = {
+                        'score': coverage_score,
+                        'details': coverage_details
+                    }
+                    
+                    if db:
+                        db.store_source_coverage({
+                            'query': query,
+                            'timestamp': datetime.now().isoformat(),
+                            'coverage_score': coverage_score,
+                            **coverage_details
+                        })
+                    
+                    # Logical Coherence Evaluation
+                    pdb.set_trace()  # Logical coherence evaluation breakpoint
+                    coherence_score, coherence_details = coherence_evaluator.evaluate_logical_coherence(result)
+                    trace.data['logical_coherence'] = {
+                        'score': coherence_score,
+                        'details': coherence_details
+                    }
+                    
+                    if db:
+                        db.store_logical_coherence({
+                            'query': query,
+                            'timestamp': datetime.now().isoformat(),
+                            'coherence_score': coherence_score,
+                            **coherence_details
+                        })
+                    
+                    # Answer Relevance Evaluation
+                    pdb.set_trace()  # Answer relevance evaluation breakpoint
+                    relevance_score, relevance_details = relevance_evaluator.evaluate_answer_relevance(result, query)
+                    trace.data['answer_relevance'] = {
+                        'score': relevance_score,
+                        'details': relevance_details
+                    }
+                    
+                    if db:
+                        db.store_answer_relevance({
+                            'query': query,
+                            'timestamp': datetime.now().isoformat(),
+                            'relevance_score': relevance_score,
+                            **relevance_details
+                        })
+                    
+                    
+                except Exception as eval_error:
+                    logger.error(f"Evaluation process failed: {eval_error}")
+                    trace.data['evaluation_error'] = str(eval_error)
+            
+            # Update trace with success information
+            end_time = datetime.now()
+            duration = (end_time - start_time).total_seconds()
+            logger.info(f"Processing completed in {duration:.2f} seconds")
+            
+            trace.data["duration"] = duration
+            trace.data["success"] = True
+            trace.data["content_count"] = len(result.content) if result and result.content else 0
+            
+            # Log final token usage
+            try:
+                token_stats = trace.token_tracker.get_usage_stats()
+                logger.info(f"Final token usage stats: {token_stats}")
                 
-                logger.info(f"Factual Accuracy Score: {factual_score}")
-                
-            except Exception as accuracy_error:
-                logger.warning(f"Factual accuracy evaluation failed: {str(accuracy_error)}")
-                trace.data['factual_accuracy'] = {
-                    'error': str(accuracy_error)
-                }
+                if token_stats['tokens']['total'] > 0:
+                    usage_msg = f"Total tokens used: {token_stats['tokens']['total']}"
+                    logger.info(usage_msg)
+                    trace.data["processing_steps"].append(usage_msg)
+            except Exception as token_error:
+                logger.warning(f"Could not retrieve token stats: {token_error}")
+            
+            # Final success step
+            logger.info("Research completed successfully")
+            trace.data["processing_steps"].append("Research completed successfully")
+            trace.data["end_time"] = datetime.now().isoformat()
+            
+            # Save the trace
+            try:
+                logger.info("Saving successful trace")
+                tracer = CustomTracer()
+                tracer.save_trace(trace)
+            except Exception as trace_save_error:
+                logger.error(f"Failed to save trace: {trace_save_error}")
+            
+            pdb.set_trace()  # Final processing breakpoint
+            
+            return result, trace
         
-        # Successful execution
-        trace.data["success"] = True
-        trace.data["duration"] = (datetime.now() - start_time).total_seconds()
-        
-        pdb.set_trace()  # Final processing breakpoint
-        
-        return result, trace
+        else:
+            # Unsupported tool
+            error_msg = f"Tool {tool_name} not found"
+            logger.error(error_msg)
+            st.error(error_msg)
+            trace.data["processing_steps"].append(f"Error: {error_msg}")
+            trace.data['error'] = error_msg
+            trace.data['success'] = False
+            
+            return None, trace
     
     except Exception as e:
-        logger.error(f"Error during research: {str(e)}")
+        # Comprehensive error handling
+        error_msg = str(e)
+        logger.error(f"Error running {tool_name}: {error_msg}", exc_info=True)
+        st.error(f"Error running {tool_name}: {error_msg}")
         
-        # Error trace processing
-        trace.data["error"] = str(e)
+        # Update trace with error information
+        end_time = datetime.now()
+        duration = (end_time - start_time).total_seconds()
+        logger.info(f"Failed processing duration: {duration:.2f} seconds")
+        
+        trace.data["end_time"] = end_time.isoformat()
+        trace.data["duration"] = duration
+        trace.data["error"] = error_msg
         trace.data["success"] = False
-        trace.data["duration"] = (datetime.now() - start_time).total_seconds()
+        
+        # Detailed error tracking
+        error_step = f"Research failed: {error_msg}"
+        logger.error(error_step)
+        trace.data["processing_steps"].append(error_step)
+        
+        # Save the error trace
+        try:
+            logger.info("Saving error trace")
+            tracer = CustomTracer()
+            tracer.save_trace(trace)
+        except Exception as trace_save_error:
+            logger.error(f"Failed to save error trace: {trace_save_error}")
         
         pdb.set_trace()  # Error handling breakpoint
         
@@ -437,11 +602,11 @@ def display_token_usage(trace: QueryTrace, show_visualizations: bool = True):
     """
     token_stats = trace.token_tracker.get_usage_stats()
     
-    # Extract token counts from the correct structure
-    total_usage = token_stats.get('total_usage', {})
-    prompt_tokens = total_usage.get('prompt_tokens', 0)
-    completion_tokens = total_usage.get('completion_tokens', 0)
-    total_tokens = total_usage.get('total_tokens', 0)
+    # Extract token counts from the new structure
+    token_counts = token_stats.get('tokens', {})
+    prompt_tokens = token_counts.get('input', 0)
+    completion_tokens = token_counts.get('output', 0)
+    total_tokens = token_counts.get('total', 0)
     
     st.subheader("Token Usage Summary")
     
@@ -469,367 +634,627 @@ def display_token_usage(trace: QueryTrace, show_visualizations: bool = True):
     
     if show_visualizations:
         # Model Usage Visualization
-        usage_by_model = token_stats.get('usage_by_model', {})
-        if usage_by_model:
-            st.subheader("Model Usage Breakdown")
-            model_df = pd.DataFrame([
-                {
-                    'model': model,
-                    'prompt_tokens': stats.get('prompt_tokens', 0),
-                    'completion_tokens': stats.get('completion_tokens', 0),
-                    'total_tokens': stats.get('total_tokens', 0)
-                }
-                for model, stats in usage_by_model.items()
-            ])
-            
-            fig = px.bar(
-                model_df,
-                x='model',
-                y=['prompt_tokens', 'completion_tokens'],
-                title='Token Usage by Model',
-                labels={'value': 'Tokens', 'variable': 'Token Type'}
-            )
-            st.plotly_chart(fig)
+        model = token_stats.get('model', 'unknown')
+        processing = token_stats.get('processing', {})
         
-        # Prompt Usage Visualization
-        usage_by_prompt = token_stats.get('usage_by_prompt', {})
-        if usage_by_prompt:
-            st.subheader("Prompt Usage Breakdown")
-            prompt_df = pd.DataFrame([
-                {
-                    'prompt_id': prompt_id,
-                    'total_tokens': stats.get('total_tokens', 0)
-                }
-                for prompt_id, stats in usage_by_prompt.items()
-            ])
-            
-            fig = px.pie(
-                prompt_df,
-                values='total_tokens',
-                names='prompt_id',
-                title='Token Distribution by Prompt'
+        st.subheader("Model Usage Breakdown")
+        model_df = pd.DataFrame([{
+            'model': model,
+            'prompt_tokens': prompt_tokens,
+            'completion_tokens': completion_tokens,
+            'total_tokens': total_tokens,
+            'processing_time': processing.get('time', 0),
+            'token_speed': processing.get('speed', 0)
+        }])
+        
+        # Bar chart for token distribution
+        fig = px.bar(
+            model_df,
+            x='model',
+            y=['prompt_tokens', 'completion_tokens'],
+            title='Token Usage by Model',
+            labels={'value': 'Tokens', 'variable': 'Token Type'}
+        )
+        st.plotly_chart(fig)
+        
+        # Additional processing metrics
+        st.subheader("Processing Metrics")
+        cols = st.columns(2)
+        with cols[0]:
+            st.metric(
+                "Processing Time (s)",
+                f"{processing.get('time', 0):.2f}",
+                help="Total processing time in seconds"
             )
-            st.plotly_chart(fig)
+        with cols[1]:
+            st.metric(
+                "Token Speed (tokens/s)",
+                f"{processing.get('speed', 0):.2f}",
+                help="Average tokens processed per second"
+            )
+        
+        # Cost visualization
+        st.subheader("Cost Analysis")
+        st.metric(
+            "Total Cost ($)",
+            f"{token_stats.get('cost', 0):.6f}",
+            help="Total cost of token usage"
+        )
 
 
 def display_analytics(traces: List[QueryTrace], content_db: ContentDB):
-   """
-   Display research analytics dashboard with token usage metrics
-   Args:
-       traces: List[QueryTrace objects]
-       content_db: ContentDB instance for retrieving accuracy data
-   """
-   if not traces:
-       st.info("No research history available yet. Run some searches to see analytics!")
-       return
+    """
+    Display research analytics dashboard with token usage metrics
+    Args:
+        traces: List[QueryTrace objects]
+        content_db: ContentDB instance for retrieving accuracy data
+    """
+    if not traces:
+        st.info("No research history available yet. Run some searches to see analytics!")
+        return
 
-   tab1, tab2, tab3, tab4 = st.tabs(["General Analytics", "Token Usage", "Processing Steps", "Content Analytics"])
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
+        "General Analytics", 
+        "Token Usage", 
+        "Processing Steps", 
+        "Factual Accuracy", 
+        "Source Coverage", 
+        "Logical Coherence", 
+        "Answer Relevance"
+    ])
    
-   with tab1:
-       # Convert traces to DataFrame for analysis
-       df = pd.DataFrame([
-           {
-               'date': datetime.fromisoformat(t.data['start_time']).date(),
-               'success': t.data.get('success', False),
-               'duration': t.data.get('duration', 0),
-               'content_new': t.data.get('content_new', 0), 
-               'content_reused': t.data.get('content_reused', 0),
-               'query': t.data.get('query', '')
-           }
-           for t in traces
-       ])
+    with tab1:
+        # Convert traces to DataFrame for analysis
+        df = pd.DataFrame([
+            {
+                'date': datetime.fromisoformat(t.data['start_time']).date(),
+                'success': t.data.get('success', False),
+                'duration': t.data.get('duration', 0),
+                'content_new': t.data.get('content_new', 0), 
+                'content_reused': t.data.get('content_reused', 0),
+                'query': t.data.get('query', '')
+            }
+            for t in traces
+        ])
        
-       # Success Rate Over Time
-       st.subheader("📈 Success Rate Over Time")
-       success_by_date = (
-           df.groupby('date')
-           .agg({
-               'success': ['count', lambda x: x.sum() / len(x) * 100]
-           })
-           .reset_index()
-       )
-       success_by_date.columns = ['date', 'total', 'success_rate']
-       
-       fig_success_timeline = px.line(
-           success_by_date,
-           x='date',
-           y='success_rate',
-           title='Success Rate Trend',
-           labels={'success_rate': 'Success Rate (%)', 'date': 'Date'}
-       )
-       fig_success_timeline.update_layout(yaxis_range=[0, 100])
-       st.plotly_chart(fig_success_timeline, use_container_width=True)
+        # Success Rate Over Time
+        st.subheader("📈 Success Rate Over Time")
+        success_by_date = (
+            df.groupby('date')
+            .agg({
+                'success': ['count', lambda x: x.sum() / len(x) * 100]
+            })
+            .reset_index()
+        )
+        success_by_date.columns = ['date', 'total', 'success_rate']
+        
+        fig_success_timeline = px.line(
+            success_by_date,
+            x='date',
+            y='success_rate',
+            title='Success Rate Trend',
+            labels={'success_rate': 'Success Rate (%)', 'date': 'Date'}
+        )
+        fig_success_timeline.update_layout(yaxis_range=[0, 100])
+        st.plotly_chart(fig_success_timeline, use_container_width=True)
 
-       # Statistics Summary Cards
-       st.subheader("📊 Research Statistics")
-       stats_col1, stats_col2, stats_col3, stats_col4 = st.columns(4)
-       
-       with stats_col1:
-           st.metric("Total Researches", len(traces))
-       with stats_col2:
-           avg_duration = df['duration'].mean() if not df.empty else 0
-           st.metric("Average Duration", f"{avg_duration:.2f}s")
-       with stats_col3:
-           success_rate = (df['success'].sum() / len(df)) * 100 if not df.empty else 0
-           st.metric("Success Rate", f"{success_rate:.1f}%")
-       with stats_col4:
-           total_content = df['content_new'].sum() + df['content_reused'].sum()
-           st.metric("Total Content Processed", total_content)
+        # Statistics Summary Cards
+        st.subheader("📊 Research Statistics")
+        stats_col1, stats_col2, stats_col3, stats_col4 = st.columns(4)
+        
+        with stats_col1:
+            st.metric("Total Researches", len(traces))
+        with stats_col2:
+            avg_duration = df['duration'].mean() if not df.empty else 0
+            st.metric("Average Duration", f"{avg_duration:.2f}s")
+        with stats_col3:
+            success_rate = (df['success'].sum() / len(df)) * 100 if not df.empty else 0
+            st.metric("Success Rate", f"{success_rate:.1f}%")
+        with stats_col4:
+            total_content = df['content_new'].sum() + df['content_reused'].sum()
+            st.metric("Total Content Processed", total_content)
 
-   with tab2:
-       st.subheader("🎯 Token Usage Analytics")
-       
-       # Collect token usage data from TokenUsageTracker
-       token_data = []
-       for trace in traces:
-           try:
-               stats = trace.token_tracker.get_usage_stats()
-               timeline = trace.data.get('token_usage', {}).get('usage_timeline', [])
-               
-               for entry in timeline:
-                   try:
-                       # Use .get() with default values to avoid KeyError
-                       timestamp = entry.get('timestamp')
-                       if not timestamp:  # If no timestamp, use current time
-                           timestamp = datetime.now().isoformat()
-                           
-                       token_data.append({
-                           'timestamp': datetime.fromisoformat(timestamp),
-                           'prompt_tokens': entry.get('prompt_tokens', 0),
-                           'completion_tokens': entry.get('completion_tokens', 0),
-                           'total_tokens': entry.get('prompt_tokens', 0) + entry.get('completion_tokens', 0),
-                           'model': entry.get('model', 'unknown'),
-                           'prompt_id': entry.get('prompt_id', 'Unknown'),
-                           'query': trace.data.get('query', 'No query')
-                       })
-                   except Exception as e:
-                       logging.warning(f"Error processing timeline entry: {str(e)}")
-                       continue
-                       
-           except Exception as e:
-               logging.warning(f"Error processing token data for trace {trace.trace_id}: {str(e)}")
-               continue
+    with tab2:
+        st.subheader("🎯 Token Usage Analytics")
+        
+        # Collect token usage data from TokenUsageTracker
+        token_data = []
+        for trace in traces:
+            try:
+                stats = trace.token_tracker.get_usage_stats()
+                timeline = trace.data.get('token_usage', {}).get('usage_timeline', [])
+                
+                for entry in timeline:
+                    try:
+                        # Use .get() with default values to avoid KeyError
+                        timestamp = entry.get('timestamp')
+                        if not timestamp:  # If no timestamp, use current time
+                            timestamp = datetime.now().isoformat()
+                            
+                        token_data.append({
+                            'timestamp': datetime.fromisoformat(timestamp),
+                            'prompt_tokens': entry.get('prompt_tokens', 0),
+                            'completion_tokens': entry.get('completion_tokens', 0),
+                            'total_tokens': entry.get('prompt_tokens', 0) + entry.get('completion_tokens', 0),
+                            'model': entry.get('model', 'unknown'),
+                            'prompt_id': entry.get('prompt_id', 'Unknown'),
+                            'query': trace.data.get('query', 'No query')
+                        })
+                    except Exception as e:
+                        logging.warning(f"Error processing timeline entry: {str(e)}")
+                        continue
+                        
+            except Exception as e:
+                logging.warning(f"Error processing token data for trace {trace.trace_id}: {str(e)}")
+                continue
 
-       try:
-           if token_data:
-               token_df = pd.DataFrame(token_data)
-               
-               # Token Usage Statistics
-               token_stats_col1, token_stats_col2, token_stats_col3 = st.columns(3)
-               
-               with token_stats_col1:
-                   total_tokens = token_df['total_tokens'].sum()
-                   st.metric(
-                       "Total Tokens Used",
-                       f"{total_tokens:,}",
-                       help="Sum of all input and output tokens"
-                   )
-               
-               with token_stats_col2:
-                   avg_tokens = token_df.groupby('query')['total_tokens'].sum().mean()
-                   st.metric(
-                       "Avg Tokens per Query",
-                       f"{avg_tokens:,.0f}",
-                       help="Average token usage per research query"
-                   )
-               
-               with token_stats_col3:
-                   completion_sum = token_df['completion_tokens'].sum()
-                   token_ratio = (token_df['prompt_tokens'].sum() / completion_sum 
-                                if completion_sum > 0 else 0)
-                   st.metric(
-                       "Prompt/Completion Ratio",
-                       f"{token_ratio:.2f}",
-                       help="Ratio of prompt tokens to completion tokens"
-                   )
+        try:
+            if token_data:
+                token_df = pd.DataFrame(token_data)
+                
+                # Token Usage Statistics
+                token_stats_col1, token_stats_col2, token_stats_col3 = st.columns(3)
+                
+                with token_stats_col1:
+                    total_tokens = token_df['total_tokens'].sum()
+                    st.metric(
+                        "Total Tokens Used",
+                        f"{total_tokens:,}",
+                        help="Sum of all input and output tokens"
+                    )
+                
+                with token_stats_col2:
+                    avg_tokens = token_df.groupby('query')['total_tokens'].sum().mean()
+                    st.metric(
+                        "Avg Tokens per Query",
+                        f"{avg_tokens:,.0f}",
+                        help="Average token usage per research query"
+                    )
+                
+                with token_stats_col3:
+                    completion_sum = token_df['completion_tokens'].sum()
+                    token_ratio = (token_df['prompt_tokens'].sum() / completion_sum 
+                                 if completion_sum > 0 else 0)
+                    st.metric(
+                        "Prompt/Completion Ratio",
+                        f"{token_ratio:.2f}",
+                        help="Ratio of prompt tokens to completion tokens"
+                    )
 
-               # Token Usage Over Time
-               st.subheader("Token Usage Trends")
-               token_df_daily = token_df.set_index('timestamp').resample('D').sum().reset_index()
-               fig_token_timeline = px.line(
-                   token_df_daily,
-                   x='timestamp',
-                   y=['prompt_tokens', 'completion_tokens', 'total_tokens'],
-                   title='Daily Token Usage',
-                   labels={
-                       'timestamp': 'Date',
-                       'value': 'Tokens',
-                       'variable': 'Token Type'
-                   }
-               )
-               st.plotly_chart(fig_token_timeline, use_container_width=True)
+                # Token Usage Over Time
+                st.subheader("Token Usage Trends")
+                token_df_daily = token_df.set_index('timestamp').resample('D').sum().reset_index()
+                fig_token_timeline = px.line(
+                    token_df_daily,
+                    x='timestamp',
+                    y=['prompt_tokens', 'completion_tokens', 'total_tokens'],
+                    title='Daily Token Usage',
+                    labels={
+                        'timestamp': 'Date',
+                        'value': 'Tokens',
+                        'variable': 'Token Type'
+                    }
+                )
+                st.plotly_chart(fig_token_timeline, use_container_width=True)
 
-               # Token Usage by Model
-               if len(token_df['model'].unique()) > 1:  # Only show if multiple models
-                   st.subheader("Token Usage by Model")
-                   model_usage = token_df.groupby('model').agg({
-                       'total_tokens': 'sum',
-                       'prompt_tokens': 'sum',
-                       'completion_tokens': 'sum'
-                   }).reset_index()
-                   
-                   fig_model_usage = px.bar(
-                       model_usage,
-                       x='model',
-                       y=['prompt_tokens', 'completion_tokens'],
-                       title='Token Distribution by Model',
-                       barmode='stack',
-                       labels={
-                           'model': 'Model',
-                           'value': 'Tokens',
-                           'variable': 'Token Type'
-                       }
-                   )
-                   st.plotly_chart(fig_model_usage, use_container_width=True)
+                # Token Usage by Model
+                if len(token_df['model'].unique()) > 1:  # Only show if multiple models
+                    st.subheader("Token Usage by Model")
+                    model_usage = token_df.groupby('model').agg({
+                        'total_tokens': 'sum',
+                        'prompt_tokens': 'sum',
+                        'completion_tokens': 'sum'
+                    }).reset_index()
+                    
+                    fig_model_usage = px.bar(
+                        model_usage,
+                        x='model',
+                        y=['prompt_tokens', 'completion_tokens'],
+                        title='Token Distribution by Model',
+                        barmode='stack',
+                        labels={
+                            'model': 'Model',
+                            'value': 'Tokens',
+                            'variable': 'Token Type'
+                        }
+                    )
+                    st.plotly_chart(fig_model_usage, use_container_width=True)
 
-               # Token Usage by Prompt Type
-               st.subheader("Token Usage by Prompt Type")
-               prompt_usage = token_df.groupby('prompt_id').agg({
-                   'total_tokens': 'sum'
-               }).sort_values('total_tokens', ascending=False).head(10)
-               
-               fig_prompt_usage = px.pie(
-                   prompt_usage,
-                   values='total_tokens',
-                   names=prompt_usage.index,
-                   title='Top 10 Prompts by Token Usage'
-               )
-               st.plotly_chart(fig_prompt_usage, use_container_width=True)
+                # Token Usage by Prompt Type
+                st.subheader("Token Usage by Prompt Type")
+                prompt_usage = token_df.groupby('prompt_id').agg({
+                    'total_tokens': 'sum'
+                }).sort_values('total_tokens', ascending=False).head(10)
+                
+                fig_prompt_usage = px.pie(
+                    prompt_usage,
+                    values='total_tokens',
+                    names=prompt_usage.index,
+                    title='Top 10 Prompts by Token Usage'
+                )
+                st.plotly_chart(fig_prompt_usage, use_container_width=True)
 
-               # Most Token-Intensive Queries
-               st.subheader("Most Token-Intensive Queries")
-               query_usage = token_df.groupby('query')['total_tokens'].sum().sort_values(ascending=False).head(5)
-               fig_query_usage = px.bar(
-                   x=query_usage.index,
-                   y=query_usage.values,
-                   title='Top 5 Token-Intensive Queries',
-                   labels={'x': 'Query', 'y': 'Total Tokens'}
-               )
-               fig_query_usage.update_layout(xaxis_tickangle=-45)
-               st.plotly_chart(fig_query_usage, use_container_width=True)
-           else:
-               st.info("No token usage data available yet. Run some searches to see token analytics!")
-       
-       except Exception as e:
-           logging.error(f"Error processing token analytics: {str(e)}")
-           st.error(f"Error displaying token analytics: {str(e)}")
+                # Most Token-Intensive Queries
+                st.subheader("Most Token-Intensive Queries")
+                query_usage = token_df.groupby('query')['total_tokens'].sum().sort_values(ascending=False).head(5)
+                fig_query_usage = px.bar(
+                    x=query_usage.index,
+                    y=query_usage.values,
+                    title='Top 5 Token-Intensive Queries',
+                    labels={'x': 'Query', 'y': 'Total Tokens'}
+                )
+                fig_query_usage.update_layout(xaxis_tickangle=-45)
+                st.plotly_chart(fig_query_usage, use_container_width=True)
+            else:
+                st.info("No token usage data available yet. Run some searches to see token analytics!")
+        
+        except Exception as e:
+            logging.error(f"Error processing token analytics: {str(e)}")
+            st.error(f"Error displaying token analytics: {str(e)}")
 
-   with tab3:
-       enhance_trace_visualization(traces)
+    with tab3:
+        enhance_trace_visualization(traces)
 
-   with tab4:  
-       st.subheader("📄 Content Accuracy Analytics")
-       
-       # Retrieve accuracy evaluations from the database
-       try:
-           # Assuming you have a method to get accuracy evaluations
-           accuracy_evals = content_db.get_accuracy_evaluations(limit=50)
-           
-           if accuracy_evals:
-               # Convert to DataFrame for easier analysis
-               accuracy_df = pd.DataFrame(accuracy_evals)
-               
-               # Overall Accuracy Metrics
-               metrics_col1, metrics_col2, metrics_col3 = st.columns(3)
-               
-               with metrics_col1:
-                   avg_factual_score = accuracy_df['factual_score'].mean()
-                   st.metric(
-                       "Avg Factual Score", 
-                       f"{avg_factual_score:.2f}", 
-                       help="Average factual accuracy score across research queries"
-                   )
-               
-               with metrics_col2:
-                   avg_citation_accuracy = accuracy_df['citation_accuracy'].mean()
-                   st.metric(
-                       "Avg Citation Accuracy", 
-                       f"{avg_citation_accuracy:.2%}", 
-                       help="Percentage of claims with strong source citations"
-                   )
-               
-               with metrics_col3:
-                   total_evaluated_sources = accuracy_df['total_sources'].sum()
-                   st.metric(
-                       "Total Sources Evaluated", 
-                       f"{total_evaluated_sources:,}", 
-                       help="Total number of sources analyzed for factual accuracy"
-                   )
-               
-               # Factual Score Distribution
-               st.subheader("Factual Score Distribution")
-               fig_score_dist = px.histogram(
-                   accuracy_df, 
-                   x='factual_score', 
-                   title='Distribution of Factual Scores',
-                   labels={'factual_score': 'Factual Score'},
-                   nbins=20
-               )
-               st.plotly_chart(fig_score_dist, use_container_width=True)
-               
-               # Citation Accuracy Over Time
-               st.subheader("Citation Accuracy Trend")
-               accuracy_df['timestamp'] = pd.to_datetime(accuracy_df['timestamp'])
-               citation_trend = (
-                   accuracy_df.set_index('timestamp')
-                   .resample('D')['citation_accuracy']
-                   .mean()
-                   .reset_index()
-               )
-               
-               fig_citation_trend = px.line(
-                   citation_trend,
-                   x='timestamp',
-                   y='citation_accuracy',
-                   title='Daily Citation Accuracy',
-                   labels={'citation_accuracy': 'Citation Accuracy', 'timestamp': 'Date'}
-               )
-               fig_citation_trend.update_layout(yaxis_range=[0, 1])
-               st.plotly_chart(fig_citation_trend, use_container_width=True)
-               
-               # Top Queries by Factual Score
-               st.subheader("Top Queries by Factual Score")
-               top_queries = accuracy_df.nlargest(5, 'factual_score')
-               
-               fig_top_queries = px.bar(
-                   top_queries, 
-                   x='query', 
-                   y='factual_score', 
-                   title='Top 5 Queries by Factual Score',
-                   labels={'query': 'Query', 'factual_score': 'Factual Score'}
-               )
-               fig_top_queries.update_layout(xaxis_tickangle=-45)
-               st.plotly_chart(fig_top_queries, use_container_width=True)
-               
-               # Detailed Claim Analysis
-               st.subheader("Detailed Claim Analysis")
-               all_claims = []
-               for row in accuracy_evals:
-                   claims = row.get('claim_details', [])
-                   for claim in claims:
-                       all_claims.append({
-                           'query': row['query'],
-                           'claim': claim['claim'],
-                           'score': claim['score']
-                       })
-               
-               claims_df = pd.DataFrame(all_claims)
-               fig_claims = px.scatter(
-                   claims_df, 
-                   x='query', 
-                   y='score', 
-                   color='score',
-                   title='Individual Claim Scores by Query',
-                   labels={'score': 'Claim Accuracy', 'query': 'Query'}
-               )
-               st.plotly_chart(fig_claims, use_container_width=True)
-               
-           else:
-               st.info("No content accuracy data available yet. Run some research queries to generate analytics!")
-       
-       except Exception as e:
-           logging.error(f"Error processing content analytics: {str(e)}")
-           st.error(f"Error displaying content analytics: {str(e)}")
+    with tab4:  
+        st.subheader("📄 Content Accuracy Analytics")
+        
+        # Retrieve accuracy evaluations from the database
+        try:
+            # Assuming you have a method to get accuracy evaluations
+            accuracy_evals = content_db.get_accuracy_evaluations(limit=50)
+            
+            if accuracy_evals:
+                # Convert to DataFrame for easier analysis
+                accuracy_df = pd.DataFrame(accuracy_evals)
+                
+                # Overall Accuracy Metrics
+                metrics_col1, metrics_col2, metrics_col3 = st.columns(3)
+                
+                with metrics_col1:
+                    avg_factual_score = accuracy_df['factual_score'].mean()
+                    st.metric(
+                        "Avg Factual Score", 
+                        f"{avg_factual_score:.2f}", 
+                        help="Average factual accuracy score across research queries"
+                    )
+                
+                with metrics_col2:
+                    avg_citation_accuracy = accuracy_df['citation_accuracy'].mean()
+                    st.metric(
+                        "Avg Citation Accuracy", 
+                        f"{avg_citation_accuracy:.2%}", 
+                        help="Percentage of claims with strong source citations"
+                    )
+                
+                with metrics_col3:
+                    total_evaluated_sources = accuracy_df['total_sources'].sum()
+                    st.metric(
+                        "Total Sources Evaluated", 
+                        f"{total_evaluated_sources:,}", 
+                        help="Total number of sources analyzed for factual accuracy"
+                    )
+                
+                # Factual Score Distribution
+                st.subheader("Factual Score Distribution")
+                fig_score_dist = px.histogram(
+                    accuracy_df, 
+                    x='factual_score', 
+                    title='Distribution of Factual Scores',
+                    labels={'factual_score': 'Factual Score'},
+                    nbins=20
+                )
+                st.plotly_chart(fig_score_dist, use_container_width=True)
+                
+                # Citation Accuracy Over Time
+                st.subheader("Citation Accuracy Trend")
+                accuracy_df['timestamp'] = pd.to_datetime(accuracy_df['timestamp'])
+                citation_trend = (
+                    accuracy_df.set_index('timestamp')
+                    .resample('D')['citation_accuracy']
+                    .mean()
+                    .reset_index()
+                )
+                
+                fig_citation_trend = px.line(
+                    citation_trend,
+                    x='timestamp',
+                    y='citation_accuracy',
+                    title='Daily Citation Accuracy',
+                    labels={'citation_accuracy': 'Citation Accuracy', 'timestamp': 'Date'}
+                )
+                fig_citation_trend.update_layout(yaxis_range=[0, 1])
+                st.plotly_chart(fig_citation_trend, use_container_width=True)
+                
+                # Top Queries by Factual Score
+                st.subheader("Top Queries by Factual Score")
+                top_queries = accuracy_df.nlargest(5, 'factual_score')
+                
+                fig_top_queries = px.bar(
+                    top_queries, 
+                    x='query', 
+                    y='factual_score', 
+                    title='Top 5 Queries by Factual Score',
+                    labels={'query': 'Query', 'factual_score': 'Factual Score'}
+                )
+                fig_top_queries.update_layout(xaxis_tickangle=-45)
+                st.plotly_chart(fig_top_queries, use_container_width=True)
+                
+                # Detailed Claim Analysis
+                st.subheader("Detailed Claim Analysis")
+                all_claims = []
+                for row in accuracy_evals:
+                    claims = row.get('claim_details', [])
+                    for claim in claims:
+                        all_claims.append({
+                            'query': row['query'],
+                            'claim': claim['claim'],
+                            'score': claim['score']
+                        })
+                
+                claims_df = pd.DataFrame(all_claims)
+                fig_claims = px.scatter(
+                    claims_df, 
+                    x='query', 
+                    y='score', 
+                    color='score',
+                    title='Individual Claim Scores by Query',
+                    labels={'score': 'Claim Accuracy', 'query': 'Query'}
+                )
+                st.plotly_chart(fig_claims, use_container_width=True)
+                
+            else:
+                st.info("No content accuracy data available yet. Run some research queries to generate analytics!")
+        
+        except Exception as e:
+            logging.error(f"Error processing content analytics: {str(e)}")
+            st.error(f"Error displaying content analytics: {str(e)}")
+
+    with tab5:
+        st.subheader("🌐 Source Coverage Analytics")
+        
+        try:
+            # Retrieve source coverage evaluations
+            source_coverage_evals = content_db.get_source_coverage_evaluations(limit=50)
+            
+            if source_coverage_evals:
+                # Convert to DataFrame
+                coverage_df = pd.DataFrame(source_coverage_evals)
+                
+                # Overall Source Coverage Metrics
+                metrics_col1, metrics_col2, metrics_col3 = st.columns(3)
+                
+                with metrics_col1:
+                    avg_coverage_score = coverage_df['coverage_score'].mean()
+                    st.metric(
+                        "Avg Coverage Score", 
+                        f"{avg_coverage_score:.2f}", 
+                        help="Average source coverage score across research queries"
+                    )
+                
+                with metrics_col2:
+                    avg_diversity_score = coverage_df['diversity_score'].mean()
+                    st.metric(
+                        "Avg Source Diversity", 
+                        f"{avg_diversity_score:.2f}", 
+                        help="Average diversity of sources used"
+                    )
+                
+                with metrics_col3:
+                    total_sources = coverage_df['total_sources'].sum()
+                    st.metric(
+                        "Total Sources Analyzed", 
+                        f"{total_sources:,}", 
+                        help="Total number of sources across all evaluations"
+                    )
+                
+                # Coverage Score Distribution
+                st.subheader("Coverage Score Distribution")
+                fig_coverage_dist = px.histogram(
+                    coverage_df, 
+                    x='coverage_score', 
+                    title='Distribution of Source Coverage Scores',
+                    labels={'coverage_score': 'Coverage Score'},
+                    nbins=20
+                )
+                st.plotly_chart(fig_coverage_dist, use_container_width=True)
+                
+                # Missed Sources Analysis
+                st.subheader("Missed Sources Analysis")
+                missed_sources_count = sum(len(sources) for sources in coverage_df['missed_sources'])
+                st.metric(
+                    "Total Missed Sources", 
+                    missed_sources_count,
+                    help="Number of potentially relevant sources not used"
+                )
+                
+                # Top Queries by Coverage
+                st.subheader("Top Queries by Source Coverage")
+                top_coverage_queries = coverage_df.nlargest(5, 'coverage_score')
+                
+                fig_top_coverage = px.bar(
+                    top_coverage_queries, 
+                    x='query', 
+                    y='coverage_score', 
+                    title='Top 5 Queries by Source Coverage',
+                    labels={'query': 'Query', 'coverage_score': 'Coverage Score'}
+                )
+                fig_top_coverage.update_layout(xaxis_tickangle=-45)
+                st.plotly_chart(fig_top_coverage, use_container_width=True)
+            
+            else:
+                st.info("No source coverage data available yet. Run some research queries to generate analytics!")
+        
+        except Exception as e:
+            logging.error(f"Error processing source coverage analytics: {str(e)}")
+            st.error(f"Error displaying source coverage analytics: {str(e)}")
+
+    with tab6:
+        st.subheader("🧠 Logical Coherence Analytics")
+        
+        try:
+            # Retrieve logical coherence evaluations
+            coherence_evals = content_db.get_logical_coherence_evaluations(limit=50)
+            
+            if coherence_evals:
+                # Convert to DataFrame
+                coherence_df = pd.DataFrame(coherence_evals)
+                
+                # Overall Coherence Metrics
+                metrics_col1, metrics_col2, metrics_col3 = st.columns(3)
+                
+                with metrics_col1:
+                    avg_coherence_score = coherence_df['coherence_score'].mean()
+                    st.metric(
+                        "Avg Coherence Score", 
+                        f"{avg_coherence_score:.2f}", 
+                        help="Average logical coherence score across research queries"
+                    )
+                
+                with metrics_col2:
+                    argument_structure_ratio = (coherence_df['has_argument_structure'].sum() / len(coherence_df)) * 100
+                    st.metric(
+                        "Argument Structure", 
+                        f"{argument_structure_ratio:.1f}%", 
+                        help="Percentage of responses with clear argument structure"
+                    )
+                
+                with metrics_col3:
+                    discourse_markers_ratio = (coherence_df['has_discourse_markers'].sum() / len(coherence_df)) * 100
+                    st.metric(
+                        "Discourse Markers", 
+                        f"{discourse_markers_ratio:.1f}%", 
+                        help="Percentage of responses using discourse markers"
+                    )
+                
+                # Coherence Score Distribution
+                st.subheader("Coherence Score Distribution")
+                fig_coherence_dist = px.histogram(
+                    coherence_df, 
+                    x='coherence_score', 
+                    title='Distribution of Logical Coherence Scores',
+                    labels={'coherence_score': 'Coherence Score'},
+                    nbins=20
+                )
+                st.plotly_chart(fig_coherence_dist, use_container_width=True)
+                
+                # Paragraph Score Analysis
+                st.subheader("Paragraph Coherence")
+                paragraph_coherence_series = coherence_df['paragraph_score']
+                fig_paragraph_coherence = px.box(
+                    paragraph_coherence_series, 
+                    title='Paragraph Coherence Score Distribution',
+                    labels={'value': 'Paragraph Coherence Score'}
+                )
+                st.plotly_chart(fig_paragraph_coherence, use_container_width=True)
+                
+                # Rough Transitions Analysis
+                st.subheader("Rough Transitions Analysis")
+                total_rough_transitions = sum(len(transitions) for transitions in coherence_df['rough_transitions'] if transitions)
+                st.metric(
+                    "Total Rough Transitions", 
+                    total_rough_transitions,
+                    help="Number of low-coherence sentence transitions"
+                )
+            
+            else:
+                st.info("No logical coherence data available yet. Run some research queries to generate analytics!")
+        
+        except Exception as e:
+            logging.error(f"Error processing logical coherence analytics: {str(e)}")
+            st.error(f"Error displaying logical coherence analytics: {str(e)}")
+
+    with tab7:
+        st.subheader("🎯 Answer Relevance Analytics")
+        
+        try:
+            # Retrieve answer relevance evaluations
+            relevance_evals = content_db.get_answer_relevance_evaluations(limit=50)
+            
+            if relevance_evals:
+                # Convert to DataFrame
+                relevance_df = pd.DataFrame(relevance_evals)
+                
+                # Overall Relevance Metrics
+                metrics_col1, metrics_col2, metrics_col3 = st.columns(3)
+                
+                with metrics_col1:
+                    avg_relevance_score = relevance_df['relevance_score'].mean()
+                    st.metric(
+                        "Avg Relevance Score", 
+                        f"{avg_relevance_score:.2f}", 
+                        help="Average answer relevance score across research queries"
+                    )
+                
+                with metrics_col2:
+                    avg_semantic_similarity = relevance_df['semantic_similarity'].mean()
+                    st.metric(
+                        "Avg Semantic Similarity", 
+                        f"{avg_semantic_similarity:.2f}", 
+                        help="Average semantic similarity between query and response"
+                    )
+                
+                with metrics_col3:
+                    total_off_topic_sentences = sum(len(sentences) for sentences in relevance_df['off_topic_sentences'] if sentences)
+                    st.metric(
+                        "Off-Topic Sentences", 
+                        total_off_topic_sentences,
+                        help="Total number of off-topic sentences across all responses"
+                    )
+                
+                # Relevance Score Distribution
+                st.subheader("Relevance Score Distribution")
+                fig_relevance_dist = px.histogram(
+                    relevance_df, 
+                    x='relevance_score', 
+                    title='Distribution of Answer Relevance Scores',
+                    labels={'relevance_score': 'Relevance Score'},
+                    nbins=20
+                )
+                st.plotly_chart(fig_relevance_dist, use_container_width=True)
+                
+                # Entity and Keyword Coverage
+                st.subheader("Coverage Analysis")
+                coverage_df = pd.DataFrame({
+                    'Entity Coverage': relevance_df['entity_coverage'],
+                    'Keyword Coverage': relevance_df['keyword_coverage']
+                })
+                
+                fig_coverage = px.box(
+                    coverage_df, 
+                    title='Entity and Keyword Coverage',
+                    labels={'value': 'Coverage Score', 'variable': 'Coverage Type'}
+                )
+                st.plotly_chart(fig_coverage, use_container_width=True)
+                
+                # Off-Topic Sentences Analysis
+                st.subheader("Off-Topic Sentences")
+                off_topic_data = []
+                for row in relevance_evals:
+                    for sentence in row.get('off_topic_sentences', []):
+                        off_topic_data.append({
+                            'query': row['query'],
+                            'sentence': sentence['sentence'],
+                            'relevance_score': sentence['relevance_score']
+                        })
+                
+                if off_topic_data:
+                    off_topic_df = pd.DataFrame(off_topic_data)
+                    fig_off_topic = px.scatter(
+                        off_topic_df, 
+                        x='query', 
+                        y='relevance_score', 
+                        color='relevance_score',
+                        title='Off-Topic Sentences by Query',
+                        labels={'relevance_score': 'Relevance Score'}
+                    )
+                    st.plotly_chart(fig_off_topic, use_container_width=True)
+            
+            else:
+                st.info("No answer relevance data available yet. Run some research queries to generate analytics!")
+        
+        except Exception as e:
+            logging.error(f"Error processing answer relevance analytics: {str(e)}")
+            st.error(f"Error displaying answer relevance analytics: {str(e)}")
 # At the top of your script, before the main function
 _db_instance = None
 
