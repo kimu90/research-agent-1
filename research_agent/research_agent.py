@@ -1,3 +1,5 @@
+# research_agent/research_agent.py
+
 from utils.model_wrapper import model_wrapper
 from utils.json_model_wrapper import json_model_wrapper
 from .research_task_scheduler import TaskScheduler
@@ -9,9 +11,15 @@ from typing import List, Dict, Any, Optional
 from prompts import Prompt
 from .tracers import CustomTracer, QueryTrace
 
+# Correct import for model schemas
+from tools.research.common.model_schemas import ResearchToolOutput, ContentItem
+
+# Separate import for GoogleSerperAPIWrapper
+from langchain_community.utilities import GoogleSerperAPIWrapper
+
 import json
 import logging
-
+import os
 class Question(BaseModel):
     """Represents an individual research question."""
     id: str = Field(
@@ -87,87 +95,166 @@ class ResearchAgent:
         self.tools = tools
         self.tracer = CustomTracer()
 
-    def invoke(self, context: Optional[ResearchContext] = None, **kwargs) -> str:
+    def invoke(
+        self, 
+        input: Dict[str, str], 
+        custom_prompt: Optional[Prompt] = None
+    ) -> ResearchToolOutput:
         """
-        Execute the research process from query to final report.
+        Execute the news search tool with comprehensive error handling and token tracking
         
         Args:
-            context: Optional research context for messaging
-            **kwargs: Must include 'query' key with research question
-            
+            input: Dictionary containing the search query
+            custom_prompt: Optional custom prompt to override default
+        
         Returns:
-            str: Final research report
-            
-        Raises:
-            ValueError: If required arguments are missing
-            Exception: For other errors during research process
+            ResearchToolOutput containing search results and usage information
         """
-        if 'query' not in kwargs:
-            raise ValueError("Research query is required")
-
-        if context is None:
-            context = ResearchContext()
-
-        # Initialize trace
-        trace = QueryTrace(kwargs["query"])
-        trace.data["start_time"] = datetime.now().isoformat()
+        # Logging and initial setup
+        logging.info(f"Starting news search for query: {input.get('query', 'No query')}")
+        
+        # Create a default output structure
+        default_output = ResearchToolOutput(
+            content=[],
+            summary="No results found.",
+            usage={
+                'prompt_tokens': 0,
+                'completion_tokens': 0,
+                'total_tokens': 0,
+                'model': 'unknown'
+            }
+        )
         
         try:
-            # Generate research outline
-            self._send_message(context, "Generating outline...")
-            self.tracer.log_step(trace, "start_outline_generation")
-            outline = self._generate_outline(kwargs["query"], trace)  # Pass trace object
-            trace.data["outline"] = outline
-            self._send_message(context, "Generating outline... done.", outline)
-
-            # Convert outline to DAG
-            self.tracer.log_step(trace, "start_dag_conversion")
-            research_outline = self._convert_outline_to_dag(outline, trace)  # Pass trace object
-            trace.data["dag"] = research_outline.to_dict()
-            self._send_message(context, "Planning tasks... done.")
-
-            # Execute research tasks
-            self.tracer.log_step(trace, "start_task_execution")
-            results = self._plan_and_execute(research_outline, context)
-            trace.data["results"] = [r.to_dict() for r in results]
-
-            # Generate final report
-            self.tracer.log_step(trace, "start_report_generation")
-            final_report = self._generate_final_report(results)
-            trace.data["final_report"] = final_report
-            self._send_message(context, "Generating final report...", final_report)
-
-            # Include token usage statistics in trace
-            if hasattr(trace, 'token_tracker'):
-                token_stats = trace.token_tracker.get_usage_stats()
-                trace.data["token_usage"] = token_stats
-                logging.info(f"Total tokens used: {token_stats['total_usage']['total_tokens']}")
-
-            # Save research results
-            self._save_final_report(
-                outline=outline,
-                query=kwargs["query"],
-                research_outline=research_outline,
-                results=results,
-                final_report=final_report
+            # Validate input
+            if not input or 'query' not in input:
+                logging.warning("No query provided")
+                return default_output
+            
+            # Use custom prompt if provided, otherwise use default
+            current_prompt = custom_prompt or self.custom_prompt
+            
+            # Initialize search tools
+            google_serper = GoogleSerperAPIWrapper(
+                type="news", 
+                k=10, 
+                serper_api_key=SERPER_API_KEY
             )
-
-            return final_report
-
+            
+            # Perform initial news search
+            try:
+                response = google_serper.results(query=input["query"])
+                news_results = response.get("news", [])
+            except Exception as search_error:
+                logging.error(f"Search API error: {str(search_error)}")
+                return default_output
+            
+            # Ensure all required fields exist in news results
+            for news in news_results:
+                for field in ["snippet", "date", "source", "title", "link", "imageUrl"]:
+                    if field not in news:
+                        news[field] = ""
+            
+            # Select relevant results
+            try:
+                selected_results = self.decide_what_to_use(
+                    content=news_results, 
+                    research_topic=input["query"]
+                )
+            except Exception as selection_error:
+                logging.error(f"Result selection error: {str(selection_error)}")
+                selected_results = news_results
+            
+            # Scrape webpage content
+            webpage_urls = [result["link"] for result in selected_results]
+            try:
+                webpages = self.scrape_pages(webpage_urls)
+            except Exception as scrape_error:
+                logging.error(f"Web scraping error: {str(scrape_error)}")
+                webpages = []
+            
+            # Prepare content items
+            content = []
+            for news in selected_results:
+                # Find corresponding webpage content
+                webpage = next(
+                    (
+                        doc.page_content
+                        for doc in webpages
+                        if doc.metadata.get("source") == news["link"]
+                    ),
+                    "",
+                )
+                
+                # Create content item
+                title = news.get("title", "") + " - " + news.get("date", "")
+                content.append(
+                    ContentItem(
+                        url=news["link"],
+                        title=title,
+                        snippet=news.get("text", ""),
+                        content=webpage,
+                    )
+                )
+            
+            # Generate summary if enabled
+            summary = ""
+            if self.include_summary:
+                try:
+                    # Prepare summary prompt
+                    formatted_content = "\n\n".join([f"### {item}" for item in content])
+                    system_prompt = SUMMARIZE_RESULTS_PROMPT.compile(
+                        search_results_str=formatted_content, 
+                        user_prompt=input["query"]
+                    )
+                    
+                    # Generate summary
+                    summary = model_wrapper(
+                        system_prompt=system_prompt,
+                        prompt=SUMMARIZE_RESULTS_PROMPT,
+                        user_prompt=f"Summarize and group the search results based on this: '{input['query']}'. Include links, dates, and snippets from the search results.",
+                        model="llama3-70b-8192",
+                        host="groq",
+                        temperature=0.7,
+                        token_tracker=self.token_tracker
+                    )
+                    logging.info("Generated summary of news articles")
+                except Exception as summary_error:
+                    logging.error(f"Summary generation error: {str(summary_error)}")
+                    summary = "Unable to generate summary."
+            
+            # Prepare final output with token usage
+            output = ResearchToolOutput(
+                content=content, 
+                summary=summary
+            )
+            
+            # Attach token usage information
+            try:
+                output.usage = {
+                    'prompt_tokens': self.token_tracker._total_prompt_tokens,
+                    'completion_tokens': self.token_tracker._total_completion_tokens,
+                    'total_tokens': self.token_tracker._total_tokens,
+                    'model': 'llama3-70b-8192'
+                }
+            except Exception as usage_error:
+                logging.warning(f"Could not attach token usage: {str(usage_error)}")
+                output.usage = {
+                    'prompt_tokens': 0,
+                    'completion_tokens': 0,
+                    'total_tokens': 0,
+                    'model': 'unknown'
+                }
+            
+            return output
+        
         except Exception as e:
-            error_msg = f"Error during research: {str(e)}"
-            trace.data["error"] = error_msg
-            logging.error(error_msg)
-            self._send_message(context, error_msg)
-            raise
-
-        finally:
-            # Complete trace
-            trace.data["end_time"] = datetime.now().isoformat()
-            start_time = datetime.fromisoformat(trace.data["start_time"])
-            end_time = datetime.fromisoformat(trace.data["end_time"])
-            trace.data["duration"] = (end_time - start_time).total_seconds()
-            self.tracer.save_trace(trace)
+            # Catch-all error handling
+            logging.error(f"Unexpected error in invoke method: {str(e)}")
+            
+            # Return a default output with error information
+            default_output.summary = f"An error occurred: {str(e)}"
+            return default_output
 
     def _generate_outline(self, query: str, trace: Optional[QueryTrace] = None) -> str:
         """

@@ -6,7 +6,10 @@ from dotenv import load_dotenv
 from openai import OpenAI
 import instructor
 import time
-
+import requests
+from bs4 import BeautifulSoup
+from urllib.parse import urlparse
+import re
 # Langchain and external imports
 from langchain.tools import BaseTool
 from langchain.docstore.document import Document
@@ -19,6 +22,7 @@ from prompts import Prompt
 from .common.model_schemas import ContentItem, ResearchToolOutput
 from utils.model_wrapper import model_wrapper
 from utils.json_model_wrapper import json_model_wrapper
+from utils.token_tracking import TokenUsageTracker  # Add this import
 
 # Load environment variables
 load_dotenv()
@@ -63,43 +67,104 @@ class GeneralAgent(BaseTool):
     description: str = "Invoke when user wants to search for news."
     args_schema: Type[BaseModel] = GeneralAgentInput
     include_summary: bool = False
-    custom_prompt: Optional[Prompt] = Field(default=None)  # Add this line to declare the field
+    custom_prompt: Optional[Prompt] = Field(default=None)
+    token_tracker: TokenUsageTracker = Field(default_factory=TokenUsageTracker)  # Add token tracker
 
     def __init__(self, include_summary: bool = False, custom_prompt: Optional[Prompt] = None):
         super().__init__()
         self.include_summary = include_summary
-        self.custom_prompt = custom_prompt or SELECT_CONTENT_PROMPT  # Use default if none provided
+        self.custom_prompt = custom_prompt or SELECT_CONTENT_PROMPT
+        self.token_tracker = TokenUsageTracker()  # Initialize token tracker
 
     def scrape_pages(self, urls: List[str]) -> List[Document]:
-        """Scrape content from provided URLs using Browserless API"""
+        """Scrape content from provided URLs using requests and BeautifulSoup"""
         logging.info(f"Starting to scrape {len(urls)} news pages")
         docs = []
+        
+        # Common headers to mimic a browser
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.5',
+            'Referer': 'https://www.google.com/'
+        }
 
         for url in urls:
             try:
-                # Use Browserless API to fetch page content
+                # Add delay between requests to be respectful
+                time.sleep(2)
+                
+                # Get the domain for logging
+                domain = urlparse(url).netloc
+                logging.info(f"Attempting to scrape content from {domain}")
+                
+                # Enhanced request with more robust error handling
                 response = requests.get(
-                    f"https://api.browserless.io/content",
-                    params={"token": BROWSERLESS_API_KEY},
-                    json={"url": url}
+                    url, 
+                    headers=headers, 
+                    timeout=15,  # Increased timeout
+                    verify=True  # Keep SSL verification
                 )
                 response.raise_for_status()
                 
-                page_content = response.text
+                # Parse with BeautifulSoup
+                soup = BeautifulSoup(response.text, 'html.parser')
+                
+                # Remove unwanted elements
+                for tag in soup.find_all(['script', 'style', 'meta', 'noscript', 'iframe', 'comment']):
+                    tag.decompose()
+                
+                # Extract main content with multiple strategies
+                content_strategies = [
+                    lambda: soup.find('article'),
+                    lambda: soup.find(['main', 'div'], class_=re.compile(r'(content|article|post|story)')),
+                    lambda: soup.find_all('p'),
+                ]
+                
+                content = ""
+                for strategy in content_strategies:
+                    result = strategy()
+                    if result:
+                        if isinstance(result, list):
+                            # For paragraph lists, filter and join meaningful text
+                            content = '\n'.join([
+                                p.get_text(strip=True) 
+                                for p in result 
+                                if len(p.get_text(strip=True).split()) > 5
+                            ])
+                        else:
+                            content = result.get_text(separator='\n', strip=True)
+                        
+                        # Break if we get meaningful content
+                        if len(content.strip()) > 200:
+                            break
                 
                 # Clean up the content
-                while "\n\n" in page_content:
-                    page_content = page_content.replace("\n\n", "\n")
-                while "  " in page_content:
-                    page_content = page_content.replace("  ", " ")
+                content = re.sub(r'\n{3,}', '\n\n', content)
+                content = re.sub(r' {2,}', ' ', content)
                 
-                docs.append(Document(page_content=page_content, metadata={"source": url}))
-                logging.info(f"Successfully scraped {url}")
-            
-            except Exception as error:
-                logging.error(f"Error scraping {url}: {error}")
-        
-        logging.info(f"Successfully scraped {len(docs)} news pages")
+                # Only add if we got meaningful content
+                if len(content.strip()) > 200:  # Increased minimum content length
+                    docs.append(Document(
+                        page_content=content,
+                        metadata={
+                            "source": url,
+                            "title": soup.title.string if soup.title else "No title",
+                            "length": len(content)
+                        }
+                    ))
+                    logging.info(f"Successfully scraped {url} ({len(content)} chars)")
+                else:
+                    logging.warning(f"Retrieved content too short from {url}")
+                
+            except requests.exceptions.RequestException as e:
+                logging.error(f"Error scraping {url}: {str(e)}")
+                continue
+            except Exception as e:
+                logging.error(f"Unexpected error scraping {url}: {str(e)}")
+                continue
+
+        logging.info(f"Successfully scraped {len(docs)} pages out of {len(urls)} attempted")
         return docs
 
     def decide_what_to_use(
@@ -107,7 +172,6 @@ class GeneralAgent(BaseTool):
     ) -> List[dict]:
         """Decide which news articles to include based on relevance"""
         try:
-            # Add logging to see what's coming in
             logging.info(f"Processing {len(content)} articles for topic: {research_topic}")
             
             formatted_snippets = ""
@@ -116,7 +180,6 @@ class GeneralAgent(BaseTool):
             
             logging.info("Formatted snippets created")
             
-            # Use custom prompt if available, otherwise use default
             prompt_to_use = self.custom_prompt or SELECT_CONTENT_PROMPT
             
             system_prompt = prompt_to_use.compile(
@@ -129,26 +192,26 @@ class GeneralAgent(BaseTool):
             class ModelResponse(BaseModel):
                 snippet_indeces: List[int]
 
-            # Add error handling for json_model_wrapper
+            # Add token tracking for the selection phase
             response = json_model_wrapper(
                 system_prompt=system_prompt,
                 user_prompt="Pick the snippets you want to include in the summary.",
                 prompt=prompt_to_use,
                 base_model=ModelResponse,
                 model="gpt-3.5-turbo",
-                temperature=0
+                temperature=0,
+                token_tracker=self.token_tracker  # Pass token tracker
             )
             
             logging.info(f"Received response: {response}")
             
-            # Add validation and fallback
             if response is None or not hasattr(response, 'snippet_indeces'):
                 logging.warning("No valid response received, using all articles")
-                return content  # Return all content as fallback
+                return content
                 
             indices = [i for i in response.snippet_indeces if i < len(content)]
             
-            if not indices:  # If no valid indices, return all content
+            if not indices:
                 logging.warning("No valid indices found, using all articles")
                 return content
                 
@@ -157,14 +220,12 @@ class GeneralAgent(BaseTool):
             
         except Exception as e:
             logging.error(f"Error in decide_what_to_use: {str(e)}")
-            # Return all content as fallback in case of error
             return content
 
     def _run(self, **kwargs) -> ResearchToolOutput:
         """Execute the news search tool"""
         logging.info(f"Starting news search for query: {kwargs['query']}")
         
-        # Execute Serper search
         google_serper = GoogleSerperAPIWrapper(
             type="news", 
             k=10, 
@@ -173,23 +234,19 @@ class GeneralAgent(BaseTool):
         response = google_serper.results(query=kwargs["query"])
         news_results = response.get("news", [])
 
-        # Normalize results data
         for news in news_results:
             for field in ["snippet", "date", "source", "title", "link", "imageUrl"]:
                 if field not in news:
                     news[field] = ""
         
-        # Select relevant articles
         selected_results = self.decide_what_to_use(
             content=news_results, 
             research_topic=kwargs["query"]
         )
 
-        # Scrape full content
         webpage_urls = [result["link"] for result in selected_results]
         webpages = self.scrape_pages(webpage_urls)
 
-        # Process content
         content = []
         for news in news_results:
             webpage = next(
@@ -210,7 +267,6 @@ class GeneralAgent(BaseTool):
                 )
             )
 
-        # Generate summary if requested
         summary = ""
         if self.include_summary:
             formatted_content = "\n\n".join([f"### {item}" for item in content])
@@ -219,6 +275,7 @@ class GeneralAgent(BaseTool):
                 user_prompt=kwargs["query"]
             )
 
+            # Add token tracking for the summarization phase
             summary = model_wrapper(
                 system_prompt=system_prompt,
                 prompt=SUMMARIZE_RESULTS_PROMPT,
@@ -226,6 +283,7 @@ class GeneralAgent(BaseTool):
                 model="llama3-70b-8192",
                 host="groq",
                 temperature=0.7,
+                token_tracker=self.token_tracker  # Pass token tracker
             )
             logging.info("Generated summary of news articles")
 

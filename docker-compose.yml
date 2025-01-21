@@ -1,4 +1,3 @@
-# docker-compose.yml
 version: '3.8'
 
 services:
@@ -7,8 +6,9 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"
-      - "8501:8501"  # Streamlit default port
+      - "8000:8000"  # Backend API
+      - "8501:8501"  # Streamlit UI
+      - "5678:5678"  # Python debugger port
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - EXA_API_KEY=${EXA_API_KEY}
@@ -24,7 +24,9 @@ services:
     networks:
       - research-network
     command: >
-      sh -c "python init_db.py && streamlit run main.py --server.address=0.0.0.0"
+      sh -c "python -m debugpy --listen 0.0.0.0:5678 -m streamlit run main.py --server.address=0.0.0.0"
+    stdin_open: true
+    tty: true
 
 volumes:
   content-data:

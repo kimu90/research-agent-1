@@ -4,18 +4,25 @@ import logging
 import time
 import uuid
 from typing import Dict, List, Optional, Any
+from utils.token_tracking import TokenUsageTracker
 
 class QueryTrace:
+    _token_tracker = None  # Class level token tracker
+    
     def __init__(self, query: str):
         self.trace_id = str(uuid.uuid4())
+        if QueryTrace._token_tracker is None:
+            QueryTrace._token_tracker = TokenUsageTracker()
+        self.token_tracker = QueryTrace._token_tracker
         self.data = {
             "trace_id": self.trace_id,
             "query": query,
             "start_time": datetime.now().isoformat(),
             "steps": [],
             "tools_used": [],
-            "prompts_used": [],  # Add this
-            "prompt_compilations": [],  # Add this
+            "prompts_used": [],
+            "prompt_compilations": [],
+            "token_usage": None,  # Will be populated from token_tracker.get_usage_stats()
             "outline": None,
             "dag": None,
             "results": None,
@@ -39,114 +46,32 @@ class QueryTrace:
             "result": compilation_result,
             "timestamp": datetime.now().isoformat()
         })
-
-class TokenUsageTracker:
-    """Tracks token usage across different model calls"""
-    def __init__(self):
-        self.total_tokens = 0
-        self.prompt_tokens = 0
-        self.completion_tokens = 0
-        self.usage_by_model = {}
-        self.usage_by_prompt = {}
-        
-    def add_usage(self, 
-                 prompt_tokens: int, 
-                 completion_tokens: int, 
-                 model_name: str,
-                 prompt_id: Optional[str] = None):
-        """Add token usage from a model call"""
-        self.prompt_tokens += prompt_tokens
-        self.completion_tokens += completion_tokens
-        self.total_tokens += (prompt_tokens + completion_tokens)
-        
-        # Track by model
-        if model_name not in self.usage_by_model:
-            self.usage_by_model[model_name] = {
-                'prompt_tokens': 0,
-                'completion_tokens': 0,
-                'total_tokens': 0
-            }
-        self.usage_by_model[model_name]['prompt_tokens'] += prompt_tokens
-        self.usage_by_model[model_name]['completion_tokens'] += completion_tokens
-        self.usage_by_model[model_name]['total_tokens'] += (prompt_tokens + completion_tokens)
-        
-        # Track by prompt if provided
-        if prompt_id:
-            if prompt_id not in self.usage_by_prompt:
-                self.usage_by_prompt[prompt_id] = {
-                    'prompt_tokens': 0,
-                    'completion_tokens': 0,
-                    'total_tokens': 0
-                }
-            self.usage_by_prompt[prompt_id]['prompt_tokens'] += prompt_tokens
-            self.usage_by_prompt[prompt_id]['completion_tokens'] += completion_tokens
-            self.usage_by_prompt[prompt_id]['total_tokens'] += (prompt_tokens + completion_tokens)
-
-    def get_usage_stats(self) -> Dict[str, Any]:
-        """Get comprehensive token usage statistics"""
-        return {
-            'total_usage': {
-                'prompt_tokens': self.prompt_tokens,
-                'completion_tokens': self.completion_tokens,
-                'total_tokens': self.total_tokens
-            },
-            'usage_by_model': self.usage_by_model,
-            'usage_by_prompt': self.usage_by_prompt
-        }
-
-# Update QueryTrace class
-class QueryTrace:
-    def __init__(self, query: str):
-        self.trace_id = str(uuid.uuid4())
-        self.token_tracker = TokenUsageTracker()
-        self.data = {
-            "trace_id": self.trace_id,
-            "query": query,
-            "start_time": datetime.now().isoformat(),
-            "steps": [],
-            "tools_used": [],
-            "prompts_used": [],
-            "prompt_compilations": [],
-            "token_usage": {
-                "total": 0,
-                "by_model": {},
-                "by_prompt": {},
-                "usage_timeline": []
-            },
-            "outline": None,
-            "dag": None,
-            "results": None,
-            "final_report": None,
-            "end_time": None,
-            "duration": None,
-            "error": None
-        }
     
-    def add_token_usage(self, 
-                       prompt_tokens: int, 
-                       completion_tokens: int, 
-                       model_name: str,
-                       prompt_id: Optional[str] = None):
+    def add_token_usage(self,
+                    prompt_tokens: int,
+                    completion_tokens: int,
+                    model_name: str,
+                    prompt_id: Optional[str] = None):
         """Track token usage for a model call"""
-        self.token_tracker.add_usage(
-            prompt_tokens=prompt_tokens,
-            completion_tokens=completion_tokens,
-            model_name=model_name,
-            prompt_id=prompt_id
-        )
+        logger = logging.getLogger(__name__)
+        logger.info(f"Adding token usage - Model: {model_name}, Prompt ID: {prompt_id or 'N/A'}")
         
-        # Update token usage in trace data
-        usage_stats = self.token_tracker.get_usage_stats()
-        self.data["token_usage"].update(usage_stats)
-        
-        # Add to timeline
-        self.data["token_usage"]["usage_timeline"].append({
-            "timestamp": datetime.now().isoformat(),
-            "prompt_tokens": prompt_tokens,
-            "completion_tokens": completion_tokens,
-            "model": model_name,
-            "prompt_id": prompt_id
-        })
+        try:
+            # Let TokenUsageTracker handle everything
+            self.token_tracker.add_usage(
+                prompt_tokens=prompt_tokens,
+                completion_tokens=completion_tokens,
+                model=model_name,
+                prompt_id=prompt_id
+            )
+            logger.debug(f"Token usage entry added successfully - Total tokens: {prompt_tokens + completion_tokens}")
+
+        except Exception as e:
+            logger.error(f"Error adding token usage: {str(e)}", exc_info=True)
+            logger.error(f"Failed parameters - Model: {model_name}, "
+                        f"Prompt tokens: {prompt_tokens}, "
+                        f"Completion tokens: {completion_tokens}")
+            raise
 
 class CustomTracer:
     def __init__(self):
@@ -159,7 +84,6 @@ class CustomTracer:
             filename='research_detailed.log'
         )
         self.logger = logging.getLogger(__name__)
-
     
     def log_prompt_usage(self, trace: QueryTrace, prompt_id: str, variables: dict, result: str, metadata: dict):
         """Log prompt usage with variables, result, and metadata"""
@@ -172,7 +96,7 @@ class CustomTracer:
             "metadata": metadata
         }
         trace.data["steps"].append(step_data)
-        trace.add_prompt_usage(prompt_id, result, metadata)
+        trace.add_prompt_usage(prompt_id, "unknown", result)
         
         self.logger.info(
             f"Prompt used: {prompt_id}",
@@ -186,36 +110,63 @@ class CustomTracer:
         )
 
     def save_trace(self, trace: QueryTrace):
-        try:
-            # Print out detailed token usage before saving
-            print("DEBUG: Token Usage before saving:")
-            print(json.dumps(trace.data["token_usage"], indent=2))
-            
-            # Ensure token usage is fully populated
-            token_stats = trace.token_tracker.get_usage_stats()
-            trace.data["token_usage"] = {
-                "total_usage": token_stats["total_usage"],
-                "usage_by_model": token_stats["usage_by_model"],
-                "usage_by_prompt": token_stats["usage_by_prompt"],
-                "usage_timeline": trace.data["token_usage"].get("usage_timeline", [])
-            }
-            
-            print("DEBUG: Updated Token Usage:")
-            print(json.dumps(trace.data["token_usage"], indent=2))
-            
-            with open(self.traces_file, 'a') as f:
-                # Write the entire trace data with formatted token usage
-                f.write(json.dumps(trace.data) + '\n')
-            
-            # Additional logging
-            logging.info(f"Trace saved with total tokens: {token_stats['total_usage']['total_tokens']}")
+        """Save the trace with updated token usage statistics"""
+        logger = logging.getLogger(__name__)
+        logger.info(f"Starting trace save operation - Trace ID: {getattr(trace, 'id', 'N/A')}")
         
+        try:
+            # Get token stats from TokenUsageTracker
+            token_stats = trace.token_tracker.get_usage_stats()
+            logger.debug(f"Retrieved final token stats: {json.dumps(token_stats, indent=2)}")
+            
+            # Set the complete token usage stats in trace data
+            trace.data["token_usage"] = token_stats
+            
+            # Validate trace data before saving
+            logger.info("Validating trace data before save")
+            required_keys = ["token_usage", "tools_used", "processing_steps"]
+            missing_keys = [key for key in required_keys if key not in trace.data]
+            if missing_keys:
+                logger.warning(f"Missing required keys in trace data: {missing_keys}")
+            
+            # Calculate and log data size
+            trace_json = json.dumps(trace.data)
+            data_size = len(trace_json)
+            logger.info(f"Trace data size: {data_size:,d} bytes")
+            
+            # Save the trace
+            with open(self.traces_file, 'a') as f:
+                f.write(trace_json + '\n')
+            
+            # Log success with key metrics
+            logger.info(f"Trace successfully saved - Total tokens: {token_stats['tokens']['total']:,d}")
+            logger.info(f"Processing time: {token_stats['processing']['time']:.2f}s, "
+                    f"Speed: {token_stats['processing']['speed']:.2f} tokens/second")
+            logger.info(f"Total cost: ${token_stats['cost']:.6f}")
+            
+            # Log detailed final statistics
+            logger.debug("Final trace statistics:")
+            logger.debug(f"- Model used: {token_stats['model']}")
+            logger.debug(f"- Input tokens: {token_stats['tokens']['input']:,d}")
+            logger.debug(f"- Output tokens: {token_stats['tokens']['output']:,d}")
+            logger.debug(f"- Processing time: {token_stats['processing']['time']:.2f}s")
+            logger.debug(f"- Processing speed: {token_stats['processing']['speed']:.2f} tokens/second")
+            
         except Exception as e:
-            logging.error(f"Error saving trace: {str(e)}")
-            print(f"Error saving trace: {str(e)}")
-            # Optionally, print the full trace data to understand what's happening
-            print("Trace data:")
-            print(json.dumps(trace.data, indent=2))
+            # Enhanced error logging
+            logger.error(f"Error saving trace: {str(e)}", exc_info=True)
+            logger.error("Error context:")
+            logger.error(f"- Trace file path: {self.traces_file}")
+            logger.error(f"- Token stats available: {bool(token_stats) if 'token_stats' in locals() else False}")
+            
+            # Log the trace data state if possible
+            try:
+                logger.error("Trace data at time of error:")
+                logger.error(json.dumps(trace.data, indent=2))
+            except Exception as json_error:
+                logger.error(f"Could not serialize trace data: {str(json_error)}")
+            
+            raise
 
     def log_step(self, trace: QueryTrace, step_name: str, details: dict = None):
         step_data = {
@@ -231,38 +182,12 @@ class CustomTracer:
                 'details': details
             }
         )
+
     def log_model_call(self, 
-                  trace: QueryTrace, 
-                  model_name: str, 
-                  prompt_id: str,
-                  usage: Dict[str, int],
-                  metadata: Optional[Dict] = None):
+                      trace: QueryTrace, 
+                      model_name: str, 
+                      prompt_id: str,
+                      usage: Dict[str, int],
+                      metadata: Optional[Dict] = None):
         """Log model call with token usage"""
-        trace.data["token_usage"] = {
-            "total_usage": {
-                "prompt_tokens": usage.get('prompt_tokens', 0),
-                "completion_tokens": usage.get('completion_tokens', 0),
-                "total_tokens": usage.get('total_tokens', 0)
-            },
-            "usage_by_model": {
-                model_name: {
-                    "prompt_tokens": usage.get('prompt_tokens', 0),
-                    "completion_tokens": usage.get('completion_tokens', 0),
-                    "total_tokens": usage.get('total_tokens', 0)
-                }
-            },
-            "usage_by_prompt": {
-                prompt_id: {
-                    "prompt_tokens": usage.get('prompt_tokens', 0),
-                    "completion_tokens": usage.get('completion_tokens', 0),
-                    "total_tokens": usage.get('total_tokens', 0)
-                }
-            },
-            "usage_timeline": [{
-                "timestamp": datetime.now().isoformat(),
-                "prompt_tokens": usage.get('prompt_tokens', 0),
-                "completion_tokens": usage.get('completion_tokens', 0),
-                "model": model_name,
-                "prompt_id": prompt_id
-            }]
-        }
+        pass
