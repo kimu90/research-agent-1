@@ -482,155 +482,155 @@ class ContentDB:
                 logging.error(f"Error retrieving source coverage evaluations: {str(e)}")
                 return []
 
-def get_logical_coherence_evaluations(self, query: Optional[str] = None, limit: int = 10):
-    """
-    Retrieve logical coherence evaluations
-    
-    Args:
-        query (Optional[str]): Optional query to filter results
-        limit (int): Maximum number of results to return
-    
-    Returns:
-        List of logical coherence evaluation dictionaries
-    """
-    with self.lock:
-        cursor = self.conn.cursor()
-        try:
-            if query:
-                cursor.execute(
-                    """
-                    SELECT id, query, timestamp, coherence_score, flow_score, 
-                           has_argument_structure, has_discourse_markers, 
-                           paragraph_score, rough_transitions, 
-                           total_sentences, total_paragraphs
-                    FROM logical_coherence_evaluations
-                    WHERE query LIKE ?
-                    ORDER BY timestamp DESC
-                    LIMIT ?
-                    """,
-                    (f'%{query}%', limit)
-                )
-            else:
-                cursor.execute(
-                    """
-                    SELECT id, query, timestamp, coherence_score, flow_score, 
-                           has_argument_structure, has_discourse_markers, 
-                           paragraph_score, rough_transitions, 
-                           total_sentences, total_paragraphs
-                    FROM logical_coherence_evaluations
-                    ORDER BY timestamp DESC
-                    LIMIT ?
-                    """,
-                    (limit,)
-                )
-            
-            # Fetch and process results
-            columns = [
-                'id', 'query', 'timestamp', 'coherence_score', 'flow_score', 
-                'has_argument_structure', 'has_discourse_markers', 
-                'paragraph_score', 'rough_transitions', 
-                'total_sentences', 'total_paragraphs'
-            ]
-            results = []
-            for row in cursor.fetchall():
-                result = dict(zip(columns, row))
-                # Parse JSON rough transitions
-                result['rough_transitions'] = json.loads(result['rough_transitions']) if result['rough_transitions'] else []
-                results.append(result)
-            
-            return results
-        except Exception as e:
-            logging.error(f"Error retrieving logical coherence evaluations: {str(e)}")
-            return []
-
-def get_answer_relevance_evaluations(self, query: Optional[str] = None, limit: int = 10):
-    """
-    Retrieve answer relevance evaluations
-    
-    Args:
-        query (Optional[str]): Optional query to filter results
-        limit (int): Maximum number of results to return
-    
-    Returns:
-        List of answer relevance evaluation dictionaries
-    """
-    with self.lock:
-        cursor = self.conn.cursor()
-        try:
-            if query:
-                cursor.execute(
-                    """
-                    SELECT id, query, timestamp, relevance_score, 
-                           semantic_similarity, entity_coverage, 
-                           keyword_coverage, topic_focus, 
-                           off_topic_sentences, total_sentences
-                    FROM answer_relevance_evaluations
-                    WHERE query LIKE ?
-                    ORDER BY timestamp DESC
-                    LIMIT ?
-                    """,
-                    (f'%{query}%', limit)
-                )
-            else:
-                cursor.execute(
-                    """
-                    SELECT id, query, timestamp, relevance_score, 
-                           semantic_similarity, entity_coverage, 
-                           keyword_coverage, topic_focus, 
-                           off_topic_sentences, total_sentences
-                    FROM answer_relevance_evaluations
-                    ORDER BY timestamp DESC
-                    LIMIT ?
-                    """,
-                    (limit,)
-                )
-            
-            # Fetch and process results
-            columns = [
-                'id', 'query', 'timestamp', 'relevance_score', 
-                'semantic_similarity', 'entity_coverage', 
-                'keyword_coverage', 'topic_focus', 
-                'off_topic_sentences', 'total_sentences'
-            ]
-            results = []
-            for row in cursor.fetchall():
-                result = dict(zip(columns, row))
-                # Parse JSON off-topic sentences
-                result['off_topic_sentences'] = json.loads(result['off_topic_sentences']) if result['off_topic_sentences'] else []
-                results.append(result)
-            
-            return results
-        except Exception as e:
-            logging.error(f"Error retrieving answer relevance evaluations: {str(e)}")
-            return []
-
-    def delete_doc(self, id: str):
+    def get_logical_coherence_evaluations(self, query: Optional[str] = None, limit: int = 10):
         """
-        Deletes a document by its ID.
-
+        Retrieve logical coherence evaluations
+        
         Args:
-            id (str): The unique identifier for the document to be deleted.
+            query (Optional[str]): Optional query to filter results
+            limit (int): Maximum number of results to return
+        
+        Returns:
+            List of logical coherence evaluation dictionaries
         """
         with self.lock:
             cursor = self.conn.cursor()
-            cursor.execute("DELETE FROM content WHERE id = ?", (id,))
-            self.conn.commit()
+            try:
+                if query:
+                    cursor.execute(
+                        """
+                        SELECT id, query, timestamp, coherence_score, flow_score, 
+                            has_argument_structure, has_discourse_markers, 
+                            paragraph_score, rough_transitions, 
+                            total_sentences, total_paragraphs
+                        FROM logical_coherence_evaluations
+                        WHERE query LIKE ?
+                        ORDER BY timestamp DESC
+                        LIMIT ?
+                        """,
+                        (f'%{query}%', limit)
+                    )
+                else:
+                    cursor.execute(
+                        """
+                        SELECT id, query, timestamp, coherence_score, flow_score, 
+                            has_argument_structure, has_discourse_markers, 
+                            paragraph_score, rough_transitions, 
+                            total_sentences, total_paragraphs
+                        FROM logical_coherence_evaluations
+                        ORDER BY timestamp DESC
+                        LIMIT ?
+                        """,
+                        (limit,)
+                    )
+                
+                # Fetch and process results
+                columns = [
+                    'id', 'query', 'timestamp', 'coherence_score', 'flow_score', 
+                    'has_argument_structure', 'has_discourse_markers', 
+                    'paragraph_score', 'rough_transitions', 
+                    'total_sentences', 'total_paragraphs'
+                ]
+                results = []
+                for row in cursor.fetchall():
+                    result = dict(zip(columns, row))
+                    # Parse JSON rough transitions
+                    result['rough_transitions'] = json.loads(result['rough_transitions']) if result['rough_transitions'] else []
+                    results.append(result)
+                
+                return results
+            except Exception as e:
+                logging.error(f"Error retrieving logical coherence evaluations: {str(e)}")
+                return []
 
-    def generate_snippet(self, text: str) -> str:
+    def get_answer_relevance_evaluations(self, query: Optional[str] = None, limit: int = 10):
         """
-        Generates a text snippet from the provided text.
-
+        Retrieve answer relevance evaluations
+        
         Args:
-            text (str): The text from which to generate the snippet.
-
+            query (Optional[str]): Optional query to filter results
+            limit (int): Maximum number of results to return
+        
         Returns:
-            str: A string representing the snippet, truncated to 150 characters plus an ellipsis.
-        """
-        return text[:150] + "..."  # Simplistic snippet generation for demo purposes
-
-    def close(self):
-        """
-        Closes the database connection
+            List of answer relevance evaluation dictionaries
         """
         with self.lock:
-            self.conn.close()
+            cursor = self.conn.cursor()
+            try:
+                if query:
+                    cursor.execute(
+                        """
+                        SELECT id, query, timestamp, relevance_score, 
+                            semantic_similarity, entity_coverage, 
+                            keyword_coverage, topic_focus, 
+                            off_topic_sentences, total_sentences
+                        FROM answer_relevance_evaluations
+                        WHERE query LIKE ?
+                        ORDER BY timestamp DESC
+                        LIMIT ?
+                        """,
+                        (f'%{query}%', limit)
+                    )
+                else:
+                    cursor.execute(
+                        """
+                        SELECT id, query, timestamp, relevance_score, 
+                            semantic_similarity, entity_coverage, 
+                            keyword_coverage, topic_focus, 
+                            off_topic_sentences, total_sentences
+                        FROM answer_relevance_evaluations
+                        ORDER BY timestamp DESC
+                        LIMIT ?
+                        """,
+                        (limit,)
+                    )
+                
+                # Fetch and process results
+                columns = [
+                    'id', 'query', 'timestamp', 'relevance_score', 
+                    'semantic_similarity', 'entity_coverage', 
+                    'keyword_coverage', 'topic_focus', 
+                    'off_topic_sentences', 'total_sentences'
+                ]
+                results = []
+                for row in cursor.fetchall():
+                    result = dict(zip(columns, row))
+                    # Parse JSON off-topic sentences
+                    result['off_topic_sentences'] = json.loads(result['off_topic_sentences']) if result['off_topic_sentences'] else []
+                    results.append(result)
+                
+                return results
+            except Exception as e:
+                logging.error(f"Error retrieving answer relevance evaluations: {str(e)}")
+                return []
+
+        def delete_doc(self, id: str):
+            """
+            Deletes a document by its ID.
+
+            Args:
+                id (str): The unique identifier for the document to be deleted.
+            """
+            with self.lock:
+                cursor = self.conn.cursor()
+                cursor.execute("DELETE FROM content WHERE id = ?", (id,))
+                self.conn.commit()
+
+        def generate_snippet(self, text: str) -> str:
+            """
+            Generates a text snippet from the provided text.
+
+            Args:
+                text (str): The text from which to generate the snippet.
+
+            Returns:
+                str: A string representing the snippet, truncated to 150 characters plus an ellipsis.
+            """
+            return text[:150] + "..."  # Simplistic snippet generation for demo purposes
+
+        def close(self):
+            """
+            Closes the database connection
+            """
+            with self.lock:
+                self.conn.close()
