@@ -44,3 +44,11 @@ async def perform_research(request: ResearchRequest):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e)) 
+    
+@app.get("/")
+async def root():
+    return {"message": "Research API is running"}
+
+@app.get("/health")
+async def health():
+    return {"status": "healthy"}

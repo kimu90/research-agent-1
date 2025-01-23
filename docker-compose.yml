@@ -1,5 +1,6 @@
 services:
  nginx:
+   container_name: nginx
    image: nginx:latest
    ports:
      - "80:80"
@@ -14,6 +15,7 @@ services:
      - app-network
 
  postgres:
+   container_name: postgres
    image: postgres:15
    environment:
      POSTGRES_DB: research_db
@@ -31,6 +33,7 @@ services:
      - app-network
 
  research-server:
+   container_name: research-server
    build:
      context: .
      dockerfile: Dockerfile
@@ -42,7 +45,6 @@ services:
      - "8000:8000"
      - "8501:8501"
      - "5678:5678"
-     - "8787:8787"
    environment:
      - PYTHONUNBUFFERED=1
      - POSTGRES_CONNECTION=postgresql://postgres:researchpassword@postgres:5432/research_db
@@ -60,14 +62,13 @@ services:
      sh -c "
        ./wait-for-it.sh postgres:5432 -t 60 &&
        uvicorn app:app --host 0.0.0.0 --port 8000 &
-       streamlit run main.py --server.address=0.0.0.0 &
-       R -e 'library(shiny)' &
-       rstudio-server start
+       streamlit run main.py --server.address=0.0.0.0
      "
    networks:
      - app-network
 
  rstudio:
+   container_name: rstudio
    image: rocker/rstudio
    ports:
      - "8787:8787"
