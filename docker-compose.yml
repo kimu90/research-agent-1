@@ -1,9 +1,8 @@
-version: '3.8'
 services:
  nginx:
    image: nginx:latest
    ports:
-     - "80:80" 
+     - "80:80"
      - "443:443"
    volumes:
      - ./nginx/conf.d:/etc/nginx/conf.d
@@ -11,15 +10,6 @@ services:
    depends_on:
      - research-server
      - rstudio
-   networks:
-     - app-network
-
- duckdb:
-   image: ubuntu/duckdb:latest
-   volumes:
-     - duckdb-data:/data
-   ports:
-     - "8001:8000"
    networks:
      - app-network
 
@@ -32,6 +22,11 @@ services:
      - postgres-data:/var/lib/postgresql/data
    ports:
      - "5432:5432"
+   healthcheck:
+     test: ["CMD-SHELL", "pg_isready -U postgres"]
+     interval: 5s
+     timeout: 5s
+     retries: 5
    networks:
      - app-network
 
@@ -44,25 +39,30 @@ services:
      - content-data:/data
      - ~/.aws:/root/.aws
    ports:
-     - "8000:8000"  # FastAPI
-     - "8501:8501"  # Streamlit
-     - "5678:5678"  # Debug
-     - "8787:8787"  # RStudio Server
+     - "8000:8000"
+     - "8501:8501"
+     - "5678:5678"
+     - "8787:8787"
    environment:
      - PYTHONUNBUFFERED=1
-     - DUCKDB_PATH=/data/research.db
      - POSTGRES_CONNECTION=postgresql://postgres:researchpassword@postgres:5432/research_db
    env_file:
      - .env
    depends_on:
-     - duckdb
-     - postgres
+     postgres:
+       condition: service_healthy
+   healthcheck:
+     test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+     interval: 30s
+     timeout: 10s
+     retries: 3
    command: >
      sh -c "
-     uvicorn app:app --host 0.0.0.0 --port 8000 &
-     streamlit run main.py --server.address=0.0.0.0 &
-     R -e 'library(shiny)' &
-     rstudio-server start
+       ./wait-for-it.sh postgres:5432 -t 60 &&
+       uvicorn app:app --host 0.0.0.0 --port 8000 &
+       streamlit run main.py --server.address=0.0.0.0 &
+       R -e 'library(shiny)' &
+       rstudio-server start
      "
    networks:
      - app-network
@@ -76,11 +76,15 @@ services:
    volumes:
      - ./R:/home/rstudio/projects
      - content-data:/data
+   healthcheck:
+     test: ["CMD", "curl", "-f", "http://localhost:8787"]
+     interval: 30s
+     timeout: 10s
+     retries: 3
    networks:
      - app-network
 
 volumes:
- duckdb-data:
  postgres-data:
  content-data:
    driver: local
