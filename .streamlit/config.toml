@@ -1,0 +1,12 @@
+# .streamlit/config.toml
+
+[theme]
+# Light mode settings
+primaryColor = "#FF4B4B"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F0F2F6"
+textColor = "#262730"
+font = "sans serif"
+
+# Dark mode settings
+base = "light"  # Can be set to "dark" for system-wide dark mode default

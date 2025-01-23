@@ -2,7 +2,7 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# Install system dependencies in a single layer to reduce image size
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
     wget \
@@ -21,20 +21,25 @@ ENV CHROME_BIN=/usr/bin/chromium \
     PYTHONPATH=/app \
     DB_PATH=/data/content.db
 
-# Copy requirements file
+# Install Python dependencies
 COPY requirements.txt .
-
-# Install Python dependencies including Streamlit
-RUN pip install --no-cache-dir -r requirements.txt \
+RUN pip install --no-cache-dir \
+    -r requirements.txt \
     streamlit \
+    fastapi \
+    uvicorn \
     selenium \
-    https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.0/en_core_web_sm-3.7.0-py3-none-any.whl
+    aws-sam-cli \
+    awscli
 
-# Create directory for database
-RUN mkdir -p /data
+# Create necessary directories
+RUN mkdir -p /data /root/.streamlit
 
 # Copy project files
 COPY . .
 
-# Expose ports for both Streamlit and the application
-EXPOSE 8000 8501
+# Expose ports
+EXPOSE 8000 8501 5678
+
+# Default command
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]

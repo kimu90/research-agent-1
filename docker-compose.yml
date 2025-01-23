@@ -1,37 +1,90 @@
 version: '3.8'
-
 services:
-  research-server:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8000:8000"  # Backend API
-      - "8501:8501"  # Streamlit UI
-      - "5678:5678"  # Python debugger port
-    environment:
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - EXA_API_KEY=${EXA_API_KEY}
-      - ZYTE_API_KEY=${ZYTE_API_KEY}
-      - GROQ_API_KEY=${GROQ_API_KEY}
-      - YOUCOM_API_KEY=${YOUCOM_API_KEY}
-      - BRAVE_SEARCH_API_KEY=${BRAVE_SEARCH_API_KEY}
-      - SERPER_API_KEY=${SERPER_API_KEY}
-      - DB_PATH=/data/content.db
-    volumes:
-      - .:/app
-      - content-data:/data
-    networks:
-      - research-network
-    command: >
-      sh -c "python -m debugpy --listen 0.0.0.0:5678 -m streamlit run main.py --server.address=0.0.0.0"
-    stdin_open: true
-    tty: true
+ nginx:
+   image: nginx:latest
+   ports:
+     - "80:80" 
+     - "443:443"
+   volumes:
+     - ./nginx/conf.d:/etc/nginx/conf.d
+     - ./nginx/ssl:/etc/nginx/ssl
+   depends_on:
+     - research-server
+     - rstudio
+   networks:
+     - app-network
+
+ duckdb:
+   image: ubuntu/duckdb:latest
+   volumes:
+     - duckdb-data:/data
+   ports:
+     - "8001:8000"
+   networks:
+     - app-network
+
+ postgres:
+   image: postgres:15
+   environment:
+     POSTGRES_DB: research_db
+     POSTGRES_PASSWORD: researchpassword
+   volumes:
+     - postgres-data:/var/lib/postgresql/data
+   ports:
+     - "5432:5432"
+   networks:
+     - app-network
+
+ research-server:
+   build:
+     context: .
+     dockerfile: Dockerfile
+   volumes:
+     - .:/app
+     - content-data:/data
+     - ~/.aws:/root/.aws
+   ports:
+     - "8000:8000"  # FastAPI
+     - "8501:8501"  # Streamlit
+     - "5678:5678"  # Debug
+     - "8787:8787"  # RStudio Server
+   environment:
+     - PYTHONUNBUFFERED=1
+     - DUCKDB_PATH=/data/research.db
+     - POSTGRES_CONNECTION=postgresql://postgres:researchpassword@postgres:5432/research_db
+   env_file:
+     - .env
+   depends_on:
+     - duckdb
+     - postgres
+   command: >
+     sh -c "
+     uvicorn app:app --host 0.0.0.0 --port 8000 &
+     streamlit run main.py --server.address=0.0.0.0 &
+     R -e 'library(shiny)' &
+     rstudio-server start
+     "
+   networks:
+     - app-network
+
+ rstudio:
+   image: rocker/rstudio
+   ports:
+     - "8787:8787"
+   environment:
+     - PASSWORD=rstudiopassword
+   volumes:
+     - ./R:/home/rstudio/projects
+     - content-data:/data
+   networks:
+     - app-network
 
 volumes:
-  content-data:
-    driver: local
+ duckdb-data:
+ postgres-data:
+ content-data:
+   driver: local
 
 networks:
-  research-network:
-    driver: bridge
+ app-network:
+   driver: bridge
