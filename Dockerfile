@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     sqlite3 build-essential \
     libblas-dev liblapack-dev \
     gfortran libatlas-base-dev \
+    netcat-traditional \
     cython3 libgomp1 \
     postgresql-client libpq-dev \
     python3-dev

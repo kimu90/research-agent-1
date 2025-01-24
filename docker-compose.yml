@@ -11,6 +11,11 @@ services:
    depends_on:
      - research-server
      - rstudio
+   healthcheck:
+     test: ["CMD", "nginx", "-t"]
+     interval: 10s
+     timeout: 5s
+     retries: 3
    networks:
      - app-network
 
@@ -18,6 +23,7 @@ services:
    container_name: postgres
    image: postgres:15
    environment:
+     POSTGRES_USER: postgres
      POSTGRES_DB: research_db
      POSTGRES_PASSWORD: researchpassword
    volumes:
@@ -59,11 +65,11 @@ services:
      timeout: 10s
      retries: 3
    command: >
-     sh -c "
-       ./wait-for-it.sh postgres:5432 -t 60 &&
-       uvicorn app:app --host 0.0.0.0 --port 8000 &
-       streamlit run main.py --server.address=0.0.0.0
-     "
+      sh -c "
+        /app/wait-for-it.sh postgres:5432 -t 60 &&
+        uvicorn app:app --host 0.0.0.0 --port 8000 --reload &
+        streamlit run main.py --server.address=0.0.0.0 --server.port=8501
+      "
    networks:
      - app-network
 
