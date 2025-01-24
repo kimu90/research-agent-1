@@ -1,6 +1,6 @@
 import os
 import logging
-from research_agent.db.db import ContentDB
+from .db import ContentDB
 
 _db_instance = None
 

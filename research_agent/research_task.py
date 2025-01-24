@@ -1,6 +1,6 @@
 from utils.model_wrapper import model_wrapper
 from utils.json_model_wrapper import json_model_wrapper
-from .db.db import ContentDB
+from utils.db import ContentDB
 from tools.research.common.model_schemas import ContentItem
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_core.messages import HumanMessage

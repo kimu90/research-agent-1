@@ -1,6 +1,6 @@
 # Import necessary modules and classes
 from .research_task import ResearchTask, TaskResult
-from .db.db import ContentDB
+from utils.db import ContentDB
 
 from langchain.tools import BaseTool
 from collections import defaultdict

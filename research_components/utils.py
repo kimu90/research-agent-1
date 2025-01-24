@@ -79,26 +79,28 @@ def get_token_usage(trace: QueryTrace) -> Dict[str, Any]:
     }
 
 def load_research_history() -> List[QueryTrace]:
-    """Load and process research history into QueryTrace objects"""
     try:
-        if not os.path.exists('research_traces.jsonl'):
+        traces_file = 'research_traces.jsonl'
+        if not os.path.exists(traces_file):
             return []
             
         traces = []
-        with open('research_traces.jsonl', 'r') as f:
+        with open(traces_file, 'r') as f:
             for line in f:
-                trace_data = json.loads(line)
-                trace = QueryTrace(trace_data['query'])
-                trace.data = trace_data
-                if 'token_usage' in trace_data:
-                    token_usage = trace_data['token_usage']
-                    if 'total_usage' in token_usage:
-                        trace.token_tracker.prompt_tokens = token_usage['total_usage'].get('prompt_tokens', 0)
-                        trace.token_tracker.completion_tokens = token_usage['total_usage'].get('completion_tokens', 0)
-                        trace.token_tracker.total_tokens = token_usage['total_usage'].get('total_tokens', 0)
-                    trace.token_tracker.usage_by_model = token_usage.get('usage_by_model', {})
-                    trace.token_tracker.usage_by_prompt = token_usage.get('usage_by_prompt', {})
-                traces.append(trace)
+                try:
+                    trace_data = json.loads(line)
+                    trace = QueryTrace(trace_data.get('query', 'Unknown'))
+                    trace.data = trace_data
+
+                    # Handle token_usage extraction
+                    token_usage = trace_data.get('token_usage', {})
+                    if token_usage:
+                        trace.token_tracker.usage_stats = token_usage
+
+                    traces.append(trace)
+                except json.JSONDecodeError:
+                    logging.error(f"Invalid JSON in trace file: {line}")
+        
         return traces
     except Exception as e:
         logging.error(f"Error loading traces: {str(e)}")

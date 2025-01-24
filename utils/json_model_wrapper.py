@@ -50,7 +50,7 @@ def json_model_wrapper(
 
     # Prepare messages for API call
     messages = [
-        {"role": "system", "content": system_prompt},
+        {"role": "system", "content": f"{system_prompt}. Respond with a valid JSON object."},
         {"role": "user", "content": user_prompt}
     ]
 
@@ -129,8 +129,8 @@ def json_model_wrapper(
         if attempts < max_retries:
             error_guidance = (
                 f"The previous JSON response was invalid. "
-                f"Please ensure your response is a valid JSON that matches the {base_model.__name__} schema. "
-                "Double-check your JSON formatting."
+                f"Please ensure your response is a valid JSON that matches the {base_model.__name__} schema. " 
+                "The expected field is 'sources', not 'selected_sources'. Double-check your JSON formatting."
             )
             messages.append({"role": "system", "content": error_guidance})
 
