@@ -6,8 +6,9 @@ from utils.source_coverage import create_source_coverage_evaluator
 from utils.evaluation import create_factual_accuracy_evaluator
 from utils.answer_relevance import create_answer_relevance_evaluator
 from utils.logical_coherence import create_logical_coherence_evaluator
+from utils.automated_tests import create_automated_test_evaluator
 from .db import ContentDB
-
+import json
 def run_tool(tool_name: str, query: str, tool=None):
     logging.basicConfig(
         level=logging.DEBUG,
@@ -34,22 +35,22 @@ def run_tool(tool_name: str, query: str, tool=None):
     })
 
     try:
-        # Evaluation tools initialization
+        # Initialize evaluators
         try:
             accuracy_evaluator = create_factual_accuracy_evaluator()
             source_coverage_evaluator = create_source_coverage_evaluator()
             coherence_evaluator = create_logical_coherence_evaluator()
             relevance_evaluator = create_answer_relevance_evaluator()
+            automated_test_evaluator = create_automated_test_evaluator()
         except Exception as eval_init_error:
             logger.error(f"Evaluation tools initialization failed: {eval_init_error}")
-            accuracy_evaluator = source_coverage_evaluator = coherence_evaluator = relevance_evaluator = None
+            accuracy_evaluator = source_coverage_evaluator = coherence_evaluator = relevance_evaluator = automated_test_evaluator = None
 
         if tool_name == "General Agent":
             if tool is None:
                 tool = GeneralAgent(include_summary=True)
             
             trace.add_prompt_usage("general_agent_search", "general", "")
-            
             result = tool.invoke(input={"query": query})
             
             if result:
@@ -66,81 +67,88 @@ def run_tool(tool_name: str, query: str, tool=None):
                     logger.error(f"Content processing failed: {content_processing_error}")
                     trace.data["processing_steps"].append(f"Content processing error: {content_processing_error}")
             
-            # Comprehensive evaluation with database storage
+            # Run evaluations
             try:
-                # Factual accuracy evaluation
-                try:
+                # Factual accuracy
+                if accuracy_evaluator:
                     factual_score, accuracy_details = accuracy_evaluator.evaluate_factual_accuracy(result)
                     trace.data['factual_accuracy'] = {
                         'score': factual_score,
                         'details': accuracy_details
                     }
                     trace.token_tracker.add_usage(100, 50, "llama3-70b-8192", "factual_accuracy")
-                    
-                    # Store factual accuracy results
                     db.store_accuracy_evaluation({
                         'query': query,
                         'timestamp': datetime.now().isoformat(),
                         'factual_score': factual_score,
                         **accuracy_details
                     })
-                except Exception as e:
-                    logger.warning(f"Factual accuracy evaluation failed: {e}")
-                
-                # Source coverage evaluation
-                try:
+
+                # Source coverage
+                if source_coverage_evaluator:
                     coverage_score, coverage_details = source_coverage_evaluator.evaluate_source_coverage(result)
                     trace.data['source_coverage'] = {
                         'score': coverage_score,
                         'details': coverage_details
                     }
                     trace.token_tracker.add_usage(100, 50, "llama3-70b-8192", "source_coverage")
-                    
-                    # Store source coverage results
                     db.store_source_coverage({
                         'query': query,
                         'coverage_score': coverage_score,
                         **coverage_details
                     })
-                except Exception as e:
-                    logger.warning(f"Source coverage evaluation failed: {e}")
-                
-                # Logical coherence evaluation
-                try:
+
+                # Logical coherence
+                if coherence_evaluator:
                     coherence_score, coherence_details = coherence_evaluator.evaluate_logical_coherence(result)
                     trace.data['logical_coherence'] = {
                         'score': coherence_score,
                         'details': coherence_details
                     }
                     trace.token_tracker.add_usage(100, 50, "llama3-70b-8192", "logical_coherence")
-                    
-                    # Store logical coherence results
                     db.store_logical_coherence({
                         'query': query,
                         'coherence_score': coherence_score,
                         **coherence_details
                     })
-                except Exception as e:
-                    logger.warning(f"Logical coherence evaluation failed: {e}")
-                
-                # Answer relevance evaluation
-                try:
+
+                # Answer relevance
+                # Answer relevance
+                if relevance_evaluator:
                     relevance_score, relevance_details = relevance_evaluator.evaluate_answer_relevance(result, query)
                     trace.data['answer_relevance'] = {
                         'score': relevance_score,
                         'details': relevance_details
                     }
                     trace.token_tracker.add_usage(100, 50, "llama3-70b-8192", "answer_relevance")
-                    
-                    # Store answer relevance results
+
                     db.store_answer_relevance({
                         'query': query,
                         'relevance_score': relevance_score,
-                        **relevance_details
+                        'query_match_percentage': relevance_details.get('query_match_percentage', 0),
+                        'semantic_similarity': relevance_details.get('similarity', 0),
+                        'keyword_coverage': relevance_details.get('keyword_overlap', 0),
+                        'entity_coverage': relevance_details.get('entity_coverage', 0),
+                        'topic_focus': relevance_details.get('topic_focus', 0),
+                        'off_topic_sentences': json.dumps(relevance_details.get('off_topic_sentences', [])),
+                        'total_sentences': len(result.content) if hasattr(result, 'content') else 0,
+                        'information_density': relevance_details.get('information_density', 0),
+                        'context_alignment_score': relevance_details.get('context_alignment_score', 0)
                     })
-                except Exception as e:
-                    logger.warning(f"Answer relevance evaluation failed: {e}")
-                
+                # Automated tests
+                if automated_test_evaluator:
+                    test_score, test_details = automated_test_evaluator.evaluate_automated_tests(
+                        ' '.join(result.content) if isinstance(result.content, list) else result.content,
+                        query
+                    )
+                    trace.data['automated_tests'] = {
+                        'score': test_score,
+                        'details': test_details
+                    }
+                    trace.token_tracker.add_usage(100, 50, "llama3-70b-8192", "automated_tests")
+                    print(test_score, test_details)
+                    db.store_test_results(query, test_score, test_details)
+
             except Exception as eval_error:
                 logger.error(f"Evaluation process failed: {eval_error}")
                 trace.data['evaluation_error'] = str(eval_error)

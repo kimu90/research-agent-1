@@ -193,18 +193,15 @@ def display_analytics(traces: List[QueryTrace], content_db: ContentDB):
         "Processing Steps",
         "Content Validation"
     ])
-   
+
     with tab1:
-        df = pd.DataFrame([
-            {
-                'date': datetime.fromisoformat(t.data['start_time']).date(),
-                'success': t.data.get('success', False),
-                'duration': t.data.get('duration', 0),
-                'content_new': t.data.get('content_new', 0), 
-                'content_reused': t.data.get('content_reused', 0)
-            }
-            for t in traces
-        ])
+        df = pd.DataFrame([{
+            'date': datetime.fromisoformat(t.data['start_time']).date(),
+            'success': t.data.get('success', False),
+            'duration': t.data.get('duration', 0),
+            'content_new': t.data.get('content_new', 0), 
+            'content_reused': t.data.get('content_reused', 0)
+        } for t in traces])
        
         st.subheader("📈 Success Rate Over Time")
         success_by_date = df.groupby('date').agg({
@@ -235,7 +232,6 @@ def display_analytics(traces: List[QueryTrace], content_db: ContentDB):
 
     with tab2:
         st.subheader("Token Usage Summary")
-        
         col1, col2, col3 = st.columns(3)
         total_tokens = sum(trace.token_tracker.get_usage_stats().get('tokens', {}).get('total', 0) for trace in traces)
         prompt_tokens = sum(trace.token_tracker.get_usage_stats().get('tokens', {}).get('input', 0) for trace in traces)
@@ -267,15 +263,11 @@ def display_analytics(traces: List[QueryTrace], content_db: ContentDB):
             st.metric("Avg Token Speed (tokens/s)", f"{avg_token_speed:.2f}")
             
         st.subheader("Cost Analysis")
-        total_cost = sum(
-            trace.token_tracker.get_usage_stats().get('cost', 0) 
-            for trace in traces
-        )
+        total_cost = sum(trace.token_tracker.get_usage_stats().get('cost', 0) for trace in traces)
         st.metric("Total Cost ($)", f"{total_cost:.6f}")
 
     with tab3:
         st.subheader("🔄 Processing Steps Analysis")
-        
         all_steps = []
         for trace in traces:
             steps = trace.data.get('processing_steps', [])
@@ -306,11 +298,12 @@ def display_analytics(traces: List[QueryTrace], content_db: ContentDB):
     with tab4:
         st.subheader("🔍 Content Validation Analysis")
         
-        validation_tab1, validation_tab2, validation_tab3, validation_tab4 = st.tabs([
+        validation_tab1, validation_tab2, validation_tab3, validation_tab4, validation_tab5 = st.tabs([
             "Factual Accuracy",
             "Source Coverage",
             "Logical Coherence",
-            "Answer Relevance"
+            "Answer Relevance",
+            "Automated Tests"
         ])
 
         with validation_tab1:
@@ -466,3 +459,53 @@ def display_analytics(traces: List[QueryTrace], content_db: ContentDB):
                     st.info("No answer relevance data available yet.")
             except Exception as e:
                 st.error(f"Error displaying relevance analytics: {str(e)}")
+                
+        with validation_tab5:
+            try:
+                automated_test_results = content_db.get_test_results(limit=50)
+                results = content_db.get_test_results()
+                print(results) # Add before creating DataFrame
+                if automated_test_results:
+                    test_df = pd.DataFrame(automated_test_results)
+                    
+                    test_metrics_col1, test_metrics_col2, test_metrics_col3, test_metrics_col4 = st.columns(4)
+                    with test_metrics_col1:
+                        avg_rouge1 = test_df['rouge1_score'].mean()
+                        st.metric("Avg ROUGE-1", f"{avg_rouge1:.3f}")
+                    with test_metrics_col2:
+                        avg_rouge2 = test_df['rouge2_score'].mean()
+                        st.metric("Avg ROUGE-2", f"{avg_rouge2:.3f}")
+                    with test_metrics_col3:
+                        avg_semantic = test_df['semantic_similarity'].mean()
+                        st.metric("Semantic Similarity", f"{avg_semantic:.3f}")
+                    with test_metrics_col4:
+                        avg_hallucination = test_df['hallucination_score'].mean()
+                        st.metric("Hallucination Score", f"{avg_hallucination:.3f}")
+                    
+                    fig_scores = px.box(
+                        test_df,
+                        y=['rouge1_score', 'rouge2_score', 'semantic_similarity', 'hallucination_score'],
+                        title="Test Score Distributions"
+                    )
+                    st.plotly_chart(fig_scores, use_container_width=True)
+                    
+                    fig_trend = px.line(
+                        test_df.sort_values('timestamp'),
+                        x='timestamp',
+                        y='overall_score',
+                        title="Overall Test Score Trend"
+                    )
+                    st.plotly_chart(fig_trend, use_container_width=True)
+                    
+                    if any(len(segs) > 0 for segs in test_df['suspicious_segments']):
+                        st.subheader("Recent Suspicious Segments")
+                        for idx, row in test_df.head(5).iterrows():
+                            if row['suspicious_segments']:
+                                st.markdown(f"**Query:** {row['query']}")
+                                for segment in row['suspicious_segments']:
+                                    st.warning(f"• {segment}")
+                                st.markdown("---")
+                else:
+                    st.info("No automated test results available yet.")
+            except Exception as e:
+                st.error(f"Error displaying automated test results: {str(e)}")

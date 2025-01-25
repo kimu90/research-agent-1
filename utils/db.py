@@ -7,8 +7,13 @@ import os
 import json
 from datetime import datetime
 
+# Configure basic logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
 class ContentDB:
     def __init__(self, db_path: str):
+          # Initial breakpoint
         self.lock = threading.Lock()
         
         db_dir = os.path.dirname(db_path)
@@ -27,6 +32,19 @@ class ContentDB:
                     content TEXT,
                     source TEXT,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
+                
+                CREATE TABLE IF NOT EXISTS automated_tests (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    query TEXT,
+                    timestamp DATETIME,
+                    overall_score REAL,
+                    rouge1_score REAL,
+                    rouge2_score REAL,
+                    rougeL_score REAL,
+                    semantic_similarity REAL,
+                    hallucination_score REAL,
+                    suspicious_segments TEXT
                 );
                 
                 CREATE TABLE IF NOT EXISTS factual_accuracy (
@@ -94,8 +112,11 @@ class ContentDB:
                 );
             """)
             self.conn.commit()
-            
+                
     def get_doc_by_id(self, id: str) -> Optional[ContentItem]:
+          # Breakpoint before ID retrieval
+        logger.info(f"Retrieving document with ID: {id}")
+        
         with self.lock:
             cursor = self.conn.cursor()
             cursor.execute(
@@ -114,6 +135,9 @@ class ContentDB:
             )
 
     def get_doc_by_url(self, url: str) -> Optional[ContentItem]:
+          # Breakpoint before URL retrieval
+        logger.info(f"Retrieving document with URL: {url}")
+        
         with self.lock:
             cursor = self.conn.cursor()
             cursor.execute(
@@ -132,6 +156,9 @@ class ContentDB:
             )
 
     def upsert_doc(self, doc: ContentItem) -> bool:
+          # Breakpoint before upsert
+        logger.info(f"Upserting document: {doc.id}")
+        
         with self.lock:
             cursor = self.conn.cursor()
             try:
@@ -160,24 +187,28 @@ class ContentDB:
                     """
                     INSERT INTO content (id, url, title, snippet, content, source)
                     VALUES (:id, :url, :title, :snippet, :content, :source)
-                    ON CONFLICT(url) DO UPDATE SET
-                    id=excluded.id,
-                    title=excluded.title,
-                    snippet=excluded.snippet,
-                    content=excluded.content,
-                    source=excluded.source
+                    ON CONFLICT(id) DO UPDATE SET  
+                        title=excluded.title,
+                        snippet=excluded.snippet,
+                        content=excluded.content,
+                        source=excluded.source
                     """,
                     doc.to_dict(),
                 )
                 self.conn.commit()
                 logging.info(f"Document {'inserted' if is_new else 'updated'} successfully: {doc.id}")
+                  # Breakpoint after upsert
                 return is_new
                 
             except sqlite3.IntegrityError as e:
                 logging.error(f"Error inserting/updating document: {e}")
                 self.conn.rollback()
                 raise
+
     def store_source_coverage(self, data: Dict[str, Any]) -> int:
+          # Breakpoint before storing source coverage
+        logger.info("Storing source coverage evaluation")
+        
         with self.lock:
             try:
                 cursor = self.conn.cursor()
@@ -205,13 +236,44 @@ class ContentDB:
                     }
                 )
                 self.conn.commit()
+                  # Breakpoint after storing source coverage
                 return cursor.lastrowid
             except sqlite3.Error as e:
                 logging.error(f"Error storing source coverage: {e}")
                 self.conn.rollback()
                 return -1
+            
+    def store_test_results(self, query: str, overall_score: float, details: Dict[str, Any]) -> int:
+        with self.lock:
+            try:
+                cursor = self.conn.execute("""
+                    INSERT INTO automated_tests (
+                        query, timestamp, overall_score, rouge1_score, rouge2_score, 
+                        rougeL_score, semantic_similarity, hallucination_score, 
+                        suspicious_segments
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    query,
+                    details['timestamp'],
+                    overall_score,
+                    details['rouge_scores']['rouge1'],
+                    details['rouge_scores']['rouge2'],
+                    details['rouge_scores']['rougeL'],
+                    details['semantic_similarity'],
+                    details['hallucination_score'],
+                    json.dumps(details['suspicious_segments'])
+                ))
+                self.conn.commit()
+                return cursor.lastrowid
+            except Exception as e:
+                logging.error(f"Error storing test results: {e}")
+                self.conn.rollback()
+                return -1
                 
     def store_logical_coherence(self, data: Dict[str, Any]) -> int:
+          # Breakpoint before storing logical coherence
+        logger.info("Storing logical coherence evaluation")
+        
         with self.lock:
             try:
                 cursor = self.conn.cursor()
@@ -243,6 +305,7 @@ class ContentDB:
                     }
                 )
                 self.conn.commit()
+                  # Breakpoint after storing logical coherence
                 return cursor.lastrowid
             except sqlite3.Error as e:
                 logging.error(f"Error storing logical coherence: {e}")
@@ -250,6 +313,9 @@ class ContentDB:
                 return -1
 
     def store_answer_relevance(self, data: Dict[str, Any]) -> int:
+          # Breakpoint before storing answer relevance
+        logger.info("Storing answer relevance evaluation")
+        
         with self.lock:
             try:
                 cursor = self.conn.cursor()
@@ -278,6 +344,7 @@ class ContentDB:
                     }
                 )
                 self.conn.commit()
+                  # Breakpoint after storing answer relevance
                 return cursor.lastrowid
             except sqlite3.Error as e:
                 logging.error(f"Error storing answer relevance: {e}")
@@ -285,6 +352,9 @@ class ContentDB:
                 return -1
                 
     def store_accuracy_evaluation(self, accuracy_data: Dict[str, Any]):
+          # Breakpoint before storing accuracy evaluation
+        logger.info("Storing accuracy evaluation")
+        
         with self.lock:
             try:
                 insert_data = {
@@ -306,9 +376,9 @@ class ContentDB:
                     """
                     INSERT INTO factual_accuracy 
                     (query, timestamp, factual_score, total_sources, 
-                     citation_accuracy, claim_details, contradicting_claims,
-                     verified_claims, unverified_claims, source_credibility_score,
-                     fact_check_coverage)
+                    citation_accuracy, claim_details, contradicting_claims,
+                    verified_claims, unverified_claims, source_credibility_score,
+                    fact_check_coverage)
                     VALUES (:query, :timestamp, :factual_score, :total_sources, 
                             :citation_accuracy, :claim_details, :contradicting_claims,
                             :verified_claims, :unverified_claims, :source_credibility_score,
@@ -318,13 +388,49 @@ class ContentDB:
                 )
                 
                 self.conn.commit()
+                  # Breakpoint after storing accuracy evaluation
                 return cursor.lastrowid
             except Exception as e:
-                logging.error(f"Error storing factual accuracy: {str(e)}")
+                logger.error(f"Error storing factual accuracy: {str(e)}")
                 self.conn.rollback()
                 return None
-
+    def get_test_results(self, query: str = None, limit: int = 50):
+        with self.lock:
+            try:
+                if query:
+                    cursor = self.conn.execute(
+                        """
+                        SELECT * FROM automated_tests 
+                        WHERE query LIKE ? 
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                        """,
+                        (f'%{query}%', limit)
+                    )
+                else:
+                    cursor = self.conn.execute(
+                        """
+                        SELECT * FROM automated_tests 
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                        """,
+                        (limit,)
+                    )
+                
+                columns = [desc[0] for desc in cursor.description]
+                results = []
+                for row in cursor.fetchall():
+                    result = dict(zip(columns, row))
+                    result['suspicious_segments'] = json.loads(result['suspicious_segments'])
+                    results.append(result)
+                return results
+            except Exception as e:
+                logging.error(f"Error retrieving test results: {e}")
+                return []
     def get_accuracy_evaluations(self, query: Optional[str] = None, limit: int = 10):
+        # Breakpoint before retrieving accuracy evaluations
+        logger.info(f"Retrieving accuracy evaluations for query: {query}")
+        
         with self.lock:
             cursor = self.conn.cursor()
             try:
@@ -332,9 +438,9 @@ class ContentDB:
                     cursor.execute(
                         """
                         SELECT id, query, timestamp, factual_score, total_sources, 
-                               citation_accuracy, claim_details, contradicting_claims,
-                               verified_claims, unverified_claims, 
-                               source_credibility_score, fact_check_coverage
+                        citation_accuracy, claim_details, contradicting_claims,
+                        verified_claims, unverified_claims, 
+                        source_credibility_score, fact_check_coverage
                         FROM factual_accuracy 
                         WHERE query LIKE ? 
                         ORDER BY timestamp DESC 
@@ -346,9 +452,9 @@ class ContentDB:
                     cursor.execute(
                         """
                         SELECT id, query, timestamp, factual_score, total_sources, 
-                               citation_accuracy, claim_details, contradicting_claims,
-                               verified_claims, unverified_claims, 
-                               source_credibility_score, fact_check_coverage
+                        citation_accuracy, claim_details, contradicting_claims,
+                        verified_claims, unverified_claims, 
+                        source_credibility_score, fact_check_coverage
                         FROM factual_accuracy 
                         ORDER BY timestamp DESC 
                         LIMIT ?
@@ -368,12 +474,16 @@ class ContentDB:
                     result['claim_details'] = json.loads(result['claim_details']) if result['claim_details'] else []
                     results.append(result)
                 
+                # Breakpoint after retrieving accuracy evaluations
                 return results
             except Exception as e:
-                logging.error(f"Error retrieving accuracy evaluations: {str(e)}")
+                logger.error(f"Error retrieving accuracy evaluations: {str(e)}")
                 return []
 
     def get_source_coverage_evaluations(self, query: Optional[str] = None, limit: int = 10):
+        # Breakpoint before retrieving source coverage evaluations
+        logger.info(f"Retrieving source coverage evaluations for query: {query}")
+        
         with self.lock:
             cursor = self.conn.cursor()
             try:
@@ -417,12 +527,16 @@ class ContentDB:
                     result['missed_sources'] = json.loads(result['missed_sources']) if result['missed_sources'] else []
                     results.append(result)
                 
+                # Breakpoint after retrieving source coverage evaluations
                 return results
             except Exception as e:
-                logging.error(f"Error retrieving source coverage evaluations: {str(e)}")
+                logger.error(f"Error retrieving source coverage evaluations: {str(e)}")
                 return []
 
     def get_logical_coherence_evaluations(self, query: Optional[str] = None, limit: int = 10):
+    # Breakpoint before retrieving logical coherence evaluations
+        logger.info(f"Retrieving logical coherence evaluations for query: {query}")
+        
         with self.lock:
             cursor = self.conn.cursor()
             try:
@@ -430,11 +544,11 @@ class ContentDB:
                     cursor.execute(
                         """
                         SELECT id, query, timestamp, coherence_score, flow_score, 
-                               has_argument_structure, has_discourse_markers, 
-                               paragraph_score, rough_transitions, 
-                               total_sentences, total_paragraphs,
-                               semantic_connection_score, idea_progression_score,
-                               logical_fallacies_count
+                        has_argument_structure, has_discourse_markers, 
+                        paragraph_score, rough_transitions, 
+                        total_sentences, total_paragraphs,
+                        semantic_connection_score, idea_progression_score,
+                        logical_fallacies_count
                         FROM logical_coherence_evaluations
                         WHERE query LIKE ?
                         ORDER BY timestamp DESC
@@ -446,11 +560,11 @@ class ContentDB:
                     cursor.execute(
                         """
                         SELECT id, query, timestamp, coherence_score, flow_score, 
-                               has_argument_structure, has_discourse_markers, 
-                               paragraph_score, rough_transitions, 
-                               total_sentences, total_paragraphs,
-                               semantic_connection_score, idea_progression_score,
-                               logical_fallacies_count
+                        has_argument_structure, has_discourse_markers, 
+                        paragraph_score, rough_transitions, 
+                        total_sentences, total_paragraphs,
+                        semantic_connection_score, idea_progression_score,
+                        logical_fallacies_count
                         FROM logical_coherence_evaluations
                         ORDER BY timestamp DESC
                         LIMIT ?
@@ -472,20 +586,83 @@ class ContentDB:
                     result['rough_transitions'] = json.loads(result['rough_transitions']) if result['rough_transitions'] else []
                     results.append(result)
                 
+                # Breakpoint after retrieving logical coherence evaluations
                 return results
             except Exception as e:
-                logging.error(f"Error retrieving logical coherence evaluations: {str(e)}")
+                logger.error(f"Error retrieving logical coherence evaluations: {str(e)}")
+                return []
+
+    def get_answer_relevance_evaluations(self, query: Optional[str] = None, limit: int = 10):
+        # Breakpoint before retrieving answer relevance evaluations
+        logger.info(f"Retrieving answer relevance evaluations for query: {query}")
+        
+        with self.lock:
+            cursor = self.conn.cursor()
+            try:
+                if query:
+                    cursor.execute(
+                        """
+                        SELECT id, query, timestamp, relevance_score, semantic_similarity, 
+                            entity_coverage, keyword_coverage, topic_focus, 
+                            off_topic_sentences, total_sentences, query_match_percentage, 
+                            information_density, context_alignment_score
+                        FROM answer_relevance_evaluations
+                        WHERE query LIKE ?
+                        ORDER BY timestamp DESC
+                        LIMIT ?
+                        """, 
+                        (f'%{query}%', limit)
+                    )
+                else:
+                    cursor.execute(
+                        """
+                        SELECT id, query, timestamp, relevance_score, semantic_similarity, 
+                            entity_coverage, keyword_coverage, topic_focus, 
+                            off_topic_sentences, total_sentences, query_match_percentage, 
+                            information_density, context_alignment_score
+                        FROM answer_relevance_evaluations
+                        ORDER BY timestamp DESC
+                        LIMIT ?
+                        """, 
+                        (limit,)
+                    )
+                
+                columns = [
+                    'id', 'query', 'timestamp', 'relevance_score', 'semantic_similarity', 
+                    'entity_coverage', 'keyword_coverage', 'topic_focus', 
+                    'off_topic_sentences', 'total_sentences', 'query_match_percentage', 
+                    'information_density', 'context_alignment_score'
+                ]
+                results = []
+                for row in cursor.fetchall():
+                    result = dict(zip(columns, row))
+                    result['off_topic_sentences'] = json.loads(result['off_topic_sentences']) if result['off_topic_sentences'] else []
+                    results.append(result)
+                
+                # Breakpoint after retrieving answer relevance evaluations
+                return results
+            except Exception as e:
+                logger.error(f"Error retrieving answer relevance evaluations: {str(e)}")
                 return []
                 
     def delete_doc(self, id: str):
+    # Breakpoint before document deletion
+        logger.info(f"Deleting document with ID: {id}")
+        
         with self.lock:
             cursor = self.conn.cursor()
             cursor.execute("DELETE FROM content WHERE id = ?", (id,))
             self.conn.commit()
 
     def generate_snippet(self, text: str) -> str:
-        return text[:150] + "..." 
+    # Breakpoint before snippet generation
+        logger.info(f"Generating snippet for text of length {len(text)}")
+
+        return f"{text[:150]}..." 
 
     def close(self):
+    # Breakpoint before closing connection
+        logger.info("Closing database connection")
+        
         with self.lock:
             self.conn.close()

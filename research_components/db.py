@@ -34,6 +34,19 @@ class ContentDB:
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
                 
+                CREATE TABLE IF NOT EXISTS automated_tests (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    query TEXT,
+                    timestamp DATETIME,
+                    overall_score REAL,
+                    rouge1_score REAL,
+                    rouge2_score REAL,
+                    rougeL_score REAL,
+                    semantic_similarity REAL,
+                    hallucination_score REAL,
+                    suspicious_segments TEXT
+                );
+                
                 CREATE TABLE IF NOT EXISTS factual_accuracy (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     query TEXT,
@@ -229,6 +242,33 @@ class ContentDB:
                 logging.error(f"Error storing source coverage: {e}")
                 self.conn.rollback()
                 return -1
+            
+    def store_test_results(self, query: str, overall_score: float, details: Dict[str, Any]) -> int:
+        with self.lock:
+            try:
+                cursor = self.conn.execute("""
+                    INSERT INTO automated_tests (
+                        query, timestamp, overall_score, rouge1_score, rouge2_score, 
+                        rougeL_score, semantic_similarity, hallucination_score, 
+                        suspicious_segments
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    query,
+                    details['timestamp'],
+                    overall_score,
+                    details['rouge_scores']['rouge1'],
+                    details['rouge_scores']['rouge2'],
+                    details['rouge_scores']['rougeL'],
+                    details['semantic_similarity'],
+                    details['hallucination_score'],
+                    json.dumps(details['suspicious_segments'])
+                ))
+                self.conn.commit()
+                return cursor.lastrowid
+            except Exception as e:
+                logging.error(f"Error storing test results: {e}")
+                self.conn.rollback()
+                return -1
                 
     def store_logical_coherence(self, data: Dict[str, Any]) -> int:
           # Breakpoint before storing logical coherence
@@ -354,7 +394,41 @@ class ContentDB:
                 logger.error(f"Error storing factual accuracy: {str(e)}")
                 self.conn.rollback()
                 return None
+    def get_test_results(self, query: str = None, limit: int = 50):
+        with self.lock:
+            try:
+                if query:
+                    cursor = self.conn.execute(
+                        """
+                        SELECT * FROM automated_tests 
+                        WHERE query LIKE ? 
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                        """,
+                        (f'%{query}%', limit)
+                    )
+                else:
+                    cursor = self.conn.execute(
+                        """
+                        SELECT * FROM automated_tests 
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                        """,
+                        (limit,)
+                    )
+                
+                columns = [desc[0] for desc in cursor.description]
+                print("Columns:", columns)
 
+                results = []
+                for row in cursor.fetchall():
+                    result = dict(zip(columns, row))
+                    result['suspicious_segments'] = json.loads(result['suspicious_segments'])
+                    results.append(result)
+                return results
+            except Exception as e:
+                logging.error(f"Error retrieving test results: {e}")
+                return []
     def get_accuracy_evaluations(self, query: Optional[str] = None, limit: int = 10):
         # Breakpoint before retrieving accuracy evaluations
         logger.info(f"Retrieving accuracy evaluations for query: {query}")

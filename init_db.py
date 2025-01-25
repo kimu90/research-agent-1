@@ -28,6 +28,19 @@ def initialize_database(db: ContentDB):
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
                 
+                CREATE TABLE IF NOT EXISTS automated_tests (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    query TEXT,
+                    timestamp DATETIME,
+                    overall_score REAL,
+                    rouge1_score REAL,
+                    rouge2_score REAL,
+                    rougeL_score REAL,
+                    semantic_similarity REAL,
+                    hallucination_score REAL,
+                    suspicious_segments TEXT
+                );
+                
                 CREATE TABLE IF NOT EXISTS factual_accuracy (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     query TEXT,
