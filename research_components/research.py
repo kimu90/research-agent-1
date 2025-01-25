@@ -1,13 +1,12 @@
 import logging
-import streamlit as st
 from datetime import datetime
-
 from tools import GeneralAgent
 from research_agent.tracers import CustomTracer, QueryTrace
 from utils.source_coverage import create_source_coverage_evaluator
 from utils.evaluation import create_factual_accuracy_evaluator
 from utils.answer_relevance import create_answer_relevance_evaluator
 from utils.logical_coherence import create_logical_coherence_evaluator
+from .db import ContentDB
 
 def run_tool(tool_name: str, query: str, tool=None):
     logging.basicConfig(
@@ -21,7 +20,7 @@ def run_tool(tool_name: str, query: str, tool=None):
     logger = logging.getLogger(__name__)
     
     start_time = datetime.now()
-    
+    db = ContentDB("./data/content.db")    
     logger.info(f"Starting research tool execution - Tool: {tool_name}")
     logger.info(f"Query received: {query}")
     
@@ -67,13 +66,8 @@ def run_tool(tool_name: str, query: str, tool=None):
                     logger.error(f"Content processing failed: {content_processing_error}")
                     trace.data["processing_steps"].append(f"Content processing error: {content_processing_error}")
             
-            # Comprehensive evaluation with relaxed validation
+            # Comprehensive evaluation with database storage
             try:
-                factual_score = 0.5  # Default score
-                coverage_score = 0.5
-                coherence_score = 0.5
-                relevance_score = 0.5
-                
                 # Factual accuracy evaluation
                 try:
                     factual_score, accuracy_details = accuracy_evaluator.evaluate_factual_accuracy(result)
@@ -81,7 +75,15 @@ def run_tool(tool_name: str, query: str, tool=None):
                         'score': factual_score,
                         'details': accuracy_details
                     }
-                    trace.token_tracker.add_usage(100, 50, "llama3-70b-8192", "factual_accuracy")                
+                    trace.token_tracker.add_usage(100, 50, "llama3-70b-8192", "factual_accuracy")
+                    
+                    # Store factual accuracy results
+                    db.store_accuracy_evaluation({
+                        'query': query,
+                        'timestamp': datetime.now().isoformat(),
+                        'factual_score': factual_score,
+                        **accuracy_details
+                    })
                 except Exception as e:
                     logger.warning(f"Factual accuracy evaluation failed: {e}")
                 
@@ -92,7 +94,14 @@ def run_tool(tool_name: str, query: str, tool=None):
                         'score': coverage_score,
                         'details': coverage_details
                     }
-                    trace.token_tracker.add_usage(100, 50, "llama3-70b-8192", "source_coverage")                
+                    trace.token_tracker.add_usage(100, 50, "llama3-70b-8192", "source_coverage")
+                    
+                    # Store source coverage results
+                    db.store_source_coverage({
+                        'query': query,
+                        'coverage_score': coverage_score,
+                        **coverage_details
+                    })
                 except Exception as e:
                     logger.warning(f"Source coverage evaluation failed: {e}")
                 
@@ -104,6 +113,13 @@ def run_tool(tool_name: str, query: str, tool=None):
                         'details': coherence_details
                     }
                     trace.token_tracker.add_usage(100, 50, "llama3-70b-8192", "logical_coherence")
+                    
+                    # Store logical coherence results
+                    db.store_logical_coherence({
+                        'query': query,
+                        'coherence_score': coherence_score,
+                        **coherence_details
+                    })
                 except Exception as e:
                     logger.warning(f"Logical coherence evaluation failed: {e}")
                 
@@ -115,6 +131,13 @@ def run_tool(tool_name: str, query: str, tool=None):
                         'details': relevance_details
                     }
                     trace.token_tracker.add_usage(100, 50, "llama3-70b-8192", "answer_relevance")
+                    
+                    # Store answer relevance results
+                    db.store_answer_relevance({
+                        'query': query,
+                        'relevance_score': relevance_score,
+                        **relevance_details
+                    })
                 except Exception as e:
                     logger.warning(f"Answer relevance evaluation failed: {e}")
                 
@@ -152,6 +175,7 @@ def run_tool(tool_name: str, query: str, tool=None):
             except Exception as trace_save_error:
                 logger.error(f"Failed to save trace: {trace_save_error}")
             
+            db.close()
             return result, trace
         
         else:
@@ -163,6 +187,7 @@ def run_tool(tool_name: str, query: str, tool=None):
                 "success": False
             })
             
+            db.close()
             return None, trace
     
     except Exception as e:
@@ -186,4 +211,5 @@ def run_tool(tool_name: str, query: str, tool=None):
         except Exception as trace_save_error:
             logger.error(f"Failed to save error trace: {trace_save_error}")
         
+        db.close()
         return None, trace
