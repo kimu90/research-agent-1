@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 def initialize_database(db: ContentDB):
     try:
         with db.conn:
-            # Same schema as before
+            # Database schema
             db.conn.executescript("""
                 CREATE TABLE IF NOT EXISTS content (
                     id TEXT PRIMARY KEY,
@@ -103,8 +103,25 @@ def initialize_database(db: ContentDB):
                     information_density REAL,
                     context_alignment_score REAL
                 );
-            """)
 
+                CREATE TABLE IF NOT EXISTS analysis_evaluations (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    query TEXT,
+                    timestamp TEXT,
+                    analysis TEXT,
+                    numerical_accuracy REAL,
+                    query_understanding REAL,
+                    data_validation REAL,
+                    reasoning_transparency REAL,
+                    overall_score REAL,
+                    metrics_details TEXT,
+                    calculation_examples TEXT,
+                    term_coverage REAL,
+                    analytical_elements TEXT,
+                    validation_checks TEXT,
+                    explanation_patterns TEXT
+                );
+            """)
 
         db_size = os.path.getsize(db_path)
         if db_size == 0:

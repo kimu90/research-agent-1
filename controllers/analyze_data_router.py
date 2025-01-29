@@ -1,52 +1,58 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from typing import Optional, List, Dict
+from typing import Optional, Dict, Any
+from tools import AnalysisAgent
+from research_components.research import run_tool
 
 api_router = APIRouter()
 
-class DataAnalysisRequest(BaseModel):
-    species: str
-    dataset: str
-    analysis_type: str
+class AnalyzeRequest(BaseModel):
+    """Request model for analysis endpoints"""
+    query: str
+    tool_name: Optional[str] = "Analysis Agent"
+    dataset_path: Optional[str] = None
 
-class DataPoint(BaseModel):
-    value: float
-    timestamp: str
-    location: Optional[str]
+class AnalyzeResponse(BaseModel):
+    """Response model for analysis results"""
+    analysis: str
+    trace_data: Dict[str, Any]
+    metrics: Dict[str, Any]
+    usage: Dict[str, Any]
 
-class DataAnalysisResponse(BaseModel):
-    analysis_summary: str
-    data_points: List[DataPoint]
-    visualizations: Dict[str, str]
-
-@api_router.post("/", response_model=DataAnalysisResponse)
-async def analyze_data(request: DataAnalysisRequest):
+@api_router.post("/", response_model=AnalyzeResponse)
+async def generate_analysis(request: AnalyzeRequest):
+    """Generate analysis based on the provided query"""
     try:
-        # Load dataset
-        dataset = load_dataset(request.dataset, request.species)
+        # Initialize analysis agent
+        tool = AnalysisAgent()
         
-        # Perform analysis
-        analysis_result = perform_analysis(dataset, request.analysis_type)
+        # Run analysis
+        result, trace = run_tool(
+            tool_name=request.tool_name,
+            query=request.query,
+            tool=tool
+        )
         
-        # Generate visualizations
-        visualizations = generate_visualizations(analysis_result)
-        
-        return {
-            "analysis_summary": analysis_result.summary,
-            "data_points": analysis_result.data_points,
-            "visualizations": visualizations
-        }
+        if result:
+            return {
+                "analysis": result.analysis,
+                "trace_data": trace.data,
+                "metrics": result.metrics.dict(),
+                "usage": result.usage
+            }
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail="Analysis failed to produce valid results"
+            )
+            
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(
+            status_code=500,
+            detail=f"Analysis generation failed: {str(e)}"
+        )
 
-def load_dataset(dataset_name: str, species: str):
-    # Implementation for loading dataset
-    pass
-
-def perform_analysis(dataset, analysis_type: str):
-    # Implementation for analysis
-    pass
-
-def generate_visualizations(analysis_result):
-    # Implementation for visualization
-    pass
+@api_router.get("/health")
+async def health_check():
+    """Health check endpoint"""
+    return {"status": "healthy", "service": "analysis-api"}

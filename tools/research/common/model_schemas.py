@@ -109,3 +109,39 @@ class ResearchQuery(BaseModel):
         Normalizes the query by removing extra whitespace and converting to lowercase.
         """
         return ' '.join(self.query.split()).lower()
+
+class AnalysisMetrics(BaseModel):
+    """
+    Metrics specific to analysis outputs.
+    """
+    numerical_accuracy: float = Field(default=0.0)
+    query_understanding: float = Field(default=0.0)
+    data_validation: float = Field(default=0.0)
+    reasoning_transparency: float = Field(default=0.0)
+    calculations: Dict = Field(default_factory=dict)
+    used_correct_columns: bool = Field(default=False)
+    used_correct_analysis: bool = Field(default=False)
+    used_correct_grouping: bool = Field(default=False)
+    handled_missing_data: bool = Field(default=False)
+    handled_outliers: bool = Field(default=False)
+    handled_datatypes: bool = Field(default=False)
+    handled_format_issues: bool = Field(default=False)
+    explained_steps: bool = Field(default=False)
+    stated_assumptions: bool = Field(default=False)
+    mentioned_limitations: bool = Field(default=False)
+    clear_methodology: bool = Field(default=False)
+
+class AnalysisResult(BaseModel):
+    """
+    Output specific to analysis operations.
+    """
+    analysis: str
+    metrics: AnalysisMetrics
+    usage: Dict[str, Any] = Field(default_factory=dict)
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "analysis": self.analysis,
+            "metrics": self.metrics.dict(),
+            "usage": self.usage
+        }
