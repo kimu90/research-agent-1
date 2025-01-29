@@ -666,149 +666,149 @@ class ContentDB:
                 return []
 
     def store_analysis_evaluation(self, data: Dict[str, Any]) -> int:
-    """Store analysis evaluation results"""
-    logger.info("Storing analysis evaluation")
-    
-    with self.lock:
-        try:
-            # Extract metrics details if present
-            metrics = data.get('metrics', {})
-            if isinstance(metrics, str):
-                metrics = json.loads(metrics)
-            
+        """Store analysis evaluation results"""
+        logger.info("Storing analysis evaluation")
+        
+        with self.lock:
+            try:
+                # Extract metrics details if present
+                metrics = data.get('metrics', {})
+                if isinstance(metrics, str):
+                    metrics = json.loads(metrics)
+                
+                cursor = self.conn.cursor()
+                cursor.execute(
+                    """
+                    INSERT INTO analysis_evaluations (
+                        query, timestamp, analysis, numerical_accuracy, 
+                        query_understanding, data_validation, reasoning_transparency,
+                        overall_score, metrics_details, calculation_examples,
+                        term_coverage, analytical_elements, validation_checks,
+                        explanation_patterns
+                    ) VALUES (
+                        :query, :timestamp, :analysis, :numerical_accuracy,
+                        :query_understanding, :data_validation, :reasoning_transparency,
+                        :overall_score, :metrics_details, :calculation_examples,
+                        :term_coverage, :analytical_elements, :validation_checks,
+                        :explanation_patterns
+                    )
+                    """,
+                    {
+                        'query': data.get('query', 'Unknown'),
+                        'timestamp': data.get('timestamp', datetime.now().isoformat()),
+                        'analysis': data.get('analysis', ''),
+                        'numerical_accuracy': metrics.get('numerical_accuracy', {}).get('score', 0.0),
+                        'query_understanding': metrics.get('query_understanding', {}).get('score', 0.0),
+                        'data_validation': metrics.get('data_validation', {}).get('score', 0.0),
+                        'reasoning_transparency': metrics.get('reasoning_transparency', {}).get('score', 0.0),
+                        'overall_score': metrics.get('overall_score', 0.0),
+                        'metrics_details': json.dumps(metrics),
+                        'calculation_examples': json.dumps(metrics.get('numerical_accuracy', {}).get('details', {}).get('calculation_examples', [])),
+                        'term_coverage': metrics.get('query_understanding', {}).get('details', {}).get('term_coverage', 0.0),
+                        'analytical_elements': json.dumps(metrics.get('query_understanding', {}).get('details', {})),
+                        'validation_checks': json.dumps(metrics.get('data_validation', {}).get('details', {})),
+                        'explanation_patterns': json.dumps(metrics.get('reasoning_transparency', {}).get('details', {}))
+                    }
+                )
+                self.conn.commit()
+                return cursor.lastrowid
+                
+            except Exception as e:
+                logger.error(f"Error storing analysis evaluation: {str(e)}")
+                self.conn.rollback()
+                return -1
+
+    def get_analysis_evaluations(self, query: Optional[str] = None, limit: int = 10) -> list[Dict[str, Any]]:
+        """Retrieve analysis evaluation results"""
+        logger.info(f"Retrieving analysis evaluations for query: {query}")
+        
+        with self.lock:
             cursor = self.conn.cursor()
-            cursor.execute(
-                """
-                INSERT INTO analysis_evaluations (
-                    query, timestamp, analysis, numerical_accuracy, 
-                    query_understanding, data_validation, reasoning_transparency,
-                    overall_score, metrics_details, calculation_examples,
-                    term_coverage, analytical_elements, validation_checks,
-                    explanation_patterns
-                ) VALUES (
-                    :query, :timestamp, :analysis, :numerical_accuracy,
-                    :query_understanding, :data_validation, :reasoning_transparency,
-                    :overall_score, :metrics_details, :calculation_examples,
-                    :term_coverage, :analytical_elements, :validation_checks,
-                    :explanation_patterns
+            try:
+                if query:
+                    cursor.execute(
+                        """
+                        SELECT * FROM analysis_evaluations 
+                        WHERE query LIKE ? 
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                        """,
+                        (f'%{query}%', limit)
+                    )
+                else:
+                    cursor.execute(
+                        """
+                        SELECT * FROM analysis_evaluations 
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                        """,
+                        (limit,)
+                    )
+                
+                columns = [description[0] for description in cursor.description]
+                results = []
+                for row in cursor.fetchall():
+                    result = dict(zip(columns, row))
+                    
+                    # Parse JSON fields
+                    for json_field in ['metrics_details', 'calculation_examples', 
+                                    'analytical_elements', 'validation_checks', 
+                                    'explanation_patterns']:
+                        if result.get(json_field):
+                            try:
+                                result[json_field] = json.loads(result[json_field])
+                            except json.JSONDecodeError:
+                                result[json_field] = {}
+                    
+                    results.append(result)
+                
+                return results
+                
+            except Exception as e:
+                logger.error(f"Error retrieving analysis evaluations: {str(e)}")
+                return []
+
+    def get_latest_analysis(self, query: str) -> Optional[Dict[str, Any]]:
+        """Get the most recent analysis for a specific query"""
+        evaluations = self.get_analysis_evaluations(query=query, limit=1)
+        return evaluations[0] if evaluations else None
+
+    def get_analysis_metrics_summary(self, days: int = 30) -> Dict[str, float]:
+        """Get summary statistics of analysis metrics over a time period"""
+        logger.info(f"Getting analysis metrics summary for last {days} days")
+        
+        with self.lock:
+            cursor = self.conn.cursor()
+            try:
+                cursor.execute(
+                    """
+                    SELECT 
+                        AVG(numerical_accuracy) as avg_numerical_accuracy,
+                        AVG(query_understanding) as avg_query_understanding,
+                        AVG(data_validation) as avg_data_validation,
+                        AVG(reasoning_transparency) as avg_reasoning_transparency,
+                        AVG(overall_score) as avg_overall_score,
+                        COUNT(*) as total_analyses
+                    FROM analysis_evaluations
+                    WHERE datetime(timestamp) >= datetime('now', ?)
+                    """,
+                    (f'-{days} days',)
                 )
-                """,
-                {
-                    'query': data.get('query', 'Unknown'),
-                    'timestamp': data.get('timestamp', datetime.now().isoformat()),
-                    'analysis': data.get('analysis', ''),
-                    'numerical_accuracy': metrics.get('numerical_accuracy', {}).get('score', 0.0),
-                    'query_understanding': metrics.get('query_understanding', {}).get('score', 0.0),
-                    'data_validation': metrics.get('data_validation', {}).get('score', 0.0),
-                    'reasoning_transparency': metrics.get('reasoning_transparency', {}).get('score', 0.0),
-                    'overall_score': metrics.get('overall_score', 0.0),
-                    'metrics_details': json.dumps(metrics),
-                    'calculation_examples': json.dumps(metrics.get('numerical_accuracy', {}).get('details', {}).get('calculation_examples', [])),
-                    'term_coverage': metrics.get('query_understanding', {}).get('details', {}).get('term_coverage', 0.0),
-                    'analytical_elements': json.dumps(metrics.get('query_understanding', {}).get('details', {})),
-                    'validation_checks': json.dumps(metrics.get('data_validation', {}).get('details', {})),
-                    'explanation_patterns': json.dumps(metrics.get('reasoning_transparency', {}).get('details', {}))
+                
+                result = dict(zip([d[0] for d in cursor.description], cursor.fetchone()))
+                return result
+                
+            except Exception as e:
+                logger.error(f"Error getting analysis metrics summary: {str(e)}")
+                return {
+                    'avg_numerical_accuracy': 0.0,
+                    'avg_query_understanding': 0.0,
+                    'avg_data_validation': 0.0,
+                    'avg_reasoning_transparency': 0.0,
+                    'avg_overall_score': 0.0,
+                    'total_analyses': 0
                 }
-            )
-            self.conn.commit()
-            return cursor.lastrowid
-            
-        except Exception as e:
-            logger.error(f"Error storing analysis evaluation: {str(e)}")
-            self.conn.rollback()
-            return -1
-
-def get_analysis_evaluations(self, query: Optional[str] = None, limit: int = 10) -> List[Dict[str, Any]]:
-    """Retrieve analysis evaluation results"""
-    logger.info(f"Retrieving analysis evaluations for query: {query}")
-    
-    with self.lock:
-        cursor = self.conn.cursor()
-        try:
-            if query:
-                cursor.execute(
-                    """
-                    SELECT * FROM analysis_evaluations 
-                    WHERE query LIKE ? 
-                    ORDER BY timestamp DESC 
-                    LIMIT ?
-                    """,
-                    (f'%{query}%', limit)
-                )
-            else:
-                cursor.execute(
-                    """
-                    SELECT * FROM analysis_evaluations 
-                    ORDER BY timestamp DESC 
-                    LIMIT ?
-                    """,
-                    (limit,)
-                )
-            
-            columns = [description[0] for description in cursor.description]
-            results = []
-            for row in cursor.fetchall():
-                result = dict(zip(columns, row))
-                
-                # Parse JSON fields
-                for json_field in ['metrics_details', 'calculation_examples', 
-                                 'analytical_elements', 'validation_checks', 
-                                 'explanation_patterns']:
-                    if result.get(json_field):
-                        try:
-                            result[json_field] = json.loads(result[json_field])
-                        except json.JSONDecodeError:
-                            result[json_field] = {}
-                
-                results.append(result)
-            
-            return results
-            
-        except Exception as e:
-            logger.error(f"Error retrieving analysis evaluations: {str(e)}")
-            return []
-
-def get_latest_analysis(self, query: str) -> Optional[Dict[str, Any]]:
-    """Get the most recent analysis for a specific query"""
-    evaluations = self.get_analysis_evaluations(query=query, limit=1)
-    return evaluations[0] if evaluations else None
-
-def get_analysis_metrics_summary(self, days: int = 30) -> Dict[str, float]:
-    """Get summary statistics of analysis metrics over a time period"""
-    logger.info(f"Getting analysis metrics summary for last {days} days")
-    
-    with self.lock:
-        cursor = self.conn.cursor()
-        try:
-            cursor.execute(
-                """
-                SELECT 
-                    AVG(numerical_accuracy) as avg_numerical_accuracy,
-                    AVG(query_understanding) as avg_query_understanding,
-                    AVG(data_validation) as avg_data_validation,
-                    AVG(reasoning_transparency) as avg_reasoning_transparency,
-                    AVG(overall_score) as avg_overall_score,
-                    COUNT(*) as total_analyses
-                FROM analysis_evaluations
-                WHERE datetime(timestamp) >= datetime('now', ?)
-                """,
-                (f'-{days} days',)
-            )
-            
-            result = dict(zip([d[0] for d in cursor.description], cursor.fetchone()))
-            return result
-            
-        except Exception as e:
-            logger.error(f"Error getting analysis metrics summary: {str(e)}")
-            return {
-                'avg_numerical_accuracy': 0.0,
-                'avg_query_understanding': 0.0,
-                'avg_data_validation': 0.0,
-                'avg_reasoning_transparency': 0.0,
-                'avg_overall_score': 0.0,
-                'total_analyses': 0
-            }
-                
+                    
     def delete_doc(self, id: str):
     # Breakpoint before document deletion
         logger.info(f"Deleting document with ID: {id}")
