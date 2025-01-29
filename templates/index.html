@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,60 +7,109 @@
     <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
+    <div class="theme-toggle">
+        <button id="themeToggle">🌙</button>
+    </div>
+    
     <h1>Species Report Generator</h1>
     
     <div class="container">
         <div class="sidebar">
-            <button class="mode-button active" data-mode="summary">Species Summary</button>
-            <button class="mode-button" data-mode="data">Data Analysis</button>
-            <button class="mode-button" data-mode="report">Generate Report</button>
-        </div>
+            <div class="sidebar-section">
+                <button class="mode-button active" data-mode="summary">Species Summary</button>
+                <button class="mode-button" data-mode="data">Data Analysis</button>
+                <button class="mode-button" data-mode="report">Generate Report</button>
+            </div>
 
-        <div class="main-content">
-            <div class="settings-panel">
-                <div id="summarySettings" class="mode-settings">
-                    <div class="input-group">
-                        <label>Summary Type</label>
-                        <select id="summaryType">
-                            <option value="general">General Overview</option>
-                            <option value="detailed">Detailed Description</option>
-                            <option value="conservation">Conservation Status</option>
-                        </select>
-                    </div>
+            <!-- Summary Mode Filters -->
+            <div class="sidebar-section" id="summaryFilters">
+                <h3>Summary Options</h3>
+                <div class="filter-group">
+                    <label>Summary Type</label>
+                    <select id="summaryType">
+                        <option value="general">General Overview</option>
+                        <option value="detailed">Detailed Description</option>
+                        <option value="conservation">Conservation Status</option>
+                    </select>
+                    <div class="description" id="summaryDescription"></div>
                 </div>
 
-                <div id="dataSettings" class="mode-settings" style="display: none;">
-                    <div class="input-group">
-                        <label>Dataset</label>
-                        <select id="dataset">
-                            <option value="">Select Dataset...</option>
-                            <option value="population">Population Data</option>
-                            <option value="distribution">Distribution Data</option>
-                            <option value="genetic">Genetic Data</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>Analysis Type</label>
-                        <select id="analysisType">
-                            <option value="basic">Basic Statistics</option>
-                            <option value="trends">Population Trends</option>
-                            <option value="geographic">Geographic Distribution</option>
-                        </select>
-                    </div>
+                <div class="filter-group">
+                    <label>Prompt Template</label>
+                    <select id="promptTemplate">
+                        <option value="basic">Basic Template</option>
+                        <option value="detailed">Detailed Template</option>
+                        <option value="scientific">Scientific Template</option>
+                        <option value="custom">Custom Template</option>
+                    </select>
+                    <div class="description" id="promptDescription"></div>
                 </div>
 
-                <div id="reportSettings" class="mode-settings" style="display: none;">
-                    <div class="input-group">
-                        <label>Report Template</label>
-                        <select id="reportTemplate">
-                            <option value="standard">Standard Report</option>
-                            <option value="scientific">Scientific Paper</option>
-                            <option value="presentation">Presentation</option>
-                        </select>
+                <div class="filter-group" id="customPromptGroup" style="display: none;">
+                    <label>Custom Prompt</label>
+                    <textarea id="customPrompt" rows="4" placeholder="Enter your custom prompt..."></textarea>
+                </div>
+
+                <div class="filter-group" id="dataSourceGroup">
+                    <label>Data Sources</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="scientific">
+                            <span>Scientific Literature</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="conservation">
+                            <span>Conservation Data</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="geographic">
+                            <span>Geographic Data</span>
+                        </label>
                     </div>
                 </div>
             </div>
 
+            <!-- Data Analysis Mode Filters -->
+            <div class="sidebar-section" id="dataFilters" style="display: none;">
+                <h3>Analysis Options</h3>
+                <div class="filter-group">
+                    <label>Dataset</label>
+                    <select id="dataset">
+                        <option value="">Select Dataset...</option>
+                        <option value="population">Population Data</option>
+                        <option value="distribution">Distribution Data</option>
+                        <option value="genetic">Genetic Data</option>
+                    </select>
+                    <div class="description" id="datasetDescription"></div>
+                </div>
+
+                <div class="filter-group">
+                    <label>Analysis Type</label>
+                    <select id="analysisType">
+                        <option value="basic">Basic Statistics</option>
+                        <option value="trends">Population Trends</option>
+                        <option value="geographic">Geographic Distribution</option>
+                    </select>
+                    <div class="description" id="analysisDescription"></div>
+                </div>
+            </div>
+
+            <!-- Report Mode Filters -->
+            <div class="sidebar-section" id="reportFilters" style="display: none;">
+                <h3>Report Options</h3>
+                <div class="filter-group">
+                    <label>Report Template</label>
+                    <select id="reportTemplate">
+                        <option value="standard">Standard Report</option>
+                        <option value="scientific">Scientific Paper</option>
+                        <option value="presentation">Presentation</option>
+                    </select>
+                    <div class="description" id="templateDescription"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
             <div class="chat-container">
                 <div class="messages" id="messages"></div>
                 <div class="input-container">

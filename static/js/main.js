@@ -1,15 +1,72 @@
-// static/js/main.js
+// Add dark mode functionality
+const themeToggle = document.getElementById('themeToggle');
+const html = document.documentElement;
+
+// Check for saved theme preference
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    html.className = savedTheme;
+    themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+}
+
+themeToggle.addEventListener('click', () => {
+    if (html.className === 'dark') {
+        html.className = 'light';
+        themeToggle.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
+    } else {
+        html.className = 'dark';
+        themeToggle.textContent = '☀️';
+        localStorage.setItem('theme', 'dark');
+    }
+});
+
 // State management
 let currentMode = 'summary';
 let isLoading = false;
 
 // DOM Elements
 const modeButtons = document.querySelectorAll('.mode-button');
-const modeSettings = document.querySelectorAll('.mode-settings');
+const summaryFilters = document.getElementById('summaryFilters');
+const dataFilters = document.getElementById('dataFilters');
+const reportFilters = document.getElementById('reportFilters');
 const messagesContainer = document.getElementById('messages');
 const inputForm = document.getElementById('inputForm');
 const speciesInput = document.getElementById('speciesInput');
 const submitButton = document.getElementById('submitButton');
+
+// Descriptions for different options
+const DESCRIPTIONS = {
+    summaryTypes: {
+        general: "A broad overview of the species including basic characteristics, habitat, and behavior.",
+        detailed: "In-depth analysis including taxonomy, lifecycle, ecology, and interactions with other species.",
+        conservation: "Focus on conservation status, threats, and protection measures."
+    },
+    promptTemplates: {
+        basic: "Simple, straightforward prompts for general information.",
+        detailed: "Comprehensive prompts that cover multiple aspects of the species.",
+        scientific: "Technical prompts focused on academic and research perspectives.",
+        custom: "Create your own custom prompt template."
+    },
+    datasets: {
+        population: "Historical population counts and demographic data.",
+        distribution: "Geographic distribution and habitat range information.",
+        genetic: "Genetic diversity and evolutionary data."
+    },
+    analysisTypes: {
+        basic: "Simple statistical analysis of the selected dataset.",
+        trends: "Time-series analysis and trend identification.",
+        geographic: "Spatial analysis and mapping of distribution patterns."
+    }
+};
+
+// Update filter visibility based on mode
+// Update filter visibility based on mode
+function updateFiltersVisibility(mode) {
+    summaryFilters.style.display = mode === 'summary' ? 'block' : 'none';
+    dataFilters.style.display = mode === 'data' ? 'block' : 'none';
+    reportFilters.style.display = mode === 'report' ? 'block' : 'none';
+}
 
 // API endpoints
 const API_ENDPOINTS = {
@@ -24,13 +81,54 @@ modeButtons.forEach(button => {
         modeButtons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
         currentMode = button.getAttribute('data-mode');
-        modeSettings.forEach(settings => {
-            settings.style.display = 'none';
-        });
-        document.getElementById(`${currentMode}Settings`).style.display = 'block';
+        updateFiltersVisibility(currentMode);
     });
 });
 
+// Update descriptions based on selections
+function updateDescriptions() {
+    // Summary Type description
+    const summaryDesc = document.getElementById('summaryDescription');
+    const summaryType = document.getElementById('summaryType');
+    if (summaryDesc && summaryType) {
+        summaryDesc.textContent = DESCRIPTIONS.summaryTypes[summaryType.value] || '';
+    }
+
+    // Prompt Template description
+    const promptDesc = document.getElementById('promptDescription');
+    const promptTemplate = document.getElementById('promptTemplate');
+    if (promptDesc && promptTemplate) {
+        promptDesc.textContent = DESCRIPTIONS.promptTemplates[promptTemplate.value] || '';
+    }
+
+    // Dataset description
+    const datasetDesc = document.getElementById('datasetDescription');
+    const dataset = document.getElementById('dataset');
+    if (datasetDesc && dataset) {
+        datasetDesc.textContent = DESCRIPTIONS.datasets[dataset.value] || '';
+    }
+
+    // Analysis Type description
+    const analysisDesc = document.getElementById('analysisDescription');
+    const analysisType = document.getElementById('analysisType');
+    if (analysisDesc && analysisType) {
+        analysisDesc.textContent = DESCRIPTIONS.analysisTypes[analysisType.value] || '';
+    }
+}
+
+// Event listeners for description updates and custom prompt toggle
+document.getElementById('summaryType')?.addEventListener('change', updateDescriptions);
+document.getElementById('promptTemplate')?.addEventListener('change', (e) => {
+    updateDescriptions();
+    const customPromptGroup = document.getElementById('customPromptGroup');
+    if (customPromptGroup) {
+        customPromptGroup.style.display = e.target.value === 'custom' ? 'block' : 'none';
+    }
+});
+document.getElementById('dataset')?.addEventListener('change', updateDescriptions);
+document.getElementById('analysisType')?.addEventListener('change', updateDescriptions);
+
+// Chat message functions
 function addMessage(content, isUser = false) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${isUser ? 'user' : 'assistant'}`;
@@ -71,6 +169,7 @@ function formatResponse(data, mode) {
     }
 }
 
+// Form submission handler
 inputForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -89,7 +188,12 @@ inputForm.addEventListener('submit', async (e) => {
         case 'summary':
             payload = {
                 query: species,
-                tool_name: "General Agent"
+                tool_name: "General Agent",
+                summary_type: document.getElementById('summaryType').value,
+                prompt_template: document.getElementById('promptTemplate').value,
+                custom_prompt: document.getElementById('customPrompt')?.value || '',
+                data_sources: Array.from(document.querySelectorAll('.checkbox-group input:checked'))
+                    .map(cb => cb.value)
             };
             break;
         
@@ -150,3 +254,6 @@ inputForm.addEventListener('submit', async (e) => {
         speciesInput.value = '';
     }
 });
+
+// Initialize descriptions on page load
+updateDescriptions();
