@@ -1,51 +1,105 @@
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
-from typing import Optional, Dict, Any
+from pydantic import BaseModel, Field
+from typing import Optional, Dict, Any, List
 from tools import AnalysisAgent
 from research_components.research import run_tool
 
 api_router = APIRouter()
 
 class AnalyzeRequest(BaseModel):
-    """Request model for analysis endpoints"""
-    query: str
+    """Enhanced request model for analysis endpoints"""
+    query: str = Field(..., min_length=2, max_length=200)
     tool_name: Optional[str] = "Analysis Agent"
-    dataset_path: Optional[str] = None
+    dataset: str
+    analysis_type: Optional[str] = Field(
+        default="basic", 
+        description="Type of analysis to perform",
+        examples=["basic", "trends", "geographic"]
+    )
 
 class AnalyzeResponse(BaseModel):
-    """Response model for analysis results"""
+    """Comprehensive response model for analysis results"""
     analysis: str
     trace_data: Dict[str, Any]
     metrics: Dict[str, Any]
     usage: Dict[str, Any]
+    metadata: Optional[Dict[str, Any]] = None
 
-@api_router.post("/", response_model=AnalyzeResponse)
+@api_router.get("/datasets", response_model=List[str])
+async def get_datasets():
+    """
+    Retrieve list of available datasets
+    
+    Returns a list of CSV files in the data folder
+    """
+    try:
+        tool = AnalysisAgent(data_folder="./data")
+        datasets = tool.get_available_datasets()
+        
+        if not datasets:
+            raise HTTPException(
+                status_code=404,
+                detail="No datasets found in data folder"
+            )
+        
+        return datasets
+    
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error retrieving datasets: {str(e)}"
+        )
+
+@api_router.post("/analyze", response_model=AnalyzeResponse)
 async def generate_analysis(request: AnalyzeRequest):
-    """Generate analysis based on the provided query"""
+    """
+    Generate analysis based on the provided query and dataset
+    
+    Supports different analysis types and provides comprehensive results
+    """
     try:
         # Initialize analysis agent
-        tool = AnalysisAgent()
+        tool = AnalysisAgent(data_folder="./data")
         
-        # Run analysis
+        # Validate dataset availability
+        available_datasets = tool.get_available_datasets()
+        if request.dataset not in available_datasets:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Dataset not found. Available datasets: {available_datasets}"
+            )
+        
+        # Run analysis with additional parameters
         result, trace = run_tool(
             tool_name=request.tool_name,
             query=request.query,
+            dataset=request.dataset,
+            analysis_type=request.analysis_type,
             tool=tool
         )
         
-        if result:
-            return {
-                "analysis": result.analysis,
-                "trace_data": trace.data,
-                "metrics": result.metrics.dict(),
-                "usage": result.usage
-            }
-        else:
+        if not result:
             raise HTTPException(
                 status_code=400,
                 detail="Analysis failed to produce valid results"
             )
-            
+        
+        return {
+            "analysis": result.analysis,
+            "trace_data": trace.data,
+            "metrics": result.metrics.dict(),
+            "usage": result.usage,
+            "metadata": {
+                "dataset": request.dataset,
+                "analysis_type": request.analysis_type,
+                "timestamp": trace.timestamp
+            }
+        }
+    
+    except HTTPException:
+        # Re-raise HTTP exceptions directly
+        raise
+    
     except Exception as e:
         raise HTTPException(
             status_code=500,
@@ -54,5 +108,53 @@ async def generate_analysis(request: AnalyzeRequest):
 
 @api_router.get("/health")
 async def health_check():
-    """Health check endpoint"""
-    return {"status": "healthy", "service": "analysis-api"}
+    """
+    Simple health check endpoint
+    
+    Returns service status and basic information
+    """
+    return {
+        "status": "healthy",
+        "service": "species-analysis-api",
+        "version": "1.0.0",
+        "available_analysis_types": ["basic", "trends", "geographic"]
+    }
+
+@api_router.get("/dataset/{dataset_name}/info")
+async def get_dataset_info(dataset_name: str):
+    """
+    Retrieve detailed information about a specific dataset
+    
+    Provides comprehensive dataset metadata
+    """
+    try:
+        tool = AnalysisAgent(data_folder="./data")
+        
+        # Verify dataset exists
+        available_datasets = tool.get_available_datasets()
+        if dataset_name not in available_datasets:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Dataset '{dataset_name}' not found. Available: {available_datasets}"
+            )
+        
+        # Load and analyze dataset
+        df = tool.load_and_validate_data(dataset_name)
+        
+        return {
+            "filename": dataset_name,
+            "columns": list(df.columns),
+            "rows": len(df),
+            "missing_values": df.isnull().sum().to_dict(),
+            "dtypes": {str(k): str(v) for k, v in df.dtypes.items()}
+        }
+    
+    except HTTPException:
+        # Re-raise HTTP exceptions directly
+        raise
+    
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error retrieving dataset info: {str(e)}"
+        )

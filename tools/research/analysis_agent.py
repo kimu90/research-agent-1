@@ -1,16 +1,17 @@
 import logging
-from typing import Dict, Optional, Type, Any
 from datetime import datetime
+from typing import Dict, Optional, Type, Any, List
 import pandas as pd
 from pydantic import BaseModel, Field
 from langchain.tools import BaseTool
 from utils.model_wrapper import model_wrapper
 from utils.token_tracking import TokenUsageTracker
 from prompts import Prompt
+import os
 
 class AnalysisAgentInput(BaseModel):
     query: str = Field(description="Analysis query to process")
-    dataset_path: Optional[str] = Field(default=None, description="Path to the dataset if not using default")
+    dataset: str = Field(description="Name of the CSV file to analyze")
 
 class AnalysisMetrics(BaseModel):
     numerical_accuracy: float = Field(default=0.0)
@@ -29,6 +30,12 @@ class AnalysisMetrics(BaseModel):
     stated_assumptions: bool = Field(default=False)
     mentioned_limitations: bool = Field(default=False)
     clear_methodology: bool = Field(default=False)
+
+class AnalysisResult(BaseModel):
+    """Structured output for analysis results"""
+    analysis: str
+    metrics: AnalysisMetrics
+    usage: Dict[str, Any] = Field(default_factory=dict)
 
 ANALYZE_DATA_PROMPT = Prompt(
     id="analyze-data",
@@ -49,15 +56,9 @@ ANALYZE_DATA_PROMPT = Prompt(
     Return results in a clear, structured format."""
 )
 
-class AnalysisResult(BaseModel):
-    """Structured output for analysis results"""
-    analysis: str
-    metrics: AnalysisMetrics
-    usage: Dict[str, Any] = Field(default_factory=dict)
-
 class AnalysisAgent(BaseTool):
     name: str = "analysis-agent"
-    description: str = "Analyzes datasets using statistical methods and machine learning techniques"
+    description: str = "Analyzes datasets using statistical methods"
     args_schema: Type[BaseModel] = AnalysisAgentInput
     custom_prompt: Optional[Prompt] = Field(default=None)
     token_tracker: TokenUsageTracker = Field(default_factory=TokenUsageTracker)
@@ -71,10 +72,36 @@ class AnalysisAgent(BaseTool):
         self.custom_prompt = custom_prompt or ANALYZE_DATA_PROMPT
         self.token_tracker = TokenUsageTracker()
         self.data_folder = data_folder
+        
+        # Ensure data folder exists
+        if not os.path.exists(data_folder):
+            os.makedirs(data_folder)
 
-    def load_and_validate_data(self, file_path: str) -> pd.DataFrame:
+    def get_available_datasets(self):
+        
+        # Print the full path to verify
+        print(f"Looking for datasets in: {os.path.abspath(self.data_folder)}")
+        
+        # List all CSV files in the data folder
+        try:
+            datasets = [
+                f for f in os.listdir(self.data_folder) 
+                if f.endswith('.csv')
+            ]
+            
+            print(f"Found datasets: {datasets}")
+            return datasets
+        except Exception as e:
+            print(f"Error finding datasets: {e}")
+            return []
+
+    def load_and_validate_data(self, file_name: str) -> pd.DataFrame:
         """Load and perform initial validation of the dataset."""
         try:
+            file_path = os.path.join(self.data_folder, file_name)
+            if not os.path.exists(file_path):
+                raise FileNotFoundError(f"Dataset file not found: {file_path}")
+
             df = pd.read_csv(file_path)
             validation_results = {
                 'missing_data': df.isnull().sum().to_dict(),
@@ -92,26 +119,33 @@ class AnalysisAgent(BaseTool):
         """Perform comprehensive statistical analysis on the dataset."""
         try:
             numeric_cols = df.select_dtypes(include=['int64', 'float64']).columns
+            categorical_cols = df.select_dtypes(include=['object', 'category']).columns
+            
             analysis_results = {
-                'descriptive_stats': df[numeric_cols].describe().to_dict(),
-                'correlations': df[numeric_cols].corr().to_dict(),
+                'descriptive_stats': df[numeric_cols].describe().to_dict() if len(numeric_cols) > 0 else {},
+                'correlations': df[numeric_cols].corr().to_dict() if len(numeric_cols) > 0 else {},
                 'missing_values': df.isnull().sum().to_dict(),
-                'unique_counts': {col: df[col].nunique() for col in df.columns}
+                'unique_counts': {col: df[col].nunique() for col in df.columns},
+                'categorical_summaries': {
+                    col: df[col].value_counts().to_dict() 
+                    for col in categorical_cols
+                } if len(categorical_cols) > 0 else {}
             }
+            
+            # Add basic outlier detection for numeric columns
+            if len(numeric_cols) > 0:
+                outliers = {}
+                for col in numeric_cols:
+                    Q1 = df[col].quantile(0.25)
+                    Q3 = df[col].quantile(0.75)
+                    IQR = Q3 - Q1
+                    outliers[col] = len(df[(df[col] < (Q1 - 1.5 * IQR)) | (df[col] > (Q3 + 1.5 * IQR))])
+                analysis_results['outliers'] = outliers
+            
             return analysis_results
         except Exception as e:
             logging.error(f"Error in statistical analysis: {str(e)}")
             raise
-
-    def evaluate_query_understanding(self, query: str, analysis_results: Dict) -> Dict:
-        """Evaluate how well the analysis addressed the query."""
-        evaluation = {
-            'used_correct_columns': True,
-            'used_correct_analysis': True,
-            'used_correct_grouping': True,
-            'query_relevance_score': 1.0
-        }
-        return evaluation
 
     def invoke_analysis(
         self,
@@ -122,28 +156,27 @@ class AnalysisAgent(BaseTool):
         logging.info(f"Starting analysis for query: {input.get('query', 'No query')}")
         
         try:
-            if not input or 'query' not in input:
-                raise ValueError("No query provided")
+            if not input or 'query' not in input or 'dataset' not in input:
+                raise ValueError("Query and dataset must be provided")
+
+            dataset_file = input['dataset']
+            available_datasets = self.get_available_datasets()
+            
+            if dataset_file not in available_datasets:
+                raise ValueError(f"Invalid dataset: {dataset_file}. Available datasets: {available_datasets}")
 
             # Load and validate data
-            file_path = input.get('dataset_path', f"{self.data_folder}/default_dataset.csv")
-            df = self.load_and_validate_data(file_path)
+            df = self.load_and_validate_data(dataset_file)
 
             # Perform statistical analysis
             analysis_results = self.perform_statistical_analysis(df)
 
-            # Evaluate query understanding
-            query_evaluation = self.evaluate_query_understanding(input['query'], analysis_results)
-
             # Create analysis metrics
             metrics = AnalysisMetrics(
                 numerical_accuracy=1.0,
-                query_understanding=query_evaluation['query_relevance_score'],
+                query_understanding=1.0,
                 data_validation=1.0,
                 reasoning_transparency=1.0,
-                used_correct_columns=query_evaluation['used_correct_columns'],
-                used_correct_analysis=query_evaluation['used_correct_analysis'],
-                used_correct_grouping=query_evaluation['used_correct_grouping'],
                 handled_missing_data=True,
                 handled_outliers=True,
                 handled_datatypes=True,
@@ -156,10 +189,12 @@ class AnalysisAgent(BaseTool):
 
             # Generate analysis text
             dataset_info = {
+                'filename': dataset_file,
                 'shape': df.shape,
                 'columns': list(df.columns),
                 'dtypes': df.dtypes.to_dict(),
-                'missing_values': df.isnull().sum().to_dict()
+                'missing_values': df.isnull().sum().to_dict(),
+                'analysis_results': analysis_results
             }
 
             prompt_to_use = custom_prompt or self.custom_prompt
@@ -196,3 +231,152 @@ class AnalysisAgent(BaseTool):
     def _run(self, **kwargs) -> AnalysisResult:
         """Execute the analysis tool with the provided parameters."""
         return self.invoke_analysis(input=kwargs)
+
+def run_tool(tool_name: str, query: str, dataset: str = None, tool=None):
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format='%(asctime)s [%(levelname)s] %(message)s - %(filename)s:%(lineno)d',
+        handlers=[
+            logging.StreamHandler(),
+            logging.FileHandler('research_tool.log', mode='a')
+        ]
+    )
+    logger = logging.getLogger(__name__)
+    
+    start_time = datetime.now()
+    db = ContentDB("./data/content.db")    
+    logger.info(f"Starting tool execution - Tool: {tool_name}")
+    logger.info(f"Query received: {query}")
+    
+    trace = QueryTrace(query)
+    trace.data.update({
+        "tool": tool_name,
+        "tools_used": [tool_name],
+        "processing_steps": [],
+        "content_new": 0,
+        "content_reused": 0
+    })
+
+    try:
+        if tool_name == "Analysis Agent":
+            if tool is None:
+                tool = AnalysisAgent(data_folder="./data")
+            
+            # Get available datasets
+            available_datasets = tool.get_available_datasets()
+            if not available_datasets:
+                raise ValueError("No CSV datasets found in data folder")
+            
+            if dataset not in available_datasets:
+                raise ValueError(f"Invalid dataset: {dataset}. Available datasets: {available_datasets}")
+            
+            trace.add_prompt_usage("analysis_agent", "analysis", "")
+            result = tool.invoke_analysis(input={"query": query, "dataset": dataset})
+            
+            if result:
+                try:
+                    evaluation_data = {
+                        'query': query,
+                        'timestamp': datetime.now().isoformat(),
+                        'analysis': result.analysis,
+                        'metrics': {}
+                    }
+
+                    # Run analysis-specific evaluations
+                    if analysis_evaluator:
+                        analysis_metrics = analysis_evaluator.evaluate_analysis(result, query)
+                        trace.data['analysis_metrics'] = analysis_metrics
+                        
+                        evaluation_data.update({
+                            'numerical_accuracy': analysis_metrics.get('numerical_accuracy', {}).get('score', 0.0),
+                            'query_understanding': analysis_metrics.get('query_understanding', {}).get('score', 0.0),
+                            'data_validation': analysis_metrics.get('data_validation', {}).get('score', 0.0),
+                            'reasoning_transparency': analysis_metrics.get('reasoning_transparency', {}).get('score', 0.0),
+                            'overall_score': analysis_metrics.get('overall_score', 0.0),
+                            'metrics_details': json.dumps(analysis_metrics),
+                            'calculation_examples': json.dumps(analysis_metrics.get('numerical_accuracy', {}).get('details', {}).get('calculation_examples', [])),
+                            'term_coverage': analysis_metrics.get('query_understanding', {}).get('details', {}).get('term_coverage', 0.0),
+                            'analytical_elements': json.dumps(analysis_metrics.get('query_understanding', {}).get('details', {})),
+                            'validation_checks': json.dumps(analysis_metrics.get('data_validation', {}).get('details', {})),
+                            'explanation_patterns': json.dumps(analysis_metrics.get('reasoning_transparency', {}).get('details', {}))
+                        })
+                        
+                    # Store complete analysis evaluation
+                    db.store_analysis_evaluation(evaluation_data)
+                    
+                    trace.data.update({
+                        "processing_steps": ["Analysis completed successfully"],
+                        "analysis_metrics": evaluation_data
+                    })
+                    
+                except Exception as eval_error:
+                    logger.error(f"Analysis evaluation failed: {eval_error}")
+                    trace.data['evaluation_error'] = str(eval_error)
+
+        else:
+            error_msg = f"Tool {tool_name} not found"
+            logger.error(error_msg)
+            trace.data.update({
+                "processing_steps": [f"Error: {error_msg}"],
+                "error": error_msg,
+                "success": False
+            })
+            db.close()
+            return None, trace
+
+        # Finalize execution
+        end_time = datetime.now()
+        duration = (end_time - start_time).total_seconds()
+        
+        trace.data.update({
+            "duration": duration,
+            "success": True if result else False,
+            "end_time": end_time.isoformat()
+        })
+        
+        try:
+            token_stats = trace.token_tracker.get_usage_stats()
+            logger.info(f"Final token usage stats: {token_stats}")
+            
+            if token_stats['tokens']['total'] > 0:
+                usage_msg = f"Total tokens used: {token_stats['tokens']['total']}"
+                logger.info(usage_msg)
+                trace.data["processing_steps"].append(usage_msg)
+        except Exception as token_error:
+            logger.warning(f"Could not retrieve token stats: {token_error}")
+        
+        logger.info(f"{tool_name} completed successfully")
+        trace.data["processing_steps"].append(f"{tool_name} completed successfully")
+        
+        try:
+            tracer = CustomTracer()
+            tracer.save_trace(trace)
+        except Exception as trace_save_error:
+            logger.error(f"Failed to save trace: {trace_save_error}")
+        
+        db.close()
+        return result, trace
+    
+    except Exception as e:
+        error_msg = str(e)
+        logger.error(f"Error running {tool_name}: {error_msg}", exc_info=True)
+        
+        end_time = datetime.now()
+        duration = (end_time - start_time).total_seconds()
+        
+        trace.data.update({
+            "end_time": end_time.isoformat(),
+            "duration": duration,
+            "error": error_msg,
+            "success": False,
+            "processing_steps": [f"Execution failed: {error_msg}"]
+        })
+        
+        try:
+            tracer = CustomTracer()
+            tracer.save_trace(trace)
+        except Exception as trace_save_error:
+            logger.error(f"Failed to save error trace: {trace_save_error}")
+        
+        db.close()
+        return None, trace

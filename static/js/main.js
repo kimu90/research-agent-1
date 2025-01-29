@@ -255,5 +255,40 @@ inputForm.addEventListener('submit', async (e) => {
     }
 });
 
+async function loadDatasets() {
+    const datasetSelect = document.getElementById('dataset');
+    
+    try {
+        console.log('Fetching datasets...');
+        const response = await fetch('/api/datasets');
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Failed to fetch datasets:', response.status, errorText);
+            return;
+        }
+        
+        const datasets = await response.json();
+        console.log('Received datasets:', datasets);
+        
+        // Clear existing options except the first one
+        while (datasetSelect.options.length > 1) {
+            datasetSelect.remove(1);
+        }
+        
+        // Add new options for each CSV in the data folder
+        datasets.forEach(dataset => {
+            console.log('Adding dataset:', dataset);
+            const option = new Option(dataset, dataset);
+            datasetSelect.add(option);
+        });
+    } catch (error) {
+        console.error('Detailed dataset load error:', error);
+    }
+}
+
+// Ensure it's called after DOM is loaded
+document.addEventListener('DOMContentLoaded', loadDatasets);
+
 // Initialize descriptions on page load
 updateDescriptions();

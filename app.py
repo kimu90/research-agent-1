@@ -1,11 +1,15 @@
-# main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, RedirectResponse
+
+# Import your existing routers
 from controllers.generate_summary_router import api_router as summary_router
 from controllers.analyze_data_router import api_router as analysis_router
 from controllers.report_router import api_router as report_router
+
+# New import for datasets router
+from controllers.datasets_router import api_router as datasets_router
 
 # Create FastAPI app instance
 app = FastAPI(
@@ -32,8 +36,11 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Include the API routers
 app.include_router(summary_router, prefix="/api/generate-summary", tags=["Summary"])
-app.include_router(analysis_router, prefix="/api/analyze-data", tags=["Analysis"])
+app.include_router(analysis_router, prefix="/api", tags=["Analysis"])
 app.include_router(report_router, prefix="/api/generate-report", tags=["Report"])
+
+# Add the new datasets router
+app.include_router(datasets_router, prefix="/api", tags=["Datasets"])
 
 @app.get("/", response_class=HTMLResponse)
 async def read_index():
