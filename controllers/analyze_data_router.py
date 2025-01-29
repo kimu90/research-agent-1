@@ -25,32 +25,9 @@ class AnalyzeResponse(BaseModel):
     usage: Dict[str, Any]
     metadata: Optional[Dict[str, Any]] = None
 
-@api_router.get("/datasets", response_model=List[str])
-async def get_datasets():
-    """
-    Retrieve list of available datasets
-    
-    Returns a list of CSV files in the data folder
-    """
-    try:
-        tool = AnalysisAgent(data_folder="./data")
-        datasets = tool.get_available_datasets()
-        
-        if not datasets:
-            raise HTTPException(
-                status_code=404,
-                detail="No datasets found in data folder"
-            )
-        
-        return datasets
-    
-    except Exception as e:
-        raise HTTPException(
-            status_code=500,
-            detail=f"Error retrieving datasets: {str(e)}"
-        )
 
-@api_router.post("/analyze", response_model=AnalyzeResponse)
+
+@api_router.post("/analyze-data", response_model=AnalyzeResponse)
 async def generate_analysis(request: AnalyzeRequest):
     """
     Generate analysis based on the provided query and dataset
