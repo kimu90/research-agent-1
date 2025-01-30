@@ -45,6 +45,7 @@ services:
      dockerfile: Dockerfile
    volumes:
      - .:/app
+     - ./prompts:/app/prompts
      - content-data:/data
      - ~/.aws:/root/.aws
    ports:

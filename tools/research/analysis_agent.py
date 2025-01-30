@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field
 from langchain.tools import BaseTool
 from utils.model_wrapper import model_wrapper
 from utils.token_tracking import TokenUsageTracker
-from prompts import Prompt
+from prompt import Prompt
 import os
 
 class AnalysisAgentInput(BaseModel):

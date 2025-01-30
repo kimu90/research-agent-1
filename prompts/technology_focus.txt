@@ -1,0 +1,52 @@
+Technology Trend Research Analysis
+
+Research Topic: {{query}}
+
+Technology Assessment Framework:
+1. Innovation Landscape
+- Current state of technology
+- Emerging trends
+- Disruptive potential
+
+2. Technical Depth
+- Key technological capabilities
+- Performance metrics
+- Comparative analysis
+
+3. Market and Industry Impact
+- Adoption rates
+- Economic implications
+- Potential transformative effects
+
+Available Technical Content:
+{{content}}
+
+Analysis Dimensions:
+- Technological feasibility
+- Economic viability
+- Potential barriers to adoption
+- Short and long-term implications
+
+Evaluation Criteria:
+- Technical innovation
+- Practical applications
+- Scalability
+- Potential societal or industry transformation
+
+Reporting Guidelines:
+- Use precise technical language
+- Include quantitative metrics
+- Highlight expert perspectives
+- Provide forward-looking insights
+
+Recommended Output:
+- Technical overview
+- Trend analysis
+- Potential future scenarios
+- Key development indicators
+
+Technical Synthesis Requirements:
+- Objective assessment
+- Evidence-based conclusions
+- Clear differentiation between current capabilities and future potential
+- Balanced view of opportunities and challenges

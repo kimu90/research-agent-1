@@ -10,7 +10,7 @@ from langchain.tools import BaseTool
 from langchain.docstore.document import Document
 from langchain_community.utilities import GoogleSerperAPIWrapper
 from pydantic import BaseModel, Field
-from prompts import Prompt
+from prompt import Prompt
 from .common.model_schemas import ContentItem, ResearchToolOutput
 from utils.model_wrapper import model_wrapper
 from utils.json_model_wrapper import json_model_wrapper
@@ -21,33 +21,68 @@ SERPER_API_KEY = os.getenv('SERPER_API_KEY')
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 GROQ_API_KEY = os.getenv('GROQ_API_KEY')
 
+class PromptLoader:
+    """
+    Handles dynamic loading of prompts from a specified directory.
+    """
+    @staticmethod
+    def load_prompt(prompt_name: str = "research.txt") -> Prompt:
+        """
+        Load a prompt from the prompts directory.
+        
+        Args:
+            prompt_name: Name of the prompt file to load (default: research.txt)
+        
+        Returns:
+            Prompt: Loaded prompt object
+        """
+        try:
+            with open(os.path.join("/app/prompts", prompt_name), 'r') as f:
+                prompt_content = f.read()
+            
+            return Prompt(
+                id=f"dynamic-prompt-{prompt_name}",
+                content=prompt_content,
+                metadata={"source": prompt_name}
+            )
+        except FileNotFoundError:
+            logging.error(f"Prompt file not found: {prompt_name}")
+            return Prompt(
+                id="fallback-prompt",
+                content="""Analyze the following content and provide a comprehensive summary.
+                
+                Research Topic: {{research_topic}}
+                
+                Content:
+                {{content}}
+                
+                Provide key insights, main themes, and relevant conclusions."""
+            )
+    @staticmethod
+    def list_available_prompts() -> List[str]:
+        """
+        List all available prompt files in the prompts directory.
+        
+        Returns:
+            List of prompt file names
+        """
+        base_path = os.path.join(
+            os.path.dirname(__file__), 
+            "..", 
+            "prompts"
+        )
+        
+        try:
+            return [
+                f for f in os.listdir(base_path) 
+                if f.endswith('.txt') and os.path.isfile(os.path.join(base_path, f))
+            ]
+        except Exception as e:
+            logging.error(f"Error listing prompts: {e}")
+            return []
+
 class GeneralAgentInput(BaseModel):
     query: str = Field(description="Search anything General")
-
-SELECT_CONTENT_PROMPT = Prompt(
-    id="research-agent-select-content",
-    content="""Analyze the following news articles and select the most relevant ones:
-    Research Topic: {{research_topic}}
-    
-    Available Articles:
-    {{formatted_snippets}}
-    
-    Return the indices of the most relevant articles.""",
-    metadata={"type": "content_selection"}
-)
-
-SUMMARIZE_RESULTS_PROMPT = Prompt(
-    id="summarize-search-results",
-    content="""Analyze and summarize the following search results:
-    
-    Query: {{user_prompt}}
-    
-    Search Results:
-    {{search_results_str}}
-    
-    Provide a comprehensive summary grouped by themes and include relevant links.""",
-    metadata={"type": "summarization"}
-)
 
 class GeneralAgent(BaseTool):
     name: str = "general-agent"
@@ -56,12 +91,95 @@ class GeneralAgent(BaseTool):
     include_summary: bool = False
     custom_prompt: Optional[Prompt] = Field(default=None)
     token_tracker: TokenUsageTracker = Field(default_factory=TokenUsageTracker)
+    current_prompt: Optional[Prompt] = Field(default=None)  # Add this line
 
-    def __init__(self, include_summary: bool = False, custom_prompt: Optional[Prompt] = None):
+    def __init__(
+        self, 
+        include_summary: bool = False, 
+        custom_prompt: Optional[Prompt] = None,
+        prompt_name: Optional[str] = None
+    ):
         super().__init__()
         self.include_summary = include_summary
-        self.custom_prompt = custom_prompt or SELECT_CONTENT_PROMPT
+        # Determine which prompt to use
+        if custom_prompt:
+            # Custom prompt takes highest precedence
+            self.current_prompt = custom_prompt
+        elif prompt_name:
+            # Load prompt from file if prompt name is provided
+            try:
+                self.current_prompt = PromptLoader.load_prompt(prompt_name)
+            except Exception as e:
+                logging.warning(f"Failed to load prompt {prompt_name}, falling back to default. Error: {e}")
+                self.current_prompt = PromptLoader.load_prompt("research.txt")
+        else:
+            # Use default content selection prompt if no custom prompt or name is provided
+            self.current_prompt = Prompt(
+                id="default-content-selection",
+                content="""Analyze the following news articles and select the most relevant ones:
+                Research Topic: {{research_topic}}
+                
+                Available Articles:
+                {{formatted_snippets}}
+                
+                Return the indices of the most relevant articles."""
+            )
+        
+        # Initialize token tracker
         self.token_tracker = TokenUsageTracker()
+
+    def decide_what_to_use(self, content: List[dict], research_topic: str) -> List[dict]:
+        try:
+            logging.info(f"Processing {len(content)} articles for topic: {research_topic}")
+            
+            formatted_snippets = "\n".join([f"{i}: {doc['title']}: {doc['snippets'][0]}" for i, doc in enumerate(content)])
+            
+            # Use the current prompt for content selection
+            system_prompt = self.current_prompt.compile(
+                research_topic=research_topic, 
+                formatted_snippets=formatted_snippets
+            )
+            
+            class ModelResponse(BaseModel):
+                sources: List[int]  # Expect indices (integers)
+
+            response = json_model_wrapper(
+                system_prompt=system_prompt,
+                user_prompt="Pick the snippets you want to include in the summary.",
+                prompt=self.current_prompt,
+                base_model=ModelResponse,
+                model="gpt-3.5-turbo",
+                temperature=0,
+                token_tracker=self.token_tracker
+            )
+            
+            logging.info(f"Received response: {response}")
+            
+            if response is None or not hasattr(response, 'sources'):
+                logging.warning("No valid response received, using all articles")
+                return content
+                
+            # Ensure that the 'sources' are indices (integers), and extract them correctly
+            indices = []
+            for source in response.sources:
+                if isinstance(source, dict) and 'index' in source:
+                    indices.append(source['index'])
+                elif isinstance(source, int):
+                    indices.append(source)
+            
+            # Filter valid indices
+            indices = [i for i in indices if i < len(content)]
+            
+            if not indices:
+                logging.warning("No valid indices found, using all articles")
+                return content
+                
+            logging.info(f"Selected {len(indices)} articles from {len(content)} total results")
+            return [content[i] for i in indices]
+            
+        except Exception as e:
+            logging.error(f"Error in decide_what_to_use: {str(e)}")
+            return content
 
     def scrape_pages(self, urls: List[str]) -> List[Document]:
         logging.info(f"Starting to scrape {len(urls)} news pages")
@@ -126,57 +244,6 @@ class GeneralAgent(BaseTool):
         logging.info(f"Successfully scraped {len(docs)} pages out of {len(urls)} attempted")
         return docs
 
-    def decide_what_to_use(self, content: List[dict], research_topic: str) -> List[dict]:
-        try:
-            logging.info(f"Processing {len(content)} articles for topic: {research_topic}")
-            
-            formatted_snippets = "\n".join([f"{i}: {doc['title']}: {doc['snippets'][0]}" for i, doc in enumerate(content)])
-            
-            prompt_to_use = self.custom_prompt or SELECT_CONTENT_PROMPT
-            system_prompt = prompt_to_use.compile(research_topic=research_topic, formatted_snippets=formatted_snippets)
-            
-            class ModelResponse(BaseModel):
-                sources: List[int]  # Expect indices (integers)
-
-            response = json_model_wrapper(
-                system_prompt=system_prompt,
-                user_prompt="Pick the snippets you want to include in the summary.",
-                prompt=prompt_to_use,
-                base_model=ModelResponse,
-                model="gpt-3.5-turbo",
-                temperature=0,
-                token_tracker=self.token_tracker
-            )
-            
-            logging.info(f"Received response: {response}")
-            
-            if response is None or not hasattr(response, 'sources'):
-                logging.warning("No valid response received, using all articles")
-                return content
-                
-            # Ensure that the 'sources' are indices (integers), and extract them correctly
-            indices = []
-            for source in response.sources:
-                if isinstance(source, dict) and 'index' in source:
-                    indices.append(source['index'])
-                elif isinstance(source, int):
-                    indices.append(source)
-            
-            # Filter valid indices
-            indices = [i for i in indices if i < len(content)]
-            
-            if not indices:
-                logging.warning("No valid indices found, using all articles")
-                return content
-                
-            logging.info(f"Selected {len(indices)} articles from {len(content)} total results")
-            return [content[i] for i in indices]
-            
-        except Exception as e:
-            logging.error(f"Error in decide_what_to_use: {str(e)}")
-            return content
-
-
     def _run(self, **kwargs) -> ResearchToolOutput:
         logging.info(f"Starting news search for query: {kwargs['query']}")
         
@@ -208,11 +275,28 @@ class GeneralAgent(BaseTool):
         summary = ""
         if self.include_summary:
             formatted_content = "\n\n".join([f"### {item}" for item in content])
-            system_prompt = SUMMARIZE_RESULTS_PROMPT.compile(search_results_str=formatted_content, user_prompt=kwargs["query"])
+            
+            # Use the current prompt for summary generation
+            summary_prompt = Prompt(
+                id="dynamic-summary-prompt",
+                content="""Analyze and summarize the following search results:
+                
+                Query: {{user_prompt}}
+                
+                Search Results:
+                {{search_results_str}}
+                
+                Provide a comprehensive summary grouped by themes and include relevant links."""
+            )
+            
+            system_prompt = summary_prompt.compile(
+                search_results_str=formatted_content, 
+                user_prompt=kwargs["query"]
+            )
 
             summary = model_wrapper(
                 system_prompt=system_prompt,
-                prompt=SUMMARIZE_RESULTS_PROMPT,
+                prompt=summary_prompt,
                 user_prompt=f"Summarize and group the search results based on this: '{kwargs['query']}'. Include links, dates, and snippets from the search results.",
                 model="llama3-70b-8192",
                 host="groq",

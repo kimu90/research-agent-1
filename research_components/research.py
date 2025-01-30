@@ -11,7 +11,28 @@ from utils.analysis_evaluator import create_analysis_evaluator
 from .db import ContentDB
 import json
 
-def run_tool(tool_name: str, query: str, dataset: str = None, analysis_type: str = None, tool=None):
+def run_tool(
+    tool_name: str, 
+    query: str, 
+    dataset: str = None, 
+    analysis_type: str = None, 
+    tool=None,
+    prompt_name: str = "research.txt"
+):
+    """
+    Execute a research or analysis tool with comprehensive tracing and evaluation.
+    
+    Args:
+        tool_name (str): Name of the tool to execute
+        query (str): Research or analysis query
+        dataset (str, optional): Dataset for analysis tools
+        analysis_type (str, optional): Type of analysis
+        tool (object, optional): Pre-initialized tool
+        prompt_name (str, optional): Name of the prompt to use for research
+    
+    Returns:
+        tuple: Research/analysis result and query trace
+    """
     logging.basicConfig(
         level=logging.DEBUG,
         format='%(asctime)s [%(levelname)s] %(message)s - %(filename)s:%(lineno)d',
@@ -26,6 +47,7 @@ def run_tool(tool_name: str, query: str, dataset: str = None, analysis_type: str
     db = ContentDB("./data/content.db")    
     logger.info(f"Starting tool execution - Tool: {tool_name}")
     logger.info(f"Query received: {query}")
+    logger.info(f"Prompt selected: {prompt_name}")
     
     trace = QueryTrace(query)
     trace.data.update({
@@ -33,7 +55,8 @@ def run_tool(tool_name: str, query: str, dataset: str = None, analysis_type: str
         "tools_used": [tool_name],
         "processing_steps": [],
         "content_new": 0,
-        "content_reused": 0
+        "content_reused": 0,
+        "prompt_used": prompt_name
     })
 
     try:
@@ -57,10 +80,14 @@ def run_tool(tool_name: str, query: str, dataset: str = None, analysis_type: str
             accuracy_evaluator = source_coverage_evaluator = coherence_evaluator = relevance_evaluator = automated_test_evaluator = analysis_evaluator = None
 
         if tool_name == "General Agent":
+            # Initialize tool with optional custom prompt
             if tool is None:
-                tool = GeneralAgent(include_summary=True)
+                tool = GeneralAgent(
+                    include_summary=True, 
+                    prompt_name=prompt_name
+                )
             
-            trace.add_prompt_usage("general_agent_search", "general", "")
+            trace.add_prompt_usage("general_agent_search", "general", prompt_name)
             result = tool.invoke(input={"query": query})
             
             if result:

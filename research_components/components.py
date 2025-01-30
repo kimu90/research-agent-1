@@ -7,7 +7,7 @@ from typing import List
 from .db import ContentDB
 from research_agent.tracers import QueryTrace
 from tools import GeneralAgent
-from prompts.prompt_manager import PromptManager
+from prompt.prompt_manager import PromptManager
 from .utils import load_research_history
 
 
