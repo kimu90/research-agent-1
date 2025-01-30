@@ -14,12 +14,13 @@ class QueryTrace:
         if QueryTrace._token_tracker is None:
             QueryTrace._token_tracker = TokenUsageTracker()
         self.token_tracker = QueryTrace._token_tracker
+        self.timestamp = datetime.now()  # Add timestamp as instance attribute
         self.data = {
             "trace_id": self.trace_id,
             "query": query,
-            "start_time": datetime.now().isoformat(),
+            "start_time": self.timestamp.isoformat(),
             "steps": [],
-            "timestamp": datetime.now().isoformat(),
+            "timestamp": self.timestamp.isoformat(),  # Use the same timestamp
             "tools_used": [],
             "prompts_used": [],
             "prompt_compilations": [],
@@ -30,22 +31,23 @@ class QueryTrace:
             "end_time": None,
             "duration": None,
             "error": None,
-
+            "processing_steps": []  # Added missing required key
         }
 
     def add_prompt_usage(self, prompt_id: str, agent_type: str, compilation_result: str):
         """Track prompt usage"""
+        current_time = datetime.now().isoformat()
         self.data["prompts_used"].append({
             "prompt_id": prompt_id,
             "agent_type": agent_type,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": current_time
         })
         
         self.data["prompt_compilations"].append({
             "prompt_id": prompt_id,
             "agent_type": agent_type,
             "result": compilation_result,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": current_time
         })
     
     def add_token_usage(self,
@@ -73,6 +75,14 @@ class QueryTrace:
                         f"Prompt tokens: {prompt_tokens}, "
                         f"Completion tokens: {completion_tokens}")
             raise
+
+    def finalize(self):
+        """Finalize the trace by setting end time and duration"""
+        self.data["end_time"] = datetime.now().isoformat()
+        start_time = datetime.fromisoformat(self.data["start_time"])
+        end_time = datetime.fromisoformat(self.data["end_time"])
+        self.data["duration"] = (end_time - start_time).total_seconds()
+
 
 class CustomTracer:
     def __init__(self):
@@ -113,9 +123,12 @@ class CustomTracer:
     def save_trace(self, trace: QueryTrace):
         """Save the trace with updated token usage statistics"""
         logger = logging.getLogger(__name__)
-        logger.info(f"Starting trace save operation - Trace ID: {getattr(trace, 'id', 'N/A')}")
+        logger.info(f"Starting trace save operation - Trace ID: {trace.trace_id}")
         
         try:
+            # Finalize the trace before saving
+            trace.finalize()
+            
             # Get token stats from TokenUsageTracker
             token_stats = trace.token_tracker.get_usage_stats()
             logger.debug(f"Retrieved final token stats: {json.dumps(token_stats, indent=2)}")

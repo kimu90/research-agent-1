@@ -9,10 +9,73 @@ from utils.token_tracking import TokenUsageTracker
 from prompt import Prompt
 import os
 
+class PromptLoader:
+    """
+    Handles dynamic loading of prompts from a specified directory.
+    """
+    @staticmethod
+    def load_prompt(prompt_name: str = "research.txt") -> Prompt:
+        """
+        Load a prompt from the prompts directory.
+        
+        Args:
+            prompt_name: Name of the prompt file to load (default: research.txt)
+        
+        Returns:
+            Prompt: Loaded prompt object
+        """
+        try:
+            with open(os.path.join("/app/prompts", prompt_name), 'r') as f:
+                prompt_content = f.read()
+            
+            return Prompt(
+                id=f"dynamic-prompt-{prompt_name}",
+                content=prompt_content,
+                metadata={"source": prompt_name}
+            )
+        except FileNotFoundError:
+            logging.error(f"Prompt file not found: {prompt_name}")
+            return Prompt(
+                id="fallback-prompt",
+                content="""Analyze the following content and provide a comprehensive summary.
+                
+                Research Topic: {{research_topic}}
+                
+                Content:
+                {{content}}
+                
+                Provide key insights, main themes, and relevant conclusions."""
+            )
+    @staticmethod
+    def list_available_prompts() -> List[str]:
+        """
+        List all available prompt files in the prompts directory.
+        
+        Returns:
+            List of prompt file names
+        """
+        base_path = os.path.join(
+            os.path.dirname(__file__), 
+            "..", 
+            "prompts"
+        )
+        
+        try:
+            return [
+                f for f in os.listdir(base_path) 
+                if f.endswith('.txt') and os.path.isfile(os.path.join(base_path, f))
+            ]
+        except Exception as e:
+            logging.error(f"Error listing prompts: {e}")
+            return []
+
 class AnalysisAgentInput(BaseModel):
     query: str = Field(description="Analysis query to process")
     dataset: str = Field(description="Name of the CSV file to analyze")
-
+    analysis_type: str = Field(
+        default="general",
+        description="Type of analysis to perform (e.g., 'general', 'statistical', 'correlation')"
+    )
 class AnalysisMetrics(BaseModel):
     numerical_accuracy: float = Field(default=0.0)
     query_understanding: float = Field(default=0.0)
@@ -37,48 +100,53 @@ class AnalysisResult(BaseModel):
     metrics: AnalysisMetrics
     usage: Dict[str, Any] = Field(default_factory=dict)
 
-ANALYZE_DATA_PROMPT = Prompt(
-    id="analyze-data",
-    content="""Analyze the following dataset based on the query:
-    
-    Query: {{query}}
-    
-    Dataset Info:
-    {{dataset_info}}
-    
-    Provide:
-    1. Key insights and findings
-    2. Statistical analysis
-    3. Data quality checks
-    4. Methodology explanation
-    5. Limitations and assumptions
-    
-    Return results in a clear, structured format."""
-)
 
 class AnalysisAgent(BaseTool):
     name: str = "analysis-agent"
     description: str = "Analyzes datasets using statistical methods"
     args_schema: Type[BaseModel] = AnalysisAgentInput
-    custom_prompt: Optional[Prompt] = Field(default=None)
+    current_prompt: Optional[Prompt] = Field(default=None)
     token_tracker: TokenUsageTracker = Field(default_factory=TokenUsageTracker)
-    data_folder: str = Field(default="./data")  # Add this line
+    current_prompt: Optional[Prompt] = Field(default=None)  # Add this line to declare the field
+    data_folder: str = Field(default="./data")  # Add data_folder as a proper field
 
 
     def __init__(
         self,
-        custom_prompt: Optional[Prompt] = None,
-        data_folder: str = "./data"
+        current_prompt: Optional[Prompt] = None,
+        data_folder: str = "./data",
+        prompt_name: Optional[str] = None
     ):
         super().__init__()
-        self.custom_prompt = custom_prompt or ANALYZE_DATA_PROMPT
+        if current_prompt:
+            # Custom prompt takes highest precedence
+            self.current_prompt = custom_prompt
+        elif prompt_name:
+            # Load prompt from file if prompt name is provided
+            try:
+                self.current_prompt = PromptLoader.load_prompt(prompt_name)
+            except Exception as e:
+                logging.warning(f"Failed to load prompt {prompt_name}, falling back to default. Error: {e}")
+                self.current_prompt = PromptLoader.load_prompt("research.txt")
+        else:
+            # Use default content selection prompt if no custom prompt or name is provided
+            self.current_prompt = Prompt(
+                id="default-content-selection",
+                content="""Analyze the following news articles and select the most relevant ones:
+                Research Topic: {{research_topic}}
+                
+                Available Articles:
+                {{formatted_snippets}}
+                
+                Return the indices of the most relevant articles."""
+            )
+        
         self.token_tracker = TokenUsageTracker()
         self.data_folder = data_folder
         
         # Ensure data folder exists
         if not os.path.exists(data_folder):
             os.makedirs(data_folder)
-
     def get_available_datasets(self):
         
         # Print the full path to verify
@@ -152,7 +220,7 @@ class AnalysisAgent(BaseTool):
     def invoke_analysis(
         self,
         input: Dict[str, str],
-        custom_prompt: Optional[Prompt] = None
+        current_prompt: Optional[Prompt] = None
     ) -> AnalysisResult:
         """Execute the analysis with comprehensive error handling and token tracking."""
         logging.info(f"Starting analysis for query: {input.get('query', 'No query')}")
@@ -199,7 +267,7 @@ class AnalysisAgent(BaseTool):
                 'analysis_results': analysis_results
             }
 
-            prompt_to_use = custom_prompt or self.custom_prompt
+            prompt_to_use = current_prompt or self.current_prompt
             system_prompt = prompt_to_use.compile(
                 query=input['query'],
                 dataset_info=str(dataset_info)

@@ -185,7 +185,11 @@ def run_tool(
 
         elif tool_name == "Analysis Agent":
             if tool is None:
-                tool = AnalysisAgent(data_folder="./data")  # Initialize with data folder
+                tool = AnalysisAgent(
+                    data_folder="./data",
+                    prompt_name=request.prompt_name
+                )
+                # Initialize with data folder
             
             trace.add_prompt_usage("analysis_agent", "analysis", "")
             result = tool.invoke_analysis(input={

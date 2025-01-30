@@ -1,22 +1,21 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 from typing import Optional, Dict, Any, List
-from tools import AnalysisAgent
+from tools import AnalysisAgent, PromptLoader
 from research_components.research import run_tool
 
 api_router = APIRouter()
 
 class AnalyzeRequest(BaseModel):
     """Enhanced request model for analysis endpoints"""
-    query: str = Field(..., min_length=2, max_length=300)
+    query: str = Field(..., min_length=2, max_length=200)
     tool_name: Optional[str] = "Analysis Agent"
     dataset: str
-    analysis_type: Optional[str] = Field(
-        default="basic", 
-        description="Type of analysis to perform",
-        examples=["basic", "trends", "geographic"]
+    prompt_name: Optional[str] = "research.txt"
+    analysis_type: str = Field(
+        default="general",
+        description="Type of analysis to perform (e.g., 'general', 'statistical', 'correlation')"
     )
-
 class AnalyzeResponse(BaseModel):
     """Comprehensive response model for analysis results"""
     analysis: str
@@ -24,6 +23,11 @@ class AnalyzeResponse(BaseModel):
     metrics: Dict[str, Any]
     usage: Dict[str, Any]
     metadata: Optional[Dict[str, Any]] = None
+    prompt_used: str
+
+class PromptListResponse(BaseModel):
+    """Response model for listing available prompts."""
+    prompts: List[str]
 
 
 @api_router.post("/analyze-data", response_model=AnalyzeResponse)
@@ -35,7 +39,11 @@ async def generate_analysis(request: AnalyzeRequest):
     """
     try:
         # Initialize analysis agent
-        tool = AnalysisAgent(data_folder="./data")
+        tool = AnalysisAgent(
+            data_folder="./data",
+            prompt_name=request.prompt_name
+        )
+
         
         # Validate dataset availability
         available_datasets = tool.get_available_datasets()
@@ -65,10 +73,11 @@ async def generate_analysis(request: AnalyzeRequest):
             "trace_data": trace.data,
             "metrics": result.metrics.dict(),
             "usage": result.usage,
+            "prompt_used": request.prompt_name,
             "metadata": {
                 "dataset": request.dataset,
                 "analysis_type": request.analysis_type,
-                "timestamp": trace.data.get('timestamp')  # Use .get() to safely access timestamp
+                "timestamp": trace.timestamp
             }
         }
     
@@ -77,15 +86,21 @@ async def generate_analysis(request: AnalyzeRequest):
         raise
     
     except Exception as e:
-        # Log the full exception for server-side debugging
-        import traceback
-        traceback.print_exc()
-        
         raise HTTPException(
             status_code=500,
             detail=f"Analysis generation failed: {str(e)}"
         )
 
+@api_router.get("/prompts", response_model=PromptListResponse)
+async def get_available_prompts():
+    """
+    Retrieve list of available research prompts.
+    """
+    try:
+        prompts = PromptLoader.list_available_prompts()
+        return {"prompts": prompts}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error listing prompts: {str(e)}") 
 @api_router.get("/health")
 async def health_check():
     """

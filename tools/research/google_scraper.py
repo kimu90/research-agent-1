@@ -14,6 +14,66 @@ from bs4 import BeautifulSoup
 import time
 import re
 
+class PromptLoader:
+    """
+    Handles dynamic loading of prompts from a specified directory.
+    """
+    @staticmethod
+    def load_prompt(prompt_name: str = "research.txt") -> Prompt:
+        """
+        Load a prompt from the prompts directory.
+        
+        Args:
+            prompt_name: Name of the prompt file to load (default: research.txt)
+        
+        Returns:
+            Prompt: Loaded prompt object
+        """
+        try:
+            with open(os.path.join("/app/prompts", prompt_name), 'r') as f:
+                prompt_content = f.read()
+            
+            return Prompt(
+                id=f"dynamic-prompt-{prompt_name}",
+                content=prompt_content,
+                metadata={"source": prompt_name}
+            )
+        except FileNotFoundError:
+            logging.error(f"Prompt file not found: {prompt_name}")
+            return Prompt(
+                id="fallback-prompt",
+                content="""Analyze the following content and provide a comprehensive summary.
+                
+                Research Topic: {{research_topic}}
+                
+                Content:
+                {{content}}
+                
+                Provide key insights, main themes, and relevant conclusions."""
+            )
+    @staticmethod
+    def list_available_prompts() -> List[str]:
+        """
+        List all available prompt files in the prompts directory.
+        
+        Returns:
+            List of prompt file names
+        """
+        base_path = os.path.join(
+            os.path.dirname(__file__), 
+            "..", 
+            "prompts"
+        )
+        
+        try:
+            return [
+                f for f in os.listdir(base_path) 
+                if f.endswith('.txt') and os.path.isfile(os.path.join(base_path, f))
+            ]
+        except Exception as e:
+            logging.error(f"Error listing prompts: {e}")
+            return []
+
 class WebScraperInput(BaseModel):
     """Input for WebScraper"""
     url: str = Field(description="URL to scrape")
