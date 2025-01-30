@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Species Report Generator</title>
     <link rel="stylesheet" href="/static/css/styles.css">
+    <title>Species Explorer</title>
 </head>
 <body>
+    <div class="top-bar"></div> <!-- Empty div added at the top -->
+
     <div class="theme-toggle">
         <button id="themeToggle">🌙</button>
     </div>
-    
-    <h1>Species Report Generator</h1>
     
     <div class="container">
         <div class="sidebar">
@@ -23,16 +23,7 @@
 
             <!-- Summary Mode Filters -->
             <div class="sidebar-section" id="summaryFilters">
-                <h3>Summary Options</h3>
-                <div class="filter-group">
-                    <label>Summary Type</label>
-                    <select id="summaryType">
-                        <option value="general">General Overview</option>
-                        <option value="detailed">Detailed Description</option>
-                        <option value="conservation">Conservation Status</option>
-                    </select>
-                    <div class="description" id="summaryDescription"></div>
-                </div>
+       
 
                 <div class="filter-group">
                     <label>Prompt Template</label>
@@ -50,26 +41,9 @@
                     <textarea id="customPrompt" rows="4" placeholder="Enter your custom prompt..."></textarea>
                 </div>
 
-                <div class="filter-group" id="dataSourceGroup">
-                    <label>Data Sources</label>
-                    <div class="checkbox-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="scientific">
-                            <span>Scientific Literature</span>
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="conservation">
-                            <span>Conservation Data</span>
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" value="geographic">
-                            <span>Geographic Data</span>
-                        </label>
-                    </div>
-                </div>
+               
             </div>
 
-            <!-- Data Analysis Mode Filters -->
             <!-- Data Analysis Mode Filters -->
             <div class="sidebar-section" id="dataFilters" style="display: none;">
                 <h3>Analysis Options</h3>

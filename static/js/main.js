@@ -205,11 +205,8 @@ inputForm.addEventListener('submit', async (e) => {
             payload = {
                 query: inputText,
                 tool_name: "General Agent",
-                summary_type: document.getElementById('summaryType').value,
                 prompt_template: document.getElementById('promptTemplate').value,
-                custom_prompt: document.getElementById('customPrompt')?.value || '',
-                data_sources: Array.from(document.querySelectorAll('.checkbox-group input:checked'))
-                    .map(cb => cb.value)
+               
             };
             break;
             
