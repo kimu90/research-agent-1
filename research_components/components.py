@@ -183,54 +183,20 @@ content_db = ContentDB(db_path)
 
 
 def display_analytics(traces: List[QueryTrace], content_db: ContentDB):
+    """
+    Display detailed analytics including token usage, processing steps, and content validation.
+    """
     if not traces:
         st.info("No research history available yet. Run some searches to see analytics!")
         return
 
-    tab1, tab2, tab3, tab4 = st.tabs([
-        "General Analytics", 
+    tab1, tab2, tab3 = st.tabs([
         "Token Usage", 
         "Processing Steps",
         "Content Validation"
     ])
 
     with tab1:
-        df = pd.DataFrame([{
-            'date': datetime.fromisoformat(t.data['start_time']).date(),
-            'success': t.data.get('success', False),
-            'duration': t.data.get('duration', 0),
-            'content_new': t.data.get('content_new', 0), 
-            'content_reused': t.data.get('content_reused', 0)
-        } for t in traces])
-       
-        st.subheader("📈 Success Rate Over Time")
-        success_by_date = df.groupby('date').agg({
-            'success': ['count', lambda x: x.sum() / len(x) * 100]
-        }).reset_index()
-        success_by_date.columns = ['date', 'total', 'success_rate']
-        
-        fig_success = px.line(
-            success_by_date,
-            x='date',
-            y='success_rate',
-            title='Success Rate Trend'
-        )
-        st.plotly_chart(fig_success, use_container_width=True)
-
-        st.subheader("📊 Research Statistics")
-        col1, col2, col3, col4 = st.columns(4)
-        with col1:
-            st.metric("Total Researches", len(traces))
-        with col2:
-            st.metric("Average Duration", f"{df['duration'].mean():.2f}s")
-        with col3:
-            success_rate = (df['success'].sum() / len(df)) * 100
-            st.metric("Success Rate", f"{success_rate:.1f}%")
-        with col4:
-            total_content = df['content_new'].sum() + df['content_reused'].sum()
-            st.metric("Total Content Processed", total_content)
-
-    with tab2:
         st.subheader("Token Usage Summary")
         col1, col2, col3 = st.columns(3)
         total_tokens = sum(trace.token_tracker.get_usage_stats().get('tokens', {}).get('total', 0) for trace in traces)
@@ -266,7 +232,7 @@ def display_analytics(traces: List[QueryTrace], content_db: ContentDB):
         total_cost = sum(trace.token_tracker.get_usage_stats().get('cost', 0) for trace in traces)
         st.metric("Total Cost ($)", f"{total_cost:.6f}")
 
-    with tab3:
+    with tab2:
         st.subheader("🔄 Processing Steps Analysis")
         all_steps = []
         for trace in traces:
@@ -295,7 +261,7 @@ def display_analytics(traces: List[QueryTrace], content_db: ContentDB):
         else:
             st.info("No processing steps recorded yet.")
 
-    with tab4:
+    with tab3:
         st.subheader("🔍 Content Validation Analysis")
         
         validation_tab1, validation_tab2, validation_tab3, validation_tab4, validation_tab5 = st.tabs([
@@ -463,8 +429,6 @@ def display_analytics(traces: List[QueryTrace], content_db: ContentDB):
         with validation_tab5:
             try:
                 automated_test_results = content_db.get_test_results(limit=50)
-                results = content_db.get_test_results()
-                print(results) # Add before creating DataFrame
                 if automated_test_results:
                     test_df = pd.DataFrame(automated_test_results)
                     
@@ -509,3 +473,191 @@ def display_analytics(traces: List[QueryTrace], content_db: ContentDB):
                     st.info("No automated test results available yet.")
             except Exception as e:
                 st.error(f"Error displaying automated test results: {str(e)}")
+
+def display_general_analysis(traces: List[QueryTrace]):
+    """
+    Display general analytics metrics including success rate and basic statistics.
+    """
+    if not traces:
+        st.info("No research history available yet. Run some searches to see analytics!")
+        return
+        
+    df = pd.DataFrame([{
+        'date': datetime.fromisoformat(t.data['start_time']).date(),
+        'success': t.data.get('success', False),
+        'duration': t.data.get('duration', 0),
+        'content_new': t.data.get('content_new', 0), 
+        'content_reused': t.data.get('content_reused', 0)
+    } for t in traces])
+   
+    st.subheader("📈 Success Rate Over Time")
+    success_by_date = df.groupby('date').agg({
+        'success': ['count', lambda x: x.sum() / len(x) * 100]
+    }).reset_index()
+    success_by_date.columns = ['date', 'total', 'success_rate']
+    
+    fig_success = px.line(
+        success_by_date,
+        x='date',
+        y='success_rate',
+        title='Success Rate Trend'
+    )
+    st.plotly_chart(fig_success, use_container_width=True)
+
+    st.subheader("📊 Research Statistics")
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        st.metric("Total Researches", len(traces))
+    with col2:
+        st.metric("Average Duration", f"{df['duration'].mean():.2f}s")
+    with col3:
+        success_rate = (df['success'].sum() / len(df)) * 100
+        st.metric("Success Rate", f"{success_rate:.1f}%")
+    with col4:
+        total_content = df['content_new'].sum() + df['content_reused'].sum()
+        st.metric("Total Content Processed", total_content)
+def display_analysis(traces: List[QueryTrace], content_db: ContentDB):
+    if not traces:
+        st.info("No analysis history available yet. Run some analyses to see metrics!")
+        return
+
+    tab1, tab2, tab3, tab4 = st.tabs([
+        "Analysis Overview",
+        "Numerical Accuracy",
+        "Query Understanding",
+        "Validation & Reasoning"
+    ])
+
+    with tab1:
+        df = pd.DataFrame([{
+            'date': datetime.fromisoformat(t.data['start_time']).date(),
+            'success': t.data.get('success', False),
+            'duration': t.data.get('duration', 0),
+            'overall_score': t.data.get('analysis_metrics', {}).get('overall_score', 0)
+        } for t in traces])
+        
+        st.subheader("📈 Analysis Performance Over Time")
+        success_by_date = df.groupby('date').agg({
+            'success': ['count', lambda x: x.sum() / len(x) * 100],
+            'overall_score': 'mean'
+        }).reset_index()
+        success_by_date.columns = ['date', 'total_analyses', 'success_rate', 'avg_score']
+        
+        fig_performance = px.line(
+            success_by_date,
+            x='date',
+            y=['success_rate', 'avg_score'],
+            title='Analysis Performance Trends',
+            labels={'value': 'Percentage', 'variable': 'Metric'},
+            color_discrete_map={'success_rate': '#2E86C1', 'avg_score': '#27AE60'}
+        )
+        st.plotly_chart(fig_performance, use_container_width=True)
+
+        st.subheader("📊 Analysis Statistics")
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.metric("Total Analyses", len(traces))
+        with col2:
+            st.metric("Average Duration", f"{df['duration'].mean():.2f}s")
+        with col3:
+            success_rate = (df['success'].sum() / len(df)) * 100
+            st.metric("Success Rate", f"{success_rate:.1f}%")
+        with col4:
+            avg_score = df['overall_score'].mean()
+            st.metric("Avg Overall Score", f"{avg_score:.2f}")
+
+    with tab2:
+        st.subheader("🔢 Numerical Accuracy Metrics")
+        analysis_evals = content_db.get_analysis_evaluations(limit=50)
+        if analysis_evals:
+            metrics_df = pd.DataFrame([{
+                'timestamp': eval_data['timestamp'],
+                'numerical_accuracy': eval_data['numerical_accuracy'],
+                'term_coverage': eval_data['term_coverage']
+            } for eval_data in analysis_evals])
+            
+            col1, col2 = st.columns(2)
+            with col1:
+                st.metric("Avg Numerical Accuracy", f"{metrics_df['numerical_accuracy'].mean():.2f}")
+            with col2:
+                st.metric("Avg Term Coverage", f"{metrics_df['term_coverage'].mean():.2f}")
+            
+            fig_accuracy = px.line(
+                metrics_df.sort_values('timestamp'),
+                x='timestamp',
+                y='numerical_accuracy',
+                title='Numerical Accuracy Trend'
+            )
+            st.plotly_chart(fig_accuracy, use_container_width=True)
+            
+            # Display calculation examples
+            st.subheader("Recent Calculation Examples")
+            for eval_data in analysis_evals[:5]:
+                if eval_data.get('calculation_examples'):
+                    st.markdown(f"**Query:** {eval_data['query']}")
+                    for example in eval_data['calculation_examples']:
+                        st.code(example)
+                    st.markdown("---")
+
+    with tab3:
+        st.subheader("🎯 Query Understanding Analysis")
+        if analysis_evals:
+            understanding_df = pd.DataFrame([{
+                'timestamp': eval_data['timestamp'],
+                'query_understanding': eval_data['query_understanding'],
+                'analytical_elements': len(eval_data.get('analytical_elements', {}))
+            } for eval_data in analysis_evals])
+            
+            col1, col2 = st.columns(2)
+            with col1:
+                st.metric("Avg Query Understanding", f"{understanding_df['query_understanding'].mean():.2f}")
+            with col2:
+                st.metric("Avg Analytical Elements", f"{understanding_df['analytical_elements'].mean():.1f}")
+            
+            fig_understanding = px.line(
+                understanding_df.sort_values('timestamp'),
+                x='timestamp',
+                y='query_understanding',
+                title='Query Understanding Score Trend'
+            )
+            st.plotly_chart(fig_understanding, use_container_width=True)
+
+    with tab4:
+        st.subheader("🔍 Validation & Reasoning Metrics")
+        if analysis_evals:
+            validation_df = pd.DataFrame([{
+                'timestamp': eval_data['timestamp'],
+                'data_validation': eval_data['data_validation'],
+                'reasoning_transparency': eval_data['reasoning_transparency']
+            } for eval_data in analysis_evals])
+            
+            col1, col2 = st.columns(2)
+            with col1:
+                st.metric("Avg Data Validation", f"{validation_df['data_validation'].mean():.2f}")
+            with col2:
+                st.metric("Avg Reasoning Transparency", f"{validation_df['reasoning_transparency'].mean():.2f}")
+            
+            # Create box plot for validation metrics distribution
+            fig_validation = px.box(
+                validation_df,
+                y=['data_validation', 'reasoning_transparency'],
+                title='Distribution of Validation Metrics'
+            )
+            st.plotly_chart(fig_validation, use_container_width=True)
+            
+            # Display recent validation checks
+            st.subheader("Recent Validation Checks")
+            for eval_data in analysis_evals[:5]:
+                if eval_data.get('validation_checks'):
+                    st.markdown(f"**Query:** {eval_data['query']}")
+                    checks = eval_data['validation_checks']
+                    if isinstance(checks, dict):
+                        for check_type, details in checks.items():
+                            st.markdown(f"**{check_type}:**")
+                            if isinstance(details, list):
+                                for detail in details:
+                                    st.markdown(f"- {detail}")
+                            else:
+                                st.markdown(f"- {details}")
+                    st.markdown("---")
+

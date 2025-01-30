@@ -8,6 +8,8 @@ from research_components.research import run_tool
 from research_components.components import display_analytics
 from research_components.components import (
     display_analytics, 
+    display_analysis,
+    display_general_analysis,
     GeneralAgent, 
     PromptManager
 )
@@ -42,13 +44,13 @@ def main():
     st.title("🔍 Research Agent Analysis")
 
     # Main tabs for the entire interface
-    main_tab1, main_tab2 = st.tabs(["Data Analysis Agent", "Summary Agent"])
-
+    main_tab1, main_tab2, main_tab3 = st.tabs(["General Analytics", "Data Analysis Agent", "Summary Agent"])
+    
+    
     with main_tab1:
         # Load traces and display analytics immediately
         traces = load_research_history()
-        db = get_db_connection()
-        display_analytics(traces, db)
+        display_general_analysis(traces)
 
     # Footer
     st.markdown("---")
@@ -58,6 +60,19 @@ def main():
     """)
 
     with main_tab2:
+        # Load traces and display analytics immediately
+        traces = load_research_history()
+        db = get_db_connection()
+        display_analysis(traces, db)
+
+    # Footer
+    st.markdown("---")
+    st.markdown("""
+    *Powered by AI Research Tools* | 
+    [Documentation](https://github.com/yourusername/research-agent/docs)
+    """)
+
+    with main_tab3:
         # Load traces and display analytics immediately
         traces = load_research_history()
         db = get_db_connection()
