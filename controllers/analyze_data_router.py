@@ -8,7 +8,7 @@ api_router = APIRouter()
 
 class AnalyzeRequest(BaseModel):
     """Enhanced request model for analysis endpoints"""
-    query: str = Field(..., min_length=2, max_length=200)
+    query: str = Field(..., min_length=2, max_length=300)
     tool_name: Optional[str] = "Analysis Agent"
     dataset: str
     analysis_type: Optional[str] = Field(
@@ -24,7 +24,6 @@ class AnalyzeResponse(BaseModel):
     metrics: Dict[str, Any]
     usage: Dict[str, Any]
     metadata: Optional[Dict[str, Any]] = None
-
 
 
 @api_router.post("/analyze-data", response_model=AnalyzeResponse)
@@ -69,7 +68,7 @@ async def generate_analysis(request: AnalyzeRequest):
             "metadata": {
                 "dataset": request.dataset,
                 "analysis_type": request.analysis_type,
-                "timestamp": trace.timestamp
+                "timestamp": trace.data.get('timestamp')  # Use .get() to safely access timestamp
             }
         }
     
@@ -78,6 +77,10 @@ async def generate_analysis(request: AnalyzeRequest):
         raise
     
     except Exception as e:
+        # Log the full exception for server-side debugging
+        import traceback
+        traceback.print_exc()
+        
         raise HTTPException(
             status_code=500,
             detail=f"Analysis generation failed: {str(e)}"

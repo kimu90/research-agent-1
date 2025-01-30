@@ -19,17 +19,18 @@ class QueryTrace:
             "query": query,
             "start_time": datetime.now().isoformat(),
             "steps": [],
+            "timestamp": datetime.now().isoformat(),
             "tools_used": [],
             "prompts_used": [],
             "prompt_compilations": [],
-            "token_usage": None,  # Will be populated from token_tracker.get_usage_stats()
-            "outline": None,
+            "token_usage": None,  
             "dag": None,
             "results": None,
             "final_report": None,
             "end_time": None,
             "duration": None,
-            "error": None
+            "error": None,
+
         }
 
     def add_prompt_usage(self, prompt_id: str, agent_type: str, compilation_result: str):

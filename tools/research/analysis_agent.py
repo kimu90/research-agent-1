@@ -62,6 +62,8 @@ class AnalysisAgent(BaseTool):
     args_schema: Type[BaseModel] = AnalysisAgentInput
     custom_prompt: Optional[Prompt] = Field(default=None)
     token_tracker: TokenUsageTracker = Field(default_factory=TokenUsageTracker)
+    data_folder: str = Field(default="./data")  # Add this line
+
 
     def __init__(
         self,

@@ -11,7 +11,7 @@ from utils.analysis_evaluator import create_analysis_evaluator
 from .db import ContentDB
 import json
 
-def run_tool(tool_name: str, query: str, tool=None):
+def run_tool(tool_name: str, query: str, dataset: str = None, analysis_type: str = None, tool=None):
     logging.basicConfig(
         level=logging.DEBUG,
         format='%(asctime)s [%(levelname)s] %(message)s - %(filename)s:%(lineno)d',
@@ -158,10 +158,13 @@ def run_tool(tool_name: str, query: str, tool=None):
 
         elif tool_name == "Analysis Agent":
             if tool is None:
-                tool = AnalysisAgent()
+                tool = AnalysisAgent(data_folder="./data")  # Initialize with data folder
             
             trace.add_prompt_usage("analysis_agent", "analysis", "")
-            result = tool.invoke_analysis(input={"query": query})
+            result = tool.invoke_analysis(input={
+                "query": query,
+                "dataset": dataset  # Add the dataset parameter
+            })
             
             if result:
                 try:
