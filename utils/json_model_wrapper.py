@@ -2,6 +2,7 @@ from typing import Optional, Type, Any
 from pydantic import BaseModel, ValidationError
 from openai import OpenAI
 import logging
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 import time
 import json
 import os

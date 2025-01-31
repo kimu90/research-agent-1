@@ -1,4 +1,5 @@
 import logging
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 from datetime import datetime
 from typing import Dict, Optional, Type, Any, List
 import pandas as pd

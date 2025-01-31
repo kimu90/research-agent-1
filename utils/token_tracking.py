@@ -2,6 +2,7 @@ import pdb
 from typing import Dict, List, Optional, Any
 from datetime import datetime
 import logging
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 from dataclasses import dataclass
 import time
 

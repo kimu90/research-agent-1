@@ -1,5 +1,6 @@
 from typing import Optional, Any
 import logging
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 import time
 from openai import OpenAI
 from groq import Groq

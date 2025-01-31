@@ -2,6 +2,7 @@ from tools.research.common.model_schemas import ContentItem
 from typing import Optional, Dict, Any
 import threading
 import logging
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 import sqlite3
 import os
 import json
@@ -313,41 +314,44 @@ class ContentDB:
                 return -1
 
     def store_answer_relevance(self, data: Dict[str, Any]) -> int:
-          # Breakpoint before storing answer relevance
         logger.info("Storing answer relevance evaluation")
         
         with self.lock:
             try:
+                formatted_data = {
+                    'query': str(data.get('query', 'Unknown')),
+                    'relevance_score': float(data.get('relevance_score', 0.0)),
+                    'semantic_similarity': float(data.get('semantic_similarity', 0.0)),
+                    'entity_coverage': float(data.get('entity_coverage', 0.0)),
+                    'keyword_coverage': float(data.get('keyword_coverage', 0.0)),
+                    'topic_focus': float(data.get('topic_focus', 0.0)),
+                    'off_topic_sentences': json.dumps([
+                        str(sent) if hasattr(sent, 'text') else str(sent) 
+                        for sent in data.get('off_topic_sentences', [])
+                    ]),
+                    'total_sentences': int(data.get('total_sentences', 0)),
+                    'query_match_percentage': float(data.get('query_match_percentage', 0.0)),
+                    'information_density': float(data.get('information_density', 0.0)),
+                    'context_alignment_score': float(data.get('context_alignment_score', 0.0))
+                }
+                
                 cursor = self.conn.cursor()
                 cursor.execute(
                     """
                     INSERT INTO answer_relevance_evaluations 
                     (query, relevance_score, semantic_similarity, entity_coverage, 
-                     keyword_coverage, topic_focus, off_topic_sentences, total_sentences,
-                     query_match_percentage, information_density, context_alignment_score)
+                    keyword_coverage, topic_focus, off_topic_sentences, total_sentences,
+                    query_match_percentage, information_density, context_alignment_score)
                     VALUES (:query, :relevance_score, :semantic_similarity, :entity_coverage, 
                             :keyword_coverage, :topic_focus, :off_topic_sentences, :total_sentences,
                             :query_match_percentage, :information_density, :context_alignment_score)
                     """,
-                    {
-                        'query': data.get('query', 'Unknown'),
-                        'relevance_score': data.get('relevance_score', 0.0),
-                        'semantic_similarity': data.get('semantic_similarity', 0.0),
-                        'entity_coverage': data.get('entity_coverage', 0.0),
-                        'keyword_coverage': data.get('keyword_coverage', 0.0),
-                        'topic_focus': data.get('topic_focus', 0.0),
-                        'off_topic_sentences': json.dumps(data.get('off_topic_sentences', [])),
-                        'total_sentences': data.get('total_sentences', 0),
-                        'query_match_percentage': data.get('query_match_percentage', 0.0),
-                        'information_density': data.get('information_density', 0.0),
-                        'context_alignment_score': data.get('context_alignment_score', 0.0)
-                    }
+                    formatted_data
                 )
                 self.conn.commit()
-                  # Breakpoint after storing answer relevance
                 return cursor.lastrowid
             except sqlite3.Error as e:
-                logging.error(f"Error storing answer relevance: {e}")
+                logger.error(f"Error storing answer relevance: {e}", exc_info=True)
                 self.conn.rollback()
                 return -1
                 

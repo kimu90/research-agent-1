@@ -11,6 +11,7 @@ from pydantic import BaseModel, Field
 from prompts import Prompt
 import openai
 import logging
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 import uuid
 import json
 import os

@@ -3,6 +3,7 @@ from typing import List
 import os
 import traceback
 import logging
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 
 api_router = APIRouter()
 

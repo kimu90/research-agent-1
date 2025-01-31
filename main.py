@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 import logging
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 from datetime import datetime
 
 from research_components.database import get_db_connection

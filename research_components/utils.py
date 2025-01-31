@@ -1,6 +1,7 @@
 import os
 import json
 import logging
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 from datetime import datetime
 from typing import List, Optional, Dict, Any
 

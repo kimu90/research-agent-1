@@ -1,5 +1,6 @@
 import os
 import logging
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 import sqlite3
 import json
 from datetime import datetime

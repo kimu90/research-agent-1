@@ -1,4 +1,5 @@
 import logging
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 from datetime import datetime
 from tools import GeneralAgent, AnalysisAgent
 from research_agent.tracers import CustomTracer, QueryTrace
@@ -10,6 +11,32 @@ from utils.automated_tests import create_automated_test_evaluator
 from utils.analysis_evaluator import create_analysis_evaluator
 from .db import ContentDB
 import json
+from typing import Optional, Dict, Any, Union, List
+from tools.research.common.model_schemas import ContentItem
+
+def convert_content_items(value: Any) -> Any:
+    """Convert ContentItem objects to their string representation."""
+    if isinstance(value, ContentItem):
+        return value.get_text_content()
+    elif isinstance(value, list):
+        return [convert_content_items(item) for item in value]
+    elif isinstance(value, dict):
+        return {k: convert_content_items(v) for k, v in value.items()}
+    elif hasattr(value, 'get_text_content'):
+        return value.get_text_content()
+    return value
+
+def safe_store(store_func, data: Dict[str, Any], logger: logging.Logger) -> Optional[int]:
+    """Safely store data with proper error handling."""
+    try:
+        result = store_func(data)
+        if result == -1:
+            logger.error(f"Failed to store data using {store_func.__name__}")
+            return None
+        return result
+    except Exception as e:
+        logger.error(f"Error in {store_func.__name__}: {str(e)}", exc_info=True)
+        return None
 
 def run_tool(
     tool_name: str, 
@@ -21,17 +48,6 @@ def run_tool(
 ):
     """
     Execute a research or analysis tool with comprehensive tracing and evaluation.
-    
-    Args:
-        tool_name (str): Name of the tool to execute
-        query (str): Research or analysis query
-        dataset (str, optional): Dataset for analysis tools
-        analysis_type (str, optional): Type of analysis
-        tool (object, optional): Pre-initialized tool
-        prompt_name (str, optional): Name of the prompt to use for research
-    
-    Returns:
-        tuple: Research/analysis result and query trace
     """
     logging.basicConfig(
         level=logging.DEBUG,
@@ -80,7 +96,6 @@ def run_tool(
             accuracy_evaluator = source_coverage_evaluator = coherence_evaluator = relevance_evaluator = automated_test_evaluator = analysis_evaluator = None
 
         if tool_name == "General Agent":
-            # Initialize tool with optional custom prompt
             if tool is None:
                 tool = GeneralAgent(
                     include_summary=True, 
@@ -91,11 +106,9 @@ def run_tool(
             result = tool.invoke(input={"query": query})
             
             if result:
-                # Process research results
                 try:
                     content_count = len(result.content) if result.content else 0
                     trace.data["processing_steps"].append(f"Preparing to process {content_count} content items")
-                    
                     trace.data.update({
                         "content_new": content_count,
                         "content_reused": 0,
@@ -109,92 +122,112 @@ def run_tool(
                 try:
                     if accuracy_evaluator:
                         factual_score, accuracy_details = accuracy_evaluator.evaluate_factual_accuracy(result)
+                        accuracy_details = convert_content_items(accuracy_details)
                         trace.data['factual_accuracy'] = {
                             'score': factual_score,
                             'details': accuracy_details
                         }
                         trace.token_tracker.add_usage(100, 50, "llama3-70b-8192", "factual_accuracy")
-                        db.store_accuracy_evaluation({
+                        safe_store(db.store_accuracy_evaluation, {
                             'query': query,
                             'timestamp': datetime.now().isoformat(),
                             'factual_score': factual_score,
                             **accuracy_details
-                        })
+                        }, logger)
 
                     if source_coverage_evaluator:
                         coverage_score, coverage_details = source_coverage_evaluator.evaluate_source_coverage(result)
+                        coverage_details = convert_content_items(coverage_details)
                         trace.data['source_coverage'] = {
                             'score': coverage_score,
                             'details': coverage_details
                         }
                         trace.token_tracker.add_usage(100, 50, "llama3-70b-8192", "source_coverage")
-                        db.store_source_coverage({
+                        safe_store(db.store_source_coverage, {
                             'query': query,
                             'coverage_score': coverage_score,
                             **coverage_details
-                        })
+                        }, logger)
 
                     if coherence_evaluator:
                         coherence_score, coherence_details = coherence_evaluator.evaluate_logical_coherence(result)
+                        coherence_details = convert_content_items(coherence_details)
                         trace.data['logical_coherence'] = {
                             'score': coherence_score,
                             'details': coherence_details
                         }
                         trace.token_tracker.add_usage(100, 50, "llama3-70b-8192", "logical_coherence")
-                        db.store_logical_coherence({
+                        safe_store(db.store_logical_coherence, {
                             'query': query,
                             'coherence_score': coherence_score,
                             **coherence_details
-                        })
+                        }, logger)
 
                     if relevance_evaluator:
                         relevance_score, relevance_details = relevance_evaluator.evaluate_answer_relevance(result, query)
+                        relevance_details = convert_content_items(relevance_details)
                         trace.data['answer_relevance'] = {
                             'score': relevance_score,
                             'details': relevance_details
                         }
                         trace.token_tracker.add_usage(100, 50, "llama3-70b-8192", "answer_relevance")
                         
-                        db.store_answer_relevance({
+                        safe_store(db.store_answer_relevance, {
                             'query': query,
                             'relevance_score': relevance_score,
-                            'query_match_percentage': relevance_details.get('query_match_percentage', 0),
-                            'semantic_similarity': relevance_details.get('similarity', 0),
-                            'keyword_coverage': relevance_details.get('keyword_overlap', 0),
-                            'entity_coverage': relevance_details.get('entity_coverage', 0),
-                            'topic_focus': relevance_details.get('topic_focus', 0),
-                            'off_topic_sentences': json.dumps(relevance_details.get('off_topic_sentences', [])),
-                            'total_sentences': len(result.content) if hasattr(result, 'content') else 0,
-                            'information_density': relevance_details.get('information_density', 0),
-                            'context_alignment_score': relevance_details.get('context_alignment_score', 0)
-                        })
+                            'semantic_similarity': float(relevance_details.get('semantic_similarity', 0)),
+                            'entity_coverage': float(relevance_details.get('entity_coverage', 0)),
+                            'keyword_coverage': float(relevance_details.get('keyword_coverage', 0)),
+                            'topic_focus': float(relevance_details.get('topic_focus', 0)),
+                            'off_topic_sentences': relevance_details.get('off_topic_sentences', []),
+                            'total_sentences': int(relevance_details.get('total_sentences', 0)),
+                            'query_match_percentage': float(relevance_details.get('query_match_percentage', 0)),
+                            'information_density': float(relevance_details.get('information_density', 0)),
+                            'context_alignment_score': float(relevance_details.get('context_alignment_score', 0))
+                        }, logger)
 
                     if automated_test_evaluator:
-                        content_for_test = ' '.join(result.content) if isinstance(result.content, list) else str(result.content)
+                        # Handle ContentItem objects in the content list
+                        if isinstance(result.content, list):
+                            content_texts = []
+                            for item in result.content:
+                                if isinstance(item, ContentItem):
+                                    content_texts.append(item.get_text_content())
+                                else:
+                                    content_texts.append(str(item))
+                            content_for_test = ' '.join(content_texts)
+                        else:
+                            content_for_test = str(result.content)
+
+                        logger.debug(f"Prepared content for automated tests, length: {len(content_for_test)}")
                         test_score, test_details = automated_test_evaluator.evaluate_automated_tests(content_for_test, query)
+                        test_details = convert_content_items(test_details)
                         trace.data['automated_tests'] = {
                             'score': test_score,
                             'details': test_details
                         }
                         trace.token_tracker.add_usage(100, 50, "llama3-70b-8192", "automated_tests")
-                        db.store_test_results(query, test_score, test_details)
+                        safe_store(db.store_test_results, {
+                            'query': query,
+                            'test_score': test_score,
+                            **test_details
+                        }, logger)
 
                 except Exception as eval_error:
-                    logger.error(f"Research evaluation failed: {eval_error}")
+                    logger.error(f"Research evaluation failed: {eval_error}", exc_info=True)
                     trace.data['evaluation_error'] = str(eval_error)
 
         elif tool_name == "Analysis Agent":
             if tool is None:
                 tool = AnalysisAgent(
                     data_folder="./data",
-                    prompt_name=request.prompt_name
+                    prompt_name=prompt_name
                 )
-                # Initialize with data folder
             
             trace.add_prompt_usage("analysis_agent", "analysis", "")
             result = tool.invoke_analysis(input={
                 "query": query,
-                "dataset": dataset  # Add the dataset parameter
+                "dataset": dataset
             })
             
             if result:
@@ -202,30 +235,29 @@ def run_tool(
                     evaluation_data = {
                         'query': query,
                         'timestamp': datetime.now().isoformat(),
-                        'analysis': result.analysis,
+                        'analysis': convert_content_items(result.analysis),
                     }
 
-                    # Run analysis-specific evaluations
                     if analysis_evaluator:
                         analysis_metrics = analysis_evaluator.evaluate_analysis(result, query)
+                        analysis_metrics = convert_content_items(analysis_metrics)
                         trace.data['analysis_metrics'] = analysis_metrics
                         
                         evaluation_data.update({
-                            'numerical_accuracy': analysis_metrics.get('numerical_accuracy', {}).get('score', 0.0),
-                            'query_understanding': analysis_metrics.get('query_understanding', {}).get('score', 0.0),
-                            'data_validation': analysis_metrics.get('data_validation', {}).get('score', 0.0),
-                            'reasoning_transparency': analysis_metrics.get('reasoning_transparency', {}).get('score', 0.0),
-                            'overall_score': analysis_metrics.get('overall_score', 0.0),
-                            'metrics_details': json.dumps(analysis_metrics),
-                            'calculation_examples': json.dumps(analysis_metrics.get('numerical_accuracy', {}).get('details', {}).get('calculation_examples', [])),
-                            'term_coverage': analysis_metrics.get('query_understanding', {}).get('details', {}).get('term_coverage', 0.0),
-                            'analytical_elements': json.dumps(analysis_metrics.get('query_understanding', {}).get('details', {})),
-                            'validation_checks': json.dumps(analysis_metrics.get('data_validation', {}).get('details', {})),
-                            'explanation_patterns': json.dumps(analysis_metrics.get('reasoning_transparency', {}).get('details', {}))
+                            'numerical_accuracy': float(analysis_metrics.get('numerical_accuracy', {}).get('score', 0.0)),
+                            'query_understanding': float(analysis_metrics.get('query_understanding', {}).get('score', 0.0)),
+                            'data_validation': float(analysis_metrics.get('data_validation', {}).get('score', 0.0)),
+                            'reasoning_transparency': float(analysis_metrics.get('reasoning_transparency', {}).get('score', 0.0)),
+                            'overall_score': float(analysis_metrics.get('overall_score', 0.0)),
+                            'metrics_details': analysis_metrics,
+                            'calculation_examples': analysis_metrics.get('numerical_accuracy', {}).get('details', {}).get('calculation_examples', []),
+                            'term_coverage': float(analysis_metrics.get('query_understanding', {}).get('details', {}).get('term_coverage', 0.0)),
+                            'analytical_elements': analysis_metrics.get('query_understanding', {}).get('details', {}),
+                            'validation_checks': analysis_metrics.get('data_validation', {}).get('details', {}),
+                            'explanation_patterns': analysis_metrics.get('reasoning_transparency', {}).get('details', {})
                         })
                         
-                    # Store complete analysis evaluation
-                    db.store_analysis_evaluation(evaluation_data)
+                    safe_store(db.store_analysis_evaluation, evaluation_data, logger)
                     
                     trace.data.update({
                         "processing_steps": ["Analysis completed successfully"],
@@ -233,7 +265,7 @@ def run_tool(
                     })
                     
                 except Exception as eval_error:
-                    logger.error(f"Analysis evaluation failed: {eval_error}")
+                    logger.error(f"Analysis evaluation failed: {eval_error}", exc_info=True)
                     trace.data['evaluation_error'] = str(eval_error)
 
         else:

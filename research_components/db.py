@@ -2,6 +2,7 @@ from tools.research.common.model_schemas import ContentItem
 from typing import Optional, Dict, Any
 import threading
 import logging
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 import sqlite3
 import os
 import json

@@ -1,4 +1,3 @@
-# tools/research/common/model_schemas.py
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict, Any
 
@@ -27,6 +26,22 @@ class ContentItem(BaseModel):
             "id": self.id,
             "metadata": self.metadata
         }
+        
+    def get_text_content(self) -> str:
+        """
+        Get the text content in a priority order:
+        1. Full content if available
+        2. Snippet if content is empty
+        3. Title if neither content nor snippet available
+        
+        Returns:
+            str: The most complete text content available
+        """
+        if self.content.strip():
+            return self.content.strip()
+        if self.snippet.strip():
+            return self.snippet.strip()
+        return self.title.strip()
 
 class ResearchToolOutput(BaseModel):
     """
@@ -44,21 +59,36 @@ class ResearchToolOutput(BaseModel):
     raw_data: Optional[List[Dict[str, Any]]] = None
     
     def total_content_items(self) -> int:
-        """
-        Returns the total number of content items.
-        """
+        """Returns the total number of content items."""
         return len(self.content)
 
     def get_unique_sources(self) -> List[str]:
-        """
-        Returns a list of unique sources.
-        """
+        """Returns a list of unique sources."""
         return list(set(item.source for item in self.content if item.source))
 
+    def get_full_text(self) -> str:
+        """Get concatenated text content from summary and items."""
+        text_pieces = []
+        if self.summary.strip():
+            text_pieces.append(self.summary.strip())
+            
+        # Extract string content from each ContentItem
+        for item in self.content:
+            if isinstance(item, str):
+                text_pieces.append(item)
+            else:
+                # Use the content field directly, falling back to snippet and title
+                if item.content.strip():
+                    text_pieces.append(item.content.strip())
+                elif item.snippet.strip():
+                    text_pieces.append(item.snippet.strip())
+                elif item.title.strip():
+                    text_pieces.append(item.title.strip())
+        
+        return " ".join(text_pieces)
+
     def to_dict(self) -> Dict[str, Any]:
-        """
-        Converts the output to a dictionary representation.
-        """
+        """Converts the output to a dictionary representation."""
         return {
             "content": [item.to_dict() for item in self.content],
             "summary": self.summary,
@@ -68,9 +98,7 @@ class ResearchToolOutput(BaseModel):
         }
 
 class ScrapeWebsiteInput(BaseModel):
-    """
-    Input schema for website scraping with enhanced options.
-    """
+    """Input schema for website scraping with enhanced options."""
     objective: str = Field(
         default="Extract relevant information", 
         description="The specific goal of the web scraping"
@@ -90,9 +118,7 @@ class ScrapeWebsiteInput(BaseModel):
     )
 
 class ResearchQuery(BaseModel):
-    """
-    Represents a structured research query with additional metadata.
-    """
+    """Represents a structured research query with additional metadata."""
     query: str
     categories: Optional[List[str]] = None
     complexity: Optional[str] = Field(
@@ -105,15 +131,11 @@ class ResearchQuery(BaseModel):
     )
     
     def normalize(self) -> str:
-        """
-        Normalizes the query by removing extra whitespace and converting to lowercase.
-        """
+        """Normalizes the query by removing extra whitespace and converting to lowercase."""
         return ' '.join(self.query.split()).lower()
 
 class AnalysisMetrics(BaseModel):
-    """
-    Metrics specific to analysis outputs.
-    """
+    """Metrics specific to analysis outputs."""
     numerical_accuracy: float = Field(default=0.0)
     query_understanding: float = Field(default=0.0)
     data_validation: float = Field(default=0.0)
@@ -132,9 +154,7 @@ class AnalysisMetrics(BaseModel):
     clear_methodology: bool = Field(default=False)
 
 class AnalysisResult(BaseModel):
-    """
-    Output specific to analysis operations.
-    """
+    """Output specific to analysis operations."""
     analysis: str
     metrics: AnalysisMetrics
     usage: Dict[str, Any] = Field(default_factory=dict)

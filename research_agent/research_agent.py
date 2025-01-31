@@ -3,6 +3,7 @@
 import os
 import json
 import logging
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 from typing import List, Dict, Any, Optional
 
 from utils.model_wrapper import model_wrapper

@@ -1,6 +1,7 @@
 from typing import Dict, Any, Tuple, List
 import re
 import logging
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 from datetime import datetime
 
 logger = logging.getLogger(__name__)

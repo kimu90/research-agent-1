@@ -1,5 +1,6 @@
 import os
 import logging
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 from .db import ContentDB
 
 _db_instance = None

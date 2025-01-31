@@ -10,6 +10,7 @@ import concurrent.futures
 import traceback
 import threading
 import logging
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 import os
 
 

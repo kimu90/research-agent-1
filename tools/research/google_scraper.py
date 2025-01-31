@@ -2,6 +2,7 @@ from typing import Optional, Any, Type, Dict
 from pydantic import BaseModel, Field
 from langchain.tools import BaseTool
 import logging
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 import json
 from urllib.parse import quote_plus
 from .common.model_schemas import ContentItem, ResearchToolOutput

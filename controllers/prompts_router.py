@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
 import os
 import logging
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 from typing import List
 from pydantic import BaseModel
 

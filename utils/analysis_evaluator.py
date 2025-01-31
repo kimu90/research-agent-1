@@ -1,4 +1,5 @@
 import logging
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 from typing import Dict, Any
 import numpy as np
 from scipy import stats
