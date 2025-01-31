@@ -199,14 +199,31 @@ async function handleFormSubmit(e) {
         });
 
         const result = await response.json();
+        console.log('Full server response:', result); // Detailed logging
 
         if (response.ok) {
-            const formatted = currentMode === 'data' ? formatDataAnalysisResponse(result) : result.text || 'No content';
+            // More comprehensive handling for summary mode
+            let formatted = 'No content';
+            if (currentMode === 'summary') {
+                // Try multiple ways to extract content
+                if (result.summary) {
+                    formatted = result.summary;
+                } else if (result.content && result.content.length > 0) {
+                    // If summary is missing, compile content
+                    formatted = result.content.map(item => 
+                        `Title: ${item.title}\nURL: ${item.url}\nSnippet: ${item.snippet}`
+                    ).join('\n\n');
+                }
+            } else {
+                formatted = currentMode === 'data' ? formatDataAnalysisResponse(result) : 'No content';
+            }
+
             addMessage(formatted, false);
         } else {
             showError(result.message || 'An error occurred');
         }
     } catch (error) {
+        console.error('Submission error:', error);
         showError(error.message || 'Failed to submit the query');
     } finally {
         isLoading = false;
