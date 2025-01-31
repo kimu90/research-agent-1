@@ -91,16 +91,7 @@ async def generate_analysis(request: AnalyzeRequest):
             detail=f"Analysis generation failed: {str(e)}"
         )
 
-@api_router.get("/prompts", response_model=PromptListResponse)
-async def get_available_prompts():
-    """
-    Retrieve list of available research prompts.
-    """
-    try:
-        prompts = PromptLoader.list_available_prompts()
-        return {"prompts": prompts}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error listing prompts: {str(e)}") 
+
 @api_router.get("/health")
 async def health_check():
     """

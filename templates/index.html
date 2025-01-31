@@ -3,66 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Species Explorer - Analyze and explore species data">
     <link rel="stylesheet" href="/static/css/styles.css">
     <title>Species Explorer</title>
 </head>
 <body>
-    <div class="top-bar"></div> <!-- Empty div added at the top -->
+    <div class="top-bar"></div>
 
     <div class="theme-toggle">
-        <button id="themeToggle">🌙</button>
+        <button id="themeToggle" aria-label="Toggle dark mode">🌙</button>
     </div>
     
     <div class="container">
+        <!-- Sidebar -->
         <div class="sidebar">
+            <!-- Mode Selection -->
             <div class="sidebar-section">
-                <button class="mode-button active" data-mode="summary">Species Summary</button>
-                <button class="mode-button" data-mode="data">Data Analysis</button>
-                <button class="mode-button" data-mode="report">Generate Report</button>
+                <button class="mode-button active" data-mode="summary" aria-pressed="true">Species Summary</button>
+                <button class="mode-button" data-mode="data" aria-pressed="false">Data Analysis</button>
+                <button class="mode-button" data-mode="report" aria-pressed="false">Generate Report</button>
             </div>
 
             <!-- Summary Mode Filters -->
-            <div class="sidebar-section" id="summaryFilters">
-       
-
+            <div class="sidebar-section" id="summaryFilters" >
+                <h3>Summary Options</h3>
                 <div class="filter-group">
-                    <label>Prompt Template</label>
-                    <select id="promptTemplate">
-                        <option value="basic">Basic Template</option>
-                        <option value="detailed">Detailed Template</option>
-                        <option value="scientific">Scientific Template</option>
-                        <option value="custom">Custom Template</option>
+                    <label for="promptTemplate">Prompt Template</label>
+                    <select 
+                        id="promptTemplate" 
+                        class="w-full p-2 border rounded"
+                        aria-label="Select summary prompt template">
+                        <option value="">Select Prompt Template...</option>
                     </select>
-                    <div class="description" id="promptDescription"></div>
+                    <div class="description" id="promptDescription" aria-live="polite"></div>
                 </div>
-
-                <div class="filter-group" id="customPromptGroup" style="display: none;">
-                    <label>Custom Prompt</label>
-                    <textarea id="customPrompt" rows="4" placeholder="Enter your custom prompt..."></textarea>
-                </div>
-
-               
             </div>
 
             <!-- Data Analysis Mode Filters -->
             <div class="sidebar-section" id="dataFilters" style="display: none;">
                 <h3>Analysis Options</h3>
                 <div class="filter-group">
-                    <label>Dataset</label>
-                    <select id="dataset" class="w-full p-2 border rounded">
+                    <label for="dataset">Dataset</label>
+                    <select 
+                        id="dataset" 
+                        class="w-full p-2 border rounded"
+                        aria-label="Select dataset">
                         <option value="">Select Dataset...</option>
                     </select>
-                    <div class="description text-sm mt-2" id="datasetDescription"></div>
+                    <div class="description" id="datasetDescription" aria-live="polite"></div>
                 </div>
 
                 <div class="filter-group">
-                    <label>Analysis Type</label>
-                    <select id="analysisType">
-                        <option value="basic">Basic Statistics</option>
-                        <option value="trends">Population Trends</option>
-                        <option value="geographic">Geographic Distribution</option>
+                    <label for="analysisPromptTemplate">Analysis Prompt Template</label>
+                    <select 
+                        id="analysisPromptTemplate" 
+                        class="w-full p-2 border rounded"
+                        aria-label="Select analysis prompt template">
+                        <option value="">Select Analysis Prompt...</option>
                     </select>
-                    <div class="description" id="analysisDescription"></div>
+                    <div class="description" id="analysisPromptDescription" aria-live="polite"></div>
                 </div>
             </div>
 
@@ -70,35 +69,47 @@
             <div class="sidebar-section" id="reportFilters" style="display: none;">
                 <h3>Report Options</h3>
                 <div class="filter-group">
-                    <label>Report Template</label>
-                    <select id="reportTemplate">
+                    <label for="reportTemplate">Report Template</label>
+                    <select 
+                        id="reportTemplate"
+                        class="w-full p-2 border rounded"
+                        aria-label="Select report template">
                         <option value="standard">Standard Report</option>
                         <option value="scientific">Scientific Paper</option>
                         <option value="presentation">Presentation</option>
                     </select>
-                    <div class="description" id="templateDescription"></div>
+                    <div class="description" id="templateDescription" aria-live="polite"></div>
                 </div>
             </div>
         </div>
 
+        <!-- Main Content Area -->
         <div class="main-content">
             <div class="chat-container">
-                <div class="messages" id="messages"></div>
+                <div class="messages" id="messages" role="log" aria-live="polite"></div>
                 <div class="input-container">
                     <form id="inputForm">
                         <input 
                             type="text" 
                             id="speciesInput" 
                             placeholder="Enter species name..."
+                            aria-label="Enter species name or analysis query"
                             required
                         >
-                        <button type="submit" id="submitButton">Send</button>
+                        <button 
+                            type="submit" 
+                            id="submitButton"
+                            aria-label="Send query">
+                            Send
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="/static/js/main.js"></script>
+    <!-- Scripts -->
+    <script src="/static/js/main.js" defer></script>
 </body>
 </html>
+
