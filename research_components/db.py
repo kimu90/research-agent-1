@@ -263,12 +263,49 @@ class ContentDB:
                 return -1
             
     def store_test_results(self, query: str, overall_score: float, details: Dict[str, Any]) -> int:
+        """
+        Store automated test results in the database.
+        
+        Args:
+            query: The input query being tested
+            overall_score: The overall test score
+            details: Dictionary containing detailed test results
+            
+        Returns:
+            int: The row ID of the inserted record, or -1 if insertion fails
+        """
+        logger = logging.getLogger(__name__)
+        logger.info("Starting to store test results")
+        logger.debug(f"Input parameters - Query length: {len(query)}, Score: {overall_score}")
+        
         with self.lock:
             try:
+                # Log the details being stored
+                logger.debug("Preparing test details for storage:")
+                logger.debug(f"Timestamp: {details['timestamp']}")
+                logger.debug(f"ROUGE scores: {details['rouge_scores']}")
+                logger.debug(f"Semantic similarity: {details['semantic_similarity']}")
+                logger.debug(f"Hallucination score: {details['hallucination_score']}")
+                logger.debug(f"Suspicious segments count: {len(details['suspicious_segments'])}")
+                
+                # Validate input data
+                if not all(key in details['rouge_scores'] for key in ['rouge1', 'rouge2', 'rougeL']):
+                    logger.error("Missing required ROUGE scores in details")
+                    return -1
+                    
+                # Convert suspicious segments to JSON
+                try:
+                    suspicious_segments_json = json.dumps(details['suspicious_segments'])
+                    logger.debug(f"Suspicious segments JSON size: {len(suspicious_segments_json)} bytes")
+                except Exception as json_err:
+                    logger.error(f"Error serializing suspicious segments: {json_err}")
+                    return -1
+                
+                # Prepare and execute SQL query
                 cursor = self.conn.execute("""
                     INSERT INTO automated_tests (
-                        query, timestamp, overall_score, rouge1_score, rouge2_score, 
-                        rougeL_score, semantic_similarity, hallucination_score, 
+                        query, timestamp, overall_score, rouge1_score, rouge2_score,
+                        rougeL_score, semantic_similarity, hallucination_score,
                         suspicious_segments
                     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, (
@@ -280,56 +317,29 @@ class ContentDB:
                     details['rouge_scores']['rougeL'],
                     details['semantic_similarity'],
                     details['hallucination_score'],
-                    json.dumps(details['suspicious_segments'])
+                    suspicious_segments_json
                 ))
+                
+                # Commit the transaction
                 self.conn.commit()
-                return cursor.lastrowid
-            except Exception as e:
-                logging.error(f"Error storing test results: {e}")
+                row_id = cursor.lastrowid
+                logger.info(f"Successfully stored test results with ID: {row_id}")
+                return row_id
+                
+            except sqlite3.Error as sql_err:
+                logger.error(f"SQLite error storing test results: {sql_err}", exc_info=True)
                 self.conn.rollback()
                 return -1
                 
-    def store_logical_coherence(self, data: Dict[str, Any]) -> int:
-          # Breakpoint before storing logical coherence
-        logger.info("Storing logical coherence evaluation")
-        
-        with self.lock:
-            try:
-                cursor = self.conn.cursor()
-                cursor.execute(
-                    """
-                    INSERT INTO logical_coherence_evaluations 
-                    (query, coherence_score, flow_score, has_argument_structure, 
-                     has_discourse_markers, paragraph_score, rough_transitions, 
-                     total_sentences, total_paragraphs, semantic_connection_score, 
-                     idea_progression_score, logical_fallacies_count)
-                    VALUES (:query, :coherence_score, :flow_score, :has_argument_structure, 
-                            :has_discourse_markers, :paragraph_score, :rough_transitions, 
-                            :total_sentences, :total_paragraphs, :semantic_connection_score, 
-                            :idea_progression_score, :logical_fallacies_count)
-                    """,
-                    {
-                        'query': data.get('query', 'Unknown'),
-                        'coherence_score': data.get('coherence_score', 0.0),
-                        'flow_score': data.get('flow_score', 0.0),
-                        'has_argument_structure': data.get('has_argument_structure', False),
-                        'has_discourse_markers': data.get('has_discourse_markers', False),
-                        'paragraph_score': data.get('paragraph_score', 0.0),
-                        'rough_transitions': json.dumps(data.get('rough_transitions', [])),
-                        'total_sentences': data.get('total_sentences', 0),
-                        'total_paragraphs': data.get('total_paragraphs', 0),
-                        'semantic_connection_score': data.get('semantic_connection_score', 0.0),
-                        'idea_progression_score': data.get('idea_progression_score', 0.0),
-                        'logical_fallacies_count': data.get('logical_fallacies_count', 0)
-                    }
-                )
-                self.conn.commit()
-                  # Breakpoint after storing logical coherence
-                return cursor.lastrowid
-            except sqlite3.Error as e:
-                logging.error(f"Error storing logical coherence: {e}")
+            except Exception as e:
+                logger.error(f"Unexpected error storing test results: {e}", exc_info=True)
                 self.conn.rollback()
                 return -1
+            
+            finally:
+                logger.debug("Completed store_test_results operation")
+                
+ 
 
     def store_answer_relevance(self, data: Dict[str, Any]) -> int:
           # Breakpoint before storing answer relevance
@@ -554,8 +564,51 @@ class ContentDB:
                 logger.error(f"Error retrieving source coverage evaluations: {str(e)}")
                 return []
 
-    def get_logical_coherence_evaluations(self, query: Optional[str] = None, limit: int = 10):
-    # Breakpoint before retrieving logical coherence evaluations
+    # 2. Store Function
+    def store_logical_coherence(self, data: Dict[str, Any]) -> int:
+        logger.info("Storing logical coherence evaluation")
+        
+        with self.lock:
+            try:
+                cursor = self.conn.cursor()
+                cursor.execute(
+                    """
+                    INSERT INTO logical_coherence_evaluations 
+                    (query, timestamp, coherence_score, flow_score, has_argument_structure, 
+                    has_discourse_markers, paragraph_score, rough_transitions, 
+                    total_sentences, total_paragraphs, semantic_connection_score, 
+                    idea_progression_score, logical_fallacies_count, topic_coherence)
+                    VALUES (:query, :timestamp, :coherence_score, :flow_score, :has_argument_structure, 
+                            :has_discourse_markers, :paragraph_score, :rough_transitions, 
+                            :total_sentences, :total_paragraphs, :semantic_connection_score, 
+                            :idea_progression_score, :logical_fallacies_count, :topic_coherence)
+                    """,
+                    {
+                        'query': data.get('query', 'Unknown'),
+                        'timestamp': data.get('timestamp', datetime.now().isoformat()),
+                        'coherence_score': data.get('coherence_score', 0.0),
+                        'flow_score': data.get('flow_score', 0.0),
+                        'has_argument_structure': data.get('has_argument_structure', False),
+                        'has_discourse_markers': data.get('has_discourse_markers', False),
+                        'paragraph_score': data.get('paragraph_score', 0.0),
+                        'rough_transitions': json.dumps(data.get('rough_transitions', [])),
+                        'total_sentences': data.get('total_sentences', 0),
+                        'total_paragraphs': data.get('total_paragraphs', 0),
+                        'semantic_connection_score': data.get('semantic_connection_score', 0.0),
+                        'idea_progression_score': data.get('idea_progression_score', 0.0),
+                        'logical_fallacies_count': data.get('logical_fallacies_count', 0),
+                        'topic_coherence': data.get('topic_coherence', 0.0)
+                    }
+                )
+                self.conn.commit()
+                return cursor.lastrowid
+            except sqlite3.Error as e:
+                logger.error(f"Error storing logical coherence: {e}")
+                self.conn.rollback()
+                return -1
+
+    # 3. Get Function
+    def get_logical_coherence_evaluations(self, query: Optional[str] = None, limit: int = 50):
         logger.info(f"Retrieving logical coherence evaluations for query: {query}")
         
         with self.lock:
@@ -569,7 +622,7 @@ class ContentDB:
                         paragraph_score, rough_transitions, 
                         total_sentences, total_paragraphs,
                         semantic_connection_score, idea_progression_score,
-                        logical_fallacies_count
+                        logical_fallacies_count, topic_coherence
                         FROM logical_coherence_evaluations
                         WHERE query LIKE ?
                         ORDER BY timestamp DESC
@@ -585,7 +638,7 @@ class ContentDB:
                         paragraph_score, rough_transitions, 
                         total_sentences, total_paragraphs,
                         semantic_connection_score, idea_progression_score,
-                        logical_fallacies_count
+                        logical_fallacies_count, topic_coherence
                         FROM logical_coherence_evaluations
                         ORDER BY timestamp DESC
                         LIMIT ?
@@ -599,7 +652,7 @@ class ContentDB:
                     'paragraph_score', 'rough_transitions', 
                     'total_sentences', 'total_paragraphs',
                     'semantic_connection_score', 'idea_progression_score',
-                    'logical_fallacies_count'
+                    'logical_fallacies_count', 'topic_coherence'
                 ]
                 results = []
                 for row in cursor.fetchall():
@@ -607,7 +660,6 @@ class ContentDB:
                     result['rough_transitions'] = json.loads(result['rough_transitions']) if result['rough_transitions'] else []
                     results.append(result)
                 
-                # Breakpoint after retrieving logical coherence evaluations
                 return results
             except Exception as e:
                 logger.error(f"Error retrieving logical coherence evaluations: {str(e)}")

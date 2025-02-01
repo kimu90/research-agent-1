@@ -1,0 +1,32 @@
+2025-01-31 20:28:49,179 - research_tool.general_agent - INFO - Starting tool execution - Tool: General Agent
+2025-01-31 20:28:49,179 - research_tool.general_agent - INFO - Query received: frogs
+2025-01-31 20:28:49,179 - research_tool.general_agent - INFO - Prompt selected: research.txt
+2025-01-31 20:29:52,172 - research_tool.general_agent - ERROR - Error in store_accuracy_evaluation: ContentDB.store_accuracy_evaluation() takes 2 positional arguments but 3 were given
+Traceback (most recent call last):
+  File "/app/research_components/research.py", line 75, in safe_store
+    store_func(overall_score, details)
+TypeError: ContentDB.store_accuracy_evaluation() takes 2 positional arguments but 3 were given
+2025-01-31 20:29:52,203 - research_tool.general_agent - ERROR - Error in store_source_coverage: ContentDB.store_source_coverage() takes 2 positional arguments but 3 were given
+Traceback (most recent call last):
+  File "/app/research_components/research.py", line 75, in safe_store
+    store_func(overall_score, details)
+TypeError: ContentDB.store_source_coverage() takes 2 positional arguments but 3 were given
+2025-01-31 20:29:52,227 - research_tool.general_agent - ERROR - Error in store_logical_coherence: ContentDB.store_logical_coherence() takes 2 positional arguments but 3 were given
+Traceback (most recent call last):
+  File "/app/research_components/research.py", line 75, in safe_store
+    store_func(overall_score, details)
+TypeError: ContentDB.store_logical_coherence() takes 2 positional arguments but 3 were given
+2025-01-31 20:29:52,810 - research_tool.general_agent - ERROR - Error in store_answer_relevance: ContentDB.store_answer_relevance() takes 2 positional arguments but 3 were given
+Traceback (most recent call last):
+  File "/app/research_components/research.py", line 75, in safe_store
+    store_func(overall_score, details)
+TypeError: ContentDB.store_answer_relevance() takes 2 positional arguments but 3 were given
+2025-01-31 20:29:52,810 - research_tool.general_agent - DEBUG - Prepared content for automated tests, length: 17228
+2025-01-31 20:29:52,815 - research_tool.general_agent - ERROR - Error in store_test_results: ContentDB.store_test_results() missing 1 required positional argument: 'details'
+Traceback (most recent call last):
+  File "/app/research_components/research.py", line 75, in safe_store
+    store_func(overall_score, details)
+TypeError: ContentDB.store_test_results() missing 1 required positional argument: 'details'
+2025-01-31 20:29:52,816 - research_tool.general_agent - INFO - Final token usage stats: {'model': 'llama3-70b-8192', 'tokens': {'input': 1037, 'output': 826, 'total': 1863}, 'processing': {'time': 3.0, 'speed': 621.0}, 'cost': 0.0013041000000000003}
+2025-01-31 20:29:52,816 - research_tool.general_agent - INFO - Total tokens used: 1863
+2025-01-31 20:29:52,816 - research_tool.general_agent - INFO - General Agent completed successfully

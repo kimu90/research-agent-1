@@ -75,7 +75,7 @@ def initialize_database(db: ContentDB):
                 CREATE TABLE IF NOT EXISTS logical_coherence_evaluations (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     query TEXT,
-                    timestamp DATETIME,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
                     coherence_score REAL,
                     flow_score REAL,
                     has_argument_structure BOOLEAN,
@@ -86,7 +86,8 @@ def initialize_database(db: ContentDB):
                     total_paragraphs INTEGER,
                     semantic_connection_score REAL,
                     idea_progression_score REAL,
-                    logical_fallacies_count INTEGER
+                    logical_fallacies_count INTEGER,
+                    topic_coherence REAL
                 );
                 
                 CREATE TABLE IF NOT EXISTS answer_relevance_evaluations (

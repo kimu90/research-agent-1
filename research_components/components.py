@@ -280,6 +280,12 @@ def display_analytics(traces: List[QueryTrace], content_db: ContentDB):
             coherence_evals = content_db.get_logical_coherence_evaluations(limit=50)
             if coherence_evals:
                 coherence_df = pd.DataFrame(coherence_evals)
+                
+                # Convert timestamp strings to datetime objects if not already datetime
+                if coherence_df['timestamp'].dtype != 'datetime64[ns]':
+                    coherence_df['timestamp'] = pd.to_datetime(coherence_df['timestamp'])
+                
+                # Display metrics in columns
                 metrics_col1, metrics_col2, metrics_col3, metrics_col4 = st.columns(4)
                 with metrics_col1:
                     avg_coherence = coherence_df['coherence_score'].mean()
@@ -294,26 +300,56 @@ def display_analytics(traces: List[QueryTrace], content_db: ContentDB):
                     idea_progression = coherence_df['idea_progression_score'].mean()
                     st.metric("Idea Progression", f"{idea_progression:.2f}")
                 
-                fig = px.histogram(
+                # Create histogram with improved formatting
+                fig_hist = px.histogram(
                     coherence_df,
                     x='coherence_score',
-                    title='Coherence Score Distribution'
+                    title='Coherence Score Distribution',
+                    nbins=20,
+                    labels={'coherence_score': 'Coherence Score', 'count': 'Count'}
                 )
-                st.plotly_chart(fig, use_container_width=True)
+                fig_hist.update_layout(
+                    xaxis_title="Coherence Score",
+                    yaxis_title="Count"
+                )
+                st.plotly_chart(fig_hist, use_container_width=True)
                 
+                # Create timeline with improved formatting
                 fig_timeline = px.line(
                     coherence_df.sort_values('timestamp'),
                     x='timestamp',
                     y='coherence_score',
                     title='Logical Coherence Over Time'
                 )
+                fig_timeline.update_layout(
+                    xaxis_title="Time",
+                    yaxis_title="Coherence Score",
+                    hovermode='x unified'
+                )
                 st.plotly_chart(fig_timeline, use_container_width=True)
+                
+                # Add expandable detailed statistics
+                with st.expander("View Detailed Statistics"):
+                    st.dataframe(
+                        coherence_df[[
+                            'timestamp', 'query', 'coherence_score', 
+                            'topic_coherence', 'logical_fallacies_count', 
+                            'idea_progression_score'
+                        ]]
+                        .sort_values('timestamp', ascending=False)
+                        .style.format({
+                            'coherence_score': '{:.2f}',
+                            'topic_coherence': '{:.2f}',
+                            'idea_progression_score': '{:.2f}'
+                        })
+                    )
             else:
                 st.info("No logical coherence data available yet.")
         except Exception as e:
             st.error(f"Error displaying coherence analytics: {str(e)}")
+            logging.error(f"Error in coherence analytics: {str(e)}", exc_info=True)
 
-    with tab3:
+    with tab4:
         try:
             relevance_evals = content_db.get_answer_relevance_evaluations(limit=50)
             if relevance_evals:
