@@ -1,5 +1,5 @@
 from tools.research.common.model_schemas import ContentItem
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 import threading
 import logging
 logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
@@ -312,6 +312,96 @@ class ContentDB:
                 logging.error(f"Error storing logical coherence: {e}")
                 self.conn.rollback()
                 return -1
+
+    def store_analysis_evaluation(self, evaluation_data: Dict[str, Any]) -> int:
+        """Store analysis evaluation results in the database."""
+        logger.info("Storing analysis evaluation")
+        
+        with self.lock:
+            try:
+                insert_data = {
+                    'query': evaluation_data.get('query', 'Unknown'),
+                    'timestamp': evaluation_data.get('timestamp', datetime.now().isoformat()),
+                    'overall_score': evaluation_data.get('overall_score', 0.0),
+                    'numerical_accuracy': evaluation_data.get('numerical_accuracy', {}).get('score', 0.0),
+                    'query_understanding': evaluation_data.get('query_understanding', {}).get('score', 0.0),
+                    'data_validation': evaluation_data.get('data_validation', {}).get('score', 0.0),
+                    'reasoning_transparency': evaluation_data.get('reasoning_transparency', {}).get('score', 0.0),
+                    'calculation_examples': json.dumps(evaluation_data.get('numerical_accuracy', {}).get('details', {}).get('calculation_examples', [])),
+                    'analytical_elements': json.dumps(evaluation_data.get('query_understanding', {}).get('details', {})),
+                    'validation_checks': json.dumps(evaluation_data.get('data_validation', {}).get('details', {})),
+                    'term_coverage': evaluation_data.get('query_understanding', {}).get('details', {}).get('term_coverage', 0.0)
+                }
+
+                cursor = self.conn.cursor()
+                cursor.execute("""
+                    INSERT INTO analysis_evaluations (
+                        query, timestamp, overall_score, numerical_accuracy,
+                        query_understanding, data_validation, reasoning_transparency,
+                        calculation_examples, analytical_elements, validation_checks, term_coverage
+                    ) VALUES (
+                        :query, :timestamp, :overall_score, :numerical_accuracy,
+                        :query_understanding, :data_validation, :reasoning_transparency,
+                        :calculation_examples, :analytical_elements, :validation_checks, :term_coverage
+                    )
+                """, insert_data)
+                
+                self.conn.commit()
+                return cursor.lastrowid
+                
+            except Exception as e:
+                logger.error(f"Error storing analysis evaluation: {str(e)}")
+                self.conn.rollback()
+                return -1
+
+    def get_analysis_evaluations(self, query: Optional[str] = None, limit: int = 50) -> List[Dict[str, Any]]:
+        """Retrieve analysis evaluation results from the database."""
+        logger.info(f"Retrieving analysis evaluations for query: {query}")
+        
+        with self.lock:
+            cursor = self.conn.cursor()
+            try:
+                if query:
+                    cursor.execute(
+                        """
+                        SELECT * FROM analysis_evaluations 
+                        WHERE query LIKE ? 
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                        """, 
+                        (f'%{query}%', limit)
+                    )
+                else:
+                    cursor.execute(
+                        """
+                        SELECT * FROM analysis_evaluations 
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                        """, 
+                        (limit,)
+                    )
+                
+                columns = [
+                    'id', 'query', 'timestamp', 'overall_score', 'numerical_accuracy',
+                    'query_understanding', 'data_validation', 'reasoning_transparency',
+                    'calculation_examples', 'analytical_elements', 'validation_checks',
+                    'term_coverage'
+                ]
+                
+                results = []
+                for row in cursor.fetchall():
+                    result = dict(zip(columns, row))
+                    # Parse JSON strings back to Python objects
+                    result['calculation_examples'] = json.loads(result['calculation_examples']) if result['calculation_examples'] else []
+                    result['analytical_elements'] = json.loads(result['analytical_elements']) if result['analytical_elements'] else {}
+                    result['validation_checks'] = json.loads(result['validation_checks']) if result['validation_checks'] else {}
+                    results.append(result)
+                
+                return results
+                
+            except Exception as e:
+                logger.error(f"Error retrieving analysis evaluations: {str(e)}")
+                return []
 
     def store_answer_relevance(self, data: Dict[str, Any]) -> int:
         logger.info("Storing answer relevance evaluation")

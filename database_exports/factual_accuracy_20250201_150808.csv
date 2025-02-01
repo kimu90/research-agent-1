@@ -45,3 +45,5 @@ id,query,timestamp,factual_score,total_sources,citation_accuracy,claim_details,c
 44,Sclerocarya birrea,2025-02-01T07:54:55.925448,0.0,0,0.0,[],0,0,0,0.0,0.0
 45,sea weed,2025-02-01T08:02:31.404486,0.0,0,0.0,[],0,0,0,0.0,0.0
 46,Sclerocarya birrea,2025-02-01T08:08:31.619771,0.0,0,0.0,[],0,0,0,0.0,0.0
+47,Sclerocarya birrea,2025-02-01T08:29:10.764056,0.0,0,0.0,[],0,0,0,0.0,0.0
+48,sea cucumber,2025-02-01T13:23:25.864403,0.0,0,0.0,[],0,0,0,0.0,0.0

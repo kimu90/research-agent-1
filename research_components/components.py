@@ -9,7 +9,17 @@ from research_agent.tracers import QueryTrace
 from tools import GeneralAgent
 from prompt.prompt_manager import PromptManager
 from .utils import load_research_history
+import logging
+import pandas as pd
+import streamlit as st
+import plotly.express as px
+from datetime import datetime
+from typing import List
+import time
+from typing import Dict, Any
 
+# Set up logger
+logger = logging.getLogger(__name__)
 
 
 def display_token_usage(trace: QueryTrace, show_visualizations: bool = True):
@@ -481,146 +491,238 @@ def display_general_analysis(traces: List[QueryTrace]):
         total_content = df['content_new'].sum() + df['content_reused'].sum()
         st.metric("Total Content Processed", total_content)
 def display_analysis(traces: List[QueryTrace], content_db: ContentDB):
+    """Display analysis metrics and visualizations with comprehensive logging."""
+    
+    start_time = time.time()
+    logger.info("Starting display_analysis function")
+    
     if not traces:
+        logger.warning("No analysis traces available")
         st.info("No analysis history available yet. Run some analyses to see metrics!")
         return
 
-    tab1, tab2, tab3, tab4 = st.tabs([
-        "Analysis Overview",
-        "Numerical Accuracy",
-        "Query Understanding",
-        "Validation & Reasoning"
-    ])
+    logger.info(f"Processing {len(traces)} analysis traces")
 
-    with tab1:
-        df = pd.DataFrame([{
-            'date': datetime.fromisoformat(t.data['start_time']).date(),
-            'success': t.data.get('success', False),
-            'duration': t.data.get('duration', 0),
-            'overall_score': t.data.get('analysis_metrics', {}).get('overall_score', 0)
-        } for t in traces])
-        
-        st.subheader("📈 Analysis Performance Over Time")
-        success_by_date = df.groupby('date').agg({
-            'success': ['count', lambda x: x.sum() / len(x) * 100],
-            'overall_score': 'mean'
-        }).reset_index()
-        success_by_date.columns = ['date', 'total_analyses', 'success_rate', 'avg_score']
-        
-        fig_performance = px.line(
-            success_by_date,
-            x='date',
-            y=['success_rate', 'avg_score'],
-            title='Analysis Performance Trends',
-            labels={'value': 'Percentage', 'variable': 'Metric'},
-            color_discrete_map={'success_rate': '#2E86C1', 'avg_score': '#27AE60'}
-        )
-        st.plotly_chart(fig_performance, use_container_width=True)
+    try:
+        tab1, tab2, tab3, tab4 = st.tabs([
+            "Analysis Overview",
+            "Numerical Accuracy",
+            "Query Understanding",
+            "Validation & Reasoning"
+        ])
+        logger.debug("Created tab structure successfully")
 
-        st.subheader("📊 Analysis Statistics")
-        col1, col2, col3, col4 = st.columns(4)
-        with col1:
-            st.metric("Total Analyses", len(traces))
-        with col2:
-            st.metric("Average Duration", f"{df['duration'].mean():.2f}s")
-        with col3:
-            success_rate = (df['success'].sum() / len(df)) * 100
-            st.metric("Success Rate", f"{success_rate:.1f}%")
-        with col4:
-            avg_score = df['overall_score'].mean()
-            st.metric("Avg Overall Score", f"{avg_score:.2f}")
+        with tab1:
+            logger.info("Processing Analysis Overview tab")
+            try:
+                # Create DataFrame from traces
+                df = pd.DataFrame([{
+                    'date': datetime.fromisoformat(t.data['start_time']).date(),
+                    'success': t.data.get('success', False),
+                    'duration': t.data.get('duration', 0),
+                    'overall_score': t.data.get('analysis_metrics', {}).get('overall_score', 0)
+                } for t in traces])
+                logger.debug(f"Created main DataFrame with {len(df)} rows")
+                
+                st.subheader("📈 Analysis Performance Over Time")
+                
+                # Calculate performance metrics
+                success_by_date = df.groupby('date').agg({
+                    'success': ['count', lambda x: x.sum() / len(x) * 100],
+                    'overall_score': 'mean'
+                }).reset_index()
+                success_by_date.columns = ['date', 'total_analyses', 'success_rate', 'avg_score']
+                logger.debug(f"Calculated performance metrics for {len(success_by_date)} dates")
+                
+                # Create performance trend plot
+                try:
+                    fig_performance = px.line(
+                        success_by_date,
+                        x='date',
+                        y=['success_rate', 'avg_score'],
+                        title='Analysis Performance Trends',
+                        labels={'value': 'Percentage', 'variable': 'Metric'},
+                        color_discrete_map={'success_rate': '#2E86C1', 'avg_score': '#27AE60'}
+                    )
+                    st.plotly_chart(fig_performance, use_container_width=True)
+                    logger.debug("Successfully created performance trend plot")
+                except Exception as e:
+                    logger.error(f"Error creating performance plot: {str(e)}", exc_info=True)
+                    st.error("Unable to display performance trend plot")
 
-    with tab2:
-        st.subheader("🔢 Numerical Accuracy Metrics")
-        analysis_evals = content_db.get_analysis_evaluations(limit=50)
-        if analysis_evals:
-            metrics_df = pd.DataFrame([{
-                'timestamp': eval_data['timestamp'],
-                'numerical_accuracy': eval_data['numerical_accuracy'],
-                'term_coverage': eval_data['term_coverage']
-            } for eval_data in analysis_evals])
-            
-            col1, col2 = st.columns(2)
-            with col1:
-                st.metric("Avg Numerical Accuracy", f"{metrics_df['numerical_accuracy'].mean():.2f}")
-            with col2:
-                st.metric("Avg Term Coverage", f"{metrics_df['term_coverage'].mean():.2f}")
-            
-            fig_accuracy = px.line(
-                metrics_df.sort_values('timestamp'),
-                x='timestamp',
-                y='numerical_accuracy',
-                title='Numerical Accuracy Trend'
-            )
-            st.plotly_chart(fig_accuracy, use_container_width=True)
-            
-            # Display calculation examples
-            st.subheader("Recent Calculation Examples")
-            for eval_data in analysis_evals[:5]:
-                if eval_data.get('calculation_examples'):
-                    st.markdown(f"**Query:** {eval_data['query']}")
-                    for example in eval_data['calculation_examples']:
-                        st.code(example)
-                    st.markdown("---")
+                # Display statistics
+                logger.debug("Calculating summary statistics")
+                col1, col2, col3, col4 = st.columns(4)
+                with col1:
+                    st.metric("Total Analyses", len(traces))
+                with col2:
+                    avg_duration = df['duration'].mean()
+                    st.metric("Average Duration", f"{avg_duration:.2f}s")
+                    logger.info(f"Average analysis duration: {avg_duration:.2f}s")
+                with col3:
+                    success_rate = (df['success'].sum() / len(df)) * 100
+                    st.metric("Success Rate", f"{success_rate:.1f}%")
+                    logger.info(f"Overall success rate: {success_rate:.1f}%")
+                with col4:
+                    avg_score = df['overall_score'].mean()
+                    st.metric("Avg Overall Score", f"{avg_score:.2f}")
+                    logger.info(f"Average overall score: {avg_score:.2f}")
 
-    with tab3:
-        st.subheader("🎯 Query Understanding Analysis")
-        if analysis_evals:
-            understanding_df = pd.DataFrame([{
-                'timestamp': eval_data['timestamp'],
-                'query_understanding': eval_data['query_understanding'],
-                'analytical_elements': len(eval_data.get('analytical_elements', {}))
-            } for eval_data in analysis_evals])
-            
-            col1, col2 = st.columns(2)
-            with col1:
-                st.metric("Avg Query Understanding", f"{understanding_df['query_understanding'].mean():.2f}")
-            with col2:
-                st.metric("Avg Analytical Elements", f"{understanding_df['analytical_elements'].mean():.1f}")
-            
-            fig_understanding = px.line(
-                understanding_df.sort_values('timestamp'),
-                x='timestamp',
-                y='query_understanding',
-                title='Query Understanding Score Trend'
-            )
-            st.plotly_chart(fig_understanding, use_container_width=True)
+            except Exception as e:
+                logger.error(f"Error processing Analysis Overview tab: {str(e)}", exc_info=True)
+                st.error("Error processing analysis overview")
 
-    with tab4:
-        st.subheader("🔍 Validation & Reasoning Metrics")
-        if analysis_evals:
-            validation_df = pd.DataFrame([{
-                'timestamp': eval_data['timestamp'],
-                'data_validation': eval_data['data_validation'],
-                'reasoning_transparency': eval_data['reasoning_transparency']
-            } for eval_data in analysis_evals])
-            
-            col1, col2 = st.columns(2)
-            with col1:
-                st.metric("Avg Data Validation", f"{validation_df['data_validation'].mean():.2f}")
-            with col2:
-                st.metric("Avg Reasoning Transparency", f"{validation_df['reasoning_transparency'].mean():.2f}")
-            
-            # Create box plot for validation metrics distribution
-            fig_validation = px.box(
-                validation_df,
-                y=['data_validation', 'reasoning_transparency'],
-                title='Distribution of Validation Metrics'
-            )
-            st.plotly_chart(fig_validation, use_container_width=True)
-            
-            # Display recent validation checks
-            st.subheader("Recent Validation Checks")
-            for eval_data in analysis_evals[:5]:
-                if eval_data.get('validation_checks'):
-                    st.markdown(f"**Query:** {eval_data['query']}")
-                    checks = eval_data['validation_checks']
-                    if isinstance(checks, dict):
-                        for check_type, details in checks.items():
-                            st.markdown(f"**{check_type}:**")
-                            if isinstance(details, list):
-                                for detail in details:
-                                    st.markdown(f"- {detail}")
-                            else:
-                                st.markdown(f"- {details}")
-                    st.markdown("---")
+        with tab2:
+            logger.info("Processing Numerical Accuracy tab")
+            try:
+                st.subheader("🔢 Numerical Accuracy Metrics")
+                analysis_evals = content_db.get_analysis_evaluations(limit=50)
+                logger.debug(f"Retrieved {len(analysis_evals) if analysis_evals else 0} analysis evaluations")
+                
+                if analysis_evals:
+                    metrics_df = pd.DataFrame([{
+                        'timestamp': eval_data['timestamp'],
+                        'numerical_accuracy': eval_data['numerical_accuracy'],
+                        'term_coverage': eval_data['term_coverage']
+                    } for eval_data in analysis_evals])
+                    logger.debug(f"Created metrics DataFrame with {len(metrics_df)} rows")
+                    
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        avg_accuracy = metrics_df['numerical_accuracy'].mean()
+                        st.metric("Avg Numerical Accuracy", f"{avg_accuracy:.2f}")
+                        logger.info(f"Average numerical accuracy: {avg_accuracy:.2f}")
+                    with col2:
+                        avg_coverage = metrics_df['term_coverage'].mean()
+                        st.metric("Avg Term Coverage", f"{avg_coverage:.2f}")
+                        logger.info(f"Average term coverage: {avg_coverage:.2f}")
+                    
+                    try:
+                        fig_accuracy = px.line(
+                            metrics_df.sort_values('timestamp'),
+                            x='timestamp',
+                            y='numerical_accuracy',
+                            title='Numerical Accuracy Trend'
+                        )
+                        st.plotly_chart(fig_accuracy, use_container_width=True)
+                        logger.debug("Successfully created numerical accuracy trend plot")
+                    except Exception as e:
+                        logger.error(f"Error creating accuracy plot: {str(e)}", exc_info=True)
+                        st.error("Unable to display accuracy trend plot")
+                    
+                    # Display calculation examples
+                    logger.debug("Processing calculation examples")
+                    st.subheader("Recent Calculation Examples")
+                    for eval_data in analysis_evals[:5]:
+                        if eval_data.get('calculation_examples'):
+                            logger.debug(f"Displaying examples for query: {eval_data['query'][:50]}...")
+                            st.markdown(f"**Query:** {eval_data['query']}")
+                            for example in eval_data['calculation_examples']:
+                                st.code(example)
+                            st.markdown("---")
+
+            except Exception as e:
+                logger.error(f"Error processing Numerical Accuracy tab: {str(e)}", exc_info=True)
+                st.error("Error processing numerical accuracy metrics")
+
+        with tab3:
+            logger.info("Processing Query Understanding tab")
+            try:
+                st.subheader("🎯 Query Understanding Analysis")
+                if analysis_evals:
+                    understanding_df = pd.DataFrame([{
+                        'timestamp': eval_data['timestamp'],
+                        'query_understanding': eval_data['query_understanding'],
+                        'analytical_elements': len(eval_data.get('analytical_elements', {}))
+                    } for eval_data in analysis_evals])
+                    logger.debug(f"Created understanding DataFrame with {len(understanding_df)} rows")
+                    
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        avg_understanding = understanding_df['query_understanding'].mean()
+                        st.metric("Avg Query Understanding", f"{avg_understanding:.2f}")
+                        logger.info(f"Average query understanding score: {avg_understanding:.2f}")
+                    with col2:
+                        avg_elements = understanding_df['analytical_elements'].mean()
+                        st.metric("Avg Analytical Elements", f"{avg_elements:.1f}")
+                        logger.info(f"Average analytical elements: {avg_elements:.1f}")
+                    
+                    try:
+                        fig_understanding = px.line(
+                            understanding_df.sort_values('timestamp'),
+                            x='timestamp',
+                            y='query_understanding',
+                            title='Query Understanding Score Trend'
+                        )
+                        st.plotly_chart(fig_understanding, use_container_width=True)
+                        logger.debug("Successfully created query understanding trend plot")
+                    except Exception as e:
+                        logger.error(f"Error creating understanding plot: {str(e)}", exc_info=True)
+                        st.error("Unable to display query understanding trend plot")
+
+            except Exception as e:
+                logger.error(f"Error processing Query Understanding tab: {str(e)}", exc_info=True)
+                st.error("Error processing query understanding analysis")
+
+        with tab4:
+            logger.info("Processing Validation & Reasoning tab")
+            try:
+                st.subheader("🔍 Validation & Reasoning Metrics")
+                if analysis_evals:
+                    validation_df = pd.DataFrame([{
+                        'timestamp': eval_data['timestamp'],
+                        'data_validation': eval_data['data_validation'],
+                        'reasoning_transparency': eval_data['reasoning_transparency']
+                    } for eval_data in analysis_evals])
+                    logger.debug(f"Created validation DataFrame with {len(validation_df)} rows")
+                    
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        avg_validation = validation_df['data_validation'].mean()
+                        st.metric("Avg Data Validation", f"{avg_validation:.2f}")
+                        logger.info(f"Average data validation score: {avg_validation:.2f}")
+                    with col2:
+                        avg_transparency = validation_df['reasoning_transparency'].mean()
+                        st.metric("Avg Reasoning Transparency", f"{avg_transparency:.2f}")
+                        logger.info(f"Average reasoning transparency: {avg_transparency:.2f}")
+                    
+                    try:
+                        fig_validation = px.box(
+                            validation_df,
+                            y=['data_validation', 'reasoning_transparency'],
+                            title='Distribution of Validation Metrics'
+                        )
+                        st.plotly_chart(fig_validation, use_container_width=True)
+                        logger.debug("Successfully created validation metrics distribution plot")
+                    except Exception as e:
+                        logger.error(f"Error creating validation plot: {str(e)}", exc_info=True)
+                        st.error("Unable to display validation metrics distribution")
+                    
+                    # Display validation checks
+                    logger.debug("Processing recent validation checks")
+                    st.subheader("Recent Validation Checks")
+                    for eval_data in analysis_evals[:5]:
+                        if eval_data.get('validation_checks'):
+                            logger.debug(f"Displaying validation checks for query: {eval_data['query'][:50]}...")
+                            st.markdown(f"**Query:** {eval_data['query']}")
+                            checks = eval_data['validation_checks']
+                            if isinstance(checks, dict):
+                                for check_type, details in checks.items():
+                                    st.markdown(f"**{check_type}:**")
+                                    if isinstance(details, list):
+                                        for detail in details:
+                                            st.markdown(f"- {detail}")
+                                    else:
+                                        st.markdown(f"- {details}")
+                            st.markdown("---")
+
+            except Exception as e:
+                logger.error(f"Error processing Validation & Reasoning tab: {str(e)}", exc_info=True)
+                st.error("Error processing validation and reasoning metrics")
+
+        execution_time = time.time() - start_time
+        logger.info(f"Display analysis completed in {execution_time:.2f} seconds")
+
+    except Exception as e:
+        logger.error(f"Critical error in display_analysis: {str(e)}", exc_info=True)
+        st.error("An error occurred while displaying the analysis metrics")

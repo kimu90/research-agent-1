@@ -1,5 +1,5 @@
 from tools.research.common.model_schemas import ContentItem
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 import threading
 import logging
 logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
@@ -718,51 +718,39 @@ class ContentDB:
                 logger.error(f"Error retrieving answer relevance evaluations: {str(e)}")
                 return []
 
-    def store_analysis_evaluation(self, data: Dict[str, Any]) -> int:
-        """Store analysis evaluation results"""
+    def store_analysis_evaluation(self, evaluation_data: Dict[str, Any]) -> int:
+        """Store analysis evaluation results in the database."""
         logger.info("Storing analysis evaluation")
         
         with self.lock:
             try:
-                # Extract metrics details if present
-                metrics = data.get('metrics', {})
-                if isinstance(metrics, str):
-                    metrics = json.loads(metrics)
-                
+                insert_data = {
+                    'query': evaluation_data.get('query', 'Unknown'),
+                    'timestamp': evaluation_data.get('timestamp', datetime.now().isoformat()),
+                    'overall_score': evaluation_data.get('overall_score', 0.0),
+                    'numerical_accuracy': evaluation_data.get('numerical_accuracy', {}).get('score', 0.0),
+                    'query_understanding': evaluation_data.get('query_understanding', {}).get('score', 0.0),
+                    'data_validation': evaluation_data.get('data_validation', {}).get('score', 0.0),
+                    'reasoning_transparency': evaluation_data.get('reasoning_transparency', {}).get('score', 0.0),
+                    'calculation_examples': json.dumps(evaluation_data.get('numerical_accuracy', {}).get('details', {}).get('calculation_examples', [])),
+                    'analytical_elements': json.dumps(evaluation_data.get('query_understanding', {}).get('details', {})),
+                    'validation_checks': json.dumps(evaluation_data.get('data_validation', {}).get('details', {})),
+                    'term_coverage': evaluation_data.get('query_understanding', {}).get('details', {}).get('term_coverage', 0.0)
+                }
+
                 cursor = self.conn.cursor()
-                cursor.execute(
-                    """
+                cursor.execute("""
                     INSERT INTO analysis_evaluations (
-                        query, timestamp, analysis, numerical_accuracy, 
+                        query, timestamp, overall_score, numerical_accuracy,
                         query_understanding, data_validation, reasoning_transparency,
-                        overall_score, metrics_details, calculation_examples,
-                        term_coverage, analytical_elements, validation_checks,
-                        explanation_patterns
+                        calculation_examples, analytical_elements, validation_checks, term_coverage
                     ) VALUES (
-                        :query, :timestamp, :analysis, :numerical_accuracy,
+                        :query, :timestamp, :overall_score, :numerical_accuracy,
                         :query_understanding, :data_validation, :reasoning_transparency,
-                        :overall_score, :metrics_details, :calculation_examples,
-                        :term_coverage, :analytical_elements, :validation_checks,
-                        :explanation_patterns
+                        :calculation_examples, :analytical_elements, :validation_checks, :term_coverage
                     )
-                    """,
-                    {
-                        'query': data.get('query', 'Unknown'),
-                        'timestamp': data.get('timestamp', datetime.now().isoformat()),
-                        'analysis': data.get('analysis', ''),
-                        'numerical_accuracy': metrics.get('numerical_accuracy', {}).get('score', 0.0),
-                        'query_understanding': metrics.get('query_understanding', {}).get('score', 0.0),
-                        'data_validation': metrics.get('data_validation', {}).get('score', 0.0),
-                        'reasoning_transparency': metrics.get('reasoning_transparency', {}).get('score', 0.0),
-                        'overall_score': metrics.get('overall_score', 0.0),
-                        'metrics_details': json.dumps(metrics),
-                        'calculation_examples': json.dumps(metrics.get('numerical_accuracy', {}).get('details', {}).get('calculation_examples', [])),
-                        'term_coverage': metrics.get('query_understanding', {}).get('details', {}).get('term_coverage', 0.0),
-                        'analytical_elements': json.dumps(metrics.get('query_understanding', {}).get('details', {})),
-                        'validation_checks': json.dumps(metrics.get('data_validation', {}).get('details', {})),
-                        'explanation_patterns': json.dumps(metrics.get('reasoning_transparency', {}).get('details', {}))
-                    }
-                )
+                """, insert_data)
+                
                 self.conn.commit()
                 return cursor.lastrowid
                 
@@ -771,8 +759,8 @@ class ContentDB:
                 self.conn.rollback()
                 return -1
 
-    def get_analysis_evaluations(self, query: Optional[str] = None, limit: int = 10) -> list[Dict[str, Any]]:
-        """Retrieve analysis evaluation results"""
+    def get_analysis_evaluations(self, query: Optional[str] = None, limit: int = 50) -> List[Dict[str, Any]]:
+        """Retrieve analysis evaluation results from the database."""
         logger.info(f"Retrieving analysis evaluations for query: {query}")
         
         with self.lock:
@@ -785,7 +773,7 @@ class ContentDB:
                         WHERE query LIKE ? 
                         ORDER BY timestamp DESC 
                         LIMIT ?
-                        """,
+                        """, 
                         (f'%{query}%', limit)
                     )
                 else:
@@ -794,25 +782,24 @@ class ContentDB:
                         SELECT * FROM analysis_evaluations 
                         ORDER BY timestamp DESC 
                         LIMIT ?
-                        """,
+                        """, 
                         (limit,)
                     )
                 
-                columns = [description[0] for description in cursor.description]
+                columns = [
+                    'id', 'query', 'timestamp', 'overall_score', 'numerical_accuracy',
+                    'query_understanding', 'data_validation', 'reasoning_transparency',
+                    'calculation_examples', 'analytical_elements', 'validation_checks',
+                    'term_coverage'
+                ]
+                
                 results = []
                 for row in cursor.fetchall():
                     result = dict(zip(columns, row))
-                    
-                    # Parse JSON fields
-                    for json_field in ['metrics_details', 'calculation_examples', 
-                                    'analytical_elements', 'validation_checks', 
-                                    'explanation_patterns']:
-                        if result.get(json_field):
-                            try:
-                                result[json_field] = json.loads(result[json_field])
-                            except json.JSONDecodeError:
-                                result[json_field] = {}
-                    
+                    # Parse JSON strings back to Python objects
+                    result['calculation_examples'] = json.loads(result['calculation_examples']) if result['calculation_examples'] else []
+                    result['analytical_elements'] = json.loads(result['analytical_elements']) if result['analytical_elements'] else {}
+                    result['validation_checks'] = json.loads(result['validation_checks']) if result['validation_checks'] else {}
                     results.append(result)
                 
                 return results
