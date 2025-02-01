@@ -624,4 +624,3 @@ def display_analysis(traces: List[QueryTrace], content_db: ContentDB):
                             else:
                                 st.markdown(f"- {details}")
                     st.markdown("---")
-

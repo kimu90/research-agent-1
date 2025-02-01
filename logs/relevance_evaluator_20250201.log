@@ -16894,3 +16894,17 @@ Inhibits 5-α-reductase and 17βHSD3,5 act...
 2025-02-01 08:29:11,660 - relevance_evaluator.evaluator - DEBUG - evaluate_answer_relevance:261 - Information density: 0.0000
 2025-02-01 08:29:11,661 - relevance_evaluator.evaluator - DEBUG - evaluate_answer_relevance:266 - Context alignment score: 0.0015
 2025-02-01 08:29:11,661 - relevance_evaluator.evaluator - INFO - evaluate_answer_relevance:294 - Completed relevance evaluation with score: 0.0266
+2025-02-01 08:38:05,540 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-01 08:38:11,362 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-01 08:38:11,362 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-01 08:38:46,959 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-01 08:38:58,166 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-01 08:39:06,219 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-01 08:39:10,835 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-01 08:39:10,835 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-01 08:39:10,835 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-01 08:40:31,373 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-01 08:40:36,786 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-01 08:40:36,786 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-01 08:40:36,786 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-01 08:40:36,786 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
