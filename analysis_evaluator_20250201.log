@@ -681,3 +681,188 @@ LookupError:
 2025-02-01 15:57:20 - research_components.db - 🔵 INFO - Retrieving source coverage evaluations for query: None
 2025-02-01 15:57:20 - research_components.db - 🔵 INFO - Retrieving logical coherence evaluations for query: None
 2025-02-01 15:57:20 - research_components.db - 🔵 INFO - Retrieving answer relevance evaluations for query: None
+2025-02-01 16:07:02 - __main__ - INFO - INIT_DB is true. Running database initialization.
+2025-02-01 16:07:09 - utils.token_tracking - 🔵 INFO - Creating TokenUsageTracker singleton instance 133407987820560
+2025-02-01 16:07:09 - root - 🔵 INFO - Database connection initialized successfully
+2025-02-01 16:07:09 - research_components.components - 🔵 INFO - Starting display_analysis function
+2025-02-01 16:07:09 - research_components.components - 🔵 INFO - Processing 242 analysis traces
+2025-02-01 16:07:09 - research_components.components - DEBUG - Created tab structure successfully
+2025-02-01 16:07:09 - research_components.components - 🔵 INFO - Processing Analysis Overview tab
+2025-02-01 16:07:09 - research_components.components - DEBUG - Created main DataFrame with 242 rows
+2025-02-01 16:07:09 - research_components.components - DEBUG - Calculated performance metrics for 13 dates
+2025-02-01 16:07:09 - research_components.components - DEBUG - Successfully created performance trend plot
+2025-02-01 16:07:09 - research_components.components - DEBUG - Calculating summary statistics
+2025-02-01 16:07:09 - research_components.components - 🔵 INFO - Average analysis duration: 30.04s
+2025-02-01 16:07:09 - research_components.components - 🔵 INFO - Overall success rate: 90.1%
+2025-02-01 16:07:09 - research_components.components - 🔵 INFO - Average overall score: 0.03
+2025-02-01 16:07:09 - research_components.components - 🔵 INFO - Processing Numerical Accuracy tab
+2025-02-01 16:07:09 - research_components.db - 🔵 INFO - Retrieving analysis evaluations for query: None
+2025-02-01 16:07:09 - research_components.components - DEBUG - Retrieved 24 analysis evaluations
+2025-02-01 16:07:09 - research_components.components - DEBUG - Created metrics DataFrame with 24 rows
+2025-02-01 16:07:09 - research_components.components - 🔵 INFO - Average numerical accuracy: 0.00
+2025-02-01 16:07:09 - research_components.components - 🔵 INFO - Average term coverage: 0.00
+2025-02-01 16:07:09 - research_components.components - DEBUG - Successfully created numerical accuracy trend plot
+2025-02-01 16:07:09 - research_components.components - DEBUG - Processing calculation examples
+2025-02-01 16:07:09 - research_components.components - 🔵 INFO - Processing Query Understanding tab
+2025-02-01 16:07:09 - research_components.components - DEBUG - Created understanding DataFrame with 24 rows
+2025-02-01 16:07:09 - research_components.components - 🔵 INFO - Average query understanding score: 0.00
+2025-02-01 16:07:09 - research_components.components - 🔵 INFO - Average analytical elements: 0.4
+2025-02-01 16:07:09 - research_components.components - DEBUG - Successfully created query understanding trend plot
+2025-02-01 16:07:09 - research_components.components - 🔵 INFO - Processing Validation & Reasoning tab
+2025-02-01 16:07:09 - research_components.components - DEBUG - Created validation DataFrame with 24 rows
+2025-02-01 16:07:09 - research_components.components - 🔵 INFO - Average data validation score: 0.00
+2025-02-01 16:07:09 - research_components.components - 🔵 INFO - Average reasoning transparency: 0.00
+2025-02-01 16:07:09 - research_components.components - DEBUG - Successfully created validation metrics distribution plot
+2025-02-01 16:07:09 - research_components.components - DEBUG - Processing recent validation checks
+2025-02-01 16:07:09 - research_components.components - 🔵 INFO - Display analysis completed in 0.14 seconds
+2025-02-01 16:07:10 - research_components.db - 🔵 INFO - Retrieving accuracy evaluations for query: None
+2025-02-01 16:07:10 - research_components.db - 🔵 INFO - Retrieving source coverage evaluations for query: None
+2025-02-01 16:07:10 - research_components.db - 🔵 INFO - Retrieving logical coherence evaluations for query: None
+2025-02-01 16:07:10 - research_components.db - 🔵 INFO - Retrieving answer relevance evaluations for query: None
+2025-02-01 16:13:34 - utils.token_tracking - INFO - Creating TokenUsageTracker singleton instance 140035380884560
+2025-02-01 16:13:34 - research_components.research - INFO - Starting tool execution - Tool: Analysis Agent
+2025-02-01 16:13:34 - research_components.research - INFO - Query received: tell me something about the data
+2025-02-01 16:13:34 - research_components.research - INFO - Prompt selected: research.txt
+2025-02-01 16:13:34 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-01 16:13:34 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-01 16:13:34 - root - INFO - Starting analysis for query: tell me something about the data
+2025-02-01 16:13:34 - root - INFO - Data validation results: {'missing_data': {'description': 0, 'n': 0}, 'datatypes': {'description': dtype('O'), 'n': dtype('int64')}, 'row_count': 20, 'column_count': 2}
+2025-02-01 16:13:34 - root - INFO - Start inference with model llama3-70b-8192 on host groq
+2025-02-01 16:13:34 - groq._base_client - DEBUG - Request options: {'method': 'post', 'url': '/openai/v1/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': "Rapid Insights Research Brief\n\nResearch Focus: tell me something about the data\n\nKey Deliverables:\n- Top 3-5 critical insights\n- Concise summary (max 250 words)\n- Quick context overview\n\nContent Analysis Criteria:\n- Relevance to core query\n- Recency of information\n- Actionable intelligence\n\nAvailable Sources:\n{{content}}\n\nSynthesis Approach:\n1. Quickly identify main themes\n2. Extract most significant findings\n3. Eliminate redundant or low-value information\n\nFormatting Requirements:\n- Use bullet points\n- Highlight key statistics\n- Provide source links\n- Maintain clarity and brevity\n\nEvaluation Lens:\n- What matters most?\n- What's immediately actionable?\n- What are the key takeaways?\n\nProcessing Instructions:\n- Prioritize clarity over comprehensiveness\n- Focus on practical, immediately useful information\n- Avoid academic jargon\n- Provide a snapshot that enables quick understanding"}, {'role': 'user', 'content': 'tell me something about the data'}], 'model': 'llama3-70b-8192', 'temperature': 0.7}}
+2025-02-01 16:13:34 - groq._base_client - DEBUG - Sending HTTP Request: POST https://api.groq.com/openai/v1/chat/completions
+2025-02-01 16:13:34 - httpcore.connection - DEBUG - connect_tcp.started host='api.groq.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-02-01 16:13:34 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f5c873f78d0>
+2025-02-01 16:13:34 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x7f5ca8d500e0> server_hostname='api.groq.com' timeout=5.0
+2025-02-01 16:13:34 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f5c8722b3d0>
+2025-02-01 16:13:34 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-01 16:13:34 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-01 16:13:34 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-01 16:13:34 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-01 16:13:34 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-01 16:13:41 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sat, 01 Feb 2025 16:13:41 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'CF-Ray', b'90b33ac44c543de5-BOM'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate'), (b'Vary', b'Origin, Accept-Encoding'), (b'Via', b'1.1 google'), (b'alt-svc', b'h3=":443"; ma=86400'), (b'x-groq-region', b'us-west-1'), (b'x-ratelimit-limit-requests', b'14400'), (b'x-ratelimit-limit-tokens', b'6000'), (b'x-ratelimit-remaining-requests', b'14399'), (b'x-ratelimit-remaining-tokens', b'5760'), (b'x-ratelimit-reset-requests', b'6s'), (b'x-ratelimit-reset-tokens', b'2.4s'), (b'x-request-id', b'req_01jk14kxsyecnt05qg2d8a7pq9'), (b'Set-Cookie', b'__cf_bm=LYF7P.A9Xok44T75h5gbyovzjM2f47uYDM0R_Az4DA8-1738426421-1.0.1.1-wktRdVNP6p5uf93U03iE0YkD7hn94uBeeFgcMeiugHNk47pIQ8JBxOCurq5M9DmTk_AIRoCcTmCLjazGO7__vg; path=/; expires=Sat, 01-Feb-25 16:43:41 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'Content-Encoding', b'gzip')])
+2025-02-01 16:13:41 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-01 16:13:41 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-01 16:13:41 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-01 16:13:41 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-01 16:13:41 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-01 16:13:41 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Sat, 01 Feb 2025 16:13:41 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cf-ray': '90b33ac44c543de5-BOM', 'cf-cache-status': 'DYNAMIC', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin, Accept-Encoding', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'x-groq-region': 'us-west-1', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '6000', 'x-ratelimit-remaining-requests': '14399', 'x-ratelimit-remaining-tokens': '5760', 'x-ratelimit-reset-requests': '6s', 'x-ratelimit-reset-tokens': '2.4s', 'x-request-id': 'req_01jk14kxsyecnt05qg2d8a7pq9', 'set-cookie': '__cf_bm=LYF7P.A9Xok44T75h5gbyovzjM2f47uYDM0R_Az4DA8-1738426421-1.0.1.1-wktRdVNP6p5uf93U03iE0YkD7hn94uBeeFgcMeiugHNk47pIQ8JBxOCurq5M9DmTk_AIRoCcTmCLjazGO7__vg; path=/; expires=Sat, 01-Feb-25 16:43:41 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None', 'server': 'cloudflare', 'content-encoding': 'gzip'})
+2025-02-01 16:13:41 - root - INFO - Inference completed in 7.15s
+2025-02-01 16:13:41 - root - INFO - Tokens used - Input: 204, Output: 64, Total: 268
+2025-02-01 16:13:41 - root - INFO - Processing speed - 37.49 tokens/second
+2025-02-01 16:13:41 - utils.token_tracking - INFO - Adding usage to instance 140035380884560
+2025-02-01 16:13:41 - utils.token_tracking - INFO - Adding new token usage entry - Model: llama3-70b-8192, Prompt ID: dynamic-prompt-brief_research.txt
+2025-02-01 16:13:41 - utils.token_tracking - INFO - Calculating costs using rates for model llama3-70b-8192
+2025-02-01 16:13:41 - utils.token_tracking - INFO - Calculated costs - Prompt: $0.000143, Completion: $0.000045, Total: $0.000188
+2025-02-01 16:13:41 - utils.token_tracking - INFO - Starting inference with model llama3-70b-8192 at 2025-02-01T16:13:41.398608
+2025-02-01 16:13:41 - utils.token_tracking - INFO - Inference completed in 0.50s
+2025-02-01 16:13:41 - utils.token_tracking - INFO - Tokens used - Input: 204, Output: 64, Total: 268
+2025-02-01 16:13:41 - utils.token_tracking - INFO - Processing speed - 536.00 tokens/second
+2025-02-01 16:13:41 - utils.token_tracking - DEBUG - Created usage entry: TokenUsageEntry(timestamp='2025-02-01T16:13:41.399088', prompt_tokens=204, completion_tokens=64, model='llama3-70b-8192', prompt_id='dynamic-prompt-brief_research.txt', cost=0.0001876, total_tokens=268, processing_time=0.5, processing_speed=536.0)
+2025-02-01 16:13:41 - utils.token_tracking - INFO - Usage timeline updated - Current entries: 1 for instance 140035380884560
+2025-02-01 16:13:41 - utils.token_tracking - INFO - Cumulative statistics updated - Total tokens: 268
+2025-02-01 16:13:41 - utils.token_tracking - DEBUG - Timeline state after add: ['llama3-70b-8192']
+2025-02-01 16:13:41 - utils.analysis_evaluator - INFO - Starting comprehensive analysis evaluation
+2025-02-01 16:13:41 - utils.analysis_evaluator - DEBUG - Starting numerical accuracy evaluation
+2025-02-01 16:13:41 - utils.analysis_evaluator - INFO - Found 0 numerical calculations to evaluate
+2025-02-01 16:13:41 - utils.analysis_evaluator - DEBUG - Starting query understanding evaluation
+2025-02-01 16:13:41 - utils.analysis_evaluator - INFO - Analyzing query with 6 unique terms
+2025-02-01 16:13:41 - utils.analysis_evaluator - INFO - Term coverage: 66.67% (4/6)
+2025-02-01 16:13:41 - utils.analysis_evaluator - DEBUG - Analytical element 'methodology': Missing
+2025-02-01 16:13:41 - utils.analysis_evaluator - DEBUG - Analytical element 'findings': Missing
+2025-02-01 16:13:41 - utils.analysis_evaluator - DEBUG - Analytical element 'statistics': Missing
+2025-02-01 16:13:41 - utils.analysis_evaluator - DEBUG - Analytical element 'data_reference': Present
+2025-02-01 16:13:41 - utils.analysis_evaluator - DEBUG - Starting data validation evaluation
+2025-02-01 16:13:41 - utils.analysis_evaluator - DEBUG - Validation check 'missing_data': Present
+2025-02-01 16:13:41 - utils.analysis_evaluator - DEBUG - Validation check 'outliers': Missing
+2025-02-01 16:13:41 - utils.analysis_evaluator - DEBUG - Validation check 'distribution': Missing
+2025-02-01 16:13:41 - utils.analysis_evaluator - DEBUG - Validation check 'data_types': Missing
+2025-02-01 16:13:41 - utils.analysis_evaluator - DEBUG - Starting reasoning transparency evaluation
+2025-02-01 16:13:41 - utils.analysis_evaluator - INFO - Analyzing 3 sentences for reasoning transparency
+2025-02-01 16:13:41 - utils.analysis_evaluator - DEBUG - Transparency check 'explains_steps': Missing
+2025-02-01 16:13:41 - utils.analysis_evaluator - DEBUG - Transparency check 'states_assumptions': Missing
+2025-02-01 16:13:41 - utils.analysis_evaluator - DEBUG - Transparency check 'mentions_limitations': Missing
+2025-02-01 16:13:41 - utils.analysis_evaluator - DEBUG - Transparency check 'cites_evidence': Missing
+2025-02-01 16:13:41 - utils.analysis_evaluator - DEBUG - Transparency check 'has_conclusion': Missing
+2025-02-01 16:13:41 - utils.analysis_evaluator - DEBUG - Transparency check 'has_examples': Missing
+2025-02-01 16:13:41 - utils.analysis_evaluator - INFO - Average sentence length: 18.7 words
+2025-02-01 16:13:41 - utils.analysis_evaluator - INFO - Numerical Accuracy score: 0.00%
+2025-02-01 16:13:41 - utils.analysis_evaluator - INFO - Query Understanding score: 45.83%
+2025-02-01 16:13:41 - utils.analysis_evaluator - INFO - Data Validation score: 25.00%
+2025-02-01 16:13:41 - utils.analysis_evaluator - INFO - Reasoning Transparency score: 0.00%
+2025-02-01 16:13:41 - utils.analysis_evaluator - INFO - Overall evaluation score: 17.71%
+2025-02-01 16:13:41 - research_components.db - INFO - Storing analysis evaluation
+2025-02-01 16:13:41 - research_components.db - ERROR - Error storing analysis evaluation: 'float' object has no attribute 'get'
+2025-02-01 16:13:41 - research_components.research - ERROR - Failed to store data using store_analysis_evaluation
+2025-02-01 16:13:41 - utils.token_tracking - INFO - Getting stats from instance 140035380884560
+2025-02-01 16:13:41 - utils.token_tracking - DEBUG - Current timeline state: ['llama3-70b-8192']
+2025-02-01 16:13:41 - utils.token_tracking - INFO - Processing 1 entries for instance 140035380884560
+2025-02-01 16:13:41 - utils.token_tracking - DEBUG - Model usage distribution: {'llama3-70b-8192': 1}
+2025-02-01 16:13:41 - utils.token_tracking - INFO - Final statistics compiled - Total tokens: 268, Total cost: $0.000188
+2025-02-01 16:13:41 - research_components.research - WARNING - Could not retrieve token stats: 'models'
+2025-02-01 16:13:41 - research_components.research - INFO - Analysis Agent completed successfully
+2025-02-01 16:13:41 - research_agent.tracers - INFO - Starting trace save operation - Trace ID: c1caf25d-4bf4-41b3-b285-d88ffa4a6a18
+2025-02-01 16:13:41 - utils.token_tracking - INFO - Getting stats from instance 140035380884560
+2025-02-01 16:13:41 - utils.token_tracking - DEBUG - Current timeline state: ['llama3-70b-8192']
+2025-02-01 16:13:41 - utils.token_tracking - INFO - Processing 1 entries for instance 140035380884560
+2025-02-01 16:13:41 - utils.token_tracking - DEBUG - Model usage distribution: {'llama3-70b-8192': 1}
+2025-02-01 16:13:41 - utils.token_tracking - INFO - Final statistics compiled - Total tokens: 268, Total cost: $0.000188
+2025-02-01 16:13:41 - research_agent.tracers - DEBUG - Retrieved final token stats: {
+  "model": "llama3-70b-8192",
+  "tokens": {
+    "input": 204,
+    "output": 64,
+    "total": 268
+  },
+  "processing": {
+    "time": 0.5,
+    "speed": 536.0
+  },
+  "cost": 0.0001876
+}
+2025-02-01 16:13:41 - research_agent.tracers - INFO - Validating trace data before save
+2025-02-01 16:13:41 - research_agent.tracers - INFO - Trace data size: 3,017 bytes
+2025-02-01 16:13:41 - research_agent.tracers - INFO - Trace successfully saved - Total tokens: 268
+2025-02-01 16:13:41 - research_agent.tracers - INFO - Processing time: 0.50s, Speed: 536.00 tokens/second
+2025-02-01 16:13:41 - research_agent.tracers - INFO - Total cost: $0.000188
+2025-02-01 16:13:41 - research_agent.tracers - DEBUG - Final trace statistics:
+2025-02-01 16:13:41 - research_agent.tracers - DEBUG - - Model used: llama3-70b-8192
+2025-02-01 16:13:41 - research_agent.tracers - DEBUG - - Input tokens: 204
+2025-02-01 16:13:41 - research_agent.tracers - DEBUG - - Output tokens: 64
+2025-02-01 16:13:41 - research_agent.tracers - DEBUG - - Processing time: 0.50s
+2025-02-01 16:13:41 - research_agent.tracers - DEBUG - - Processing speed: 536.00 tokens/second
+2025-02-01 16:13:41 - research_components.db - INFO - Closing database connection
+2025-02-01 16:15:32 - research_components.components - 🔵 INFO - Starting display_analysis function
+2025-02-01 16:15:32 - research_components.components - 🔵 INFO - Processing 243 analysis traces
+2025-02-01 16:15:32 - research_components.components - DEBUG - Created tab structure successfully
+2025-02-01 16:15:32 - research_components.components - 🔵 INFO - Processing Analysis Overview tab
+2025-02-01 16:15:32 - research_components.components - DEBUG - Created main DataFrame with 243 rows
+2025-02-01 16:15:32 - research_components.components - DEBUG - Calculated performance metrics for 13 dates
+2025-02-01 16:15:32 - research_components.components - DEBUG - Successfully created performance trend plot
+2025-02-01 16:15:32 - research_components.components - DEBUG - Calculating summary statistics
+2025-02-01 16:15:32 - research_components.components - 🔵 INFO - Average analysis duration: 29.94s
+2025-02-01 16:15:32 - research_components.components - 🔵 INFO - Overall success rate: 90.1%
+2025-02-01 16:15:32 - research_components.components - 🔵 INFO - Average overall score: 0.03
+2025-02-01 16:15:32 - research_components.components - 🔵 INFO - Processing Numerical Accuracy tab
+2025-02-01 16:15:32 - research_components.db - 🔵 INFO - Retrieving analysis evaluations for query: None
+2025-02-01 16:15:32 - research_components.components - DEBUG - Retrieved 24 analysis evaluations
+2025-02-01 16:15:32 - research_components.components - DEBUG - Created metrics DataFrame with 24 rows
+2025-02-01 16:15:32 - research_components.components - 🔵 INFO - Average numerical accuracy: 0.00
+2025-02-01 16:15:32 - research_components.components - 🔵 INFO - Average term coverage: 0.00
+2025-02-01 16:15:32 - research_components.components - DEBUG - Successfully created numerical accuracy trend plot
+2025-02-01 16:15:32 - research_components.components - DEBUG - Processing calculation examples
+2025-02-01 16:15:32 - research_components.components - 🔵 INFO - Processing Query Understanding tab
+2025-02-01 16:15:32 - research_components.components - DEBUG - Created understanding DataFrame with 24 rows
+2025-02-01 16:15:32 - research_components.components - 🔵 INFO - Average query understanding score: 0.00
+2025-02-01 16:15:32 - research_components.components - 🔵 INFO - Average analytical elements: 0.4
+2025-02-01 16:15:32 - research_components.components - DEBUG - Successfully created query understanding trend plot
+2025-02-01 16:15:32 - research_components.components - 🔵 INFO - Processing Validation & Reasoning tab
+2025-02-01 16:15:32 - research_components.components - DEBUG - Created validation DataFrame with 24 rows
+2025-02-01 16:15:32 - research_components.components - 🔵 INFO - Average data validation score: 0.00
+2025-02-01 16:15:32 - research_components.components - 🔵 INFO - Average reasoning transparency: 0.00
+2025-02-01 16:15:32 - research_components.components - DEBUG - Successfully created validation metrics distribution plot
+2025-02-01 16:15:32 - research_components.components - DEBUG - Processing recent validation checks
+2025-02-01 16:15:32 - research_components.components - 🔵 INFO - Display analysis completed in 0.15 seconds
+2025-02-01 16:15:32 - research_components.db - 🔵 INFO - Retrieving accuracy evaluations for query: None
+2025-02-01 16:15:32 - research_components.db - 🔵 INFO - Retrieving source coverage evaluations for query: None
+2025-02-01 16:15:32 - research_components.db - 🔵 INFO - Retrieving logical coherence evaluations for query: None
+2025-02-01 16:15:32 - research_components.db - 🔵 INFO - Retrieving answer relevance evaluations for query: None

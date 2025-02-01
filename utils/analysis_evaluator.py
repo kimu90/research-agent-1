@@ -1,10 +1,7 @@
 import logging
 from typing import Dict, Any
 import numpy as np
-from scipy import stats
 import re
-from nltk.tokenize import sent_tokenize
-import nltk
 import sys
 from datetime import datetime
 
@@ -45,13 +42,6 @@ logger = setup_logging()
 
 # Suppress watchdog logging
 logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
-
-try:
-    nltk.data.find('tokenizers/punkt')
-except LookupError:
-    logger.info("Downloading NLTK punkt tokenizer...")
-    nltk.download('punkt')
-    logger.info("Download complete.")
 
 class AnalysisEvaluator:
     """Evaluator for analysis outputs with comprehensive metrics."""
@@ -190,7 +180,8 @@ class AnalysisEvaluator:
         
         try:
             analysis_text = result.analysis.lower()
-            sentences = sent_tokenize(analysis_text)
+            # Use a simple sentence splitting method as an alternative to NLTK
+            sentences = self._simple_sentence_tokenize(analysis_text)
             
             self.logger.info(f"Analyzing {len(sentences)} sentences for reasoning transparency")
             
@@ -225,6 +216,16 @@ class AnalysisEvaluator:
             self.logger.error(f"Error in reasoning transparency evaluation: {str(e)}", exc_info=True)
             print(f"Error in reasoning transparency evaluation: {str(e)}")
             return {'score': 0.0, 'details': {'error': str(e)}}
+
+    def _simple_sentence_tokenize(self, text: str) -> list:
+        """
+        A simple alternative to NLTK's sentence tokenization.
+        Uses basic punctuation to split sentences.
+        """
+        # Split on periods, exclamation points, and question marks followed by spaces or end of string
+        sentences = re.split(r'(?<=[.!?])\s+', text)
+        # Remove any empty strings
+        return [s.strip() for s in sentences if s.strip()]
 
     def evaluate_analysis(self, result: Any, query: str) -> Dict[str, Any]:
         """Perform comprehensive evaluation of the analysis."""
