@@ -56,6 +56,8 @@ def initialize_database(db: ContentDB):
                     source_credibility_score REAL,
                     fact_check_coverage REAL
                 );
+
+                
                 
                 CREATE TABLE IF NOT EXISTS source_coverage_evaluations (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -122,6 +124,34 @@ def initialize_database(db: ContentDB):
                     analytical_elements TEXT,
                     validation_checks TEXT,
                     explanation_patterns TEXT
+                );
+
+      
+
+                CREATE TABLE IF NOT EXISTS query_traces (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    query TEXT,
+                    tool TEXT,
+                    prompt_name TEXT,
+                    tools_used TEXT,
+                    processing_steps TEXT,
+                    duration REAL,
+                    success BOOLEAN,
+                    content_new INTEGER,
+                    content_reused INTEGER,
+                    error_message TEXT,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+                );
+
+                CREATE TABLE IF NOT EXISTS content_results (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    query_id INTEGER,
+                    trace_id INTEGER,
+                    content TEXT,
+                    content_type TEXT,
+                    evaluation_metrics TEXT,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY(trace_id) REFERENCES query_traces(id)
                 );
             """)
 

@@ -95,24 +95,6 @@ class ContentDB:
                     logical_fallacies_count INTEGER,
                     topic_coherence REAL
                 );
-
-                CREATE TABLE IF NOT EXISTS analysis_evaluations (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    query TEXT,
-                    timestamp TEXT,
-                    analysis TEXT,
-                    numerical_accuracy REAL,
-                    query_understanding REAL,
-                    data_validation REAL,
-                    reasoning_transparency REAL,
-                    overall_score REAL,
-                    metrics_details TEXT,
-                    calculation_examples TEXT,
-                    term_coverage REAL,
-                    analytical_elements TEXT,
-                    validation_checks TEXT,
-                    explanation_patterns TEXT
-                );
                 
                 CREATE TABLE IF NOT EXISTS answer_relevance_evaluations (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -263,49 +245,12 @@ class ContentDB:
                 return -1
             
     def store_test_results(self, query: str, overall_score: float, details: Dict[str, Any]) -> int:
-        """
-        Store automated test results in the database.
-        
-        Args:
-            query: The input query being tested
-            overall_score: The overall test score
-            details: Dictionary containing detailed test results
-            
-        Returns:
-            int: The row ID of the inserted record, or -1 if insertion fails
-        """
-        logger = logging.getLogger(__name__)
-        logger.info("Starting to store test results")
-        logger.debug(f"Input parameters - Query length: {len(query)}, Score: {overall_score}")
-        
         with self.lock:
             try:
-                # Log the details being stored
-                logger.debug("Preparing test details for storage:")
-                logger.debug(f"Timestamp: {details['timestamp']}")
-                logger.debug(f"ROUGE scores: {details['rouge_scores']}")
-                logger.debug(f"Semantic similarity: {details['semantic_similarity']}")
-                logger.debug(f"Hallucination score: {details['hallucination_score']}")
-                logger.debug(f"Suspicious segments count: {len(details['suspicious_segments'])}")
-                
-                # Validate input data
-                if not all(key in details['rouge_scores'] for key in ['rouge1', 'rouge2', 'rougeL']):
-                    logger.error("Missing required ROUGE scores in details")
-                    return -1
-                    
-                # Convert suspicious segments to JSON
-                try:
-                    suspicious_segments_json = json.dumps(details['suspicious_segments'])
-                    logger.debug(f"Suspicious segments JSON size: {len(suspicious_segments_json)} bytes")
-                except Exception as json_err:
-                    logger.error(f"Error serializing suspicious segments: {json_err}")
-                    return -1
-                
-                # Prepare and execute SQL query
                 cursor = self.conn.execute("""
                     INSERT INTO automated_tests (
-                        query, timestamp, overall_score, rouge1_score, rouge2_score,
-                        rougeL_score, semantic_similarity, hallucination_score,
+                        query, timestamp, overall_score, rouge1_score, rouge2_score, 
+                        rougeL_score, semantic_similarity, hallucination_score, 
                         suspicious_segments
                     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, (
@@ -317,66 +262,337 @@ class ContentDB:
                     details['rouge_scores']['rougeL'],
                     details['semantic_similarity'],
                     details['hallucination_score'],
-                    suspicious_segments_json
+                    json.dumps(details['suspicious_segments'])
                 ))
-                
-                # Commit the transaction
                 self.conn.commit()
-                row_id = cursor.lastrowid
-                logger.info(f"Successfully stored test results with ID: {row_id}")
-                return row_id
-                
-            except sqlite3.Error as sql_err:
-                logger.error(f"SQLite error storing test results: {sql_err}", exc_info=True)
-                self.conn.rollback()
-                return -1
-                
+                return cursor.lastrowid
             except Exception as e:
-                logger.error(f"Unexpected error storing test results: {e}", exc_info=True)
+                logging.error(f"Error storing test results: {e}")
                 self.conn.rollback()
                 return -1
-            
-            finally:
-                logger.debug("Completed store_test_results operation")
                 
- 
-
-    def store_answer_relevance(self, data: Dict[str, Any]) -> int:
-          # Breakpoint before storing answer relevance
-        logger.info("Storing answer relevance evaluation")
+    def store_logical_coherence(self, data: Dict[str, Any]) -> int:
+          # Breakpoint before storing logical coherence
+        logger.info("Storing logical coherence evaluation")
         
         with self.lock:
             try:
                 cursor = self.conn.cursor()
                 cursor.execute(
                     """
+                    INSERT INTO logical_coherence_evaluations 
+                    (query, coherence_score, flow_score, has_argument_structure, 
+                     has_discourse_markers, paragraph_score, rough_transitions, 
+                     total_sentences, total_paragraphs, semantic_connection_score, 
+                     idea_progression_score, logical_fallacies_count)
+                    VALUES (:query, :coherence_score, :flow_score, :has_argument_structure, 
+                            :has_discourse_markers, :paragraph_score, :rough_transitions, 
+                            :total_sentences, :total_paragraphs, :semantic_connection_score, 
+                            :idea_progression_score, :logical_fallacies_count)
+                    """,
+                    {
+                        'query': data.get('query', 'Unknown'),
+                        'coherence_score': data.get('coherence_score', 0.0),
+                        'flow_score': data.get('flow_score', 0.0),
+                        'has_argument_structure': data.get('has_argument_structure', False),
+                        'has_discourse_markers': data.get('has_discourse_markers', False),
+                        'paragraph_score': data.get('paragraph_score', 0.0),
+                        'rough_transitions': json.dumps(data.get('rough_transitions', [])),
+                        'total_sentences': data.get('total_sentences', 0),
+                        'total_paragraphs': data.get('total_paragraphs', 0),
+                        'semantic_connection_score': data.get('semantic_connection_score', 0.0),
+                        'idea_progression_score': data.get('idea_progression_score', 0.0),
+                        'logical_fallacies_count': data.get('logical_fallacies_count', 0)
+                    }
+                )
+                self.conn.commit()
+                  # Breakpoint after storing logical coherence
+                return cursor.lastrowid
+            except sqlite3.Error as e:
+                logging.error(f"Error storing logical coherence: {e}")
+                self.conn.rollback()
+                return -1
+
+    def store_query_trace(self, trace_data: Dict[str, Any]) -> Optional[int]:
+        """Store query trace data in the database."""
+        logger.info("Storing query trace")
+        
+        with self.lock:
+            try:
+                insert_data = {
+                    'query': trace_data.get('query', 'Unknown'),
+                    'tool': trace_data.get('tool', ''),
+                    'prompt_name': trace_data.get('prompt_used', ''),
+                    'tools_used': json.dumps(trace_data.get('tools_used', [])),
+                    'processing_steps': json.dumps(trace_data.get('processing_steps', [])),
+                    'duration': trace_data.get('duration', 0),
+                    'success': trace_data.get('success', False),
+                    'content_new': trace_data.get('content_new', 0),
+                    'content_reused': trace_data.get('content_reused', 0),
+                    'error_message': trace_data.get('error', '')
+                }
+
+                cursor = self.conn.cursor()
+                cursor.execute("""
+                    INSERT INTO query_traces (
+                        query, tool, prompt_name, tools_used, processing_steps, 
+                        duration, success, content_new, content_reused, error_message
+                    ) VALUES (
+                        :query, :tool, :prompt_name, :tools_used, :processing_steps, 
+                        :duration, :success, :content_new, :content_reused, :error_message
+                    )
+                """, insert_data)
+                
+                self.conn.commit()
+                return cursor.lastrowid
+            except Exception as e:
+                logger.error(f"Error storing query trace: {str(e)}")
+                self.conn.rollback()
+                return None
+
+    def store_content_result(self, result_data: Dict[str, Any]) -> Optional[int]:
+        """Store content results with comprehensive metadata."""
+        logger.info("Storing content result")
+        
+        with self.lock:
+            try:
+                insert_data = {
+                    'query_id': result_data.get('query_id'),
+                    'trace_id': result_data.get('trace_id'),
+                    'content': json.dumps(result_data.get('content', {})),
+                    'content_type': result_data.get('content_type', 'general'),
+                    'evaluation_metrics': json.dumps(result_data.get('evaluation_metrics', {}))
+                }
+
+                cursor = self.conn.cursor()
+                cursor.execute("""
+                    INSERT INTO content_results (
+                        query_id, trace_id, content, content_type, evaluation_metrics
+                    ) VALUES (
+                        :query_id, :trace_id, :content, :content_type, :evaluation_metrics
+                    )
+                """, insert_data)
+                
+                self.conn.commit()
+                return cursor.lastrowid
+            except Exception as e:
+                logger.error(f"Error storing content result: {str(e)}")
+                self.conn.rollback()
+                return None
+
+    def get_query_traces(self, query: Optional[str] = None, limit: int = 50) -> List[Dict[str, Any]]:
+        """Retrieve query traces with optional filtering."""
+        with self.lock:
+            try:
+                cursor = self.conn.cursor()
+                if query:
+                    cursor.execute("""
+                        SELECT * FROM query_traces 
+                        WHERE query LIKE ? 
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                    """, (f'%{query}%', limit))
+                else:
+                    cursor.execute("""
+                        SELECT * FROM query_traces 
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                    """, (limit,))
+                
+                columns = [desc[0] for desc in cursor.description]
+                results = []
+                for row in cursor.fetchall():
+                    result = dict(zip(columns, row))
+                    result['tools_used'] = json.loads(result['tools_used']) if result['tools_used'] else []
+                    result['processing_steps'] = json.loads(result['processing_steps']) if result['processing_steps'] else []
+                    results.append(result)
+                
+                return results
+            except Exception as e:
+                logger.error(f"Error retrieving query traces: {str(e)}")
+                return []
+
+    def get_content_results(self, query: Optional[str] = None, trace_id: Optional[int] = None, limit: int = 50):
+        """Retrieve content results with optional filtering."""
+        with self.lock:
+            try:
+                cursor = self.conn.cursor()
+                if query and trace_id:
+                    cursor.execute("""
+                        SELECT * FROM content_results 
+                        WHERE trace_id = ? 
+                        AND id IN (
+                            SELECT id FROM query_traces 
+                            WHERE query LIKE ?
+                        )
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                    """, (trace_id, f'%{query}%', limit))
+                elif query:
+                    cursor.execute("""
+                        SELECT cr.* FROM content_results cr
+                        JOIN query_traces qt ON cr.trace_id = qt.id
+                        WHERE qt.query LIKE ?
+                        ORDER BY cr.timestamp DESC 
+                        LIMIT ?
+                    """, (f'%{query}%', limit))
+                elif trace_id:
+                    cursor.execute("""
+                        SELECT * FROM content_results 
+                        WHERE trace_id = ?
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                    """, (trace_id, limit))
+                else:
+                    cursor.execute("""
+                        SELECT * FROM content_results 
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                    """, (limit,))
+                
+                columns = [desc[0] for desc in cursor.description]
+                results = []
+                for row in cursor.fetchall():
+                    result = dict(zip(columns, row))
+                    result['content'] = json.loads(result['content']) if result['content'] else {}
+                    result['evaluation_metrics'] = json.loads(result['evaluation_metrics']) if result['evaluation_metrics'] else {}
+                    results.append(result)
+                
+                return results
+            except Exception as e:
+                logger.error(f"Error retrieving content results: {str(e)}")
+                return []
+
+
+    def store_analysis_evaluation(self, evaluation_data: Dict[str, Any]) -> int:
+        """Store analysis evaluation results in the database."""
+        logger.info("Storing analysis evaluation")
+        
+        with self.lock:
+            try:
+                insert_data = {
+                    'query': evaluation_data.get('query', 'Unknown'),
+                    'timestamp': evaluation_data.get('timestamp', datetime.now().isoformat()),
+                    'overall_score': evaluation_data.get('overall_score', 0.0),
+                    'numerical_accuracy': evaluation_data.get('numerical_accuracy', {}).get('score', 0.0),
+                    'query_understanding': evaluation_data.get('query_understanding', {}).get('score', 0.0),
+                    'data_validation': evaluation_data.get('data_validation', {}).get('score', 0.0),
+                    'reasoning_transparency': evaluation_data.get('reasoning_transparency', {}).get('score', 0.0),
+                    'calculation_examples': json.dumps(evaluation_data.get('numerical_accuracy', {}).get('details', {}).get('calculation_examples', [])),
+                    'analytical_elements': json.dumps(evaluation_data.get('query_understanding', {}).get('details', {})),
+                    'validation_checks': json.dumps(evaluation_data.get('data_validation', {}).get('details', {})),
+                    'term_coverage': evaluation_data.get('query_understanding', {}).get('details', {}).get('term_coverage', 0.0)
+                }
+
+                cursor = self.conn.cursor()
+                cursor.execute("""
+                    INSERT INTO analysis_evaluations (
+                        query, timestamp, overall_score, numerical_accuracy,
+                        query_understanding, data_validation, reasoning_transparency,
+                        calculation_examples, analytical_elements, validation_checks, term_coverage
+                    ) VALUES (
+                        :query, :timestamp, :overall_score, :numerical_accuracy,
+                        :query_understanding, :data_validation, :reasoning_transparency,
+                        :calculation_examples, :analytical_elements, :validation_checks, :term_coverage
+                    )
+                """, insert_data)
+                
+                self.conn.commit()
+                return cursor.lastrowid
+                
+            except Exception as e:
+                logger.error(f"Error storing analysis evaluation: {str(e)}")
+                self.conn.rollback()
+                return -1
+
+    def get_analysis_evaluations(self, query: Optional[str] = None, limit: int = 50) -> List[Dict[str, Any]]:
+        """Retrieve analysis evaluation results from the database."""
+        logger.info(f"Retrieving analysis evaluations for query: {query}")
+        
+        with self.lock:
+            cursor = self.conn.cursor()
+            try:
+                if query:
+                    cursor.execute(
+                        """
+                        SELECT * FROM analysis_evaluations 
+                        WHERE query LIKE ? 
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                        """, 
+                        (f'%{query}%', limit)
+                    )
+                else:
+                    cursor.execute(
+                        """
+                        SELECT * FROM analysis_evaluations 
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                        """, 
+                        (limit,)
+                    )
+                
+                columns = [
+                    'id', 'query', 'timestamp', 'overall_score', 'numerical_accuracy',
+                    'query_understanding', 'data_validation', 'reasoning_transparency',
+                    'calculation_examples', 'analytical_elements', 'validation_checks',
+                    'term_coverage'
+                ]
+                
+                results = []
+                for row in cursor.fetchall():
+                    result = dict(zip(columns, row))
+                    # Parse JSON strings back to Python objects
+                    result['calculation_examples'] = json.loads(result['calculation_examples']) if result['calculation_examples'] else []
+                    result['analytical_elements'] = json.loads(result['analytical_elements']) if result['analytical_elements'] else {}
+                    result['validation_checks'] = json.loads(result['validation_checks']) if result['validation_checks'] else {}
+                    results.append(result)
+                
+                return results
+                
+            except Exception as e:
+                logger.error(f"Error retrieving analysis evaluations: {str(e)}")
+                return []
+
+    def store_answer_relevance(self, data: Dict[str, Any]) -> int:
+        logger.info("Storing answer relevance evaluation")
+        
+        with self.lock:
+            try:
+                formatted_data = {
+                    'query': str(data.get('query', 'Unknown')),
+                    'relevance_score': float(data.get('relevance_score', 0.0)),
+                    'semantic_similarity': float(data.get('semantic_similarity', 0.0)),
+                    'entity_coverage': float(data.get('entity_coverage', 0.0)),
+                    'keyword_coverage': float(data.get('keyword_coverage', 0.0)),
+                    'topic_focus': float(data.get('topic_focus', 0.0)),
+                    'off_topic_sentences': json.dumps([
+                        str(sent) if hasattr(sent, 'text') else str(sent) 
+                        for sent in data.get('off_topic_sentences', [])
+                    ]),
+                    'total_sentences': int(data.get('total_sentences', 0)),
+                    'query_match_percentage': float(data.get('query_match_percentage', 0.0)),
+                    'information_density': float(data.get('information_density', 0.0)),
+                    'context_alignment_score': float(data.get('context_alignment_score', 0.0))
+                }
+                
+                cursor = self.conn.cursor()
+                cursor.execute(
+                    """
                     INSERT INTO answer_relevance_evaluations 
                     (query, relevance_score, semantic_similarity, entity_coverage, 
-                     keyword_coverage, topic_focus, off_topic_sentences, total_sentences,
-                     query_match_percentage, information_density, context_alignment_score)
+                    keyword_coverage, topic_focus, off_topic_sentences, total_sentences,
+                    query_match_percentage, information_density, context_alignment_score)
                     VALUES (:query, :relevance_score, :semantic_similarity, :entity_coverage, 
                             :keyword_coverage, :topic_focus, :off_topic_sentences, :total_sentences,
                             :query_match_percentage, :information_density, :context_alignment_score)
                     """,
-                    {
-                        'query': data.get('query', 'Unknown'),
-                        'relevance_score': data.get('relevance_score', 0.0),
-                        'semantic_similarity': data.get('semantic_similarity', 0.0),
-                        'entity_coverage': data.get('entity_coverage', 0.0),
-                        'keyword_coverage': data.get('keyword_coverage', 0.0),
-                        'topic_focus': data.get('topic_focus', 0.0),
-                        'off_topic_sentences': json.dumps(data.get('off_topic_sentences', [])),
-                        'total_sentences': data.get('total_sentences', 0),
-                        'query_match_percentage': data.get('query_match_percentage', 0.0),
-                        'information_density': data.get('information_density', 0.0),
-                        'context_alignment_score': data.get('context_alignment_score', 0.0)
-                    }
+                    formatted_data
                 )
                 self.conn.commit()
-                  # Breakpoint after storing answer relevance
                 return cursor.lastrowid
             except sqlite3.Error as e:
-                logging.error(f"Error storing answer relevance: {e}")
+                logger.error(f"Error storing answer relevance: {e}", exc_info=True)
                 self.conn.rollback()
                 return -1
                 
@@ -447,8 +663,6 @@ class ContentDB:
                     )
                 
                 columns = [desc[0] for desc in cursor.description]
-                print("Columns:", columns)
-
                 results = []
                 for row in cursor.fetchall():
                     result = dict(zip(columns, row))
@@ -564,51 +778,8 @@ class ContentDB:
                 logger.error(f"Error retrieving source coverage evaluations: {str(e)}")
                 return []
 
-    # 2. Store Function
-    def store_logical_coherence(self, data: Dict[str, Any]) -> int:
-        logger.info("Storing logical coherence evaluation")
-        
-        with self.lock:
-            try:
-                cursor = self.conn.cursor()
-                cursor.execute(
-                    """
-                    INSERT INTO logical_coherence_evaluations 
-                    (query, timestamp, coherence_score, flow_score, has_argument_structure, 
-                    has_discourse_markers, paragraph_score, rough_transitions, 
-                    total_sentences, total_paragraphs, semantic_connection_score, 
-                    idea_progression_score, logical_fallacies_count, topic_coherence)
-                    VALUES (:query, :timestamp, :coherence_score, :flow_score, :has_argument_structure, 
-                            :has_discourse_markers, :paragraph_score, :rough_transitions, 
-                            :total_sentences, :total_paragraphs, :semantic_connection_score, 
-                            :idea_progression_score, :logical_fallacies_count, :topic_coherence)
-                    """,
-                    {
-                        'query': data.get('query', 'Unknown'),
-                        'timestamp': data.get('timestamp', datetime.now().isoformat()),
-                        'coherence_score': data.get('coherence_score', 0.0),
-                        'flow_score': data.get('flow_score', 0.0),
-                        'has_argument_structure': data.get('has_argument_structure', False),
-                        'has_discourse_markers': data.get('has_discourse_markers', False),
-                        'paragraph_score': data.get('paragraph_score', 0.0),
-                        'rough_transitions': json.dumps(data.get('rough_transitions', [])),
-                        'total_sentences': data.get('total_sentences', 0),
-                        'total_paragraphs': data.get('total_paragraphs', 0),
-                        'semantic_connection_score': data.get('semantic_connection_score', 0.0),
-                        'idea_progression_score': data.get('idea_progression_score', 0.0),
-                        'logical_fallacies_count': data.get('logical_fallacies_count', 0),
-                        'topic_coherence': data.get('topic_coherence', 0.0)
-                    }
-                )
-                self.conn.commit()
-                return cursor.lastrowid
-            except sqlite3.Error as e:
-                logger.error(f"Error storing logical coherence: {e}")
-                self.conn.rollback()
-                return -1
-
-    # 3. Get Function
-    def get_logical_coherence_evaluations(self, query: Optional[str] = None, limit: int = 50):
+    def get_logical_coherence_evaluations(self, query: Optional[str] = None, limit: int = 10):
+    # Breakpoint before retrieving logical coherence evaluations
         logger.info(f"Retrieving logical coherence evaluations for query: {query}")
         
         with self.lock:
@@ -622,7 +793,7 @@ class ContentDB:
                         paragraph_score, rough_transitions, 
                         total_sentences, total_paragraphs,
                         semantic_connection_score, idea_progression_score,
-                        logical_fallacies_count, topic_coherence
+                        logical_fallacies_count
                         FROM logical_coherence_evaluations
                         WHERE query LIKE ?
                         ORDER BY timestamp DESC
@@ -638,7 +809,7 @@ class ContentDB:
                         paragraph_score, rough_transitions, 
                         total_sentences, total_paragraphs,
                         semantic_connection_score, idea_progression_score,
-                        logical_fallacies_count, topic_coherence
+                        logical_fallacies_count
                         FROM logical_coherence_evaluations
                         ORDER BY timestamp DESC
                         LIMIT ?
@@ -652,7 +823,7 @@ class ContentDB:
                     'paragraph_score', 'rough_transitions', 
                     'total_sentences', 'total_paragraphs',
                     'semantic_connection_score', 'idea_progression_score',
-                    'logical_fallacies_count', 'topic_coherence'
+                    'logical_fallacies_count'
                 ]
                 results = []
                 for row in cursor.fetchall():
@@ -660,6 +831,7 @@ class ContentDB:
                     result['rough_transitions'] = json.loads(result['rough_transitions']) if result['rough_transitions'] else []
                     results.append(result)
                 
+                # Breakpoint after retrieving logical coherence evaluations
                 return results
             except Exception as e:
                 logger.error(f"Error retrieving logical coherence evaluations: {str(e)}")
@@ -717,138 +889,7 @@ class ContentDB:
             except Exception as e:
                 logger.error(f"Error retrieving answer relevance evaluations: {str(e)}")
                 return []
-
-    def store_analysis_evaluation(self, evaluation_data: Dict[str, Any]) -> int:
-        """Store analysis evaluation results in the database."""
-        logger.info("Storing analysis evaluation")
-        
-        with self.lock:
-            try:
-                insert_data = {
-                    'query': evaluation_data.get('query', 'Unknown'),
-                    'timestamp': evaluation_data.get('timestamp', datetime.now().isoformat()),
-                    'overall_score': evaluation_data.get('overall_score', 0.0),
-                    'numerical_accuracy': evaluation_data.get('numerical_accuracy', {}).get('score', 0.0),
-                    'query_understanding': evaluation_data.get('query_understanding', {}).get('score', 0.0),
-                    'data_validation': evaluation_data.get('data_validation', {}).get('score', 0.0),
-                    'reasoning_transparency': evaluation_data.get('reasoning_transparency', {}).get('score', 0.0),
-                    'calculation_examples': json.dumps(evaluation_data.get('numerical_accuracy', {}).get('details', {}).get('calculation_examples', [])),
-                    'analytical_elements': json.dumps(evaluation_data.get('query_understanding', {}).get('details', {})),
-                    'validation_checks': json.dumps(evaluation_data.get('data_validation', {}).get('details', {})),
-                    'term_coverage': evaluation_data.get('query_understanding', {}).get('details', {}).get('term_coverage', 0.0)
-                }
-
-                cursor = self.conn.cursor()
-                cursor.execute("""
-                    INSERT INTO analysis_evaluations (
-                        query, timestamp, overall_score, numerical_accuracy,
-                        query_understanding, data_validation, reasoning_transparency,
-                        calculation_examples, analytical_elements, validation_checks, term_coverage
-                    ) VALUES (
-                        :query, :timestamp, :overall_score, :numerical_accuracy,
-                        :query_understanding, :data_validation, :reasoning_transparency,
-                        :calculation_examples, :analytical_elements, :validation_checks, :term_coverage
-                    )
-                """, insert_data)
                 
-                self.conn.commit()
-                return cursor.lastrowid
-                
-            except Exception as e:
-                logger.error(f"Error storing analysis evaluation: {str(e)}")
-                self.conn.rollback()
-                return -1
-
-    def get_analysis_evaluations(self, query: Optional[str] = None, limit: int = 50) -> List[Dict[str, Any]]:
-        """Retrieve analysis evaluation results from the database."""
-        logger.info(f"Retrieving analysis evaluations for query: {query}")
-        
-        with self.lock:
-            cursor = self.conn.cursor()
-            try:
-                if query:
-                    cursor.execute(
-                        """
-                        SELECT * FROM analysis_evaluations 
-                        WHERE query LIKE ? 
-                        ORDER BY timestamp DESC 
-                        LIMIT ?
-                        """, 
-                        (f'%{query}%', limit)
-                    )
-                else:
-                    cursor.execute(
-                        """
-                        SELECT * FROM analysis_evaluations 
-                        ORDER BY timestamp DESC 
-                        LIMIT ?
-                        """, 
-                        (limit,)
-                    )
-                
-                columns = [
-                    'id', 'query', 'timestamp', 'overall_score', 'numerical_accuracy',
-                    'query_understanding', 'data_validation', 'reasoning_transparency',
-                    'calculation_examples', 'analytical_elements', 'validation_checks',
-                    'term_coverage'
-                ]
-                
-                results = []
-                for row in cursor.fetchall():
-                    result = dict(zip(columns, row))
-                    # Parse JSON strings back to Python objects
-                    result['calculation_examples'] = json.loads(result['calculation_examples']) if result['calculation_examples'] else []
-                    result['analytical_elements'] = json.loads(result['analytical_elements']) if result['analytical_elements'] else {}
-                    result['validation_checks'] = json.loads(result['validation_checks']) if result['validation_checks'] else {}
-                    results.append(result)
-                
-                return results
-                
-            except Exception as e:
-                logger.error(f"Error retrieving analysis evaluations: {str(e)}")
-                return []
-
-    def get_latest_analysis(self, query: str) -> Optional[Dict[str, Any]]:
-        """Get the most recent analysis for a specific query"""
-        evaluations = self.get_analysis_evaluations(query=query, limit=1)
-        return evaluations[0] if evaluations else None
-
-    def get_analysis_metrics_summary(self, days: int = 30) -> Dict[str, float]:
-        """Get summary statistics of analysis metrics over a time period"""
-        logger.info(f"Getting analysis metrics summary for last {days} days")
-        
-        with self.lock:
-            cursor = self.conn.cursor()
-            try:
-                cursor.execute(
-                    """
-                    SELECT 
-                        AVG(numerical_accuracy) as avg_numerical_accuracy,
-                        AVG(query_understanding) as avg_query_understanding,
-                        AVG(data_validation) as avg_data_validation,
-                        AVG(reasoning_transparency) as avg_reasoning_transparency,
-                        AVG(overall_score) as avg_overall_score,
-                        COUNT(*) as total_analyses
-                    FROM analysis_evaluations
-                    WHERE datetime(timestamp) >= datetime('now', ?)
-                    """,
-                    (f'-{days} days',)
-                )
-                
-                result = dict(zip([d[0] for d in cursor.description], cursor.fetchone()))
-                return result
-                
-            except Exception as e:
-                logger.error(f"Error getting analysis metrics summary: {str(e)}")
-                return {
-                    'avg_numerical_accuracy': 0.0,
-                    'avg_query_understanding': 0.0,
-                    'avg_data_validation': 0.0,
-                    'avg_reasoning_transparency': 0.0,
-                    'avg_overall_score': 0.0,
-                    'total_analyses': 0
-                }
-                    
     def delete_doc(self, id: str):
     # Breakpoint before document deletion
         logger.info(f"Deleting document with ID: {id}")

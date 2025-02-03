@@ -48,7 +48,6 @@ def run_tool(
 ):
     """
     Execute a research or analysis tool with comprehensive tracing and evaluation.
-    Now includes detailed result printing.
     """
     logging.basicConfig(
         level=logging.DEBUG,
@@ -77,7 +76,8 @@ def run_tool(
         "processing_steps": [],
         "content_new": 0,
         "content_reused": 0,
-        "prompt_used": prompt_name
+        "prompt_used": prompt_name,
+        "query": query
     })
 
     try:
@@ -390,6 +390,39 @@ def run_tool(
             "end_time": end_time.isoformat()
         })
 
+        # Store comprehensive results
+        if result:
+            # Handle different content types (list or single item)
+            content_to_store = result.content
+            if isinstance(result.content, list):
+                # Convert ContentItem objects to text if needed
+                content_to_store = [
+                    item.get_text_content() if isinstance(item, ContentItem) else item 
+                    for item in result.content
+                ]
+            elif isinstance(result.content, ContentItem):
+                content_to_store = result.content.get_text_content()
+
+            content_result_data = {
+                'query_id': None,  # Future: implement query ID tracking
+                'trace_id': trace_id,
+                'content': content_to_store,
+                'content_type': tool_name.lower().replace(' ', '_'),
+                'evaluation_metrics': {
+                    'factual_accuracy': trace.data.get('factual_accuracy', {}),
+                    'source_coverage': trace.data.get('source_coverage', {}),
+                    'logical_coherence': trace.data.get('logical_coherence', {}),
+                    'answer_relevance': trace.data.get('answer_relevance', {}),
+                    'automated_tests': trace.data.get('automated_tests', {}),
+                    'analysis_metrics': trace.data.get('analysis_metrics', {})
+                }
+            }
+            content_result_id = db.store_content_result(content_result_data)
+            logger.info(f"Stored content result with ID: {content_result_id}")
+    except Exception as storage_error:
+        logger.error(f"Error storing trace and results: {storage_error}")
+
+        # Token usage tracking
         try:
             token_stats = trace.token_tracker.get_usage_stats()
             print("\n=== Token Usage Stats ===")
@@ -409,6 +442,7 @@ def run_tool(
         print(f"\n{tool_name} completed successfully")
         trace.data["processing_steps"].append(f"{tool_name} completed successfully")
 
+        # Save trace
         try:
             tracer = CustomTracer()
             tracer.save_trace(trace)
@@ -419,6 +453,7 @@ def run_tool(
 
         db.close()
         return result, trace
+
     except Exception as e:
         # Main error handling block
         error_msg = str(e)
@@ -436,13 +471,12 @@ def run_tool(
             "processing_steps": [f"Execution failed: {error_msg}"]
         })
         
+        # Store error trace
         try:
-            tracer = CustomTracer()
-            tracer.save_trace(trace)
-            print("\nError trace saved")
-        except Exception as trace_save_error:
-            logger.error(f"Failed to save error trace: {trace_save_error}")
-            print(f"\nError saving trace: {trace_save_error}")
+            error_trace_id = db.store_query_trace(trace.data)
+            logger.info(f"Stored error trace with ID: {error_trace_id}")
+        except Exception as trace_storage_error:
+            logger.error(f"Failed to save error trace: {trace_storage_error}")
         
         db.close()
         return None, trace

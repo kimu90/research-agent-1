@@ -313,6 +313,157 @@ class ContentDB:
                 self.conn.rollback()
                 return -1
 
+    def store_query_trace(self, trace_data: Dict[str, Any]) -> Optional[int]:
+        """Store query trace data in the database."""
+        logger.info("Storing query trace")
+        
+        with self.lock:
+            try:
+                insert_data = {
+                    'query': trace_data.get('query', 'Unknown'),
+                    'tool': trace_data.get('tool', ''),
+                    'prompt_name': trace_data.get('prompt_used', ''),
+                    'tools_used': json.dumps(trace_data.get('tools_used', [])),
+                    'processing_steps': json.dumps(trace_data.get('processing_steps', [])),
+                    'duration': trace_data.get('duration', 0),
+                    'success': trace_data.get('success', False),
+                    'content_new': trace_data.get('content_new', 0),
+                    'content_reused': trace_data.get('content_reused', 0),
+                    'error_message': trace_data.get('error', '')
+                }
+
+                cursor = self.conn.cursor()
+                cursor.execute("""
+                    INSERT INTO query_traces (
+                        query, tool, prompt_name, tools_used, processing_steps, 
+                        duration, success, content_new, content_reused, error_message
+                    ) VALUES (
+                        :query, :tool, :prompt_name, :tools_used, :processing_steps, 
+                        :duration, :success, :content_new, :content_reused, :error_message
+                    )
+                """, insert_data)
+                
+                self.conn.commit()
+                return cursor.lastrowid
+            except Exception as e:
+                logger.error(f"Error storing query trace: {str(e)}")
+                self.conn.rollback()
+                return None
+
+    def store_content_result(self, result_data: Dict[str, Any]) -> Optional[int]:
+        """Store content results with comprehensive metadata."""
+        logger.info("Storing content result")
+        
+        with self.lock:
+            try:
+                insert_data = {
+                    'query_id': result_data.get('query_id'),
+                    'trace_id': result_data.get('trace_id'),
+                    'content': json.dumps(result_data.get('content', {})),
+                    'content_type': result_data.get('content_type', 'general'),
+                    'evaluation_metrics': json.dumps(result_data.get('evaluation_metrics', {}))
+                }
+
+                cursor = self.conn.cursor()
+                cursor.execute("""
+                    INSERT INTO content_results (
+                        query_id, trace_id, content, content_type, evaluation_metrics
+                    ) VALUES (
+                        :query_id, :trace_id, :content, :content_type, :evaluation_metrics
+                    )
+                """, insert_data)
+                
+                self.conn.commit()
+                return cursor.lastrowid
+            except Exception as e:
+                logger.error(f"Error storing content result: {str(e)}")
+                self.conn.rollback()
+                return None
+
+    def get_query_traces(self, query: Optional[str] = None, limit: int = 50) -> List[Dict[str, Any]]:
+        """Retrieve query traces with optional filtering."""
+        with self.lock:
+            try:
+                cursor = self.conn.cursor()
+                if query:
+                    cursor.execute("""
+                        SELECT * FROM query_traces 
+                        WHERE query LIKE ? 
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                    """, (f'%{query}%', limit))
+                else:
+                    cursor.execute("""
+                        SELECT * FROM query_traces 
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                    """, (limit,))
+                
+                columns = [desc[0] for desc in cursor.description]
+                results = []
+                for row in cursor.fetchall():
+                    result = dict(zip(columns, row))
+                    result['tools_used'] = json.loads(result['tools_used']) if result['tools_used'] else []
+                    result['processing_steps'] = json.loads(result['processing_steps']) if result['processing_steps'] else []
+                    results.append(result)
+                
+                return results
+            except Exception as e:
+                logger.error(f"Error retrieving query traces: {str(e)}")
+                return []
+
+    def get_content_results(self, query: Optional[str] = None, trace_id: Optional[int] = None, limit: int = 50):
+        """Retrieve content results with optional filtering."""
+        with self.lock:
+            try:
+                cursor = self.conn.cursor()
+                if query and trace_id:
+                    cursor.execute("""
+                        SELECT * FROM content_results 
+                        WHERE trace_id = ? 
+                        AND id IN (
+                            SELECT id FROM query_traces 
+                            WHERE query LIKE ?
+                        )
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                    """, (trace_id, f'%{query}%', limit))
+                elif query:
+                    cursor.execute("""
+                        SELECT cr.* FROM content_results cr
+                        JOIN query_traces qt ON cr.trace_id = qt.id
+                        WHERE qt.query LIKE ?
+                        ORDER BY cr.timestamp DESC 
+                        LIMIT ?
+                    """, (f'%{query}%', limit))
+                elif trace_id:
+                    cursor.execute("""
+                        SELECT * FROM content_results 
+                        WHERE trace_id = ?
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                    """, (trace_id, limit))
+                else:
+                    cursor.execute("""
+                        SELECT * FROM content_results 
+                        ORDER BY timestamp DESC 
+                        LIMIT ?
+                    """, (limit,))
+                
+                columns = [desc[0] for desc in cursor.description]
+                results = []
+                for row in cursor.fetchall():
+                    result = dict(zip(columns, row))
+                    result['content'] = json.loads(result['content']) if result['content'] else {}
+                    result['evaluation_metrics'] = json.loads(result['evaluation_metrics']) if result['evaluation_metrics'] else {}
+                    results.append(result)
+                
+                return results
+            except Exception as e:
+                logger.error(f"Error retrieving content results: {str(e)}")
+                return []
+
+
     def store_analysis_evaluation(self, evaluation_data: Dict[str, Any]) -> int:
         """Store analysis evaluation results in the database."""
         logger.info("Storing analysis evaluation")
