@@ -809,102 +809,149 @@ def display_analysis(traces: List[QueryTrace], content_db: ContentDB):
 
 def display_prompt_tracking(content_db: ContentDB):
     """
-    Display comprehensive prompt tracking and usage analytics
+    Display comprehensive prompt tracking and usage analytics with detailed evaluation metrics
     """
-    st.subheader("🔄 Prompt Tracking & Usage Analytics")
+    st.subheader("🔍 Detailed Prompt Tracking & Performance Analytics")
 
-    # Retrieve query traces
-    query_traces = content_db.get_query_traces(limit=100)
+    # Filtering options
+    col1, col2 = st.columns(2)
+    with col1:
+        query_filter = st.text_input("Filter by Query", placeholder="Enter partial query to filter")
+    with col2:
+        tool_filter = st.selectbox("Filter by Tool", 
+            ["All", "General Agent", "Analysis Agent"], 
+            index=0)
 
+    # Retrieve query traces with optional filtering
+    query_traces = content_db.get_query_traces(query=query_filter if query_filter else None, limit=100)
+    
     if not query_traces:
-        st.info("No prompt usage data available yet.")
+        st.info("No prompt usage data available.")
         return
 
     try:
-        # Create DataFrame from query traces with error handling
+        # Aggregate evaluation data
+        accuracy_evals = content_db.get_accuracy_evaluations(query=query_filter)
+        relevance_evals = content_db.get_answer_relevance_evaluations(query=query_filter)
+        coherence_evals = content_db.get_logical_coherence_evaluations(query=query_filter)
+        source_coverage_evals = content_db.get_source_coverage_evaluations(query=query_filter)
+
+        # Convert to DataFrame for easier manipulation
         traces_df = pd.DataFrame(query_traces)
-
-        # Ensure timestamp is converted correctly
-        if 'timestamp' in traces_df.columns:
-            traces_df['timestamp'] = pd.to_datetime(traces_df['timestamp'], errors='coerce')
-        else:
-            st.warning("No timestamp column found in query traces.")
-            return
-
-        # Remove any rows with invalid timestamps
-        traces_df = traces_df.dropna(subset=['timestamp'])
-
-        # Verify required columns exist
-        required_columns = ['tool', 'success', 'duration']
-        for col in required_columns:
-            if col not in traces_df.columns:
-                st.warning(f"Column '{col}' not found in query traces.")
-                return
 
         # Top-level Metrics
         col1, col2, col3, col4 = st.columns(4)
         with col1:
             show_metric_with_tooltip(
-                "Total Queries", 
-                str(len(traces_df)), 
-                "Total number of queries processed across all tools"
+                "Total Queries",
+                 str(len(traces_df)),
+                 "Total number of queries processed across all tools"
             )
         with col2:
             success_rate = (traces_df['success'].sum() / len(traces_df)) * 100
             show_metric_with_tooltip(
-                "Success Rate", 
-                f"{success_rate:.1f}%", 
-                "Percentage of queries that were successfully completed"
+                "Success Rate",
+                 f"{success_rate:.1f}%",
+                 "Percentage of queries that were successfully completed"
             )
         with col3:
             avg_duration = traces_df['duration'].mean()
             show_metric_with_tooltip(
-                "Avg Duration", 
-                f"{avg_duration:.2f}s", 
-                "Average time taken to complete a query"
+                "Avg Duration",
+                 f"{avg_duration:.2f}s",
+                 "Average time taken to complete a query"
             )
         with col4:
             unique_tools = traces_df['tool'].nunique()
             show_metric_with_tooltip(
-                "Unique Tools", 
-                str(unique_tools), 
-                "Number of different tools or methods used in queries"
+                "Unique Tools",
+                 str(unique_tools),
+                 "Number of different tools or methods used in queries"
             )
 
-        # Visualization 1: Tool Usage Distribution
-        st.subheader("Tool Usage Distribution")
-        tool_usage = traces_df['tool'].value_counts()
-        fig_tool_usage = px.bar(
-            x=tool_usage.index, 
-            y=tool_usage.values,
-            title="Prompt Usage by Tool",
-            labels={'x': 'Tool', 'y': 'Number of Queries'}
-        )
-        st.plotly_chart(fig_tool_usage, use_container_width=True)
+        # Combine evaluation data
+        eval_data = {}
+        for eval_type, evals in [
+            ('accuracy', accuracy_evals),
+            ('relevance', relevance_evals),
+            ('coherence', coherence_evals),
+            ('source_coverage', source_coverage_evals)
+        ]:
+            for eval_item in evals:
+                query = eval_item['query']
+                if query not in eval_data:
+                    eval_data[query] = {}
+                eval_data[query][eval_type] = eval_item
 
-        # Visualization 2: Success Rate Over Time
-        st.subheader("Success Rate Over Time")
-        daily_success = traces_df.groupby(pd.Grouper(key='timestamp', freq='D'))['success'].mean()
-        fig_success_trend = px.line(
-            x=daily_success.index, 
-            y=daily_success.values,
-            title="Daily Success Rate Trend",
-            labels={'x': 'Date', 'y': 'Success Rate'}
-        )
-        st.plotly_chart(fig_success_trend, use_container_width=True)
+        # Create a comprehensive dataframe
+        detailed_traces = []
+        for trace in query_traces:
+            query = trace['query']
+            
+            # Apply tool filter
+            if tool_filter != "All" and trace['tool'] != tool_filter:
+                continue
 
-        # Detailed Query Traces
-        st.subheader("Detailed Query Traces")
+            # Combine trace data with evaluation metrics
+            trace_detail = {
+                'Timestamp': trace.get('timestamp', 'N/A'),
+                'Query': query,
+                'Tool': trace.get('tool', 'N/A'),
+                'Success': '✅' if trace.get('success', False) else '❌',
+                'Duration (s)': round(trace.get('duration', 0), 2),
+                'Content New': trace.get('content_new', 0),
+                'Factual Accuracy': 'N/A',
+                'Relevance Score': 'N/A',
+                'Coherence Score': 'N/A',
+                'Source Coverage': 'N/A'
+            }
+
+            # Add evaluation metrics if available
+            if query in eval_data:
+                eval_metrics = eval_data[query]
+                
+                if 'accuracy' in eval_metrics:
+                    trace_detail['Factual Accuracy'] = f"{eval_metrics['accuracy'].get('factual_score', 0):.2f}"
+                
+                if 'relevance' in eval_metrics:
+                    trace_detail['Relevance Score'] = f"{eval_metrics['relevance'].get('relevance_score', 0):.2f}"
+                
+                if 'coherence' in eval_metrics:
+                    trace_detail['Coherence Score'] = f"{eval_metrics['coherence'].get('coherence_score', 0):.2f}"
+                
+                if 'source_coverage' in eval_metrics:
+                    trace_detail['Source Coverage'] = f"{eval_metrics['source_coverage'].get('coverage_score', 0):.2f}"
+
+            detailed_traces.append(trace_detail)
 
         # Display the detailed dataframe
-        st.dataframe(
-            traces_df[['timestamp', 'tool', 'success', 'duration']].style.format({
-                'timestamp': lambda x: x.strftime('%Y-%m-%d %H:%M'),
-                'success': lambda x: '✅' if x else '❌',
-                'duration': '{:.2f}s'.format
-            }),
-            use_container_width=True
-        )
+        if detailed_traces:
+            df = pd.DataFrame(detailed_traces)
+            st.dataframe(df, use_container_width=True)
+
+            # Additional Visualizations
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                st.subheader("Evaluation Scores Distribution")
+                eval_columns = ['Factual Accuracy', 'Relevance Score', 'Coherence Score', 'Source Coverage']
+                fig_box = px.box(df, y=eval_columns, 
+                    title="Distribution of Evaluation Metrics")
+                st.plotly_chart(fig_box, use_container_width=True)
+            
+            with col2:
+                st.subheader("Success Rate by Tool")
+                tool_success = df.groupby('Tool')['Success'].apply(lambda x: (x == '✅').mean() * 100)
+                fig_tool_success = px.bar(
+                    x=tool_success.index, 
+                    y=tool_success.values,
+                    title="Success Rate Percentage by Tool",
+                    labels={'x': 'Tool', 'y': 'Success Rate (%)'}
+                )
+                st.plotly_chart(fig_tool_success, use_container_width=True)
+
+        else:
+            st.warning("No matching prompt traces found.")
 
     except Exception as e:
         st.error(f"Error processing prompt tracking data: {str(e)}")
