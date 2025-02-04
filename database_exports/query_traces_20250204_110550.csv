@@ -1,2 +1,0 @@
-id,query,tool,prompt_name,tools_used,processing_steps,duration,success,content_new,content_reused,error_message,timestamp
-1,Sclerocarya birrea,General Agent,research.txt,"[""General Agent""]","[""Content processed - New: 10, Reused: 0""]",35.464057,1,10,0,,2025-02-03 21:49:14

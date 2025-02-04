@@ -286,78 +286,127 @@ def display_analytics(traces: List[QueryTrace], content_db: ContentDB):
             st.error(f"Error displaying coverage analytics: {str(e)}")
 
     with tab3:
+        logger.info("Processing Logical Coherence tab")
         try:
             coherence_evals = content_db.get_logical_coherence_evaluations(limit=50)
+            logger.debug(f"Retrieved {len(coherence_evals) if coherence_evals else 0} coherence evaluations")
+            
             if coherence_evals:
                 coherence_df = pd.DataFrame(coherence_evals)
+                logger.debug(f"Created DataFrame with {len(coherence_df)} rows")
+                logger.debug(f"Available columns: {coherence_df.columns.tolist()}")
                 
-                # Convert timestamp strings to datetime objects if not already datetime
-                if coherence_df['timestamp'].dtype != 'datetime64[ns]':
-                    coherence_df['timestamp'] = pd.to_datetime(coherence_df['timestamp'])
+                # Handle timestamp conversion
+                if 'timestamp' in coherence_df.columns:
+                    if coherence_df['timestamp'].dtype != 'datetime64[ns]':
+                        logger.debug("Converting timestamps to datetime")
+                        coherence_df['timestamp'] = pd.to_datetime(coherence_df['timestamp'])
                 
-                # Display metrics in columns
+                # Display metrics with safe column access
                 metrics_col1, metrics_col2, metrics_col3, metrics_col4 = st.columns(4)
+                
+                # Coherence Score
                 with metrics_col1:
-                    avg_coherence = coherence_df['coherence_score'].mean()
-                    st.metric("Avg Coherence Score", f"{avg_coherence:.2f}")
+                    if 'coherence_score' in coherence_df.columns:
+                        avg_coherence = coherence_df['coherence_score'].mean()
+                        st.metric("Avg Coherence Score", f"{avg_coherence:.2f}")
+                        logger.info(f"Average coherence score: {avg_coherence:.2f}")
+                    else:
+                        st.metric("Avg Coherence Score", "N/A")
+                        logger.warning("coherence_score column not found")
+                
+                # Topic Coherence
                 with metrics_col2:
-                    avg_topic_coherence = coherence_df['topic_coherence'].mean()
-                    st.metric("Topic Coherence", f"{avg_topic_coherence:.2f}")
+                    score_column = next((col for col in coherence_df.columns if 'topic' in col.lower()), None)
+                    if score_column:
+                        avg_topic = coherence_df[score_column].mean()
+                        st.metric("Topic Score", f"{avg_topic:.2f}")
+                        logger.info(f"Average {score_column}: {avg_topic:.2f}")
+                    else:
+                        st.metric("Topic Score", "N/A")
+                        logger.warning("No topic-related column found")
+                
+                # Logical Fallacies
                 with metrics_col3:
-                    logical_fallacies = coherence_df['logical_fallacies_count'].sum()
-                    st.metric("Logical Fallacies", f"{logical_fallacies:,}")
+                    if 'logical_fallacies_count' in coherence_df.columns:
+                        fallacies = coherence_df['logical_fallacies_count'].sum()
+                        st.metric("Logical Fallacies", f"{fallacies:,}")
+                        logger.info(f"Total logical fallacies: {fallacies}")
+                    else:
+                        st.metric("Logical Fallacies", "N/A")
+                        logger.warning("logical_fallacies_count column not found")
+                
+                # Idea Progression
                 with metrics_col4:
-                    idea_progression = coherence_df['idea_progression_score'].mean()
-                    st.metric("Idea Progression", f"{idea_progression:.2f}")
-                
-                # Create histogram with improved formatting
-                fig_hist = px.histogram(
-                    coherence_df,
-                    x='coherence_score',
-                    title='Coherence Score Distribution',
-                    nbins=20,
-                    labels={'coherence_score': 'Coherence Score', 'count': 'Count'}
-                )
-                fig_hist.update_layout(
-                    xaxis_title="Coherence Score",
-                    yaxis_title="Count"
-                )
-                st.plotly_chart(fig_hist, use_container_width=True)
-                
-                # Create timeline with improved formatting
-                fig_timeline = px.line(
-                    coherence_df.sort_values('timestamp'),
-                    x='timestamp',
-                    y='coherence_score',
-                    title='Logical Coherence Over Time'
-                )
-                fig_timeline.update_layout(
-                    xaxis_title="Time",
-                    yaxis_title="Coherence Score",
-                    hovermode='x unified'
-                )
-                st.plotly_chart(fig_timeline, use_container_width=True)
-                
-                # Add expandable detailed statistics
-                with st.expander("View Detailed Statistics"):
-                    st.dataframe(
-                        coherence_df[[
-                            'timestamp', 'query', 'coherence_score', 
-                            'topic_coherence', 'logical_fallacies_count', 
-                            'idea_progression_score'
-                        ]]
-                        .sort_values('timestamp', ascending=False)
-                        .style.format({
-                            'coherence_score': '{:.2f}',
-                            'topic_coherence': '{:.2f}',
-                            'idea_progression_score': '{:.2f}'
-                        })
-                    )
+                    if 'idea_progression_score' in coherence_df.columns:
+                        progression = coherence_df['idea_progression_score'].mean()
+                        st.metric("Idea Progression", f"{progression:.2f}")
+                        logger.info(f"Average idea progression: {progression:.2f}")
+                    else:
+                        st.metric("Idea Progression", "N/A")
+                        logger.warning("idea_progression_score column not found")
+
+                # Create visualizations if coherence_score exists
+                if 'coherence_score' in coherence_df.columns:
+                    try:
+                        logger.debug("Creating coherence score histogram")
+                        fig_hist = px.histogram(
+                            coherence_df,
+                            x='coherence_score',
+                            title='Coherence Score Distribution',
+                            nbins=20,
+                            labels={'coherence_score': 'Coherence Score', 'count': 'Count'}
+                        )
+                        fig_hist.update_layout(
+                            xaxis_title="Coherence Score",
+                            yaxis_title="Count"
+                        )
+                        st.plotly_chart(fig_hist, use_container_width=True)
+                        
+                        if 'timestamp' in coherence_df.columns:
+                            logger.debug("Creating coherence timeline")
+                            fig_timeline = px.line(
+                                coherence_df.sort_values('timestamp'),
+                                x='timestamp',
+                                y='coherence_score',
+                                title='Logical Coherence Over Time'
+                            )
+                            fig_timeline.update_layout(
+                                xaxis_title="Time",
+                                yaxis_title="Coherence Score",
+                                hovermode='x unified'
+                            )
+                            st.plotly_chart(fig_timeline, use_container_width=True)
+                    except Exception as viz_error:
+                        logger.error(f"Error creating visualizations: {str(viz_error)}", exc_info=True)
+                        st.error("Unable to display coherence visualizations")
+
+                # Display detailed statistics
+                try:
+                    logger.debug("Creating detailed statistics view")
+                    with st.expander("View Detailed Statistics"):
+                        # Get available columns from the required set
+                        available_columns = ['timestamp', 'query']
+                        score_columns = [col for col in coherence_df.columns if 'score' in col.lower()]
+                        available_columns.extend(score_columns)
+                        
+                        detailed_df = coherence_df[available_columns].sort_values('timestamp', ascending=False)
+                        
+                        format_dict = {col: '{:.2f}' for col in score_columns}
+                        st.dataframe(detailed_df.style.format(format_dict))
+                        logger.debug(f"Displayed detailed statistics for {len(detailed_df)} entries")
+                except Exception as stats_error:
+                    logger.error(f"Error displaying detailed statistics: {str(stats_error)}", exc_info=True)
+                    st.error("Unable to display detailed statistics")
+
             else:
+                logger.info("No coherence data available")
                 st.info("No logical coherence data available yet.")
+
         except Exception as e:
-            st.error(f"Error displaying coherence analytics: {str(e)}")
-            logging.error(f"Error in coherence analytics: {str(e)}", exc_info=True)
+            error_msg = f"Error processing coherence analytics: {str(e)}"
+            logger.error(error_msg, exc_info=True)
+            st.error(error_msg)
 
     with tab4:
         try:
@@ -490,243 +539,155 @@ def display_general_analysis(traces: List[QueryTrace]):
     with col4:
         total_content = df['content_new'].sum() + df['content_reused'].sum()
         st.metric("Total Content Processed", total_content)
+
+def safe_json_loads(value):
+    if isinstance(value, (str, bytes, bytearray)):
+        try:
+            return json.loads(value)
+        except json.JSONDecodeError:
+            return {}
+    return {}
+
 def display_analysis(traces: List[QueryTrace], content_db: ContentDB):
-    """Display analysis metrics and visualizations with comprehensive logging."""
-    
-    start_time = time.time()
-    logger.info("Starting display_analysis function")
-    
+    logger.info("Starting display_analysis")
     if not traces:
-        logger.warning("No analysis traces available")
-        st.info("No analysis history available yet. Run some analyses to see metrics!")
+        st.info("No analysis history available.")
         return
 
-    logger.info(f"Processing {len(traces)} analysis traces")
-
     try:
+        # Get and preprocess evaluations
+        analysis_evals = content_db.get_analysis_evaluations(limit=50)
+        
+        if analysis_evals:
+            for eval_data in analysis_evals:
+                eval_data['analytical_elements'] = safe_json_loads(eval_data.get('analytical_elements'))
+                eval_data['validation_checks'] = safe_json_loads(eval_data.get('validation_checks'))
+                eval_data['calculation_examples'] = safe_json_loads(eval_data.get('calculation_examples'))
+                # Convert numeric fields
+                for field in ['numerical_accuracy', 'query_understanding', 'data_validation', 
+                            'reasoning_transparency', 'overall_score', 'term_coverage']:
+                    eval_data[field] = float(eval_data.get(field, 0))
+
         tab1, tab2, tab3, tab4 = st.tabs([
-            "Analysis Overview",
-            "Numerical Accuracy",
-            "Query Understanding",
-            "Validation & Reasoning"
+            "Analysis Overview", "Numerical Accuracy", 
+            "Query Understanding", "Validation & Reasoning"
         ])
-        logger.debug("Created tab structure successfully")
 
         with tab1:
-            logger.info("Processing Analysis Overview tab")
             try:
-                # Create DataFrame from traces
                 df = pd.DataFrame([{
                     'date': datetime.fromisoformat(t.data['start_time']).date(),
-                    'success': t.data.get('success', False),
-                    'duration': t.data.get('duration', 0),
-                    'overall_score': t.data.get('analysis_metrics', {}).get('overall_score', 0)
-                } for t in traces])
-                logger.debug(f"Created main DataFrame with {len(df)} rows")
+                    'success': bool(t.data.get('success', False)),
+                    'duration': float(t.data.get('duration', 0)),
+                    'overall_score': next((e['overall_score'] for e in analysis_evals 
+                        if e['timestamp'] == t.data.get('start_time')), 0.0)
+                } for t in traces if isinstance(t.data, dict) and 'start_time' in t.data])
                 
-                st.subheader("📈 Analysis Performance Over Time")
-                
-                # Calculate performance metrics
                 success_by_date = df.groupby('date').agg({
                     'success': ['count', lambda x: x.sum() / len(x) * 100],
                     'overall_score': 'mean'
                 }).reset_index()
                 success_by_date.columns = ['date', 'total_analyses', 'success_rate', 'avg_score']
-                logger.debug(f"Calculated performance metrics for {len(success_by_date)} dates")
-                
-                # Create performance trend plot
-                try:
-                    fig_performance = px.line(
-                        success_by_date,
-                        x='date',
-                        y=['success_rate', 'avg_score'],
-                        title='Analysis Performance Trends',
-                        labels={'value': 'Percentage', 'variable': 'Metric'},
-                        color_discrete_map={'success_rate': '#2E86C1', 'avg_score': '#27AE60'}
-                    )
-                    st.plotly_chart(fig_performance, use_container_width=True)
-                    logger.debug("Successfully created performance trend plot")
-                except Exception as e:
-                    logger.error(f"Error creating performance plot: {str(e)}", exc_info=True)
-                    st.error("Unable to display performance trend plot")
 
-                # Display statistics
-                logger.debug("Calculating summary statistics")
-                col1, col2, col3, col4 = st.columns(4)
-                with col1:
-                    st.metric("Total Analyses", len(traces))
-                with col2:
-                    avg_duration = df['duration'].mean()
-                    st.metric("Average Duration", f"{avg_duration:.2f}s")
-                    logger.info(f"Average analysis duration: {avg_duration:.2f}s")
-                with col3:
-                    success_rate = (df['success'].sum() / len(df)) * 100
-                    st.metric("Success Rate", f"{success_rate:.1f}%")
-                    logger.info(f"Overall success rate: {success_rate:.1f}%")
-                with col4:
-                    avg_score = df['overall_score'].mean()
-                    st.metric("Avg Overall Score", f"{avg_score:.2f}")
-                    logger.info(f"Average overall score: {avg_score:.2f}")
+                fig = px.line(success_by_date, x='date', y=['success_rate', 'avg_score'])
+                st.plotly_chart(fig, use_container_width=True)
+
+                cols = st.columns(4)
+                cols[0].metric("Total Analyses", len(df))
+                cols[1].metric("Average Duration", f"{df['duration'].mean():.2f}s")
+                cols[2].metric("Success Rate", f"{df['success'].mean()*100:.1f}%")
+                cols[3].metric("Avg Score", f"{df['overall_score'].mean():.2f}")
 
             except Exception as e:
-                logger.error(f"Error processing Analysis Overview tab: {str(e)}", exc_info=True)
-                st.error("Error processing analysis overview")
+                logger.error(f"Error in overview: {str(e)}")
+                st.error("Error processing overview")
 
         with tab2:
-            logger.info("Processing Numerical Accuracy tab")
             try:
-                st.subheader("🔢 Numerical Accuracy Metrics")
-                analysis_evals = content_db.get_analysis_evaluations(limit=50)
-                logger.debug(f"Retrieved {len(analysis_evals) if analysis_evals else 0} analysis evaluations")
-                
                 if analysis_evals:
                     metrics_df = pd.DataFrame([{
-                        'timestamp': eval_data['timestamp'],
-                        'numerical_accuracy': eval_data['numerical_accuracy'],
-                        'term_coverage': eval_data['term_coverage']
-                    } for eval_data in analysis_evals])
-                    logger.debug(f"Created metrics DataFrame with {len(metrics_df)} rows")
-                    
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        avg_accuracy = metrics_df['numerical_accuracy'].mean()
-                        st.metric("Avg Numerical Accuracy", f"{avg_accuracy:.2f}")
-                        logger.info(f"Average numerical accuracy: {avg_accuracy:.2f}")
-                    with col2:
-                        avg_coverage = metrics_df['term_coverage'].mean()
-                        st.metric("Avg Term Coverage", f"{avg_coverage:.2f}")
-                        logger.info(f"Average term coverage: {avg_coverage:.2f}")
-                    
-                    try:
-                        fig_accuracy = px.line(
-                            metrics_df.sort_values('timestamp'),
-                            x='timestamp',
-                            y='numerical_accuracy',
-                            title='Numerical Accuracy Trend'
-                        )
-                        st.plotly_chart(fig_accuracy, use_container_width=True)
-                        logger.debug("Successfully created numerical accuracy trend plot")
-                    except Exception as e:
-                        logger.error(f"Error creating accuracy plot: {str(e)}", exc_info=True)
-                        st.error("Unable to display accuracy trend plot")
-                    
-                    # Display calculation examples
-                    logger.debug("Processing calculation examples")
-                    st.subheader("Recent Calculation Examples")
+                        'timestamp': e['timestamp'],
+                        'numerical_accuracy': e['numerical_accuracy'],
+                        'term_coverage': e['term_coverage']
+                    } for e in analysis_evals])
+
+                    cols = st.columns(2)
+                    cols[0].metric("Numerical Accuracy", f"{metrics_df['numerical_accuracy'].mean():.2f}")
+                    cols[1].metric("Term Coverage", f"{metrics_df['term_coverage'].mean():.2f}")
+
+                    fig = px.line(metrics_df.sort_values('timestamp'),
+                                x='timestamp', y='numerical_accuracy')
+                    st.plotly_chart(fig, use_container_width=True)
+
                     for eval_data in analysis_evals[:5]:
-                        if eval_data.get('calculation_examples'):
-                            logger.debug(f"Displaying examples for query: {eval_data['query'][:50]}...")
-                            st.markdown(f"**Query:** {eval_data['query']}")
-                            for example in eval_data['calculation_examples']:
-                                st.code(example)
-                            st.markdown("---")
+                        examples = eval_data['calculation_examples']
+                        if examples:
+                            with st.expander(f"Query: {eval_data['query']}"):
+                                for ex in examples:
+                                    st.code(ex)
 
             except Exception as e:
-                logger.error(f"Error processing Numerical Accuracy tab: {str(e)}", exc_info=True)
-                st.error("Error processing numerical accuracy metrics")
+                logger.error(f"Error in accuracy: {str(e)}")
+                st.error("Error processing accuracy data")
 
         with tab3:
-            logger.info("Processing Query Understanding tab")
             try:
-                st.subheader("🎯 Query Understanding Analysis")
                 if analysis_evals:
-                    understanding_df = pd.DataFrame([{
-                        'timestamp': eval_data['timestamp'],
-                        'query_understanding': eval_data['query_understanding'],
-                        'analytical_elements': len(eval_data.get('analytical_elements', {}))
-                    } for eval_data in analysis_evals])
-                    logger.debug(f"Created understanding DataFrame with {len(understanding_df)} rows")
-                    
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        avg_understanding = understanding_df['query_understanding'].mean()
-                        st.metric("Avg Query Understanding", f"{avg_understanding:.2f}")
-                        logger.info(f"Average query understanding score: {avg_understanding:.2f}")
-                    with col2:
-                        avg_elements = understanding_df['analytical_elements'].mean()
-                        st.metric("Avg Analytical Elements", f"{avg_elements:.1f}")
-                        logger.info(f"Average analytical elements: {avg_elements:.1f}")
-                    
-                    try:
-                        fig_understanding = px.line(
-                            understanding_df.sort_values('timestamp'),
-                            x='timestamp',
-                            y='query_understanding',
-                            title='Query Understanding Score Trend'
-                        )
-                        st.plotly_chart(fig_understanding, use_container_width=True)
-                        logger.debug("Successfully created query understanding trend plot")
-                    except Exception as e:
-                        logger.error(f"Error creating understanding plot: {str(e)}", exc_info=True)
-                        st.error("Unable to display query understanding trend plot")
+                    df = pd.DataFrame([{
+                        'timestamp': e['timestamp'],
+                        'query_understanding': e['query_understanding'],
+                        'analytical_elements': len(e['analytical_elements'])
+                    } for e in analysis_evals])
+
+                    cols = st.columns(2)
+                    cols[0].metric("Query Understanding", f"{df['query_understanding'].mean():.2f}")
+                    cols[1].metric("Analytical Elements", f"{df['analytical_elements'].mean():.1f}")
+
+                    fig = px.line(df.sort_values('timestamp'),
+                                x='timestamp', y='query_understanding')
+                    st.plotly_chart(fig, use_container_width=True)
+
+                    for eval_data in analysis_evals[:5]:
+                        elements = eval_data['analytical_elements']
+                        if elements:
+                            with st.expander(f"Query: {eval_data['query']}"):
+                                for k, v in elements.items():
+                                    st.markdown(f"**{k}:** {v}")
 
             except Exception as e:
-                logger.error(f"Error processing Query Understanding tab: {str(e)}", exc_info=True)
-                st.error("Error processing query understanding analysis")
+                logger.error(f"Error in understanding: {str(e)}")
+                st.error("Error processing understanding data")
 
         with tab4:
-            logger.info("Processing Validation & Reasoning tab")
             try:
-                st.subheader("🔍 Validation & Reasoning Metrics")
                 if analysis_evals:
-                    validation_df = pd.DataFrame([{
-                        'timestamp': eval_data['timestamp'],
-                        'data_validation': eval_data['data_validation'],
-                        'reasoning_transparency': eval_data['reasoning_transparency']
-                    } for eval_data in analysis_evals])
-                    logger.debug(f"Created validation DataFrame with {len(validation_df)} rows")
-                    
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        avg_validation = validation_df['data_validation'].mean()
-                        st.metric("Avg Data Validation", f"{avg_validation:.2f}")
-                        logger.info(f"Average data validation score: {avg_validation:.2f}")
-                    with col2:
-                        avg_transparency = validation_df['reasoning_transparency'].mean()
-                        st.metric("Avg Reasoning Transparency", f"{avg_transparency:.2f}")
-                        logger.info(f"Average reasoning transparency: {avg_transparency:.2f}")
-                    
-                    try:
-                        fig_validation = px.box(
-                            validation_df,
-                            y=['data_validation', 'reasoning_transparency'],
-                            title='Distribution of Validation Metrics'
-                        )
-                        st.plotly_chart(fig_validation, use_container_width=True)
-                        logger.debug("Successfully created validation metrics distribution plot")
-                    except Exception as e:
-                        logger.error(f"Error creating validation plot: {str(e)}", exc_info=True)
-                        st.error("Unable to display validation metrics distribution")
-                    
-                    # Display validation checks
-                    logger.debug("Processing recent validation checks")
-                    st.subheader("Recent Validation Checks")
+                    df = pd.DataFrame([{
+                        'timestamp': e['timestamp'],
+                        'data_validation': e['data_validation'],
+                        'reasoning_transparency': e['reasoning_transparency']
+                    } for e in analysis_evals])
+
+                    cols = st.columns(2)
+                    cols[0].metric("Data Validation", f"{df['data_validation'].mean():.2f}")
+                    cols[1].metric("Reasoning", f"{df['reasoning_transparency'].mean():.2f}")
+
+                    fig = px.box(df, y=['data_validation', 'reasoning_transparency'])
+                    st.plotly_chart(fig, use_container_width=True)
+
                     for eval_data in analysis_evals[:5]:
-                        if eval_data.get('validation_checks'):
-                            logger.debug(f"Displaying validation checks for query: {eval_data['query'][:50]}...")
-                            st.markdown(f"**Query:** {eval_data['query']}")
-                            checks = eval_data['validation_checks']
-                            if isinstance(checks, dict):
+                        checks = eval_data['validation_checks']
+                        if checks:
+                            with st.expander(f"Query: {eval_data['query']}"):
                                 for check_type, details in checks.items():
-                                    st.markdown(f"**{check_type}:**")
-                                    if isinstance(details, list):
-                                        for detail in details:
-                                            st.markdown(f"- {detail}")
-                                    else:
-                                        st.markdown(f"- {details}")
-                            st.markdown("---")
+                                    st.markdown(f"**{check_type}:** {details}")
 
             except Exception as e:
-                logger.error(f"Error processing Validation & Reasoning tab: {str(e)}", exc_info=True)
-                st.error("Error processing validation and reasoning metrics")
-
-        execution_time = time.time() - start_time
-        logger.info(f"Display analysis completed in {execution_time:.2f} seconds")
+                logger.error(f"Error in validation: {str(e)}")
+                st.error("Error processing validation data")
 
     except Exception as e:
-        logger.error(f"Critical error in display_analysis: {str(e)}", exc_info=True)
-        st.error("An error occurred while displaying the analysis metrics")
-
+        logger.error(f"Critical error: {str(e)}")
+        st.error("Error displaying metrics")
 def display_prompt_tracking(content_db: ContentDB):
     """
     Display comprehensive prompt tracking and usage analytics

@@ -19,6 +19,7 @@ def initialize_database(db: ContentDB):
         with db.conn:
             # Database schema
             db.conn.executescript("""
+                -- Core tables
                 CREATE TABLE IF NOT EXISTS content (
                     id TEXT PRIMARY KEY,
                     url TEXT UNIQUE,
@@ -28,86 +29,20 @@ def initialize_database(db: ContentDB):
                     source TEXT,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
-                
-                CREATE TABLE IF NOT EXISTS automated_tests (
+
+                CREATE TABLE IF NOT EXISTS traces (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     query TEXT,
-                    timestamp DATETIME,
-                    overall_score REAL,
-                    rouge1_score REAL,
-                    rouge2_score REAL,
-                    rougeL_score REAL,
-                    semantic_similarity REAL,
-                    hallucination_score REAL,
-                    suspicious_segments TEXT
-                );
-                
-                CREATE TABLE IF NOT EXISTS factual_accuracy (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    query TEXT,
-                    timestamp TEXT,
-                    factual_score REAL,
-                    total_sources INTEGER,
-                    citation_accuracy REAL,
-                    claim_details TEXT,
-                    contradicting_claims INTEGER,
-                    verified_claims INTEGER,
-                    unverified_claims INTEGER,
-                    source_credibility_score REAL,
-                    fact_check_coverage REAL
+                    start_time DATETIME,
+                    end_time DATETIME,
+                    duration REAL,
+                    success BOOLEAN,
+                    error TEXT,
+                    data TEXT,
+                    analysis_metrics TEXT
                 );
 
-                
-                
-                CREATE TABLE IF NOT EXISTS source_coverage_evaluations (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    query TEXT,
-                    timestamp DATETIME,
-                    coverage_score REAL,
-                    coverage_ratio REAL,
-                    diversity_score REAL,
-                    missed_sources TEXT,
-                    total_sources INTEGER,
-                    unique_domains INTEGER,
-                    source_depth REAL,
-                    cross_referencing_score REAL,
-                    domain_variety_score REAL
-                );
-                
-                CREATE TABLE IF NOT EXISTS logical_coherence_evaluations (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    query TEXT,
-                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    coherence_score REAL,
-                    flow_score REAL,
-                    has_argument_structure BOOLEAN,
-                    has_discourse_markers BOOLEAN,
-                    paragraph_score REAL,
-                    rough_transitions TEXT,
-                    total_sentences INTEGER,
-                    total_paragraphs INTEGER,
-                    semantic_connection_score REAL,
-                    idea_progression_score REAL,
-                    logical_fallacies_count INTEGER,
-                    topic_coherence REAL
-                );
-                
-                CREATE TABLE IF NOT EXISTS answer_relevance_evaluations (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    query TEXT,
-                    timestamp DATETIME,
-                    relevance_score REAL,
-                    semantic_similarity REAL,
-                    entity_coverage REAL,
-                    keyword_coverage REAL,
-                    topic_focus REAL,
-                    off_topic_sentences TEXT,
-                    total_sentences INTEGER,
-                    query_match_percentage REAL,
-                    information_density REAL,
-                    context_alignment_score REAL
-                );
-
+                -- Analysis and Evaluation tables
                 CREATE TABLE IF NOT EXISTS analysis_evaluations (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     query TEXT,
@@ -126,8 +61,111 @@ def initialize_database(db: ContentDB):
                     explanation_patterns TEXT
                 );
 
-      
+                CREATE TABLE IF NOT EXISTS automated_tests (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    query TEXT,
+                    timestamp DATETIME,
+                    overall_score REAL,
+                    rouge1_score REAL,
+                    rouge2_score REAL,
+                    rougeL_score REAL,
+                    semantic_similarity REAL,
+                    hallucination_score REAL,
+                    suspicious_segments TEXT
+                );
 
+                CREATE TABLE IF NOT EXISTS factual_accuracy (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    query TEXT,
+                    timestamp TEXT,
+                    factual_score REAL,
+                    total_sources INTEGER,
+                    citation_accuracy REAL,
+                    claim_details TEXT,
+                    contradicting_claims INTEGER,
+                    verified_claims INTEGER,
+                    unverified_claims INTEGER,
+                    source_credibility_score REAL,
+                    fact_check_coverage REAL
+                );
+
+                -- Coverage and Coherence tables
+                CREATE TABLE IF NOT EXISTS source_coverage_evaluations (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    query TEXT,
+                    timestamp DATETIME,
+                    coverage_score REAL,
+                    coverage_ratio REAL,
+                    diversity_score REAL,
+                    missed_sources TEXT,
+                    total_sources INTEGER,
+                    unique_domains INTEGER,
+                    source_depth REAL,
+                    cross_referencing_score REAL,
+                    domain_variety_score REAL
+                );
+
+                CREATE TABLE IF NOT EXISTS logical_coherence_evaluations (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    query TEXT,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    coherence_score REAL,
+                    flow_score REAL,
+                    has_argument_structure BOOLEAN,
+                    has_discourse_markers BOOLEAN,
+                    paragraph_score REAL,
+                    rough_transitions TEXT,
+                    total_sentences INTEGER,
+                    total_paragraphs INTEGER,
+                    semantic_connection_score REAL,
+                    idea_progression_score REAL,
+                    logical_fallacies_count INTEGER,
+                    topic_coherence REAL
+                );
+
+                -- Metrics and Performance tables
+                CREATE TABLE IF NOT EXISTS metrics (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    trace_id INTEGER,
+                    metric_name TEXT,
+                    metric_value REAL,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY(trace_id) REFERENCES traces(id)
+                );
+
+                CREATE TABLE IF NOT EXISTS analysis_metrics (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    query TEXT,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    overall_score REAL,
+                    processing_time REAL,
+                    accuracy_score REAL,
+                    completeness_score REAL,
+                    relevance_score REAL,
+                    details TEXT
+                );
+
+                CREATE TABLE IF NOT EXISTS evaluation_metrics (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    trace_id INTEGER,
+                    type TEXT,
+                    score REAL,
+                    details TEXT,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY(trace_id) REFERENCES traces(id)
+                );
+
+                CREATE TABLE IF NOT EXISTS performance_metrics (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    date DATE,
+                    success_rate REAL,
+                    avg_score REAL,
+                    total_analyses INTEGER,
+                    avg_duration REAL,
+                    FOREIGN KEY(id) REFERENCES traces(id)
+                );
+
+                -- Query and Content Results tables
                 CREATE TABLE IF NOT EXISTS query_traces (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     query TEXT,
@@ -153,6 +191,42 @@ def initialize_database(db: ContentDB):
                     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
                     FOREIGN KEY(trace_id) REFERENCES query_traces(id)
                 );
+
+                CREATE TABLE IF NOT EXISTS answer_relevance_evaluations (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    query TEXT,
+                    timestamp DATETIME,
+                    relevance_score REAL,
+                    semantic_similarity REAL,
+                    entity_coverage REAL,
+                    keyword_coverage REAL,
+                    topic_focus REAL,
+                    off_topic_sentences TEXT,
+                    total_sentences INTEGER,
+                    query_match_percentage REAL,
+                    information_density REAL,
+                    context_alignment_score REAL
+                );
+
+                CREATE TABLE IF NOT EXISTS result_metrics (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    trace_id INTEGER,
+                    metric_type TEXT,
+                    metric_value REAL,
+                    metric_details TEXT,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY(trace_id) REFERENCES traces(id)
+                );
+
+                -- Indexes for optimization
+                CREATE INDEX IF NOT EXISTS idx_traces_query ON traces(query);
+                CREATE INDEX IF NOT EXISTS idx_analysis_metrics_query ON analysis_metrics(query);
+                CREATE INDEX IF NOT EXISTS idx_result_metrics_trace ON result_metrics(trace_id);
+                CREATE INDEX IF NOT EXISTS idx_metrics_trace ON metrics(trace_id);
+                CREATE INDEX IF NOT EXISTS idx_eval_metrics_trace ON evaluation_metrics(trace_id);
+                CREATE INDEX IF NOT EXISTS idx_performance_date ON performance_metrics(date);
+                CREATE INDEX IF NOT EXISTS idx_content_results_trace ON content_results(trace_id);
+                CREATE INDEX IF NOT EXISTS idx_query_traces_timestamp ON query_traces(timestamp);
             """)
 
         db_size = os.path.getsize(db_path)

@@ -535,50 +535,57 @@ class ContentDB:
                 return -1
 
     def get_analysis_evaluations(self, query: Optional[str] = None, limit: int = 50) -> List[Dict[str, Any]]:
-        """Retrieve analysis evaluation results from the database."""
         logger.info(f"Retrieving analysis evaluations for query: {query}")
         
         with self.lock:
             cursor = self.conn.cursor()
             try:
                 if query:
-                    cursor.execute(
-                        """
-                        SELECT * FROM analysis_evaluations 
+                    cursor.execute("""
+                        SELECT id, query, timestamp, overall_score, numerical_accuracy,
+                            query_understanding, data_validation, reasoning_transparency,
+                            calculation_examples, analytical_elements, validation_checks,
+                            term_coverage
+                        FROM analysis_evaluations 
                         WHERE query LIKE ? 
                         ORDER BY timestamp DESC 
                         LIMIT ?
-                        """, 
-                        (f'%{query}%', limit)
-                    )
+                    """, (f'%{query}%', limit))
                 else:
-                    cursor.execute(
-                        """
-                        SELECT * FROM analysis_evaluations 
+                    cursor.execute("""
+                        SELECT id, query, timestamp, overall_score, numerical_accuracy,
+                            query_understanding, data_validation, reasoning_transparency,
+                            calculation_examples, analytical_elements, validation_checks,
+                            term_coverage
+                        FROM analysis_evaluations 
                         ORDER BY timestamp DESC 
                         LIMIT ?
-                        """, 
-                        (limit,)
-                    )
-                
-                columns = [
-                    'id', 'query', 'timestamp', 'overall_score', 'numerical_accuracy',
-                    'query_understanding', 'data_validation', 'reasoning_transparency',
-                    'calculation_examples', 'analytical_elements', 'validation_checks',
-                    'term_coverage'
-                ]
-                
+                    """, (limit,))
+
                 results = []
                 for row in cursor.fetchall():
-                    result = dict(zip(columns, row))
-                    # Parse JSON strings back to Python objects
-                    result['calculation_examples'] = json.loads(result['calculation_examples']) if result['calculation_examples'] else []
-                    result['analytical_elements'] = json.loads(result['analytical_elements']) if result['analytical_elements'] else {}
-                    result['validation_checks'] = json.loads(result['validation_checks']) if result['validation_checks'] else {}
-                    results.append(result)
-                
+                    try:
+                        result = {
+                            'id': row[0],
+                            'query': row[1],
+                            'timestamp': row[2],
+                            'overall_score': float(row[3] or 0),
+                            'numerical_accuracy': float(row[4] or 0),
+                            'query_understanding': float(row[5] or 0),
+                            'data_validation': float(row[6] or 0),
+                            'reasoning_transparency': float(row[7] or 0),
+                            'calculation_examples': json.loads(row[8]) if row[8] else [],
+                            'analytical_elements': json.loads(row[9]) if row[9] else {},
+                            'validation_checks': json.loads(row[10]) if row[10] else {},
+                            'term_coverage': float(row[11] or 0)
+                        }
+                        results.append(result)
+                    except Exception as row_error:
+                        logger.error(f"Error processing row: {row_error}")
+                        continue
+
                 return results
-                
+
             except Exception as e:
                 logger.error(f"Error retrieving analysis evaluations: {str(e)}")
                 return []
