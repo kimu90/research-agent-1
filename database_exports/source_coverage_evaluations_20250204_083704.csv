@@ -2,3 +2,4 @@ id,query,timestamp,coverage_score,coverage_ratio,diversity_score,missed_sources,
 1,Sclerocarya birrea,,0.0,0.0,0.0,[],10,8,4.1,0.19047619047619047,0.8
 2,Sclerocarya birrea,,0.0,0.0,0.0,[],10,8,4.0,0.19047619047619047,0.8
 3,sea weed,,0.0,0.0,0.0,[],10,10,4.3,0.047619047619047616,1.0
+4,sea weed,,0.0,0.0,0.0,[],10,10,4.3,0.0,1.0

@@ -1,0 +1,8 @@
+name,seq
+factual_accuracy,4
+source_coverage_evaluations,4
+logical_coherence_evaluations,4
+answer_relevance_evaluations,4
+automated_tests,4
+query_traces,1
+content_results,1

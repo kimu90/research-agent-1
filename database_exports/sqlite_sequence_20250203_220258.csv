@@ -1,7 +1,0 @@
-name,seq
-factual_accuracy,3
-source_coverage_evaluations,3
-logical_coherence_evaluations,3
-answer_relevance_evaluations,3
-automated_tests,3
-query_traces,1

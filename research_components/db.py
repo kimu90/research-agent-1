@@ -35,6 +35,16 @@ class ContentDB:
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
                 
+                CREATE TABLE IF NOT EXISTS content_results (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    query_id INTEGER,
+                    trace_id INTEGER,
+                    content TEXT,
+                    content_type TEXT,
+                    evaluation_metrics TEXT,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+                );
+
                 CREATE TABLE IF NOT EXISTS automated_tests (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     query TEXT,
@@ -351,32 +361,51 @@ class ContentDB:
                 return None
 
     def store_content_result(self, result_data: Dict[str, Any]) -> Optional[int]:
-        """Store content results with comprehensive metadata."""
+        """
+        Improved content results storage with error handling and validation
+        """
         logger.info("Storing content result")
         
         with self.lock:
             try:
+                # Validate required fields
+                if 'content' not in result_data:
+                    logger.error("No content provided in result_data")
+                    return None
+                    
+                # Ensure content is properly serialized
+                if isinstance(result_data['content'], (list, dict)):
+                    content_json = json.dumps(result_data['content'])
+                else:
+                    content_json = str(result_data['content'])
+                    
                 insert_data = {
                     'query_id': result_data.get('query_id'),
                     'trace_id': result_data.get('trace_id'),
-                    'content': json.dumps(result_data.get('content', {})),
+                    'content': content_json,
                     'content_type': result_data.get('content_type', 'general'),
-                    'evaluation_metrics': json.dumps(result_data.get('evaluation_metrics', {}))
+                    'evaluation_metrics': json.dumps(result_data.get('evaluation_metrics', {})),
+                    'timestamp': datetime.now().isoformat()
                 }
 
                 cursor = self.conn.cursor()
                 cursor.execute("""
                     INSERT INTO content_results (
-                        query_id, trace_id, content, content_type, evaluation_metrics
+                        query_id, trace_id, content, content_type, 
+                        evaluation_metrics, timestamp
                     ) VALUES (
-                        :query_id, :trace_id, :content, :content_type, :evaluation_metrics
+                        :query_id, :trace_id, :content, :content_type,
+                        :evaluation_metrics, :timestamp
                     )
                 """, insert_data)
                 
                 self.conn.commit()
-                return cursor.lastrowid
+                new_id = cursor.lastrowid
+                logger.info(f"Successfully stored content with ID: {new_id}")
+                return new_id
+                
             except Exception as e:
-                logger.error(f"Error storing content result: {str(e)}")
+                logger.error(f"Error storing content result: {str(e)}", exc_info=True)
                 self.conn.rollback()
                 return None
 
