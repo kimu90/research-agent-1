@@ -1,46 +1,46 @@
-DATA ANALYSIS REPORT
+**DATA ANALYSIS REPORT**  
 
-Subject: Analysis of {{dataset_info}}
-Query Focus: {{query}}
-Report Date: [Current Date]
+**Subject:** Analysis of {{dataset_info}}  
+**Query Focus:** {{query}}  
+**Report Date:** [Current Date]  
 
-EXECUTIVE SUMMARY
-Analyze the dataset and provide a concise summary of the key findings and their significance.
+## **EXECUTIVE SUMMARY**  
+- Provide a concise summary of key findings and their significance.  
+- Explain how the insights relate to real-world industry trends, company behaviors, or economic implications.  
+- Highlight any surprising or noteworthy patterns.  
 
-REPORT CONTENTS
+## **REPORT CONTENTS**  
 
-I. DATASET OVERVIEW
-- Provide an overview of the dataset's scope and purpose
-- Describe the key components and timeframe covered
-- Highlight any notable characteristics of the data
+### **I. DATASET OVERVIEW**  
+- Describe the dataset's scope, purpose, and key attributes.  
+- Outline the timeframe covered and any notable characteristics.  
+- Provide real-world context: What industries or entities are represented in the data? What are the broader implications?  
 
-II. METHODOLOGY
-- Describe the analytical approaches used
-- Include relevant statistical methods employed
-- Note any data processing or cleaning steps taken
+### **II. METHODOLOGY**  
+- Describe the analytical approaches used.  
+- List statistical methods, models, or tools applied.  
+- Detail any data cleaning, transformations, or preprocessing steps.  
 
-III. KEY FINDINGS
-A. Primary Insights
-   - Present the most significant discoveries
-   - Support findings with specific data points
-   - Include relevant statistical evidence
+### **III. KEY FINDINGS**  
 
-B. Trends and Patterns
-   - Identify notable trends
-   - Describe any recurring patterns
-   - Note any seasonal or cyclical behaviors
+#### **A. Primary Insights**  
+- Summarize the most significant discoveries.  
+- Support findings with specific data points, percentages, or comparisons.  
+- Relate insights to real-world contexts: **What types of companies, sectors, or markets are most affected?**  
 
-IV. INDUSTRY CONTEXT
-- Incorporate relevant industry research
-- Connect findings to broader market trends
-- Include supporting external data points
+#### **B. Trends and Patterns**  
+- Identify overarching trends, recurring patterns, and anomalies.  
+- Highlight seasonal, cyclical, or geographic variations.  
+- **Explain why these trends matter in a business, economic, or technological context.**  
 
-V. CONCLUSIONS
-- Summarize the most important takeaways
-- Highlight actionable insights
-- Address specific aspects of the original query
+### **IV. INDUSTRY CONTEXT**  
+- **Analyze how findings align with broader market or industry trends.**  
+- Provide examples of real-world companies or organizations involved.  
+- **For datasets like "pat_app" (patent applicants), specify what kinds of companies are filing patents and what technological areas they specialize in.**  
+- Include relevant external data points to validate insights.  
 
-Format all sections using clear markdown headers and bullet points where appropriate. 
-Keep the language professional but accessible.
-Focus on insights that would be valuable for decision-making.
-Include specific numbers and percentages to support key points.
+### **V. CONCLUSIONS**  
+- Summarize the most important takeaways.  
+- Highlight actionable insights for decision-making.  
+- Address specific aspects of the original query with **practical applications** (e.g., how businesses or policymakers can use these findings).  
+
