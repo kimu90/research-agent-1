@@ -17410,3 +17410,47 @@ While the new field guide doesn’t focus on the qu...
 2025-02-04 18:18:20,665 - relevance_evaluator.evaluator - DEBUG - __init__:89 - Configuring TF-IDF vectorizer
 2025-02-04 18:18:20,665 - relevance_evaluator.evaluator - DEBUG - __init__:95 - Successfully initialized TfidfVectorizer
 2025-02-04 18:18:20,666 - relevance_evaluator.evaluator - DEBUG - __init__:96 - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
+2025-02-04 18:23:18,590 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:28:43,797 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:28:54,614 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:28:54,614 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:30:42,125 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:30:48,263 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:30:48,263 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:30:48,263 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:31:48,943 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:32:10,616 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:32:13,986 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:32:13,986 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:32:13,986 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:32:13,986 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:39:08,497 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:39:18,985 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:39:18,985 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:39:18,985 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:39:18,985 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:39:18,985 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:41:03,193 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:42:11,724 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:43:25,989 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:43:44,645 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:44:04,140 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:44:26,122 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:44:50,388 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:44:56,315 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:44:59,649 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:44:59,649 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:44:59,649 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:44:59,649 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:44:59,649 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:44:59,649 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:47:00,764 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:47:08,202 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:48:17,917 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:48:36,785 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:48:36,785 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:48:36,785 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:48:36,785 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:48:36,785 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:48:36,785 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:48:36,785 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
