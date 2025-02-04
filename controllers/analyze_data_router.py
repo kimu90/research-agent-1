@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 from typing import Optional, Dict, Any, List
 from tools import AnalysisAgent, PromptLoader
 from research_components.research import run_tool
-
+import re
 api_router = APIRouter()
 
 class AnalyzeRequest(BaseModel):
@@ -27,13 +27,10 @@ class PromptListResponse(BaseModel):
     """Response model for listing available prompts."""
     prompts: List[str]
 
-
 @api_router.post("/analyze-data", response_model=AnalyzeResponse)
 async def generate_analysis(request: AnalyzeRequest):
     """
     Generate analysis based on the provided query and dataset
-    
-    Supports different analysis types and provides comprehensive results
     """
     try:
         # Initialize analysis agent
@@ -42,7 +39,6 @@ async def generate_analysis(request: AnalyzeRequest):
             prompt_name=request.prompt_name
         )
 
-        
         # Validate dataset availability
         available_datasets = tool.get_available_datasets()
         if request.dataset not in available_datasets:
@@ -65,17 +61,23 @@ async def generate_analysis(request: AnalyzeRequest):
                 status_code=400,
                 detail="Analysis failed to produce valid results"
             )
-        
+
+        # Function to remove markdown symbols
+        def clean_text(text):
+            text = re.sub(r"\*\*|##|\*", "", text)  # Remove **, ##, *
+            text = re.sub(r"\n\s*\n", "\n", text)   # Remove excessive newlines
+            return text.strip()
+
+        cleaned_analysis = clean_text(result.analysis)
+
         return {
-            "analysis": result.analysis,
+            "analysis": cleaned_analysis,
             "trace_data": trace.data,
             "usage": result.usage,
-            "prompt_used": request.prompt_name,
-           
+            "prompt_used": request.prompt_name
         }
     
     except HTTPException:
-        # Re-raise HTTP exceptions directly
         raise
     
     except Exception as e:

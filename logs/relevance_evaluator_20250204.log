@@ -17395,3 +17395,18 @@ While the new field guide doesn’t focus on the qu...
 2025-02-04 17:20:19,882 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
 2025-02-04 17:20:19,882 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
 2025-02-04 17:20:19,882 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:14:10,496 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:14:15,183 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:15:25,551 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:15:37,466 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:15:44,697 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:15:49,849 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:16:45,424 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:18:08,247 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 18:18:20,664 - relevance_evaluator - INFO - create_answer_relevance_evaluator:323 - Creating new AnswerRelevanceEvaluator instance
+2025-02-04 18:18:20,665 - relevance_evaluator.evaluator - INFO - __init__:83 - Initializing AnswerRelevanceEvaluator
+2025-02-04 18:18:20,665 - relevance_evaluator.evaluator - DEBUG - __init__:85 - Setting up spaCy pipeline
+2025-02-04 18:18:20,665 - relevance_evaluator.evaluator - DEBUG - __init__:87 - SpaCy pipeline components: sentencizer
+2025-02-04 18:18:20,665 - relevance_evaluator.evaluator - DEBUG - __init__:89 - Configuring TF-IDF vectorizer
+2025-02-04 18:18:20,665 - relevance_evaluator.evaluator - DEBUG - __init__:95 - Successfully initialized TfidfVectorizer
+2025-02-04 18:18:20,666 - relevance_evaluator.evaluator - DEBUG - __init__:96 - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
