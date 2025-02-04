@@ -156,12 +156,10 @@ class AnalysisMetrics(BaseModel):
 class AnalysisResult(BaseModel):
     """Output specific to analysis operations."""
     analysis: str
-    metrics: AnalysisMetrics
     usage: Dict[str, Any] = Field(default_factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         return {
             "analysis": self.analysis,
-            "metrics": self.metrics.dict(),
             "usage": self.usage
         }

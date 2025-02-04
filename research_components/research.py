@@ -219,35 +219,29 @@ def run_tool(
                 result = tool.invoke_analysis(input={"query": query, "dataset": dataset})
                 
                 if result:
-                    # Process and store content
                     try:
-                        content_to_store = result.content
-                        if isinstance(content_to_store, list):
-                            processed_content = [
-                                item.get_text_content() if hasattr(item, 'get_text_content') 
-                                else str(item) for item in content_to_store
-                            ]
-                        else:
-                            processed_content = (
-                                content_to_store.get_text_content() 
-                                if hasattr(content_to_store, 'get_text_content') 
-                                else str(content_to_store)
-                            )
-                            
+                        content_to_store = result.analysis
+                        
                         content_result_data = {
                             'query_id': trace.data.get('query_id'),
                             'trace_id': trace.data.get('trace_id'),
-                            'content': processed_content,
-                            'content_type': tool_name.lower().replace(' ', '_'),
-                            'evaluation_metrics': {
-                                'factual_accuracy': trace.data.get('factual_accuracy', {}),
-                                'source_coverage': trace.data.get('source_coverage', {}),
-                                'logical_coherence': trace.data.get('logical_coherence', {}),
-                                'answer_relevance': trace.data.get('answer_relevance', {}),
-                                'automated_tests': trace.data.get('automated_tests', {}),
-                                'analysis_metrics': trace.data.get('analysis_metrics', {})
-                            }
+                            'content': content_to_store,
+                            'content_type': tool_name.lower().replace(' ', '_')
                         }
+                        
+                        if analysis_evaluator:
+                            try:
+                                analysis_metrics = analysis_evaluator.evaluate_analysis(result, query)
+                                analysis_metrics = convert_content_items(analysis_metrics)
+                                trace.data['analysis_metrics'] = analysis_metrics
+                                
+                                content_result_data['evaluation_metrics'] = {
+                                    'analysis_metrics': analysis_metrics
+                                }
+                                
+                            except Exception as eval_error:
+                                logger.error(f"Analysis evaluation error: {str(eval_error)}", exc_info=True)
+                                trace.data['evaluation_error'] = str(eval_error)
                         
                         content_result_id = db.store_content_result(content_result_data)
                         if content_result_id:
@@ -258,17 +252,6 @@ def run_tool(
                     except Exception as content_error:
                         logger.error(f"Error processing content: {str(content_error)}", exc_info=True)
                         trace.data['content_error'] = str(content_error)
-
-                    # Run analysis evaluation
-                    if analysis_evaluator:
-                        try:
-                            analysis_metrics = analysis_evaluator.evaluate_analysis(result, query)
-                            analysis_metrics = convert_content_items(analysis_metrics)
-                            trace.data['analysis_metrics'] = analysis_metrics
-                            
-                        except Exception as eval_error:
-                            logger.error(f"Analysis evaluation error: {str(eval_error)}", exc_info=True)
-                            trace.data['evaluation_error'] = str(eval_error)
                             
             except Exception as analysis_error:
                 logger.error(f"Analysis error: {str(analysis_error)}", exc_info=True)
@@ -303,7 +286,7 @@ def run_tool(
         
         db.close()
         return result, trace
-        
+
     except Exception as e:
         # Main error handling
         error_msg = str(e)

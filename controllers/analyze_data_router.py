@@ -20,9 +20,7 @@ class AnalyzeResponse(BaseModel):
     """Comprehensive response model for analysis results"""
     analysis: str
     trace_data: Dict[str, Any]
-    metrics: Dict[str, Any]
     usage: Dict[str, Any]
-    metadata: Optional[Dict[str, Any]] = None
     prompt_used: str
 
 class PromptListResponse(BaseModel):
@@ -71,14 +69,9 @@ async def generate_analysis(request: AnalyzeRequest):
         return {
             "analysis": result.analysis,
             "trace_data": trace.data,
-            "metrics": result.metrics.dict(),
             "usage": result.usage,
             "prompt_used": request.prompt_name,
-            "metadata": {
-                "dataset": request.dataset,
-                "analysis_type": request.analysis_type,
-                "timestamp": trace.timestamp
-            }
+           
         }
     
     except HTTPException:
