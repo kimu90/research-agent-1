@@ -236,11 +236,54 @@ class AnalysisAgent(BaseTool):
             if dataset_file not in available_datasets:
                 raise ValueError(f"Invalid dataset: {dataset_file}. Available datasets: {available_datasets}")
 
-            # Load and validate data
+            # Step 1: Load and validate data
             df = self.load_and_validate_data(dataset_file)
-
-            # Perform statistical analysis
             analysis_results = self.perform_statistical_analysis(df)
+
+            # Step 2: Perform web research
+            try:
+                google_serper = GoogleSerperAPIWrapper(
+                    type="news", 
+                    k=5,
+                    serper_api_key=os.getenv('SERPER_API_KEY')
+                )
+                
+                # Create search query using dataset context
+                search_query = f"{input['query']} {' '.join(df.columns[:3])} analysis research"
+                web_results = google_serper.results(search_query)
+                news_results = web_results.get("news", [])
+                
+                # Process web results
+                web_research = []
+                for news in news_results:
+                    try:
+                        url = news.get("link", "")
+                        headers = {
+                            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+                            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+                        }
+                        
+                        response = requests.get(url, headers=headers, timeout=10)
+                        soup = BeautifulSoup(response.text, 'html.parser')
+                        
+                        article_content = ""
+                        for p in soup.find_all('p'):
+                            article_content += p.get_text() + "\n"
+                        
+                        web_research.append({
+                            'title': news.get("title", ""),
+                            'snippet': news.get("snippet", ""),
+                            'url': url,
+                            'content': article_content[:1000]
+                        })
+                        
+                    except Exception as scrape_error:
+                        logging.warning(f"Error scraping {url}: {str(scrape_error)}")
+                        continue
+                        
+            except Exception as web_error:
+                logging.warning(f"Error in web research: {str(web_error)}")
+                web_research = []
 
             # Create analysis metrics
             metrics = AnalysisMetrics(
@@ -258,14 +301,15 @@ class AnalysisAgent(BaseTool):
                 clear_methodology=True
             )
 
-            # Generate analysis text
+            # Prepare dataset info with web research
             dataset_info = {
                 'filename': dataset_file,
                 'shape': df.shape,
                 'columns': list(df.columns),
                 'dtypes': df.dtypes.to_dict(),
                 'missing_values': df.isnull().sum().to_dict(),
-                'analysis_results': analysis_results
+                'analysis_results': analysis_results,
+                'web_research': web_research
             }
 
             prompt_to_use = current_prompt or self.current_prompt
@@ -277,7 +321,9 @@ class AnalysisAgent(BaseTool):
             analysis_text = model_wrapper(
                 system_prompt=system_prompt,
                 prompt=prompt_to_use,
-                user_prompt=input['query'],
+                user_prompt=f"""Analyze the dataset '{dataset_file}' in the context of the query: {input['query']}.
+                            Include relevant insights from web research where applicable.
+                            Focus on connecting statistical findings with broader industry/research context.""",
                 model="llama3-70b-8192",
                 host="groq",
                 temperature=0.7,
