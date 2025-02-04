@@ -5,42 +5,42 @@
 **Report Date:** [Current Date]  
 
 ## **EXECUTIVE SUMMARY**  
-- Provide a concise summary of key findings and their significance.  
-- Explain how the insights relate to real-world industry trends, company behaviors, or economic implications.  
-- Highlight any surprising or noteworthy patterns.  
+- This report presents key findings and their significance.  
+- The insights are analyzed in relation to industry trends, company behaviors, and economic implications.  
+- Notable patterns and unexpected results are highlighted.  
 
 ## **REPORT CONTENTS**  
 
 ### **I. DATASET OVERVIEW**  
-- Describe the dataset's scope, purpose, and key attributes.  
-- Outline the timeframe covered and any notable characteristics.  
-- Provide real-world context: What industries or entities are represented in the data? What are the broader implications?  
+- The dataset's scope, purpose, and key attributes are outlined.  
+- The timeframe covered and any notable characteristics are detailed.  
+- Real-world context is provided, explaining the industries or entities represented and broader implications.  
 
 ### **II. METHODOLOGY**  
-- Describe the analytical approaches used.  
-- List statistical methods, models, or tools applied.  
-- Detail any data cleaning, transformations, or preprocessing steps.  
+- The analytical approaches used are described.  
+- Statistical methods, models, or tools applied are listed.  
+- Data cleaning, transformations, and preprocessing steps are detailed.  
 
 ### **III. KEY FINDINGS**  
 
 #### **A. Primary Insights**  
-- Summarize the most significant discoveries.  
-- Support findings with specific data points, percentages, or comparisons.  
-- Relate insights to real-world contexts: **What types of companies, sectors, or markets are most affected?**  
+- The most significant discoveries are summarized.  
+- Findings are supported with specific data points, percentages, and comparisons.  
+- The insights are linked to real-world contexts, specifying affected companies, sectors, or markets.  
 
 #### **B. Trends and Patterns**  
-- Identify overarching trends, recurring patterns, and anomalies.  
-- Highlight seasonal, cyclical, or geographic variations.  
-- **Explain why these trends matter in a business, economic, or technological context.**  
+- Overarching trends, recurring patterns, and anomalies are identified.  
+- Seasonal, cyclical, or geographic variations are highlighted.  
+- The relevance of these trends in business, economic, or technological contexts is analyzed.  
 
 ### **IV. INDUSTRY CONTEXT**  
-- **Analyze how findings align with broader market or industry trends.**  
-- Provide examples of real-world companies or organizations involved.  
-- **For datasets like "pat_app" (patent applicants), specify what kinds of companies are filing patents and what technological areas they specialize in.**  
-- Include relevant external data points to validate insights.  
+- Findings are examined in relation to broader market or industry trends.  
+- Examples of real-world companies or organizations involved are included.  
+- For datasets like "pat_app" (patent applicants), the types of companies filing patents and their technological specializations are specified.  
+- Relevant external data points are incorporated to validate insights.  
 
 ### **V. CONCLUSIONS**  
-- Summarize the most important takeaways.  
-- Highlight actionable insights for decision-making.  
-- Address specific aspects of the original query with **practical applications** (e.g., how businesses or policymakers can use these findings).  
+- The most important takeaways are summarized.  
+- Actionable insights for decision-making are highlighted.  
+- Specific aspects of the original query are addressed with practical applications for businesses or policymakers.  
 
