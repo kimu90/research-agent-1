@@ -96,7 +96,7 @@ def initialize_database(db: ContentDB):
                     timestamp DATETIME,
                     coverage_score REAL,
                     coverage_ratio REAL,
-                    diversity_score REAL,
+                    semantic_coverage REAL,         
                     missed_sources TEXT,
                     total_sources INTEGER,
                     unique_domains INTEGER,

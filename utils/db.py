@@ -761,59 +761,42 @@ class ContentDB:
                 logger.error(f"Error retrieving accuracy evaluations: {str(e)}")
                 return []
 
-    def get_source_coverage_evaluations(self, query: Optional[str] = None, limit: int = 10):
-        # Breakpoint before retrieving source coverage evaluations
-        logger.info(f"Retrieving source coverage evaluations for query: {query}")
+    def store_source_coverage(self, data: Dict[str, Any]) -> int:
+        logger.info("Storing source coverage evaluation")
         
         with self.lock:
-            cursor = self.conn.cursor()
             try:
-                if query:
-                    cursor.execute(
-                        """
-                        SELECT id, query, timestamp, coverage_score, coverage_ratio, 
-                            diversity_score, missed_sources, total_sources,
-                            unique_domains, source_depth, 
-                            cross_referencing_score, domain_variety_score
-                        FROM source_coverage_evaluations
-                        WHERE query LIKE ?
-                        ORDER BY timestamp DESC
-                        LIMIT ?
-                        """,
-                        (f'%{query}%', limit)
-                    )
-                else:
-                    cursor.execute(
-                        """
-                        SELECT id, query, timestamp, coverage_score, coverage_ratio, 
-                            diversity_score, missed_sources, total_sources,
-                            unique_domains, source_depth, 
-                            cross_referencing_score, domain_variety_score
-                        FROM source_coverage_evaluations
-                        ORDER BY timestamp DESC
-                        LIMIT ?
-                        """,
-                        (limit,)
-                    )
-                
-                columns = [
-                    'id', 'query', 'timestamp', 'coverage_score', 'coverage_ratio', 
-                    'diversity_score', 'missed_sources', 'total_sources',
-                    'unique_domains', 'source_depth', 
-                    'cross_referencing_score', 'domain_variety_score'
-                ]
-                results = []
-                for row in cursor.fetchall():
-                    result = dict(zip(columns, row))
-                    result['missed_sources'] = json.loads(result['missed_sources']) if result['missed_sources'] else []
-                    results.append(result)
-                
-                # Breakpoint after retrieving source coverage evaluations
-                return results
-            except Exception as e:
-                logger.error(f"Error retrieving source coverage evaluations: {str(e)}")
-                return []
-
+                cursor = self.conn.cursor()
+                cursor.execute(
+                    """
+                    INSERT INTO source_coverage_evaluations 
+                    (query, timestamp, coverage_score, coverage_ratio, semantic_coverage,
+                        missed_sources, total_sources, unique_domains, source_depth, 
+                        cross_referencing_score, domain_variety_score)
+                    VALUES (:query, :timestamp, :coverage_score, :coverage_ratio, :semantic_coverage,
+                            :missed_sources, :total_sources, :unique_domains, :source_depth, 
+                            :cross_referencing_score, :domain_variety_score)
+                    """,
+                    {
+                        'query': data.get('query', 'Unknown'),
+                        'timestamp': datetime.now().isoformat(),
+                        'coverage_score': data.get('coverage_score', 0.0),
+                        'coverage_ratio': data.get('coverage_ratio', 0.0),
+                        'semantic_coverage': data.get('semantic_coverage', 0.0),  # Changed from diversity_score
+                        'missed_sources': json.dumps(data.get('missed_sources', [])),
+                        'total_sources': data.get('total_sources', 0),
+                        'unique_domains': data.get('unique_domains', 0),
+                        'source_depth': data.get('source_depth', 0.0),
+                        'cross_referencing_score': data.get('cross_referencing_score', 0.0),
+                        'domain_variety_score': data.get('domain_variety_score', 0.0)
+                    }
+                )
+                self.conn.commit()
+                return cursor.lastrowid
+            except sqlite3.Error as e:
+                logger.error(f"Error storing source coverage: {e}")
+                self.conn.rollback()
+                return -1
     def get_logical_coherence_evaluations(self, query: Optional[str] = None, limit: int = 10):
     # Breakpoint before retrieving logical coherence evaluations
         logger.info(f"Retrieving logical coherence evaluations for query: {query}")

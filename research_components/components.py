@@ -295,11 +295,11 @@ def display_analytics(traces: List[QueryTrace], content_db: ContentDB):
                         "Overall score representing the breadth and depth of source coverage"
                     )
                 with metrics_col2:
-                    avg_diversity = coverage_df['diversity_score'].mean()
+                    avg_semantic = coverage_df['semantic_coverage'].mean()  # Updated column name
                     show_metric_with_tooltip(
-                        "Avg Source Diversity", 
-                        f"{avg_diversity:.2f}", 
-                        "Measure of the variety and range of sources used in research"
+                        "Semantic Coverage", 
+                        f"{avg_semantic:.2f}", 
+                        "Measure of semantic similarity and overlap between sources"
                     )
                 with metrics_col3:
                     unique_domains = coverage_df['unique_domains'].sum()

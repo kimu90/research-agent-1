@@ -1,0 +1,13 @@
+id,query,tool,prompt_name,tools_used,processing_steps,duration,success,content_new,content_reused,error_message,timestamp
+1,Sclerocarya birrea,General Agent,research.txt,"[""General Agent""]","[""Content processed - New: 10, Reused: 0""]",35.464057,1,10,0,,2025-02-03 21:49:14
+2,tell me somthing about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],2.866949,1,0,0,,2025-02-04 16:08:27
+3,tell me something about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],2.652473,1,0,0,,2025-02-04 16:50:46
+4,Sclerocarya birrea,General Agent,research.txt,"[""General Agent""]",[],35.237282,1,0,0,,2025-02-04 16:51:52
+5,sea weed,General Agent,research.txt,"[""General Agent""]","[""Content processed - New: 10, Reused: 0""]",40.696477,1,10,0,,2025-02-04 16:57:17
+6,sea weed,General Agent,research.txt,"[""General Agent""]",[],33.634158,1,0,0,,2025-02-04 17:02:39
+7,tell me somthing about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],2.120457,1,0,0,,2025-02-04 17:02:52
+8,tell me somthing about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],2.7855,1,0,0,,2025-02-04 18:14:32
+9,tell me somthing about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],2.584549,1,0,0,,2025-02-04 18:16:50
+10,Sclerocarya birrea,General Agent,research.txt,"[""General Agent""]",[],41.084911,1,0,0,,2025-02-04 18:19:01
+11,what resourceful information can i get from the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],2.878304,1,0,0,,2025-02-04 19:28:53
+12,tell me something about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],3.038577,1,0,0,,2025-02-04 19:32:29
