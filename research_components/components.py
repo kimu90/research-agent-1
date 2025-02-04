@@ -726,3 +726,90 @@ def display_analysis(traces: List[QueryTrace], content_db: ContentDB):
     except Exception as e:
         logger.error(f"Critical error in display_analysis: {str(e)}", exc_info=True)
         st.error("An error occurred while displaying the analysis metrics")
+
+def display_prompt_tracking(content_db: ContentDB):
+    """
+    Display comprehensive prompt tracking and usage analytics
+    """
+    st.subheader("🔄 Prompt Tracking & Usage Analytics")
+
+    # Retrieve query traces
+    query_traces = content_db.get_query_traces(limit=100)
+    
+    if not query_traces:
+        st.info("No prompt usage data available yet.")
+        return
+
+    try:
+        # Create DataFrame from query traces with error handling
+        traces_df = pd.DataFrame(query_traces)
+        
+        # Ensure timestamp is converted correctly
+        if 'timestamp' in traces_df.columns:
+            traces_df['timestamp'] = pd.to_datetime(traces_df['timestamp'], errors='coerce')
+        else:
+            st.warning("No timestamp column found in query traces.")
+            return
+
+        # Remove any rows with invalid timestamps
+        traces_df = traces_df.dropna(subset=['timestamp'])
+
+        # Verify required columns exist
+        required_columns = ['tool', 'success', 'duration']
+        for col in required_columns:
+            if col not in traces_df.columns:
+                st.warning(f"Column '{col}' not found in query traces.")
+                return
+
+        # Top-level Metrics
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.metric("Total Queries", len(traces_df))
+        with col2:
+            success_rate = (traces_df['success'].sum() / len(traces_df)) * 100
+            st.metric("Success Rate", f"{success_rate:.1f}%")
+        with col3:
+            avg_duration = traces_df['duration'].mean()
+            st.metric("Avg Duration", f"{avg_duration:.2f}s")
+        with col4:
+            unique_tools = traces_df['tool'].nunique()
+            st.metric("Unique Tools", unique_tools)
+
+        # Visualization 1: Tool Usage Distribution
+        st.subheader("Tool Usage Distribution")
+        tool_usage = traces_df['tool'].value_counts()
+        fig_tool_usage = px.bar(
+            x=tool_usage.index, 
+            y=tool_usage.values, 
+            title="Prompt Usage by Tool",
+            labels={'x': 'Tool', 'y': 'Number of Queries'}
+        )
+        st.plotly_chart(fig_tool_usage, use_container_width=True)
+
+        # Visualization 2: Success Rate Over Time
+        st.subheader("Success Rate Over Time")
+        daily_success = traces_df.groupby(pd.Grouper(key='timestamp', freq='D'))['success'].mean()
+        fig_success_trend = px.line(
+            x=daily_success.index, 
+            y=daily_success.values, 
+            title="Daily Success Rate Trend",
+            labels={'x': 'Date', 'y': 'Success Rate'}
+        )
+        st.plotly_chart(fig_success_trend, use_container_width=True)
+
+        # Detailed Query Traces
+        st.subheader("Detailed Query Traces")
+        
+        # Display the detailed dataframe
+        st.dataframe(
+            traces_df[['timestamp', 'tool', 'success', 'duration']].style.format({
+                'timestamp': lambda x: x.strftime('%Y-%m-%d %H:%M'),
+                'success': lambda x: '✅' if x else '❌',
+                'duration': '{:.2f}s'.format
+            }),
+            use_container_width=True
+        )
+
+    except Exception as e:
+        st.error(f"Error processing prompt tracking data: {str(e)}")
+        logging.error(f"Prompt tracking error: {str(e)}", exc_info=True)

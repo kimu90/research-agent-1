@@ -3191,3 +3191,256 @@ Inhibits 5-α-reductase and 17βHSD3,5 act...
 2025-02-04 08:36:31 - research_agent.tracers - DEBUG - - Processing time: 3.00s
 2025-02-04 08:36:31 - research_agent.tracers - DEBUG - - Processing speed: 761.33 tokens/second
 2025-02-04 08:36:31 - research_components.db - INFO - Closing database connection
+2025-02-04 08:38:31 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-04 08:38:31 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-04 08:38:31 - utils.token_tracking - 🔵 INFO - Creating TokenUsageTracker singleton instance 130400488476112
+2025-02-04 08:38:31 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-04 08:38:31 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-04 08:38:31 - root - 🔵 INFO - Database connection initialized successfully
+2025-02-04 08:38:31 - research_components.components - 🔵 INFO - Starting display_analysis function
+2025-02-04 08:38:31 - research_components.components - 🔵 INFO - Processing 247 analysis traces
+2025-02-04 08:38:31 - research_components.components - DEBUG - Created tab structure successfully
+2025-02-04 08:38:31 - research_components.components - 🔵 INFO - Processing Analysis Overview tab
+2025-02-04 08:38:31 - research_components.components - DEBUG - Created main DataFrame with 247 rows
+2025-02-04 08:38:31 - research_components.components - DEBUG - Calculated performance metrics for 15 dates
+2025-02-04 08:38:31 - research_components.components - DEBUG - Successfully created performance trend plot
+2025-02-04 08:38:31 - research_components.components - DEBUG - Calculating summary statistics
+2025-02-04 08:38:31 - research_components.components - 🔵 INFO - Average analysis duration: 30.25s
+2025-02-04 08:38:31 - research_components.components - 🔵 INFO - Overall success rate: 90.3%
+2025-02-04 08:38:31 - research_components.components - 🔵 INFO - Average overall score: 0.03
+2025-02-04 08:38:31 - research_components.components - 🔵 INFO - Processing Numerical Accuracy tab
+2025-02-04 08:38:31 - research_components.db - 🔵 INFO - Retrieving analysis evaluations for query: None
+2025-02-04 08:38:31 - research_components.components - DEBUG - Retrieved 0 analysis evaluations
+2025-02-04 08:38:31 - research_components.components - 🔵 INFO - Processing Query Understanding tab
+2025-02-04 08:38:31 - research_components.components - 🔵 INFO - Processing Validation & Reasoning tab
+2025-02-04 08:38:31 - research_components.components - 🔵 INFO - Display analysis completed in 0.06 seconds
+2025-02-04 08:38:31 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-04 08:38:31 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-04 08:38:31 - research_components.db - 🔵 INFO - Retrieving accuracy evaluations for query: None
+2025-02-04 08:38:31 - research_components.db - 🔵 INFO - Retrieving source coverage evaluations for query: None
+2025-02-04 08:38:31 - research_components.db - 🔵 INFO - Retrieving logical coherence evaluations for query: None
+2025-02-04 08:38:31 - root - 🔴 ERROR - Error in coherence analytics: 'topic_coherence'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3653, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 147, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 176, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7080, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'topic_coherence'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/research_components/components.py", line 304, in display_analytics
+    avg_topic_coherence = coherence_df['topic_coherence'].mean()
+                          ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/core/frame.py", line 3761, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3655, in get_loc
+    raise KeyError(key) from err
+KeyError: 'topic_coherence'
+2025-02-04 08:38:31 - research_components.db - 🔵 INFO - Retrieving answer relevance evaluations for query: None
+2025-02-04 08:48:26 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-02-04 08:48:26 - httpx - DEBUG - load_verify_locations cafile='/usr/local/lib/python3.11/site-packages/certifi/cacert.pem'
+2025-02-04 08:48:26 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-02-04 08:48:26 - httpx - DEBUG - load_verify_locations cafile='/usr/local/lib/python3.11/site-packages/certifi/cacert.pem'
+2025-02-04 08:48:26 - relevance_evaluator - 🔵 INFO - Successfully initialized spaCy model
+2025-02-04 08:48:27 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-04 08:48:27 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-04 08:48:27 - utils.token_tracking - 🔵 INFO - Creating TokenUsageTracker singleton instance 130400470628496
+2025-02-04 08:48:27 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-04 08:48:27 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-04 08:48:27 - root - 🔵 INFO - Database connection initialized successfully
+2025-02-04 08:48:27 - research_components.components - 🔵 INFO - Starting display_analysis function
+2025-02-04 08:48:27 - research_components.components - 🔵 INFO - Processing 247 analysis traces
+2025-02-04 08:48:27 - research_components.components - DEBUG - Created tab structure successfully
+2025-02-04 08:48:27 - research_components.components - 🔵 INFO - Processing Analysis Overview tab
+2025-02-04 08:48:27 - research_components.components - DEBUG - Created main DataFrame with 247 rows
+2025-02-04 08:48:27 - research_components.components - DEBUG - Calculated performance metrics for 15 dates
+2025-02-04 08:48:27 - research_components.components - DEBUG - Successfully created performance trend plot
+2025-02-04 08:48:27 - research_components.components - DEBUG - Calculating summary statistics
+2025-02-04 08:48:27 - research_components.components - 🔵 INFO - Average analysis duration: 30.25s
+2025-02-04 08:48:27 - research_components.components - 🔵 INFO - Overall success rate: 90.3%
+2025-02-04 08:48:27 - research_components.components - 🔵 INFO - Average overall score: 0.03
+2025-02-04 08:48:27 - research_components.components - 🔵 INFO - Processing Numerical Accuracy tab
+2025-02-04 08:48:27 - research_components.db - 🔵 INFO - Retrieving analysis evaluations for query: None
+2025-02-04 08:48:27 - research_components.components - DEBUG - Retrieved 0 analysis evaluations
+2025-02-04 08:48:27 - research_components.components - 🔵 INFO - Processing Query Understanding tab
+2025-02-04 08:48:27 - research_components.components - 🔵 INFO - Processing Validation & Reasoning tab
+2025-02-04 08:48:27 - research_components.components - 🔵 INFO - Display analysis completed in 0.04 seconds
+2025-02-04 08:48:27 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-04 08:48:27 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-04 08:48:27 - research_components.db - 🔵 INFO - Retrieving accuracy evaluations for query: None
+2025-02-04 08:48:27 - research_components.db - 🔵 INFO - Retrieving source coverage evaluations for query: None
+2025-02-04 08:48:27 - research_components.db - 🔵 INFO - Retrieving logical coherence evaluations for query: None
+2025-02-04 08:48:27 - root - 🔴 ERROR - Error in coherence analytics: 'topic_coherence'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3653, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 147, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 176, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7080, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'topic_coherence'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/research_components/components.py", line 304, in display_analytics
+    avg_topic_coherence = coherence_df['topic_coherence'].mean()
+                          ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/core/frame.py", line 3761, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3655, in get_loc
+    raise KeyError(key) from err
+KeyError: 'topic_coherence'
+2025-02-04 08:48:27 - research_components.db - 🔵 INFO - Retrieving answer relevance evaluations for query: None
+2025-02-04 08:48:27 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-04 08:48:27 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-04 08:48:27 - root - 🔴 ERROR - Critical error in main application: display_analytics() got an unexpected keyword argument 'focus_tab'
+2025-02-04 08:50:13 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-02-04 08:50:13 - httpx - DEBUG - load_verify_locations cafile='/usr/local/lib/python3.11/site-packages/certifi/cacert.pem'
+2025-02-04 08:50:13 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-02-04 08:50:13 - httpx - DEBUG - load_verify_locations cafile='/usr/local/lib/python3.11/site-packages/certifi/cacert.pem'
+2025-02-04 08:50:13 - relevance_evaluator - 🔵 INFO - Successfully initialized spaCy model
+2025-02-04 08:50:13 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-04 08:50:13 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-04 08:50:13 - utils.token_tracking - 🔵 INFO - Creating TokenUsageTracker singleton instance 130400964711760
+2025-02-04 08:50:13 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-04 08:50:13 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-04 08:50:13 - root - 🔵 INFO - Database connection initialized successfully
+2025-02-04 08:50:13 - research_components.components - 🔵 INFO - Starting display_analysis function
+2025-02-04 08:50:13 - research_components.components - 🔵 INFO - Processing 247 analysis traces
+2025-02-04 08:50:13 - research_components.components - DEBUG - Created tab structure successfully
+2025-02-04 08:50:13 - research_components.components - 🔵 INFO - Processing Analysis Overview tab
+2025-02-04 08:50:13 - research_components.components - DEBUG - Created main DataFrame with 247 rows
+2025-02-04 08:50:13 - research_components.components - DEBUG - Calculated performance metrics for 15 dates
+2025-02-04 08:50:13 - research_components.components - DEBUG - Successfully created performance trend plot
+2025-02-04 08:50:13 - research_components.components - DEBUG - Calculating summary statistics
+2025-02-04 08:50:13 - research_components.components - 🔵 INFO - Average analysis duration: 30.25s
+2025-02-04 08:50:13 - research_components.components - 🔵 INFO - Overall success rate: 90.3%
+2025-02-04 08:50:13 - research_components.components - 🔵 INFO - Average overall score: 0.03
+2025-02-04 08:50:13 - research_components.components - 🔵 INFO - Processing Numerical Accuracy tab
+2025-02-04 08:50:13 - research_components.db - 🔵 INFO - Retrieving analysis evaluations for query: None
+2025-02-04 08:50:13 - research_components.components - DEBUG - Retrieved 0 analysis evaluations
+2025-02-04 08:50:13 - research_components.components - 🔵 INFO - Processing Query Understanding tab
+2025-02-04 08:50:13 - research_components.components - 🔵 INFO - Processing Validation & Reasoning tab
+2025-02-04 08:50:13 - research_components.components - 🔵 INFO - Display analysis completed in 0.05 seconds
+2025-02-04 08:50:13 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-04 08:50:13 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-04 08:50:13 - research_components.db - 🔵 INFO - Retrieving accuracy evaluations for query: None
+2025-02-04 08:50:13 - research_components.db - 🔵 INFO - Retrieving source coverage evaluations for query: None
+2025-02-04 08:50:13 - research_components.db - 🔵 INFO - Retrieving logical coherence evaluations for query: None
+2025-02-04 08:50:13 - root - 🔴 ERROR - Error in coherence analytics: 'topic_coherence'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3653, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 147, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 176, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7080, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'topic_coherence'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/research_components/components.py", line 304, in display_analytics
+    avg_topic_coherence = coherence_df['topic_coherence'].mean()
+                          ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/core/frame.py", line 3761, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3655, in get_loc
+    raise KeyError(key) from err
+KeyError: 'topic_coherence'
+2025-02-04 08:50:13 - research_components.db - 🔵 INFO - Retrieving answer relevance evaluations for query: None
+2025-02-04 08:50:14 - root - 🔴 ERROR - Critical error in main application: "None of [Index([-2], dtype='int64')] are in the [columns]"
+2025-02-04 08:51:46 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-02-04 08:51:46 - httpx - DEBUG - load_verify_locations cafile='/usr/local/lib/python3.11/site-packages/certifi/cacert.pem'
+2025-02-04 08:51:46 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-02-04 08:51:46 - httpx - DEBUG - load_verify_locations cafile='/usr/local/lib/python3.11/site-packages/certifi/cacert.pem'
+2025-02-04 08:51:46 - relevance_evaluator - 🔵 INFO - Successfully initialized spaCy model
+2025-02-04 08:51:46 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-04 08:51:46 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-04 08:51:46 - utils.token_tracking - 🔵 INFO - Creating TokenUsageTracker singleton instance 130400931608848
+2025-02-04 08:51:46 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-04 08:51:46 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-04 08:51:46 - root - 🔵 INFO - Database connection initialized successfully
+2025-02-04 08:51:46 - research_components.components - 🔵 INFO - Starting display_analysis function
+2025-02-04 08:51:46 - research_components.components - 🔵 INFO - Processing 247 analysis traces
+2025-02-04 08:51:46 - research_components.components - DEBUG - Created tab structure successfully
+2025-02-04 08:51:46 - research_components.components - 🔵 INFO - Processing Analysis Overview tab
+2025-02-04 08:51:46 - research_components.components - DEBUG - Created main DataFrame with 247 rows
+2025-02-04 08:51:46 - research_components.components - DEBUG - Calculated performance metrics for 15 dates
+2025-02-04 08:51:46 - research_components.components - DEBUG - Successfully created performance trend plot
+2025-02-04 08:51:46 - research_components.components - DEBUG - Calculating summary statistics
+2025-02-04 08:51:46 - research_components.components - 🔵 INFO - Average analysis duration: 30.25s
+2025-02-04 08:51:46 - research_components.components - 🔵 INFO - Overall success rate: 90.3%
+2025-02-04 08:51:46 - research_components.components - 🔵 INFO - Average overall score: 0.03
+2025-02-04 08:51:46 - research_components.components - 🔵 INFO - Processing Numerical Accuracy tab
+2025-02-04 08:51:46 - research_components.db - 🔵 INFO - Retrieving analysis evaluations for query: None
+2025-02-04 08:51:46 - research_components.components - DEBUG - Retrieved 0 analysis evaluations
+2025-02-04 08:51:46 - research_components.components - 🔵 INFO - Processing Query Understanding tab
+2025-02-04 08:51:46 - research_components.components - 🔵 INFO - Processing Validation & Reasoning tab
+2025-02-04 08:51:46 - research_components.components - 🔵 INFO - Display analysis completed in 0.07 seconds
+2025-02-04 08:51:46 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-04 08:51:46 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-04 08:51:46 - research_components.db - 🔵 INFO - Retrieving accuracy evaluations for query: None
+2025-02-04 08:51:46 - research_components.db - 🔵 INFO - Retrieving source coverage evaluations for query: None
+2025-02-04 08:51:46 - research_components.db - 🔵 INFO - Retrieving logical coherence evaluations for query: None
+2025-02-04 08:51:46 - root - 🔴 ERROR - Error in coherence analytics: 'topic_coherence'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3653, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 147, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 176, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7080, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'topic_coherence'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/research_components/components.py", line 304, in display_analytics
+    avg_topic_coherence = coherence_df['topic_coherence'].mean()
+                          ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/core/frame.py", line 3761, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3655, in get_loc
+    raise KeyError(key) from err
+KeyError: 'topic_coherence'
+2025-02-04 08:51:46 - research_components.db - 🔵 INFO - Retrieving answer relevance evaluations for query: None

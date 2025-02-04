@@ -2802,3 +2802,19 @@ Inhibits 5-α-reductase and 17βHSD3,5 act...
 2025-02-04 08:36:31,970 - relevance_evaluator.evaluator - DEBUG - evaluate_answer_relevance:261 - Information density: 0.0000
 2025-02-04 08:36:31,971 - relevance_evaluator.evaluator - DEBUG - evaluate_answer_relevance:266 - Context alignment score: 0.0015
 2025-02-04 08:36:31,971 - relevance_evaluator.evaluator - INFO - evaluate_answer_relevance:294 - Completed relevance evaluation with score: 0.0255
+2025-02-04 08:38:30,820 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 08:46:33,400 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 08:47:20,397 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 08:47:26,630 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 08:48:20,356 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 08:48:26,934 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 08:48:26,934 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 08:50:06,260 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 08:50:13,563 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 08:50:13,563 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 08:50:13,563 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 08:51:33,655 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 08:51:46,596 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 08:51:46,596 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 08:51:46,596 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-04 08:51:46,596 - relevance_evaluator - 🔵 INFO - <module>:70 - Successfully initialized spaCy model
