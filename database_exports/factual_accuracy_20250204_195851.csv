@@ -1,9 +1,0 @@
-id,query,timestamp,factual_score,total_sources,citation_accuracy,claim_details,contradicting_claims,verified_claims,unverified_claims,source_credibility_score,fact_check_coverage
-1,Sclerocarya birrea,2025-02-03T20:54:30.618891,0.0,0,0.0,[],0,0,0,0.0,0.0
-2,Sclerocarya birrea,2025-02-03T21:49:14.017269,0.0,0,0.0,[],0,0,0,0.0,0.0
-3,sea weed,2025-02-03T22:02:35.684701,0.0,0,0.0,[],0,0,0,0.0,0.0
-4,sea weed,2025-02-04T08:03:01.399787,0.0,0,0.0,[],0,0,0,0.0,0.0
-5,Sclerocarya birrea,2025-02-04T16:51:52.840917,0.0,0,0.0,[],0,0,0,0.0,0.0
-6,sea weed,2025-02-04T16:57:15.320093,0.0,0,0.0,[],0,0,0,0.0,0.0
-7,sea weed,2025-02-04T17:02:39.750560,0.0,0,0.0,[],0,0,0,0.0,0.0
-8,Sclerocarya birrea,2025-02-04T18:19:01.525661,0.0,0,0.0,[],0,0,0,0.0,0.0

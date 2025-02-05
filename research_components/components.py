@@ -541,6 +541,8 @@ def display_analytics(traces: List[QueryTrace], content_db: ContentDB):
                 st.info("No automated test results available yet.")
         except Exception as e:
             st.error(f"Error displaying automated test results: {str(e)}")
+
+
         
 
 

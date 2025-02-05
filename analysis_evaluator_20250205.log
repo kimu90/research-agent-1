@@ -2994,3 +2994,90 @@ Traceback (most recent call last):
 ValueError: Incompatible dimension for X and Y matrices: X.shape[1] == 5 while Y.shape[1] == 21
 2025-02-05 17:09:48 - research_components.db - INFO - Storing query trace
 2025-02-05 17:09:48 - research_components.db - INFO - Closing database connection
+2025-02-05 17:13:57 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-05 17:13:57 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-05 17:13:57 - utils.token_tracking - 🔵 INFO - Creating TokenUsageTracker singleton instance 126252916283152
+2025-02-05 17:13:58 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-05 17:13:58 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-05 17:13:58 - root - 🔵 INFO - Database connection initialized successfully
+2025-02-05 17:13:58 - research_components.components - 🔵 INFO - Starting display_analysis
+2025-02-05 17:13:58 - research_components.db - 🔵 INFO - Retrieving analysis evaluations for query: None
+2025-02-05 17:13:58 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-05 17:13:58 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-05 17:13:58 - research_components.db - 🔵 INFO - Retrieving accuracy evaluations for query: None
+2025-02-05 17:13:58 - research_components.db - 🔵 INFO - Retrieving source coverage evaluations for query: None
+2025-02-05 17:13:58 - research_components.components - 🔵 INFO - Processing Logical Coherence tab
+2025-02-05 17:13:58 - research_components.db - 🔵 INFO - Retrieving logical coherence evaluations for query: None
+2025-02-05 17:13:58 - research_components.components - DEBUG - Retrieved 5 coherence evaluations
+2025-02-05 17:13:58 - research_components.components - DEBUG - Created DataFrame with 5 rows
+2025-02-05 17:13:58 - research_components.components - DEBUG - Available columns: ['id', 'query', 'timestamp', 'coherence_score', 'flow_score', 'has_argument_structure', 'has_discourse_markers', 'paragraph_score', 'rough_transitions', 'total_sentences', 'total_paragraphs', 'semantic_connection_score', 'idea_progression_score', 'logical_fallacies_count']
+2025-02-05 17:13:58 - research_components.components - DEBUG - Converting timestamps to datetime
+2025-02-05 17:13:58 - research_components.components - 🔵 INFO - Average coherence score: 0.28
+2025-02-05 17:13:58 - research_components.components - 🟠 WARNING - No topic-related column found
+2025-02-05 17:13:58 - research_components.components - 🔵 INFO - Total logical fallacies: 6
+2025-02-05 17:13:58 - research_components.components - 🔵 INFO - Average idea progression: 0.02
+2025-02-05 17:13:58 - research_components.db - 🔵 INFO - Retrieving answer relevance evaluations for query: None
+2025-02-05 17:13:58 - research_components.db - 🔵 INFO - Retrieving accuracy evaluations for query: 
+2025-02-05 17:13:58 - research_components.db - 🔵 INFO - Retrieving answer relevance evaluations for query: 
+2025-02-05 17:13:58 - research_components.db - 🔵 INFO - Retrieving logical coherence evaluations for query: 
+2025-02-05 17:13:58 - research_components.db - 🔵 INFO - Retrieving source coverage evaluations for query: 
+2025-02-05 17:41:02 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-02-05 17:41:02 - httpx - DEBUG - load_verify_locations cafile='/usr/local/lib/python3.11/site-packages/certifi/cacert.pem'
+2025-02-05 17:41:02 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-02-05 17:41:02 - httpx - DEBUG - load_verify_locations cafile='/usr/local/lib/python3.11/site-packages/certifi/cacert.pem'
+2025-02-05 17:41:03 - relevance_evaluator - 🔵 INFO - Successfully initialized spaCy model
+2025-02-05 17:41:03 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-05 17:41:03 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-05 17:41:03 - utils.token_tracking - 🔵 INFO - Creating TokenUsageTracker singleton instance 126252833935184
+2025-02-05 17:41:03 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-05 17:41:03 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-05 17:41:03 - root - 🔵 INFO - Database connection initialized successfully
+2025-02-05 17:41:03 - root - 🔴 ERROR - Critical error in main application: name 'display_agent_analysis' is not defined
+2025-02-05 17:41:48 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-02-05 17:41:48 - httpx - DEBUG - load_verify_locations cafile='/usr/local/lib/python3.11/site-packages/certifi/cacert.pem'
+2025-02-05 17:41:48 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-02-05 17:41:48 - httpx - DEBUG - load_verify_locations cafile='/usr/local/lib/python3.11/site-packages/certifi/cacert.pem'
+2025-02-05 17:41:49 - relevance_evaluator - 🔵 INFO - Successfully initialized spaCy model
+2025-02-05 17:41:49 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-05 17:41:49 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-05 17:41:49 - utils.token_tracking - 🔵 INFO - Creating TokenUsageTracker singleton instance 126252997355472
+2025-02-05 17:41:49 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-05 17:41:49 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-05 17:41:49 - root - 🔵 INFO - Database connection initialized successfully
+2025-02-05 17:41:49 - research_components.components - 🔵 INFO - Starting display_analysis
+2025-02-05 17:41:49 - research_components.db - 🔵 INFO - Retrieving analysis evaluations for query: None
+2025-02-05 17:41:49 - root - 🔴 ERROR - Invalid JSON in trace file: {"trace_id": "b733447575daafdb93fe99901384e0c8", "timestamp": "2025-01-16T10:17:44.447181", "tool": "General Agent", "query": "what are some of the uses of whale", "start_time": "2025-01-16T10:17:44.447181
+
+2025-02-05 17:41:49 - root - 🔴 ERROR - Invalid JSON in trace file: ", "tools_used": ["General Agent"], "duration": 5.671332, "error": null, "success": true, "processing_steps": ["Started research with General Agent", "Initializing search tool", "Configured GeneralSearch", "Preparing to process 10 content items", "Content processed - New: 0, Reused: 10", "Research completed successfully"], "content_new": 0, "content_reused": 10, "content_count": 10}
+
+2025-02-05 17:41:49 - research_components.db - 🔵 INFO - Retrieving accuracy evaluations for query: None
+2025-02-05 17:41:49 - research_components.db - 🔵 INFO - Retrieving source coverage evaluations for query: None
+2025-02-05 17:41:49 - research_components.components - 🔵 INFO - Processing Logical Coherence tab
+2025-02-05 17:41:49 - research_components.db - 🔵 INFO - Retrieving logical coherence evaluations for query: None
+2025-02-05 17:41:49 - research_components.components - DEBUG - Retrieved 5 coherence evaluations
+2025-02-05 17:41:49 - research_components.components - DEBUG - Created DataFrame with 5 rows
+2025-02-05 17:41:49 - research_components.components - DEBUG - Available columns: ['id', 'query', 'timestamp', 'coherence_score', 'flow_score', 'has_argument_structure', 'has_discourse_markers', 'paragraph_score', 'rough_transitions', 'total_sentences', 'total_paragraphs', 'semantic_connection_score', 'idea_progression_score', 'logical_fallacies_count']
+2025-02-05 17:41:49 - research_components.components - DEBUG - Converting timestamps to datetime
+2025-02-05 17:41:49 - research_components.components - 🔵 INFO - Average coherence score: 0.28
+2025-02-05 17:41:49 - research_components.components - 🟠 WARNING - No topic-related column found
+2025-02-05 17:41:49 - research_components.components - 🔵 INFO - Total logical fallacies: 6
+2025-02-05 17:41:49 - research_components.components - 🔵 INFO - Average idea progression: 0.02
+2025-02-05 17:41:49 - research_components.db - 🔵 INFO - Retrieving answer relevance evaluations for query: None
+2025-02-05 17:41:50 - research_components.db - 🔵 INFO - Retrieving accuracy evaluations for query: 
+2025-02-05 17:41:50 - research_components.db - 🔵 INFO - Retrieving answer relevance evaluations for query: 
+2025-02-05 17:41:50 - research_components.db - 🔵 INFO - Retrieving logical coherence evaluations for query: 
+2025-02-05 17:41:50 - research_components.db - 🔵 INFO - Retrieving source coverage evaluations for query: 

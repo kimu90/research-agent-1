@@ -1,0 +1,38 @@
+id,query,tool,prompt_name,tools_used,processing_steps,duration,success,content_new,content_reused,error_message,timestamp
+1,Sclerocarya birrea,General Agent,research.txt,"[""General Agent""]","[""Content processed - New: 10, Reused: 0""]",35.464057,1,10,0,,2025-02-03 21:49:14
+2,tell me somthing about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],2.866949,1,0,0,,2025-02-04 16:08:27
+3,tell me something about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],2.652473,1,0,0,,2025-02-04 16:50:46
+4,Sclerocarya birrea,General Agent,research.txt,"[""General Agent""]",[],35.237282,1,0,0,,2025-02-04 16:51:52
+5,sea weed,General Agent,research.txt,"[""General Agent""]","[""Content processed - New: 10, Reused: 0""]",40.696477,1,10,0,,2025-02-04 16:57:17
+6,sea weed,General Agent,research.txt,"[""General Agent""]",[],33.634158,1,0,0,,2025-02-04 17:02:39
+7,tell me somthing about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],2.120457,1,0,0,,2025-02-04 17:02:52
+8,tell me somthing about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],2.7855,1,0,0,,2025-02-04 18:14:32
+9,tell me somthing about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],2.584549,1,0,0,,2025-02-04 18:16:50
+10,Sclerocarya birrea,General Agent,research.txt,"[""General Agent""]",[],41.084911,1,0,0,,2025-02-04 18:19:01
+11,what resourceful information can i get from the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],2.878304,1,0,0,,2025-02-04 19:28:53
+12,tell me something about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],3.038577,1,0,0,,2025-02-04 19:32:29
+13,tell me something about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],2.534988,1,0,0,,2025-02-05 10:42:28
+14,Sclerocarya birrea,General Agent,research.txt,"[""General Agent""]",[],38.11193,1,0,0,,2025-02-05 10:51:00
+15,Sclerocarya birrea,General Agent,research.txt,"[""General Agent""]",[],35.57315,1,0,0,,2025-02-05 10:53:38
+16,Sclerocarya birrea,General Agent,research.txt,"[""General Agent""]",[],45.789039,1,0,0,,2025-02-05 10:58:34
+17,Sclerocarya birrea,General Agent,research.txt,"[""General Agent""]",[],33.829033,1,0,0,,2025-02-05 11:00:48
+18,Sclerocarya birrea,General Agent,research.txt,"[""General Agent""]",[],32.266211,1,0,0,,2025-02-05 11:02:54
+19,Sclerocarya birrea,General Agent,research.txt,"[""General Agent""]",[],32.255146,1,0,0,,2025-02-05 11:04:35
+20,Sclerocarya birrea,General Agent,research.txt,"[""General Agent""]",[],32.624712,1,0,0,,2025-02-05 11:08:26
+21,Sclerocarya birrea,General Agent,research.txt,"[""General Agent""]",[],31.750384,1,0,0,,2025-02-05 11:11:40
+22,Sclerocarya birrea,General Agent,research.txt,"[""General Agent""]",[],32.286906,1,0,0,,2025-02-05 11:16:17
+23,Sclerocarya birrea,General Agent,research.txt,"[""General Agent""]",[],32.201931,1,0,0,,2025-02-05 11:17:37
+24,tell me somthing about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],2.331568,1,0,0,,2025-02-05 11:18:18
+25,tell me somthing about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],2.612739,1,0,0,,2025-02-05 11:20:15
+26,Sclerocarya birrea,General Agent,research.txt,"[""General Agent""]",[],33.342567,1,0,0,,2025-02-05 11:22:33
+27,sea cucumber,General Agent,research.txt,"[""General Agent""]",[],60.380896,1,0,0,,2025-02-05 11:24:04
+28,sea cucumber,General Agent,research.txt,"[""General Agent""]",[],34.983262,1,0,0,,2025-02-05 11:24:51
+29,sea cucumber,General Agent,research.txt,"[""General Agent""]",[],35.173733,1,0,0,,2025-02-05 11:26:06
+30,tell me somthing about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],2.581846,1,0,0,,2025-02-05 11:26:43
+31,sea cucumber,General Agent,research.txt,"[""General Agent""]",[],55.34816,1,0,0,,2025-02-05 16:05:19
+32,tell me somthing about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],2.769624,1,0,0,,2025-02-05 16:05:47
+33,tell me somthing about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],2.744126,1,0,0,,2025-02-05 17:00:50
+34,tell me somthing about the data,General Agent,research.txt,"[""General Agent""]",[],43.49894,1,0,0,,2025-02-05 17:02:40
+35,tell me somthing about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],5.982247,1,0,0,,2025-02-05 17:04:30
+36,tell me something about the data,Analysis Agent,research.txt,"[""Analysis Agent""]",[],2.953311,1,0,0,,2025-02-05 17:08:31
+37,what is data?,General Agent,research.txt,"[""General Agent""]",[],54.47608,1,0,0,,2025-02-05 17:09:48
