@@ -1,0 +1,30 @@
+SPECIES RESEARCH OVERVIEW PROMPT
+
+Species Name: [SPECIES_NAME]
+
+Instructions:
+1. Read the provided text file containing research data about the species.
+2. Analyze the content to create a comprehensive research overview.
+3. Identify and highlight the key research themes, topics, and scientific focus.
+
+Research Overview Structure:
+1. Primary Research Domains
+   - Identify the main areas of scientific investigation
+   - Describe the significance of each research domain
+
+2. Key Research Topics
+   - List specific research topics
+   - Highlight innovative approaches and findings
+
+3. Research Significance
+   - Explain the broader scientific importance
+   - Discuss the relevance of the research
+
+4. Research Insights
+   - Provide a summary of critical discoveries
+   - Outline potential future research directions
+
+Approach:
+- Use clear, academic language
+- Maintain scientific objectivity
+- Provide a structured and informative analysis
