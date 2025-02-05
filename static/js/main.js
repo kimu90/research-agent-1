@@ -8,7 +8,8 @@ const API_ENDPOINTS = {
     data: '/api/analyze-data',
     report: '/api/generate-report',
     datasets: '/api/datasets',
-    prompts: '/api/prompts'
+    prompts: '/api/prompts',
+    promptFolders: '/api/prompt-folders'
 };
 
 // DOM Elements - Get all elements only once
@@ -20,44 +21,66 @@ const messagesContainer = document.getElementById('messages');
 const inputForm = document.getElementById('inputForm');
 const speciesInput = document.getElementById('speciesInput');
 const submitButton = document.getElementById('submitButton');
-const summarySelect = document.getElementById('promptTemplate');
-const analysisSelect = document.getElementById('analysisPromptTemplate');
 
-// Load prompt templates - fixed to properly handle the response
-async function loadPromptTemplates() {
+// Summary mode elements
+const summaryFolderSelect = document.getElementById('promptFolder');
+const summarySelect = document.getElementById('promptTemplate');
+
+// Data Analysis mode elements
+const dataAnalysisFolderSelect = document.getElementById('promptAnalysisFolder');
+const analysisSelect = document.getElementById('analysisPromptTemplate');
+const datasetSelect = document.getElementById('dataset');
+
+// Load prompt folders
+async function loadPromptFolders(mode) {
+    const folderSelect = mode === 'summary' ? summaryFolderSelect : dataAnalysisFolderSelect;
     try {
-        const response = await fetch(API_ENDPOINTS.prompts);
+        const response = await fetch(API_ENDPOINTS.promptFolders);
+        const folders = await response.json();
+
+        // Clear existing options before appending new ones
+        folderSelect.innerHTML = '<option value="">Select Prompt Folder...</option>';
+
+        folders.forEach(folder => {
+            const option = document.createElement('option');
+            option.value = folder;
+            option.textContent = folder;
+            folderSelect.appendChild(option);
+        });
+    } catch (error) {
+        showError(`Failed to load prompt folders for ${mode}`);
+        console.error(error);
+    }
+}
+
+// Load prompt templates for a specific folder
+async function loadPromptTemplates(mode, folder) {
+    const promptSelect = mode === 'summary' ? summarySelect : analysisSelect;
+    
+    try {
+        const response = await fetch(`${API_ENDPOINTS.prompts}?folder=${encodeURIComponent(folder)}`);
         const prompts = await response.json();
 
         // Clear existing options before appending new ones
-        summarySelect.innerHTML = "";
-        analysisSelect.innerHTML = "";
+        promptSelect.innerHTML = '<option value="">Select Prompt Template...</option>';
 
         prompts.forEach(prompt => {
-            // Create the option for summary select
-            const summaryOption = document.createElement("option");
-            summaryOption.value = prompt.id;  // This should match the prompt's ID
-            summaryOption.textContent = prompt.content;
-
-            // Append to the summary select menu
-            summarySelect.appendChild(summaryOption);
-
-            // Create the option for analysis select
-            const analysisOption = document.createElement("option");
-            analysisOption.value = prompt.id;  // Same ID for analysis, or modify for specific use
-            analysisOption.textContent = prompt.content;
-
-            // Append to the analysis select menu
-            analysisSelect.appendChild(analysisOption);
+            const option = document.createElement('option');
+            option.value = prompt.id;
+            option.textContent = prompt.content;
+            promptSelect.appendChild(option);
         });
+
+        // Enable the select after populating
+        promptSelect.disabled = false;
     } catch (error) {
-        showError('Failed to load prompt templates');
+        showError(`Failed to load prompt templates for ${mode}`);
+        console.error(error);
     }
 }
 
 // Load datasets
 async function loadDatasets() {
-    const datasetSelect = document.getElementById('dataset');
     try {
         const response = await fetch(API_ENDPOINTS.datasets);
         if (!response.ok) throw new Error('Failed to fetch datasets');
@@ -145,9 +168,22 @@ async function handleFormSubmit(e) {
 
     switch(currentMode) {
         case 'data':
-            const dataset = document.getElementById('dataset').value;
+            const dataset = datasetSelect.value;
+            const analysisFolder = dataAnalysisFolderSelect.value;
+            const analysisPrompt = analysisSelect.value;
+
             if (!dataset) {
                 showError('Please select a dataset');
+                return;
+            }
+
+            if (!analysisFolder) {
+                showError('Please select an analysis prompt folder');
+                return;
+            }
+
+            if (!analysisPrompt) {
+                showError('Please select an analysis prompt template');
                 return;
             }
             
@@ -165,15 +201,30 @@ async function handleFormSubmit(e) {
                 query: inputText,
                 dataset: dataset,
                 tool_name: "Analysis Agent",
-                prompt_name: analysisSelect.value
+                prompt_name: analysisPrompt,
+                prompt_folder: analysisFolder
             };
             break;
             
         case 'summary':
+            const summaryFolder = summaryFolderSelect.value;
+            const summaryPrompt = summarySelect.value;
+
+            if (!summaryFolder) {
+                showError('Please select a summary prompt folder');
+                return;
+            }
+
+            if (!summaryPrompt) {
+                showError('Please select a summary prompt template');
+                return;
+            }
+
             payload = {
                 query: inputText,
                 tool_name: "General Agent",
-                prompt_name: summarySelect.value
+                prompt_name: summaryPrompt,
+                prompt_folder: summaryFolder
             };
             break;
             
@@ -227,12 +278,45 @@ async function handleFormSubmit(e) {
         showError(error.message || 'Failed to submit the query');
     } finally {
         isLoading = false;
+        speciesInput.value = ''; // Clear input field
     }
-
-    speciesInput.value = ''; // Clear input field
 }
 
-// Event Listeners
+// Event Listeners for folder selection
+document.addEventListener('DOMContentLoaded', () => {
+    // Load datasets
+    loadDatasets();
+
+    // Load prompt folders for both summary and data analysis modes
+    loadPromptFolders('summary');
+    loadPromptFolders('data');
+
+    // Update filters visibility for initial mode
+    updateFiltersVisibility(currentMode);
+
+    // Add event listeners for folder selection
+    summaryFolderSelect.addEventListener('change', (e) => {
+        const selectedFolder = e.target.value;
+        if (selectedFolder) {
+            loadPromptTemplates('summary', selectedFolder);
+        } else {
+            summarySelect.innerHTML = '<option value="">Select Prompt Template...</option>';
+            summarySelect.disabled = true;
+        }
+    });
+
+    dataAnalysisFolderSelect.addEventListener('change', (e) => {
+        const selectedFolder = e.target.value;
+        if (selectedFolder) {
+            loadPromptTemplates('data', selectedFolder);
+        } else {
+            analysisSelect.innerHTML = '<option value="">Select Analysis Prompt...</option>';
+            analysisSelect.disabled = true;
+        }
+    });
+});
+
+// Mode button event listener
 modeButtons.forEach(button => {
     button.addEventListener('click', () => {
         const mode = button.getAttribute('data-mode');
@@ -245,11 +329,5 @@ modeButtons.forEach(button => {
     });
 });
 
+// Form submission event listener
 inputForm.addEventListener('submit', handleFormSubmit);
-
-// Initialization
-document.addEventListener('DOMContentLoaded', () => {
-    loadPromptTemplates();
-    loadDatasets();
-    updateFiltersVisibility(currentMode);
-});

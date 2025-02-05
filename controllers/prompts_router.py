@@ -13,42 +13,49 @@ class Prompt(BaseModel):
     metadata: dict = {}
 
 
-@api_router.get("/prompts", response_model=List[Prompt])
-async def get_prompts():
+
+
+@api_router.get("/prompt-folders", response_model=List[str])
+async def get_prompt_folders():
     """
-    Retrieve list of available prompt templates
+    Retrieve list of available prompt folders
     """
-    try:
-        prompts_dir = "/app/prompts"  # Adjust this path as needed
-        if not os.path.exists(prompts_dir):
-            raise HTTPException(
-                status_code=404,
-                detail=f"Prompts directory not found: {prompts_dir}"
-            )
-
-        # List all .txt files in the prompts directory
-        prompt_files = [
-            f for f in os.listdir(prompts_dir)
-            if f.endswith('.txt')
-        ]
-
-        if not prompt_files:
-            raise HTTPException(
-                status_code=404,
-                detail="No prompt templates found"
-            )
-
-        # Convert the list of filenames to a list of Prompt objects
-        prompts = [
-            Prompt(id=filename, content=f"Prompt: {filename}", metadata={})
-            for filename in prompt_files
-        ]
-
-        return prompts
-
-    except Exception as e:
-        logging.error(f"Error retrieving prompts: {str(e)}")
+    prompts_dir = "/app/prompts"  # Base prompts directory
+    if not os.path.exists(prompts_dir):
         raise HTTPException(
-            status_code=500,
-            detail=f"Error retrieving prompts: {str(e)}"
+            status_code=404,
+            detail=f"Prompts directory not found: {prompts_dir}"
         )
+    
+    # List only directories in the prompts folder
+    folders = [
+        f for f in os.listdir(prompts_dir) 
+        if os.path.isdir(os.path.join(prompts_dir, f))
+    ]
+    
+    return folders
+
+@api_router.get("/prompts", response_model=List[Prompt])
+async def get_prompts(folder: str):
+    """
+    Retrieve list of available prompt templates for a specific folder
+    """
+    prompts_dir = f"/app/prompts/{folder}"
+    if not os.path.exists(prompts_dir):
+        raise HTTPException(
+            status_code=404,
+            detail=f"Prompt folder not found: {prompts_dir}"
+        )
+    
+    # List all .txt files in the specified folder
+    prompt_files = [
+        f for f in os.listdir(prompts_dir)
+        if f.endswith('.txt')
+    ]
+    
+    prompts = [
+        Prompt(id=filename, content=f"Prompt: {filename}", metadata={})
+        for filename in prompt_files
+    ]
+    
+    return prompts

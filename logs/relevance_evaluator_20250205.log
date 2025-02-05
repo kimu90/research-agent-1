@@ -1,0 +1,111 @@
+2025-02-05 10:22:19,743 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 10:22:26,128 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 10:36:13,898 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 10:50:22,331 - relevance_evaluator - INFO - create_answer_relevance_evaluator:323 - Creating new AnswerRelevanceEvaluator instance
+2025-02-05 10:50:22,333 - relevance_evaluator.evaluator - INFO - __init__:83 - Initializing AnswerRelevanceEvaluator
+2025-02-05 10:50:22,334 - relevance_evaluator.evaluator - DEBUG - __init__:85 - Setting up spaCy pipeline
+2025-02-05 10:50:22,335 - relevance_evaluator.evaluator - DEBUG - __init__:87 - SpaCy pipeline components: sentencizer
+2025-02-05 10:50:22,335 - relevance_evaluator.evaluator - DEBUG - __init__:89 - Configuring TF-IDF vectorizer
+2025-02-05 10:50:22,335 - relevance_evaluator.evaluator - DEBUG - __init__:95 - Successfully initialized TfidfVectorizer
+2025-02-05 10:50:22,336 - relevance_evaluator.evaluator - DEBUG - __init__:96 - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
+2025-02-05 10:53:03,557 - relevance_evaluator - INFO - create_answer_relevance_evaluator:323 - Creating new AnswerRelevanceEvaluator instance
+2025-02-05 10:53:03,557 - relevance_evaluator.evaluator - INFO - __init__:83 - Initializing AnswerRelevanceEvaluator
+2025-02-05 10:53:03,557 - relevance_evaluator.evaluator - DEBUG - __init__:85 - Setting up spaCy pipeline
+2025-02-05 10:53:03,557 - relevance_evaluator.evaluator - DEBUG - __init__:87 - SpaCy pipeline components: sentencizer
+2025-02-05 10:53:03,557 - relevance_evaluator.evaluator - DEBUG - __init__:89 - Configuring TF-IDF vectorizer
+2025-02-05 10:53:03,558 - relevance_evaluator.evaluator - DEBUG - __init__:95 - Successfully initialized TfidfVectorizer
+2025-02-05 10:53:03,558 - relevance_evaluator.evaluator - DEBUG - __init__:96 - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
+2025-02-05 10:57:49,456 - relevance_evaluator - INFO - create_answer_relevance_evaluator:323 - Creating new AnswerRelevanceEvaluator instance
+2025-02-05 10:57:49,457 - relevance_evaluator.evaluator - INFO - __init__:83 - Initializing AnswerRelevanceEvaluator
+2025-02-05 10:57:49,458 - relevance_evaluator.evaluator - DEBUG - __init__:85 - Setting up spaCy pipeline
+2025-02-05 10:57:49,458 - relevance_evaluator.evaluator - DEBUG - __init__:87 - SpaCy pipeline components: sentencizer
+2025-02-05 10:57:49,458 - relevance_evaluator.evaluator - DEBUG - __init__:89 - Configuring TF-IDF vectorizer
+2025-02-05 10:57:49,458 - relevance_evaluator.evaluator - DEBUG - __init__:95 - Successfully initialized TfidfVectorizer
+2025-02-05 10:57:49,459 - relevance_evaluator.evaluator - DEBUG - __init__:96 - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
+2025-02-05 11:00:15,256 - relevance_evaluator - INFO - create_answer_relevance_evaluator:323 - Creating new AnswerRelevanceEvaluator instance
+2025-02-05 11:00:15,262 - relevance_evaluator.evaluator - INFO - __init__:83 - Initializing AnswerRelevanceEvaluator
+2025-02-05 11:00:15,262 - relevance_evaluator.evaluator - DEBUG - __init__:85 - Setting up spaCy pipeline
+2025-02-05 11:00:15,263 - relevance_evaluator.evaluator - DEBUG - __init__:87 - SpaCy pipeline components: sentencizer
+2025-02-05 11:00:15,263 - relevance_evaluator.evaluator - DEBUG - __init__:89 - Configuring TF-IDF vectorizer
+2025-02-05 11:00:15,263 - relevance_evaluator.evaluator - DEBUG - __init__:95 - Successfully initialized TfidfVectorizer
+2025-02-05 11:00:15,263 - relevance_evaluator.evaluator - DEBUG - __init__:96 - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
+2025-02-05 11:02:22,683 - relevance_evaluator - INFO - create_answer_relevance_evaluator:323 - Creating new AnswerRelevanceEvaluator instance
+2025-02-05 11:02:22,684 - relevance_evaluator.evaluator - INFO - __init__:83 - Initializing AnswerRelevanceEvaluator
+2025-02-05 11:02:22,684 - relevance_evaluator.evaluator - DEBUG - __init__:85 - Setting up spaCy pipeline
+2025-02-05 11:02:22,684 - relevance_evaluator.evaluator - DEBUG - __init__:87 - SpaCy pipeline components: sentencizer
+2025-02-05 11:02:22,684 - relevance_evaluator.evaluator - DEBUG - __init__:89 - Configuring TF-IDF vectorizer
+2025-02-05 11:02:22,684 - relevance_evaluator.evaluator - DEBUG - __init__:95 - Successfully initialized TfidfVectorizer
+2025-02-05 11:02:22,685 - relevance_evaluator.evaluator - DEBUG - __init__:96 - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
+2025-02-05 11:04:03,258 - relevance_evaluator - INFO - create_answer_relevance_evaluator:323 - Creating new AnswerRelevanceEvaluator instance
+2025-02-05 11:04:03,258 - relevance_evaluator.evaluator - INFO - __init__:83 - Initializing AnswerRelevanceEvaluator
+2025-02-05 11:04:03,260 - relevance_evaluator.evaluator - DEBUG - __init__:85 - Setting up spaCy pipeline
+2025-02-05 11:04:03,260 - relevance_evaluator.evaluator - DEBUG - __init__:87 - SpaCy pipeline components: sentencizer
+2025-02-05 11:04:03,261 - relevance_evaluator.evaluator - DEBUG - __init__:89 - Configuring TF-IDF vectorizer
+2025-02-05 11:04:03,261 - relevance_evaluator.evaluator - DEBUG - __init__:95 - Successfully initialized TfidfVectorizer
+2025-02-05 11:04:03,262 - relevance_evaluator.evaluator - DEBUG - __init__:96 - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
+2025-02-05 11:06:51,246 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 11:07:38,304 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 11:07:53,966 - relevance_evaluator - INFO - create_answer_relevance_evaluator:323 - Creating new AnswerRelevanceEvaluator instance
+2025-02-05 11:07:53,967 - relevance_evaluator.evaluator - INFO - __init__:83 - Initializing AnswerRelevanceEvaluator
+2025-02-05 11:07:53,967 - relevance_evaluator.evaluator - DEBUG - __init__:85 - Setting up spaCy pipeline
+2025-02-05 11:07:53,967 - relevance_evaluator.evaluator - DEBUG - __init__:87 - SpaCy pipeline components: sentencizer
+2025-02-05 11:07:53,967 - relevance_evaluator.evaluator - DEBUG - __init__:89 - Configuring TF-IDF vectorizer
+2025-02-05 11:07:53,967 - relevance_evaluator.evaluator - DEBUG - __init__:95 - Successfully initialized TfidfVectorizer
+2025-02-05 11:07:53,968 - relevance_evaluator.evaluator - DEBUG - __init__:96 - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
+2025-02-05 11:11:07,539 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 11:11:08,899 - relevance_evaluator - INFO - create_answer_relevance_evaluator:323 - Creating new AnswerRelevanceEvaluator instance
+2025-02-05 11:11:08,900 - relevance_evaluator.evaluator - INFO - __init__:83 - Initializing AnswerRelevanceEvaluator
+2025-02-05 11:11:08,900 - relevance_evaluator.evaluator - DEBUG - __init__:85 - Setting up spaCy pipeline
+2025-02-05 11:11:08,900 - relevance_evaluator.evaluator - DEBUG - __init__:87 - SpaCy pipeline components: sentencizer
+2025-02-05 11:11:08,900 - relevance_evaluator.evaluator - DEBUG - __init__:89 - Configuring TF-IDF vectorizer
+2025-02-05 11:11:08,900 - relevance_evaluator.evaluator - DEBUG - __init__:95 - Successfully initialized TfidfVectorizer
+2025-02-05 11:11:08,901 - relevance_evaluator.evaluator - DEBUG - __init__:96 - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
+2025-02-05 11:13:40,216 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 11:15:42,146 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 11:15:45,549 - relevance_evaluator - INFO - create_answer_relevance_evaluator:323 - Creating new AnswerRelevanceEvaluator instance
+2025-02-05 11:15:45,551 - relevance_evaluator.evaluator - INFO - __init__:83 - Initializing AnswerRelevanceEvaluator
+2025-02-05 11:15:45,551 - relevance_evaluator.evaluator - DEBUG - __init__:85 - Setting up spaCy pipeline
+2025-02-05 11:15:45,552 - relevance_evaluator.evaluator - DEBUG - __init__:87 - SpaCy pipeline components: sentencizer
+2025-02-05 11:15:45,553 - relevance_evaluator.evaluator - DEBUG - __init__:89 - Configuring TF-IDF vectorizer
+2025-02-05 11:15:45,553 - relevance_evaluator.evaluator - DEBUG - __init__:95 - Successfully initialized TfidfVectorizer
+2025-02-05 11:15:45,554 - relevance_evaluator.evaluator - DEBUG - __init__:96 - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
+2025-02-05 11:17:01,714 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 11:17:05,268 - relevance_evaluator - INFO - create_answer_relevance_evaluator:323 - Creating new AnswerRelevanceEvaluator instance
+2025-02-05 11:17:05,269 - relevance_evaluator.evaluator - INFO - __init__:83 - Initializing AnswerRelevanceEvaluator
+2025-02-05 11:17:05,269 - relevance_evaluator.evaluator - DEBUG - __init__:85 - Setting up spaCy pipeline
+2025-02-05 11:17:05,269 - relevance_evaluator.evaluator - DEBUG - __init__:87 - SpaCy pipeline components: sentencizer
+2025-02-05 11:17:05,269 - relevance_evaluator.evaluator - DEBUG - __init__:89 - Configuring TF-IDF vectorizer
+2025-02-05 11:17:05,269 - relevance_evaluator.evaluator - DEBUG - __init__:95 - Successfully initialized TfidfVectorizer
+2025-02-05 11:17:05,269 - relevance_evaluator.evaluator - DEBUG - __init__:96 - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
+2025-02-05 11:21:59,895 - relevance_evaluator - INFO - create_answer_relevance_evaluator:323 - Creating new AnswerRelevanceEvaluator instance
+2025-02-05 11:21:59,896 - relevance_evaluator.evaluator - INFO - __init__:83 - Initializing AnswerRelevanceEvaluator
+2025-02-05 11:21:59,898 - relevance_evaluator.evaluator - DEBUG - __init__:85 - Setting up spaCy pipeline
+2025-02-05 11:21:59,898 - relevance_evaluator.evaluator - DEBUG - __init__:87 - SpaCy pipeline components: sentencizer
+2025-02-05 11:21:59,899 - relevance_evaluator.evaluator - DEBUG - __init__:89 - Configuring TF-IDF vectorizer
+2025-02-05 11:21:59,899 - relevance_evaluator.evaluator - DEBUG - __init__:95 - Successfully initialized TfidfVectorizer
+2025-02-05 11:21:59,899 - relevance_evaluator.evaluator - DEBUG - __init__:96 - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
+2025-02-05 11:23:03,777 - relevance_evaluator - INFO - create_answer_relevance_evaluator:323 - Creating new AnswerRelevanceEvaluator instance
+2025-02-05 11:23:03,778 - relevance_evaluator.evaluator - INFO - __init__:83 - Initializing AnswerRelevanceEvaluator
+2025-02-05 11:23:03,778 - relevance_evaluator.evaluator - DEBUG - __init__:85 - Setting up spaCy pipeline
+2025-02-05 11:23:03,779 - relevance_evaluator.evaluator - DEBUG - __init__:87 - SpaCy pipeline components: sentencizer
+2025-02-05 11:23:03,779 - relevance_evaluator.evaluator - DEBUG - __init__:89 - Configuring TF-IDF vectorizer
+2025-02-05 11:23:03,780 - relevance_evaluator.evaluator - DEBUG - __init__:95 - Successfully initialized TfidfVectorizer
+2025-02-05 11:23:03,780 - relevance_evaluator.evaluator - DEBUG - __init__:96 - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
+2025-02-05 11:24:16,623 - relevance_evaluator - INFO - create_answer_relevance_evaluator:323 - Creating new AnswerRelevanceEvaluator instance
+2025-02-05 11:24:16,623 - relevance_evaluator.evaluator - INFO - __init__:83 - Initializing AnswerRelevanceEvaluator
+2025-02-05 11:24:16,623 - relevance_evaluator.evaluator - DEBUG - __init__:85 - Setting up spaCy pipeline
+2025-02-05 11:24:16,624 - relevance_evaluator.evaluator - DEBUG - __init__:87 - SpaCy pipeline components: sentencizer
+2025-02-05 11:24:16,624 - relevance_evaluator.evaluator - DEBUG - __init__:89 - Configuring TF-IDF vectorizer
+2025-02-05 11:24:16,624 - relevance_evaluator.evaluator - DEBUG - __init__:95 - Successfully initialized TfidfVectorizer
+2025-02-05 11:24:16,624 - relevance_evaluator.evaluator - DEBUG - __init__:96 - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
+2025-02-05 11:25:31,305 - relevance_evaluator - INFO - create_answer_relevance_evaluator:323 - Creating new AnswerRelevanceEvaluator instance
+2025-02-05 11:25:31,305 - relevance_evaluator.evaluator - INFO - __init__:83 - Initializing AnswerRelevanceEvaluator
+2025-02-05 11:25:31,305 - relevance_evaluator.evaluator - DEBUG - __init__:85 - Setting up spaCy pipeline
+2025-02-05 11:25:31,305 - relevance_evaluator.evaluator - DEBUG - __init__:87 - SpaCy pipeline components: sentencizer
+2025-02-05 11:25:31,306 - relevance_evaluator.evaluator - DEBUG - __init__:89 - Configuring TF-IDF vectorizer
+2025-02-05 11:25:31,307 - relevance_evaluator.evaluator - DEBUG - __init__:95 - Successfully initialized TfidfVectorizer
+2025-02-05 11:25:31,307 - relevance_evaluator.evaluator - DEBUG - __init__:96 - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
+2025-02-05 13:00:29,960 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 13:00:35,933 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 13:04:02,131 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 13:06:17,676 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model

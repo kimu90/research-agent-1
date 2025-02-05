@@ -25,14 +25,27 @@
             </div>
 
             <!-- Summary Mode Filters -->
-            <div class="sidebar-section" id="summaryFilters" >
+            <div class="sidebar-section" id="summaryFilters">
                 <h3>Summary Options</h3>
+                <!-- Prompt Folder Selection -->
+                <div class="filter-group">
+                    <label for="promptFolder">Prompt Folder</label>
+                    <select 
+                        id="promptFolder" 
+                        class="w-full p-2 border rounded"
+                        aria-label="Select prompt folder">
+                        <option value="">Select Prompt Folder...</option>
+                    </select>
+                </div>
+
+                <!-- Prompt Template Selection -->
                 <div class="filter-group">
                     <label for="promptTemplate">Prompt Template</label>
                     <select 
                         id="promptTemplate" 
                         class="w-full p-2 border rounded"
-                        aria-label="Select summary prompt template">
+                        aria-label="Select summary prompt template"
+                        disabled>
                         <option value="">Select Prompt Template...</option>
                     </select>
                     <div class="description" id="promptDescription" aria-live="polite"></div>
@@ -42,6 +55,18 @@
             <!-- Data Analysis Mode Filters -->
             <div class="sidebar-section" id="dataFilters" style="display: none;">
                 <h3>Analysis Options</h3>
+                <!-- Prompt Folder Selection for Data Analysis -->
+                <div class="filter-group">
+                    <label for="promptAnalysisFolder">Analysis Prompt Folder</label>
+                    <select 
+                        id="promptAnalysisFolder" 
+                        class="w-full p-2 border rounded"
+                        aria-label="Select analysis prompt folder">
+                        <option value="">Select Prompt Folder...</option>
+                    </select>
+                </div>
+
+                <!-- Dataset Selection -->
                 <div class="filter-group">
                     <label for="dataset">Dataset</label>
                     <select 
@@ -53,12 +78,14 @@
                     <div class="description" id="datasetDescription" aria-live="polite"></div>
                 </div>
 
+                <!-- Analysis Prompt Template Selection -->
                 <div class="filter-group">
                     <label for="analysisPromptTemplate">Analysis Prompt Template</label>
                     <select 
                         id="analysisPromptTemplate" 
                         class="w-full p-2 border rounded"
-                        aria-label="Select analysis prompt template">
+                        aria-label="Select analysis prompt template"
+                        disabled>
                         <option value="">Select Analysis Prompt...</option>
                     </select>
                     <div class="description" id="analysisPromptDescription" aria-live="polite"></div>
@@ -112,4 +139,3 @@
     <script src="/static/js/main.js" defer></script>
 </body>
 </html>
-

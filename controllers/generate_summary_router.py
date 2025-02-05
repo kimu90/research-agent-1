@@ -32,21 +32,21 @@ async def generate_summary(request: ResearchRequest):
             include_summary=True,
             prompt_name=request.prompt_name
         )
-        
+
         # Run research
         result, trace = run_tool(
             tool_name=request.tool_name,
             query=request.query,
             tool=tool
         )
-        
+
         if not result:
             raise HTTPException(status_code=400, detail="Research failed")
 
         # Function to clean response text
         def clean_text(text):
-            text = re.sub(r"\*\*|##|\*", "", text)  # Remove markdown formatting
-            text = re.sub(r"\n\s*\n", "\n", text)  # Remove excessive newlines
+            text = re.sub(r"\\*|##|\*", "", text)  # Remove markdown formatting
+            text = re.sub(r"\n\s\n", "\n", text)  # Remove excessive newlines
             return text.strip()
 
         cleaned_summary = clean_text(result.summary)
@@ -65,7 +65,7 @@ async def generate_summary(request: ResearchRequest):
             "trace_data": trace.data,
             "prompt_used": request.prompt_name
         }
-    
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
