@@ -2309,3 +2309,223 @@ ValueError: Incompatible dimension for X and Y matrices: X.shape[1] == 76 while 
 2025-02-05 11:26:43 - research_components.db - INFO - Storing query trace
 2025-02-05 11:26:43 - research_components.db - INFO - Closing database connection
 2025-02-05 13:00:30 - __main__ - INFO - INIT_DB is true. Running database initialization.
+2025-02-05 15:57:49 - __main__ - INFO - INIT_DB is true. Running database initialization.
+2025-02-05 16:04:24 - utils.token_tracking - INFO - Creating TokenUsageTracker singleton instance 132593825962064
+2025-02-05 16:04:24 - research_components.research - INFO - Starting tool execution - Tool: General Agent
+2025-02-05 16:04:24 - relevance_evaluator - INFO - Creating new AnswerRelevanceEvaluator instance
+2025-02-05 16:04:24 - relevance_evaluator.evaluator - INFO - Initializing AnswerRelevanceEvaluator
+2025-02-05 16:04:24 - relevance_evaluator.evaluator - DEBUG - Setting up spaCy pipeline
+2025-02-05 16:04:24 - relevance_evaluator.evaluator - DEBUG - SpaCy pipeline components: sentencizer
+2025-02-05 16:04:24 - relevance_evaluator.evaluator - DEBUG - Configuring TF-IDF vectorizer
+2025-02-05 16:04:24 - relevance_evaluator.evaluator - DEBUG - Successfully initialized TfidfVectorizer
+2025-02-05 16:04:24 - relevance_evaluator.evaluator - DEBUG - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
+2025-02-05 16:04:24 - root - INFO - Starting news search for query: sea cucumber
+2025-02-05 16:04:24 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): google.serper.dev:443
+2025-02-05 16:04:25 - urllib3.connectionpool - DEBUG - https://google.serper.dev:443 "POST /news?q=sea+cucumber&gl=us&hl=en&num=10 HTTP/1.1" 200 5366
+2025-02-05 16:04:25 - root - INFO - Processing 10 articles for topic: sea cucumber
+2025-02-05 16:04:25 - root - ERROR - Error in decide_what_to_use: 'snippets'
+2025-02-05 16:04:25 - root - INFO - Starting to scrape 10 news pages
+2025-02-05 16:04:27 - root - INFO - Attempting to scrape content from www.miamiherald.com
+2025-02-05 16:04:27 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.miamiherald.com:443
+2025-02-05 16:04:43 - root - ERROR - Error scraping https://www.miamiherald.com/news/nation-world/world/article299498464.html: HTTPSConnectionPool(host='www.miamiherald.com', port=443): Read timed out. (read timeout=15)
+2025-02-05 16:04:45 - root - INFO - Attempting to scrape content from www.thetimes.com
+2025-02-05 16:04:45 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.thetimes.com:443
+2025-02-05 16:04:47 - urllib3.connectionpool - DEBUG - https://www.thetimes.com:443 "GET /world/asia/article/wish-you-were-here-north-korea-opens-sea-cucumber-farm-to-tourists-lhwcfwhpc HTTP/1.1" 200 None
+2025-02-05 16:04:47 - root - INFO - Successfully scraped https://www.thetimes.com/world/asia/article/wish-you-were-here-north-korea-opens-sea-cucumber-farm-to-tourists-lhwcfwhpc (1622 chars)
+2025-02-05 16:04:49 - root - INFO - Attempting to scrape content from fernandinaobserver.com
+2025-02-05 16:04:49 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): fernandinaobserver.com:443
+2025-02-05 16:04:50 - urllib3.connectionpool - DEBUG - https://fernandinaobserver.com:443 "GET /stories/pats-wildways-sea-cucumbers,31884 HTTP/1.1" 301 None
+2025-02-05 16:04:50 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.fernandinaobserver.org:443
+2025-02-05 16:04:51 - urllib3.connectionpool - DEBUG - https://www.fernandinaobserver.org:443 "GET /stories/pats-wildways-sea-cucumbers,31884 HTTP/1.1" 200 11484
+2025-02-05 16:04:51 - root - INFO - Successfully scraped https://fernandinaobserver.com/stories/pats-wildways-sea-cucumbers,31884 (4708 chars)
+2025-02-05 16:04:53 - root - INFO - Attempting to scrape content from www.nbcnews.com
+2025-02-05 16:04:53 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.nbcnews.com:443
+2025-02-05 16:04:55 - urllib3.connectionpool - DEBUG - https://www.nbcnews.com:443 "GET /news/world/north-korea-tourists-kim-jong-il-birthday-first-time-covid-pandemic-rcna190554 HTTP/1.1" 200 60546
+2025-02-05 16:04:55 - root - INFO - Successfully scraped https://www.nbcnews.com/news/world/north-korea-tourists-kim-jong-il-birthday-first-time-covid-pandemic-rcna190554 (4494 chars)
+2025-02-05 16:04:57 - root - INFO - Attempting to scrape content from www.nature.com
+2025-02-05 16:04:57 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.nature.com:443
+2025-02-05 16:04:58 - urllib3.connectionpool - DEBUG - https://www.nature.com:443 "GET /articles/s41467-024-53205-5 HTTP/1.1" 303 150
+2025-02-05 16:04:58 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): idp.nature.com:443
+2025-02-05 16:04:58 - urllib3.connectionpool - DEBUG - https://idp.nature.com:443 "GET /authorize?response_type=cookie&client_id=grover&redirect_uri=https%3A%2F%2Fwww.nature.com%2Farticles%2Fs41467-024-53205-5 HTTP/1.1" 302 0
+2025-02-05 16:04:59 - urllib3.connectionpool - DEBUG - https://idp.nature.com:443 "GET /transit?redirect_uri=https%3A%2F%2Fwww.nature.com%2Farticles%2Fs41467-024-53205-5&code=18a84bcb-2579-46dd-99d6-4523488500eb HTTP/1.1" 302 0
+2025-02-05 16:04:59 - urllib3.connectionpool - DEBUG - https://www.nature.com:443 "GET /articles/s41467-024-53205-5 HTTP/1.1" 200 None
+2025-02-05 16:05:00 - root - INFO - Successfully scraped https://www.nature.com/articles/s41467-024-53205-5 (83319 chars)
+2025-02-05 16:05:02 - root - INFO - Attempting to scrape content from biologicaldiversity.org
+2025-02-05 16:05:02 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): biologicaldiversity.org:443
+2025-02-05 16:05:04 - urllib3.connectionpool - DEBUG - https://biologicaldiversity.org:443 "GET /w/news/press-releases/petition-urges-mexico-to-protect-chocolate-chip-sea-cucumber-2024-12-11/ HTTP/1.1" 200 None
+2025-02-05 16:05:04 - root - INFO - Successfully scraped https://biologicaldiversity.org/w/news/press-releases/petition-urges-mexico-to-protect-chocolate-chip-sea-cucumber-2024-12-11/ (3438 chars)
+2025-02-05 16:05:06 - root - INFO - Attempting to scrape content from news.cornell.edu
+2025-02-05 16:05:06 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): news.cornell.edu:443
+2025-02-05 16:05:07 - urllib3.connectionpool - DEBUG - https://news.cornell.edu:443 "GET /stories/2024/06/endangered-sea-cucumbers-sale-nyc-food-markets HTTP/1.1" 200 11622
+2025-02-05 16:05:07 - root - INFO - Successfully scraped https://news.cornell.edu/stories/2024/06/endangered-sea-cucumbers-sale-nyc-food-markets (4365 chars)
+2025-02-05 16:05:09 - root - INFO - Attempting to scrape content from www.cbp.gov
+2025-02-05 16:05:09 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.cbp.gov:443
+2025-02-05 16:05:10 - urllib3.connectionpool - DEBUG - https://www.cbp.gov:443 "GET /newsroom/local-media-release/cbp-finds-sea-cucumber-smuggled-us HTTP/1.1" 200 17427
+2025-02-05 16:05:10 - root - INFO - Successfully scraped https://www.cbp.gov/newsroom/local-media-release/cbp-finds-sea-cucumber-smuggled-us (2562 chars)
+2025-02-05 16:05:12 - root - INFO - Attempting to scrape content from pulitzercenter.org
+2025-02-05 16:05:12 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): pulitzercenter.org:443
+2025-02-05 16:05:12 - urllib3.connectionpool - DEBUG - https://pulitzercenter.org:443 "GET /stories/appetite-sea-cucumbers-connects-far-east-caribbean HTTP/1.1" 403 None
+2025-02-05 16:05:12 - root - ERROR - Error scraping https://pulitzercenter.org/stories/appetite-sea-cucumbers-connects-far-east-caribbean: 403 Client Error: Forbidden for url: https://pulitzercenter.org/stories/appetite-sea-cucumbers-connects-far-east-caribbean
+2025-02-05 16:05:14 - root - INFO - Attempting to scrape content from thefishsite.com
+2025-02-05 16:05:14 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): thefishsite.com:443
+2025-02-05 16:05:15 - urllib3.connectionpool - DEBUG - https://thefishsite.com:443 "GET /articles/illegal-fisheries-highlight-potential-for-sea-cucumber-farming HTTP/1.1" 200 None
+2025-02-05 16:05:15 - root - INFO - Successfully scraped https://thefishsite.com/articles/illegal-fisheries-highlight-potential-for-sea-cucumber-farming (3051 chars)
+2025-02-05 16:05:15 - root - INFO - Successfully scraped 8 pages out of 10 attempted
+2025-02-05 16:05:15 - root - INFO - Start inference with model llama3-70b-8192 on host groq
+2025-02-05 16:05:15 - groq._base_client - DEBUG - Request options: {'method': 'post', 'url': '/openai/v1/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': 'Analyze and summarize the following search results:\n                \n                Query: sea cucumber\n                \n                Search Results:\n                ### ‘Long’ purple sea creature — with 24 ‘feet’ — pulled from depths. It’s a new species - 4 days ago\nhttps://www.miamiherald.com/news/nation-world/world/article299498464.html\n\n\n### Wish you were here? North Korea opens sea cucumber farm to tourists - 2 days ago\nhttps://www.thetimes.com/world/asia/article/wish-you-were-here-north-korea-opens-sea-cucumber-farm-to-tourists-lhwcfwhpc\n\n\n### Pat’s Wildways: Sea Cucumbers - Sep 13, 2024\nhttps://fernandinaobserver.com/stories/pats-wildways-sea-cucumbers,31884\n\n\n### North Korea reopens to tourists after 5 years - 1 day ago\nhttps://www.nbcnews.com/news/world/north-korea-tourists-kim-jong-il-birthday-first-time-covid-pandemic-rcna190554\n\n\n### Sea cucumbers and their symbiotic microbiome have evolved to feed on seabed sediments - Oct 12, 2024\nhttps://www.nature.com/articles/s41467-024-53205-5\n\n\n### Petition Urges Mexico to Protect Chocolate Chip Sea Cucumber - Dec 11, 2024\nhttps://biologicaldiversity.org/w/news/press-releases/petition-urges-mexico-to-protect-chocolate-chip-sea-cucumber-2024-12-11/\n\n\n### Endangered sea cucumbers for sale in NYC food markets - Jun 14, 2024\nhttps://news.cornell.edu/stories/2024/06/endangered-sea-cucumbers-sale-nyc-food-markets\n\n\n### CBP Finds Sea Cucumber Smuggled in the U.S. - Aug 26, 2024\nhttps://www.cbp.gov/newsroom/local-media-release/cbp-finds-sea-cucumber-smuggled-us\n\n\n### Appetite for Sea Cucumbers Connects Far East With the Caribbean - 1 month ago\nhttps://pulitzercenter.org/stories/appetite-sea-cucumbers-connects-far-east-caribbean\n\n\n### Illegal fisheries highlight potential for sea cucumber farming - 3 weeks ago\nhttps://thefishsite.com/articles/illegal-fisheries-highlight-potential-for-sea-cucumber-farming\n\n                \n                Provide a comprehensive summary grouped by themes and include relevant links.'}, {'role': 'user', 'content': "Summarize and group the search results based on this: 'sea cucumber'. Include links, dates, and snippets from the search results."}], 'model': 'llama3-70b-8192', 'temperature': 0.7}}
+2025-02-05 16:05:15 - groq._base_client - DEBUG - Sending HTTP Request: POST https://api.groq.com/openai/v1/chat/completions
+2025-02-05 16:05:15 - httpcore.connection - DEBUG - connect_tcp.started host='api.groq.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-02-05 16:05:16 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7897e75f7f90>
+2025-02-05 16:05:16 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x7898159200e0> server_hostname='api.groq.com' timeout=5.0
+2025-02-05 16:05:16 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7897e7234550>
+2025-02-05 16:05:16 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-05 16:05:16 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-05 16:05:16 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-05 16:05:16 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-05 16:05:16 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-05 16:05:18 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 05 Feb 2025 16:05:18 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'CF-Ray', b'90d424179b2a3b45-BOM'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate'), (b'Vary', b'Origin, Accept-Encoding'), (b'Via', b'1.1 google'), (b'alt-svc', b'h3=":443"; ma=86400'), (b'x-groq-region', b'us-west-1'), (b'x-ratelimit-limit-requests', b'14400'), (b'x-ratelimit-limit-tokens', b'6000'), (b'x-ratelimit-remaining-requests', b'14399'), (b'x-ratelimit-remaining-tokens', b'5456'), (b'x-ratelimit-reset-requests', b'6s'), (b'x-ratelimit-reset-tokens', b'5.44s'), (b'x-request-id', b'req_01jkbdqjtbef386f7h0b7k5w6n'), (b'Set-Cookie', b'__cf_bm=gQAYXLh0zSU.G8Hl_KTzeiGFcVATv7V6QhbVR.iZ0EI-1738771518-1.0.1.1-rWCSypFmg2P9wtuYPnaviqDggMUfe.EO9SWAjfY6LMzOUFxyGVdhTWVu83Y8hWJzOMG0TqU4EUplfBsi2fxc_w; path=/; expires=Wed, 05-Feb-25 16:35:18 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'Content-Encoding', b'gzip')])
+2025-02-05 16:05:18 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-05 16:05:18 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-05 16:05:18 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-05 16:05:18 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-05 16:05:18 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-05 16:05:18 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Wed, 05 Feb 2025 16:05:18 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cf-ray': '90d424179b2a3b45-BOM', 'cf-cache-status': 'DYNAMIC', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin, Accept-Encoding', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'x-groq-region': 'us-west-1', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '6000', 'x-ratelimit-remaining-requests': '14399', 'x-ratelimit-remaining-tokens': '5456', 'x-ratelimit-reset-requests': '6s', 'x-ratelimit-reset-tokens': '5.44s', 'x-request-id': 'req_01jkbdqjtbef386f7h0b7k5w6n', 'set-cookie': '__cf_bm=gQAYXLh0zSU.G8Hl_KTzeiGFcVATv7V6QhbVR.iZ0EI-1738771518-1.0.1.1-rWCSypFmg2P9wtuYPnaviqDggMUfe.EO9SWAjfY6LMzOUFxyGVdhTWVu83Y8hWJzOMG0TqU4EUplfBsi2fxc_w; path=/; expires=Wed, 05-Feb-25 16:35:18 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None', 'server': 'cloudflare', 'content-encoding': 'gzip'})
+2025-02-05 16:05:19 - root - INFO - Inference completed in 3.09s
+2025-02-05 16:05:19 - root - INFO - Tokens used - Input: 582, Output: 728, Total: 1310
+2025-02-05 16:05:19 - root - INFO - Processing speed - 424.40 tokens/second
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Adding usage to instance 132593825962064
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Adding new token usage entry - Model: llama3-70b-8192, Prompt ID: dynamic-summary-prompt
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Calculating costs using rates for model llama3-70b-8192
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Calculated costs - Prompt: $0.000407, Completion: $0.000510, Total: $0.000917
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Starting inference with model llama3-70b-8192 at 2025-02-05T16:05:19.021753
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Inference completed in 0.50s
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Tokens used - Input: 582, Output: 728, Total: 1,310
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Processing speed - 2620.00 tokens/second
+2025-02-05 16:05:19 - utils.token_tracking - DEBUG - Created usage entry: TokenUsageEntry(timestamp='2025-02-05T16:05:19.022811', prompt_tokens=582, completion_tokens=728, model='llama3-70b-8192', prompt_id='dynamic-summary-prompt', cost=0.0009170000000000001, total_tokens=1310, processing_time=0.5, processing_speed=2620.0)
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Usage timeline updated - Current entries: 1 for instance 132593825962064
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Cumulative statistics updated - Total tokens: 1,310
+2025-02-05 16:05:19 - utils.token_tracking - DEBUG - Timeline state after add: ['llama3-70b-8192']
+2025-02-05 16:05:19 - root - INFO - Generated summary of news articles
+2025-02-05 16:05:19 - research_components.db - INFO - Storing accuracy evaluation
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Adding usage to instance 132593825962064
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Adding new token usage entry - Model: llama3-70b-8192, Prompt ID: factual_accuracy
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Calculating costs using rates for model llama3-70b-8192
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Calculated costs - Prompt: $0.000070, Completion: $0.000035, Total: $0.000105
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Starting inference with model llama3-70b-8192 at 2025-02-05T16:05:19.702138
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Inference completed in 0.50s
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Tokens used - Input: 100, Output: 50, Total: 150
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Processing speed - 300.00 tokens/second
+2025-02-05 16:05:19 - utils.token_tracking - DEBUG - Created usage entry: TokenUsageEntry(timestamp='2025-02-05T16:05:19.703121', prompt_tokens=100, completion_tokens=50, model='llama3-70b-8192', prompt_id='factual_accuracy', cost=0.000105, total_tokens=150, processing_time=0.5, processing_speed=300.0)
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Usage timeline updated - Current entries: 2 for instance 132593825962064
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Cumulative statistics updated - Total tokens: 1,460
+2025-02-05 16:05:19 - utils.token_tracking - DEBUG - Timeline state after add: ['llama3-70b-8192', 'llama3-70b-8192']
+2025-02-05 16:05:19 - research_components.db - INFO - Storing source coverage evaluation
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Adding usage to instance 132593825962064
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Adding new token usage entry - Model: llama3-70b-8192, Prompt ID: source_coverage
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Calculating costs using rates for model llama3-70b-8192
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Calculated costs - Prompt: $0.000070, Completion: $0.000035, Total: $0.000105
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Starting inference with model llama3-70b-8192 at 2025-02-05T16:05:19.738679
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Inference completed in 0.50s
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Tokens used - Input: 100, Output: 50, Total: 150
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Processing speed - 300.00 tokens/second
+2025-02-05 16:05:19 - utils.token_tracking - DEBUG - Created usage entry: TokenUsageEntry(timestamp='2025-02-05T16:05:19.739233', prompt_tokens=100, completion_tokens=50, model='llama3-70b-8192', prompt_id='source_coverage', cost=0.000105, total_tokens=150, processing_time=0.5, processing_speed=300.0)
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Usage timeline updated - Current entries: 3 for instance 132593825962064
+2025-02-05 16:05:19 - utils.token_tracking - INFO - Cumulative statistics updated - Total tokens: 1,610
+2025-02-05 16:05:19 - utils.token_tracking - DEBUG - Timeline state after add: ['llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192']
+2025-02-05 16:05:19 - research_components.research - ERROR - Error processing content and evaluations: Incompatible dimension for X and Y matrices: X.shape[1] == 33 while Y.shape[1] == 46
+Traceback (most recent call last):
+  File "/app/research_components/research.py", line 129, in run_tool
+    coherence_score, coherence_details = coherence_evaluator.evaluate_logical_coherence(result)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/utils/logical_coherence.py", line 115, in evaluate_logical_coherence
+    transition_scores = [
+                        ^
+  File "/app/utils/logical_coherence.py", line 116, in <listcomp>
+    cosine_similarity(
+  File "/usr/local/lib/python3.11/site-packages/sklearn/utils/_param_validation.py", line 211, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sklearn/metrics/pairwise.py", line 1577, in cosine_similarity
+    X, Y = check_pairwise_arrays(X, Y)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sklearn/metrics/pairwise.py", line 190, in check_pairwise_arrays
+    raise ValueError(
+ValueError: Incompatible dimension for X and Y matrices: X.shape[1] == 33 while Y.shape[1] == 46
+2025-02-05 16:05:19 - research_components.db - INFO - Storing query trace
+2025-02-05 16:05:19 - research_components.db - INFO - Closing database connection
+2025-02-05 16:05:44 - research_components.research - INFO - Starting tool execution - Tool: Analysis Agent
+2025-02-05 16:05:44 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-05 16:05:44 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-05 16:05:44 - root - INFO - Starting analysis for query: tell me somthing about the data
+2025-02-05 16:05:44 - root - INFO - Data validation results: {'missing_data': {'applicants': 0, 'n': 0}, 'datatypes': {'applicants': dtype('O'), 'n': dtype('int64')}, 'row_count': 20, 'column_count': 2}
+2025-02-05 16:05:45 - root - WARNING - Error in web research: name 'GoogleSerperAPIWrapper' is not defined
+2025-02-05 16:05:45 - root - INFO - Start inference with model llama3-70b-8192 on host groq
+2025-02-05 16:05:45 - groq._base_client - DEBUG - Request options: {'method': 'post', 'url': '/openai/v1/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': '**DATA ANALYSIS REPORT**  \n\n**Subject:** Analysis of {\'filename\': \'pat_app.csv\', \'shape\': (20, 2), \'columns\': [\'applicants\', \'n\'], \'dtypes\': {\'applicants\': dtype(\'O\'), \'n\': dtype(\'int64\')}, \'missing_values\': {\'applicants\': 0, \'n\': 0}, \'analysis_results\': {\'descriptive_stats\': {\'n\': {\'count\': 20.0, \'mean\': 5.75, \'std\': 2.7313964040009777, \'min\': 3.0, \'25%\': 4.0, \'50%\': 5.0, \'75%\': 7.25, \'max\': 14.0}}, \'correlations\': {\'n\': {\'n\': 1.0}}, \'missing_values\': {\'applicants\': 0, \'n\': 0}, \'unique_counts\': {\'applicants\': 20, \'n\': 8}, \'categorical_summaries\': {\'applicants\': {\'Procter & Gamble\': 1, \'3 In 1 Dental Pllc\': 1, \'Balwani Gul P\': 1, \'Alfa Biogene Int B V\': 1, \'Vital Solutions Swiss Ag\': 1, \'Univ Washington State\': 1, \'Univ Pretoria\': 1, \'Colgate Palmolive Co\': 1, \'Alfa Biogene Internat B V\': 1, \'Ionia Azure Ag\': 1, \'Hayashibara Co\': 1, \'Halliburton Energy Services Inc\': 1, \'Fujii Hajime\': 1, \'Buchwald-Werner Sybille\': 1, \'Warren Raphael\': 1, \'Undoo Llc\': 1, \'Senomyx Inc\': 1, \'Capsulent\': 1, \'Amino Up Chemical Co Ltd\': 1, \'Chan Jody Wai-Han\': 1}}, \'outliers\': {\'n\': 1}}, \'web_research\': []}  \n**Query Focus:** tell me somthing about the data  \n**Report Date:** [Current Date]  \n\n## **EXECUTIVE SUMMARY**  \n- This report presents key findings and their significance.  \n- The insights are analyzed in relation to industry trends, company behaviors, and economic implications.  \n- Notable patterns and unexpected results are highlighted.  \n\n## **REPORT CONTENTS**  \n\n### **I. DATASET OVERVIEW**  \n- The dataset\'s scope, purpose, and key attributes are outlined.  \n- The timeframe covered and any notable characteristics are detailed.  \n- Real-world context is provided, explaining the industries or entities represented and broader implications.  \n\n### **II. METHODOLOGY**  \n- The analytical approaches used are described.  \n- Statistical methods, models, or tools applied are listed.  \n- Data cleaning, transformations, and preprocessing steps are detailed.  \n\n### **III. KEY FINDINGS**  \n\n#### **A. Primary Insights**  \n- The most significant discoveries are summarized.  \n- Findings are supported with specific data points, percentages, and comparisons.  \n- The insights are linked to real-world contexts, specifying affected companies, sectors, or markets.  \n\n#### **B. Trends and Patterns**  \n- Overarching trends, recurring patterns, and anomalies are identified.  \n- Seasonal, cyclical, or geographic variations are highlighted.  \n- The relevance of these trends in business, economic, or technological contexts is analyzed.  \n\n### **IV. INDUSTRY CONTEXT**  \n- Findings are examined in relation to broader market or industry trends.  \n- Examples of real-world companies or organizations involved are included.  \n- For datasets like "pat_app" (patent applicants), the types of companies filing patents and their technological specializations are specified.  \n- Relevant external data points are incorporated to validate insights.  \n\n### **V. CONCLUSIONS**  \n- The most important takeaways are summarized.  \n- Actionable insights for decision-making are highlighted.  \n- Specific aspects of the original query are addressed with practical applications for businesses or policymakers.  \n\n'}, {'role': 'user', 'content': "Analyze the dataset 'pat_app.csv' in the context of the query: tell me somthing about the data.\n                            Include relevant insights from web research where applicable.\n                            Focus on connecting statistical findings with broader industry/research context."}], 'model': 'llama3-70b-8192', 'temperature': 0.7}}
+2025-02-05 16:05:45 - groq._base_client - DEBUG - Sending HTTP Request: POST https://api.groq.com/openai/v1/chat/completions
+2025-02-05 16:05:45 - httpcore.connection - DEBUG - close.started
+2025-02-05 16:05:45 - httpcore.connection - DEBUG - close.complete
+2025-02-05 16:05:45 - httpcore.connection - DEBUG - connect_tcp.started host='api.groq.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-02-05 16:05:45 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7897e746d310>
+2025-02-05 16:05:45 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x7898159200e0> server_hostname='api.groq.com' timeout=5.0
+2025-02-05 16:05:45 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7897e743a990>
+2025-02-05 16:05:45 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-05 16:05:45 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-05 16:05:45 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-05 16:05:45 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-05 16:05:45 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-05 16:05:47 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 05 Feb 2025 16:05:47 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'CF-Ray', b'90d424ce19e3856f-BOM'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate'), (b'Vary', b'Origin, Accept-Encoding'), (b'Via', b'1.1 google'), (b'alt-svc', b'h3=":443"; ma=86400'), (b'x-groq-region', b'us-west-1'), (b'x-ratelimit-limit-requests', b'14400'), (b'x-ratelimit-limit-tokens', b'6000'), (b'x-ratelimit-remaining-requests', b'14399'), (b'x-ratelimit-remaining-tokens', b'5117'), (b'x-ratelimit-reset-requests', b'6s'), (b'x-ratelimit-reset-tokens', b'8.83s'), (b'x-request-id', b'req_01jkbdrfb5ehfbpc49tr6grzwc'), (b'Server', b'cloudflare'), (b'Content-Encoding', b'gzip')])
+2025-02-05 16:05:47 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-05 16:05:47 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-05 16:05:47 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-05 16:05:47 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-05 16:05:47 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-05 16:05:47 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Wed, 05 Feb 2025 16:05:47 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cf-ray': '90d424ce19e3856f-BOM', 'cf-cache-status': 'DYNAMIC', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin, Accept-Encoding', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'x-groq-region': 'us-west-1', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '6000', 'x-ratelimit-remaining-requests': '14399', 'x-ratelimit-remaining-tokens': '5117', 'x-ratelimit-reset-requests': '6s', 'x-ratelimit-reset-tokens': '8.83s', 'x-request-id': 'req_01jkbdrfb5ehfbpc49tr6grzwc', 'server': 'cloudflare', 'content-encoding': 'gzip'})
+2025-02-05 16:05:47 - root - INFO - Inference completed in 2.65s
+2025-02-05 16:05:47 - root - INFO - Tokens used - Input: 926, Output: 661, Total: 1587
+2025-02-05 16:05:47 - root - INFO - Processing speed - 597.97 tokens/second
+2025-02-05 16:05:47 - utils.token_tracking - INFO - Adding usage to instance 132593825962064
+2025-02-05 16:05:47 - utils.token_tracking - INFO - Adding new token usage entry - Model: llama3-70b-8192, Prompt ID: dynamic-prompt-data_analysis.txt
+2025-02-05 16:05:47 - utils.token_tracking - INFO - Calculating costs using rates for model llama3-70b-8192
+2025-02-05 16:05:47 - utils.token_tracking - INFO - Calculated costs - Prompt: $0.000648, Completion: $0.000463, Total: $0.001111
+2025-02-05 16:05:47 - utils.token_tracking - INFO - Starting inference with model llama3-70b-8192 at 2025-02-05T16:05:47.684164
+2025-02-05 16:05:47 - utils.token_tracking - INFO - Inference completed in 0.50s
+2025-02-05 16:05:47 - utils.token_tracking - INFO - Tokens used - Input: 926, Output: 661, Total: 1,587
+2025-02-05 16:05:47 - utils.token_tracking - INFO - Processing speed - 3174.00 tokens/second
+2025-02-05 16:05:47 - utils.token_tracking - DEBUG - Created usage entry: TokenUsageEntry(timestamp='2025-02-05T16:05:47.684710', prompt_tokens=926, completion_tokens=661, model='llama3-70b-8192', prompt_id='dynamic-prompt-data_analysis.txt', cost=0.0011109000000000002, total_tokens=1587, processing_time=0.5, processing_speed=3174.0)
+2025-02-05 16:05:47 - utils.token_tracking - INFO - Usage timeline updated - Current entries: 4 for instance 132593825962064
+2025-02-05 16:05:47 - utils.token_tracking - INFO - Cumulative statistics updated - Total tokens: 3,197
+2025-02-05 16:05:47 - utils.token_tracking - DEBUG - Timeline state after add: ['llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192']
+2025-02-05 16:05:47 - utils.analysis_evaluator - INFO - Starting comprehensive analysis evaluation
+2025-02-05 16:05:47 - utils.analysis_evaluator - DEBUG - Starting numerical accuracy evaluation
+2025-02-05 16:05:47 - utils.analysis_evaluator - INFO - Found 0 numerical calculations to evaluate
+2025-02-05 16:05:47 - utils.analysis_evaluator - DEBUG - Starting query understanding evaluation
+2025-02-05 16:05:47 - utils.analysis_evaluator - INFO - Analyzing query with 6 unique terms
+2025-02-05 16:05:47 - utils.analysis_evaluator - INFO - Term coverage: 66.67% (4/6)
+2025-02-05 16:05:47 - utils.analysis_evaluator - DEBUG - Analytical element 'methodology': Present
+2025-02-05 16:05:47 - utils.analysis_evaluator - DEBUG - Analytical element 'findings': Present
+2025-02-05 16:05:47 - utils.analysis_evaluator - DEBUG - Analytical element 'statistics': Present
+2025-02-05 16:05:47 - utils.analysis_evaluator - DEBUG - Analytical element 'data_reference': Present
+2025-02-05 16:05:47 - utils.analysis_evaluator - DEBUG - Starting data validation evaluation
+2025-02-05 16:05:47 - utils.analysis_evaluator - DEBUG - Validation check 'missing_data': Present
+2025-02-05 16:05:47 - utils.analysis_evaluator - DEBUG - Validation check 'outliers': Missing
+2025-02-05 16:05:47 - utils.analysis_evaluator - DEBUG - Validation check 'distribution': Present
+2025-02-05 16:05:47 - utils.analysis_evaluator - DEBUG - Validation check 'data_types': Present
+2025-02-05 16:05:47 - utils.analysis_evaluator - DEBUG - Starting reasoning transparency evaluation
+2025-02-05 16:05:47 - utils.analysis_evaluator - INFO - Analyzing 33 sentences for reasoning transparency
+2025-02-05 16:05:47 - utils.analysis_evaluator - DEBUG - Transparency check 'explains_steps': Missing
+2025-02-05 16:05:47 - utils.analysis_evaluator - DEBUG - Transparency check 'states_assumptions': Missing
+2025-02-05 16:05:47 - utils.analysis_evaluator - DEBUG - Transparency check 'mentions_limitations': Missing
+2025-02-05 16:05:47 - utils.analysis_evaluator - DEBUG - Transparency check 'cites_evidence': Missing
+2025-02-05 16:05:47 - utils.analysis_evaluator - DEBUG - Transparency check 'has_conclusion': Missing
+2025-02-05 16:05:47 - utils.analysis_evaluator - DEBUG - Transparency check 'has_examples': Missing
+2025-02-05 16:05:47 - utils.analysis_evaluator - INFO - Average sentence length: 14.3 words
+2025-02-05 16:05:47 - utils.analysis_evaluator - INFO - Numerical Accuracy score: 0.00%
+2025-02-05 16:05:47 - utils.analysis_evaluator - INFO - Query Understanding score: 83.33%
+2025-02-05 16:05:47 - utils.analysis_evaluator - INFO - Data Validation score: 75.00%
+2025-02-05 16:05:47 - utils.analysis_evaluator - INFO - Reasoning Transparency score: 0.00%
+2025-02-05 16:05:47 - utils.analysis_evaluator - INFO - Overall evaluation score: 39.58%
+2025-02-05 16:05:47 - research_components.db - INFO - Storing analysis evaluation
+2025-02-05 16:05:47 - research_components.db - INFO - Storing content result
+2025-02-05 16:05:47 - research_components.db - INFO - Successfully stored content with ID: 33
+2025-02-05 16:05:47 - research_components.db - INFO - Storing query trace
+2025-02-05 16:05:47 - research_components.db - INFO - Closing database connection

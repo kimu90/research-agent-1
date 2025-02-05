@@ -109,3 +109,23 @@
 2025-02-05 13:00:35,933 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
 2025-02-05 13:04:02,131 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
 2025-02-05 13:06:17,676 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 15:57:47,673 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 15:57:58,482 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 16:00:15,269 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 16:02:53,421 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 16:04:17,118 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 16:04:24,537 - relevance_evaluator - INFO - create_answer_relevance_evaluator:323 - Creating new AnswerRelevanceEvaluator instance
+2025-02-05 16:04:24,537 - relevance_evaluator.evaluator - INFO - __init__:83 - Initializing AnswerRelevanceEvaluator
+2025-02-05 16:04:24,537 - relevance_evaluator.evaluator - DEBUG - __init__:85 - Setting up spaCy pipeline
+2025-02-05 16:04:24,538 - relevance_evaluator.evaluator - DEBUG - __init__:87 - SpaCy pipeline components: sentencizer
+2025-02-05 16:04:24,538 - relevance_evaluator.evaluator - DEBUG - __init__:89 - Configuring TF-IDF vectorizer
+2025-02-05 16:04:24,538 - relevance_evaluator.evaluator - DEBUG - __init__:95 - Successfully initialized TfidfVectorizer
+2025-02-05 16:04:24,538 - relevance_evaluator.evaluator - DEBUG - __init__:96 - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
+2025-02-05 16:16:01,710 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 16:19:44,286 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 16:36:36,513 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 16:38:01,560 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 16:52:12,051 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 16:52:20,863 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 16:53:01,835 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-05 16:56:15,990 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
