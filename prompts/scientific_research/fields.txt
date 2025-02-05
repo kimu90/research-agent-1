@@ -1,30 +1,42 @@
-SPECIES RESEARCH OVERVIEW PROMPT
+SPECIES DATA CONTEXT EXTRACTION PROMPT
 
-Species Name: [SPECIES_NAME]
+Objective:
+Extract and contextualize raw data insights for [SPECIES_NAME] research
 
-Instructions:
-1. Read the provided text file containing research data about the species.
-2. Analyze the content to create a comprehensive research overview.
-3. Identify and highlight the key research themes, topics, and scientific focus.
+Data Extraction Guidelines:
 
-Research Overview Structure:
-1. Primary Research Domains
-   - Identify the main areas of scientific investigation
-   - Describe the significance of each research domain
+1. Quantitative Data Extraction
+   - Identify numerical values, percentages, and measurable research metrics
+   - Capture specific research parameters
+   - Extract precise scientific measurements and statistical findings
 
-2. Key Research Topics
-   - List specific research topics
-   - Highlight innovative approaches and findings
+2. Data Contextualization
+   - Provide raw data points
+   - Highlight specific numerical insights
+   - Focus on factual, measurable research outcomes
 
-3. Research Significance
-   - Explain the broader scientific importance
-   - Discuss the relevance of the research
+3. Key Data Points to Capture
+   A. Pharmacological Research
+      - Exact compound concentrations
+      - Specific antioxidant and anti-inflammatory measurements
+      - Quantitative therapeutic potential indicators
 
-4. Research Insights
-   - Provide a summary of critical discoveries
-   - Outline potential future research directions
+   B. Ecological Measurements
+      - Precise habitat distribution data
+      - Specific climate adaptation metrics
+      - Quantitative conservation status parameters
 
-Approach:
-- Use clear, academic language
-- Maintain scientific objectivity
-- Provide a structured and informative analysis
+   C. Nutritional Composition
+      - Exact nutritional profile measurements
+      - Specific vitamin and mineral concentrations
+      - Precise processing efficiency metrics
+
+4. Research Data Representation
+   - Prioritize raw numerical data
+   - Avoid interpretative descriptions
+   - Focus on extractable, verifiable scientific measurements
+
+Extraction Constraints:
+- Use only data directly from research sources
+- Maintain scientific accuracy
+- Provide context without subjective interpretation
