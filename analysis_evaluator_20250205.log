@@ -2899,3 +2899,98 @@ ValueError: Incompatible dimension for X and Y matrices: X.shape[1] == 27 while 
 2025-02-05 17:09:03 - urllib3.connectionpool - DEBUG - https://cals.ncsu.edu:443 "GET /crop-and-soil-sciences/news/debjani-sihi-joins-nc-state-to-advance-agriculture-with-ai-and-big-data/ HTTP/1.1" 200 18071
 2025-02-05 17:09:05 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.kff.org:443
 2025-02-05 17:09:06 - urllib3.connectionpool - DEBUG - https://www.kff.org:443 "GET /policy-watch/a-look-at-federal-health-data-taken-offline/ HTTP/1.1" 200 None
+2025-02-05 17:09:08 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): martech.org:443
+2025-02-05 17:09:10 - urllib3.connectionpool - DEBUG - https://martech.org:443 "GET /data-literacy-for-marketers-what-you-need-to-know/ HTTP/1.1" 200 None
+2025-02-05 17:09:12 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): qz.com:443
+2025-02-05 17:09:13 - urllib3.connectionpool - DEBUG - https://qz.com:443 "GET /top-countries-most-data-centers-ai-cloud-google-meta-1851754386 HTTP/1.1" 200 66392
+2025-02-05 17:09:15 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): news.clemson.edu:443
+2025-02-05 17:09:16 - urllib3.connectionpool - DEBUG - https://news.clemson.edu:443 "GET /communication-professor-publishes-book-on-wearable-technology-and-the-complex-ways-data-influences-daily-life/ HTTP/1.1" 200 None
+2025-02-05 17:09:19 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.insidehighered.com:443
+2025-02-05 17:09:20 - urllib3.connectionpool - DEBUG - https://www.insidehighered.com:443 "GET /opinion/career-advice/2025/02/04/ideas-more-inclusive-data-collectionanalysis-opinion HTTP/1.1" 200 None
+2025-02-05 17:09:22 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.kansascity.com:443
+2025-02-05 17:09:38 - root - ERROR - Error scraping https://www.kansascity.com/news/business/article299735309.html: HTTPSConnectionPool(host='www.kansascity.com', port=443): Read timed out. (read timeout=15)
+2025-02-05 17:09:40 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): healthjournalism.org:443
+2025-02-05 17:09:43 - urllib3.connectionpool - DEBUG - https://healthjournalism.org:443 "GET /blog/2025/02/trumps-data-purge-what-to-know-about-federal-infectious-disease-sites/ HTTP/1.1" 200 None
+2025-02-05 17:09:43 - root - INFO - Start inference with model llama3-70b-8192 on host groq
+2025-02-05 17:09:43 - groq._base_client - DEBUG - Request options: {'method': 'post', 'url': '/openai/v1/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': "Analyze and summarize the following search results:\n               \n               Query: what is data?\n               Search Results: ### DeepSeek coding has the capability to transfer users' data directly to the Chinese government - 4 hours ago\nhttps://abcnews.go.com/US/deepseek-coding-capability-transfer-users-data-directly-chinese/story?id=118465451\n\n\n### Immuta's 2025 State of Data Security Report Highlights the Consequences of a Broken Data Provisioning System - 3 hours ago\nhttps://www.prnewswire.com/news-releases/immutas-2025-state-of-data-security-report-highlights-the-consequences-of-a-broken-data-provisioning-system-302368778.html\n\n\n### Debjani Sihi Joins NC State to Advance Agriculture with AI and Big Data - 1 hour ago\nhttps://cals.ncsu.edu/crop-and-soil-sciences/news/debjani-sihi-joins-nc-state-to-advance-agriculture-with-ai-and-big-data/\n\n\n### A Look at Federal Health Data Taken Offline - 2 days ago\nhttps://www.kff.org/policy-watch/a-look-at-federal-health-data-taken-offline/\n\n\n### Data literacy for marketers: What you need to know - 5 days ago\nhttps://martech.org/data-literacy-for-marketers-what-you-need-to-know/\n\n\n### The top 10 countries in the world by data centers - 7 hours ago\nhttps://qz.com/top-countries-most-data-centers-ai-cloud-google-meta-1851754386\n\n\n### Communication professor publishes book on wearable technology and the complex ways data influences daily life - 20 hours ago\nhttps://news.clemson.edu/communication-professor-publishes-book-on-wearable-technology-and-the-complex-ways-data-influences-daily-life/\n\n\n### Ideas for more inclusive data collection/analysis (opinion) - 1 day ago\nhttps://www.insidehighered.com/opinion/career-advice/2025/02/04/ideas-more-inclusive-data-collectionanalysis-opinion\n\n\n### Which Kansas, Missouri grocery prices have risen the most in 5 years? See the data - 6 hours ago\nhttps://www.kansascity.com/news/business/article299735309.html\n\n\n### Trump’s data purge: What to know about federal infectious disease sites - 2 hours ago\nhttps://healthjournalism.org/blog/2025/02/trumps-data-purge-what-to-know-about-federal-infectious-disease-sites/\n\n               \n               Provide a comprehensive summary grouped by themes and include relevant links."}, {'role': 'user', 'content': "Summarize and group the search results based on this: 'what is data?'. Include links, dates, and snippets from the search results."}], 'model': 'llama3-70b-8192', 'temperature': 0.7}}
+2025-02-05 17:09:43 - groq._base_client - DEBUG - Sending HTTP Request: POST https://api.groq.com/openai/v1/chat/completions
+2025-02-05 17:09:43 - httpcore.connection - DEBUG - close.started
+2025-02-05 17:09:43 - httpcore.connection - DEBUG - close.complete
+2025-02-05 17:09:43 - httpcore.connection - DEBUG - connect_tcp.started host='api.groq.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-02-05 17:09:43 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x783e21419ed0>
+2025-02-05 17:09:43 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x783e4f7e4200> server_hostname='api.groq.com' timeout=5.0
+2025-02-05 17:09:43 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x783e2141c810>
+2025-02-05 17:09:43 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-05 17:09:43 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-05 17:09:43 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-05 17:09:43 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-05 17:09:43 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-05 17:09:47 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 05 Feb 2025 17:09:47 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'CF-Ray', b'90d48285ec46856f-BOM'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate'), (b'Vary', b'Origin, Accept-Encoding'), (b'Via', b'1.1 google'), (b'alt-svc', b'h3=":443"; ma=86400'), (b'x-groq-region', b'us-west-1'), (b'x-ratelimit-limit-requests', b'14400'), (b'x-ratelimit-limit-tokens', b'6000'), (b'x-ratelimit-remaining-requests', b'14399'), (b'x-ratelimit-remaining-tokens', b'5399'), (b'x-ratelimit-reset-requests', b'6s'), (b'x-ratelimit-reset-tokens', b'6.01s'), (b'x-request-id', b'req_01jkbhdm26fb79aegnvdbs58hy'), (b'Server', b'cloudflare'), (b'Content-Encoding', b'gzip')])
+2025-02-05 17:09:47 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-05 17:09:47 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-05 17:09:47 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-05 17:09:47 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-05 17:09:47 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-05 17:09:47 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Wed, 05 Feb 2025 17:09:47 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cf-ray': '90d48285ec46856f-BOM', 'cf-cache-status': 'DYNAMIC', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin, Accept-Encoding', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'x-groq-region': 'us-west-1', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '6000', 'x-ratelimit-remaining-requests': '14399', 'x-ratelimit-remaining-tokens': '5399', 'x-ratelimit-reset-requests': '6s', 'x-ratelimit-reset-tokens': '6.01s', 'x-request-id': 'req_01jkbhdm26fb79aegnvdbs58hy', 'server': 'cloudflare', 'content-encoding': 'gzip'})
+2025-02-05 17:09:47 - root - INFO - Inference completed in 3.64s
+2025-02-05 17:09:47 - root - INFO - Tokens used - Input: 582, Output: 1067, Total: 1649
+2025-02-05 17:09:47 - root - INFO - Processing speed - 452.79 tokens/second
+2025-02-05 17:09:47 - utils.token_tracking - INFO - Adding usage to instance 132208252410576
+2025-02-05 17:09:47 - utils.token_tracking - INFO - Adding new token usage entry - Model: llama3-70b-8192, Prompt ID: dynamic-summary-prompt
+2025-02-05 17:09:47 - utils.token_tracking - INFO - Calculating costs using rates for model llama3-70b-8192
+2025-02-05 17:09:47 - utils.token_tracking - INFO - Calculated costs - Prompt: $0.000407, Completion: $0.000747, Total: $0.001154
+2025-02-05 17:09:47 - utils.token_tracking - INFO - Starting inference with model llama3-70b-8192 at 2025-02-05T17:09:47.572600
+2025-02-05 17:09:47 - utils.token_tracking - INFO - Inference completed in 0.50s
+2025-02-05 17:09:47 - utils.token_tracking - INFO - Tokens used - Input: 582, Output: 1,067, Total: 1,649
+2025-02-05 17:09:47 - utils.token_tracking - INFO - Processing speed - 3298.00 tokens/second
+2025-02-05 17:09:47 - utils.token_tracking - DEBUG - Created usage entry: TokenUsageEntry(timestamp='2025-02-05T17:09:47.573529', prompt_tokens=582, completion_tokens=1067, model='llama3-70b-8192', prompt_id='dynamic-summary-prompt', cost=0.0011543, total_tokens=1649, processing_time=0.5, processing_speed=3298.0)
+2025-02-05 17:09:47 - utils.token_tracking - INFO - Usage timeline updated - Current entries: 7 for instance 132208252410576
+2025-02-05 17:09:47 - utils.token_tracking - INFO - Cumulative statistics updated - Total tokens: 8,129
+2025-02-05 17:09:47 - utils.token_tracking - DEBUG - Timeline state after add: ['llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192']
+2025-02-05 17:09:48 - research_components.db - INFO - Storing accuracy evaluation
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Adding usage to instance 132208252410576
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Adding new token usage entry - Model: llama3-70b-8192, Prompt ID: factual_accuracy
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Calculating costs using rates for model llama3-70b-8192
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Calculated costs - Prompt: $0.000070, Completion: $0.000035, Total: $0.000105
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Starting inference with model llama3-70b-8192 at 2025-02-05T17:09:48.228379
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Inference completed in 0.50s
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Tokens used - Input: 100, Output: 50, Total: 150
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Processing speed - 300.00 tokens/second
+2025-02-05 17:09:48 - utils.token_tracking - DEBUG - Created usage entry: TokenUsageEntry(timestamp='2025-02-05T17:09:48.229201', prompt_tokens=100, completion_tokens=50, model='llama3-70b-8192', prompt_id='factual_accuracy', cost=0.000105, total_tokens=150, processing_time=0.5, processing_speed=300.0)
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Usage timeline updated - Current entries: 8 for instance 132208252410576
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Cumulative statistics updated - Total tokens: 8,279
+2025-02-05 17:09:48 - utils.token_tracking - DEBUG - Timeline state after add: ['llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192']
+2025-02-05 17:09:48 - research_components.db - INFO - Storing source coverage evaluation
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Adding usage to instance 132208252410576
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Adding new token usage entry - Model: llama3-70b-8192, Prompt ID: source_coverage
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Calculating costs using rates for model llama3-70b-8192
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Calculated costs - Prompt: $0.000070, Completion: $0.000035, Total: $0.000105
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Starting inference with model llama3-70b-8192 at 2025-02-05T17:09:48.278759
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Inference completed in 0.50s
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Tokens used - Input: 100, Output: 50, Total: 150
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Processing speed - 300.00 tokens/second
+2025-02-05 17:09:48 - utils.token_tracking - DEBUG - Created usage entry: TokenUsageEntry(timestamp='2025-02-05T17:09:48.279685', prompt_tokens=100, completion_tokens=50, model='llama3-70b-8192', prompt_id='source_coverage', cost=0.000105, total_tokens=150, processing_time=0.5, processing_speed=300.0)
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Usage timeline updated - Current entries: 9 for instance 132208252410576
+2025-02-05 17:09:48 - utils.token_tracking - INFO - Cumulative statistics updated - Total tokens: 8,429
+2025-02-05 17:09:48 - utils.token_tracking - DEBUG - Timeline state after add: ['llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192']
+2025-02-05 17:09:48 - research_components.research - ERROR - Error processing content and evaluations: Incompatible dimension for X and Y matrices: X.shape[1] == 5 while Y.shape[1] == 21
+Traceback (most recent call last):
+  File "/app/research_components/research.py", line 129, in run_tool
+    coherence_score, coherence_details = coherence_evaluator.evaluate_logical_coherence(result)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/utils/logical_coherence.py", line 115, in evaluate_logical_coherence
+    transition_scores = [
+                        ^
+  File "/app/utils/logical_coherence.py", line 116, in <listcomp>
+    cosine_similarity(
+  File "/usr/local/lib/python3.11/site-packages/sklearn/utils/_param_validation.py", line 211, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sklearn/metrics/pairwise.py", line 1577, in cosine_similarity
+    X, Y = check_pairwise_arrays(X, Y)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sklearn/metrics/pairwise.py", line 190, in check_pairwise_arrays
+    raise ValueError(
+ValueError: Incompatible dimension for X and Y matrices: X.shape[1] == 5 while Y.shape[1] == 21
+2025-02-05 17:09:48 - research_components.db - INFO - Storing query trace
+2025-02-05 17:09:48 - research_components.db - INFO - Closing database connection
