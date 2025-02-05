@@ -91,12 +91,13 @@ async function loadDatasets() {
 }
 
 function addMessage(content, isUser = false) {
-   const messageDiv = document.createElement('div');
-   messageDiv.className = `message ${isUser ? 'user' : 'assistant'}`;
-   messageDiv.textContent = typeof content === 'object' ? 
-       JSON.stringify(content, null, 2) : content;
-   messagesContainer.appendChild(messageDiv);
-   messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    console.log("Adding message:", { content, isUser }); // Debug log
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${isUser ? 'user' : 'assistant'}`;
+    messageDiv.textContent = typeof content === 'object' ? 
+        JSON.stringify(content, null, 2) : content;
+    messagesContainer.appendChild(messageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
 function showError(message) {
@@ -141,102 +142,131 @@ function formatDataAnalysisResponse(data) {
 }
 
 async function handleFormSubmit(e) {
-   e.preventDefault();
-   if (isLoading) return;
-
-   const inputText = speciesInput.value.trim();
-   if (!inputText) {
-       showError('Please enter ' + (currentMode === 'data' ? 'an analysis query' : 'a species name'));
-       return;
-   }
-
-   let payload = {};
-   let endpoint = API_ENDPOINTS[currentMode];
-
-   switch(currentMode) {
-       case 'data':
-           const dataset = document.getElementById('dataset').value;
-           if (!dataset) {
-               showError('Please select a dataset');
-               return;
-           }
-           
-           if (inputText.length < 2) {
-               showError('Query must be at least 2 characters');
-               return;
-           }
-
-           if (inputText.length > 200) {
-               showError('Query must not exceed 200 characters');
-               return;
-           }
-
-           payload = {
-               query: inputText,
-               dataset: dataset,
-               tool_name: "Analysis Agent",
-               prompt_name: analysisSelect.value
-           };
-           break;
-           
-       case 'summary':
-           payload = {
-               query: inputText,
-               tool_name: "General Agent",
-               prompt_name: summarySelect.value
-           };
-           break;
-           
-       case 'report':
-           payload = {
-               species: inputText,
-               template: document.getElementById('reportTemplate').value
-           };
-           break;
-   }
-
-   isLoading = true;
-   addMessage(inputText, true);
-   addMessage('Loading...', false);
-
-   try {
-       const response = await fetch(endpoint, {
-           method: 'POST',
-           headers: {
-               'Content-Type': 'application/json',
-           },
-           body: JSON.stringify(payload),
-       });
-
-       const result = await response.json();
-
-       if (response.ok) {
-           let formatted = 'No content';
-           if (currentMode === 'summary') {
-               if (result.summary) {
-                   formatted = result.summary;
-               } else if (result.content && result.content.length > 0) {
-                   formatted = result.content.map(item => 
-                       `Title: ${item.title}\nURL: ${item.url}\nSnippet: ${item.snippet}`
-                   ).join('\n\n');
-               }
-           } else {
-               formatted = currentMode === 'data' ? formatDataAnalysisResponse(result) : result;
-           }
-
-           addMessage(formatted, false);
-       } else {
-           showError(result.message || 'An error occurred');
-       }
-   } catch (error) {
-       showError(error.message || 'Failed to submit the query');
-   } finally {
-       isLoading = false;
-       messagesContainer.removeChild(messagesContainer.lastChild);
-   }
-
-   speciesInput.value = '';
-}
+    e.preventDefault();
+    if (isLoading) return;
+ 
+    const inputText = speciesInput.value.trim();
+    console.log("Submitting:", inputText);
+ 
+    if (!inputText) {
+        showError('Please enter ' + (currentMode === 'data' ? 'an analysis query' : 'a species name'));
+        return;
+    }
+ 
+    let payload = {};
+    let endpoint = API_ENDPOINTS[currentMode];
+ 
+    switch(currentMode) {
+        case 'data':
+            const dataset = document.getElementById('dataset').value;
+            if (!dataset) {
+                showError('Please select a dataset');
+                return;
+            }
+            
+            if (inputText.length < 2) {
+                showError('Query must be at least 2 characters');
+                return;
+            }
+ 
+            if (inputText.length > 200) {
+                showError('Query must not exceed 200 characters');
+                return;
+            }
+ 
+            payload = {
+                query: inputText,
+                dataset: dataset,
+                tool_name: "Analysis Agent",
+                prompt_name: analysisSelect.value
+            };
+            break;
+            
+        case 'summary':
+            const selectedTemplate = summarySelect.value;
+            if (!selectedTemplate) {
+                showError('Please select a template');
+                return;
+            }
+            payload = {
+                query: inputText,
+                tool_name: "General Agent",
+                prompt_name: selectedTemplate
+            };
+            break;
+            
+        case 'report':
+            const reportTemplate = document.getElementById('reportTemplate').value;
+            if (!reportTemplate) {
+                showError('Please select a report template');
+                return;
+            }
+            payload = {
+                species: inputText,
+                template: reportTemplate
+            };
+            break;
+    }
+ 
+    console.log("Sending payload:", payload);
+    console.log("To endpoint:", endpoint);
+ 
+    isLoading = true;
+    addMessage(inputText, true);
+    const loadingMsg = 'Loading...';
+    addMessage(loadingMsg, false);
+ 
+    try {
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        });
+ 
+        const result = await response.json();
+        console.log("Received response:", result);
+ 
+        if (response.ok) {
+            let formatted = 'No content';
+            if (currentMode === 'summary') {
+                if (result.summary) {
+                    formatted = result.summary;
+                } else if (result.content && result.content.length > 0) {
+                    formatted = result.content.map(item => 
+                        `Title: ${item.title}\nURL: ${item.url}\nSnippet: ${item.snippet}`
+                    ).join('\n\n');
+                }
+            } else {
+                formatted = currentMode === 'data' ? formatDataAnalysisResponse(result) : result;
+            }
+            console.log("Formatted response:", formatted);
+            
+            // Remove loading message
+            if (messagesContainer.lastChild) {
+                messagesContainer.removeChild(messagesContainer.lastChild);
+            }
+            
+            // Add formatted response
+            addMessage(formatted, false);
+        } else {
+            if (messagesContainer.lastChild) {
+                messagesContainer.removeChild(messagesContainer.lastChild);
+            }
+            showError(result.message || 'An error occurred');
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        if (messagesContainer.lastChild) {
+            messagesContainer.removeChild(messagesContainer.lastChild);
+        }
+        showError(error.message || 'Failed to submit the query');
+    } finally {
+        isLoading = false;
+        speciesInput.value = '';
+    }
+ }
 
 // Event Listeners
 modeButtons.forEach(button => {

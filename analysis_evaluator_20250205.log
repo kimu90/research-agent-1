@@ -2529,3 +2529,373 @@ ValueError: Incompatible dimension for X and Y matrices: X.shape[1] == 33 while 
 2025-02-05 16:05:47 - research_components.db - INFO - Successfully stored content with ID: 33
 2025-02-05 16:05:47 - research_components.db - INFO - Storing query trace
 2025-02-05 16:05:47 - research_components.db - INFO - Closing database connection
+2025-02-05 17:00:47 - utils.token_tracking - INFO - Creating TokenUsageTracker singleton instance 132208252410576
+2025-02-05 17:00:47 - research_components.research - INFO - Starting tool execution - Tool: Analysis Agent
+2025-02-05 17:00:47 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-05 17:00:47 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-05 17:00:47 - root - INFO - Starting analysis for query: tell me somthing about the data
+2025-02-05 17:00:47 - root - INFO - Data validation results: {'missing_data': {'applicants': 0, 'n': 0}, 'datatypes': {'applicants': dtype('O'), 'n': dtype('int64')}, 'row_count': 20, 'column_count': 2}
+2025-02-05 17:00:47 - root - WARNING - Error in web research: name 'GoogleSerperAPIWrapper' is not defined
+2025-02-05 17:00:47 - root - INFO - Start inference with model llama3-70b-8192 on host groq
+2025-02-05 17:00:47 - groq._base_client - DEBUG - Request options: {'method': 'post', 'url': '/openai/v1/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': '**DATA ANALYSIS REPORT**  \n\n**Subject:** Analysis of {\'filename\': \'pat_app.csv\', \'shape\': (20, 2), \'columns\': [\'applicants\', \'n\'], \'dtypes\': {\'applicants\': dtype(\'O\'), \'n\': dtype(\'int64\')}, \'missing_values\': {\'applicants\': 0, \'n\': 0}, \'analysis_results\': {\'descriptive_stats\': {\'n\': {\'count\': 20.0, \'mean\': 5.75, \'std\': 2.7313964040009777, \'min\': 3.0, \'25%\': 4.0, \'50%\': 5.0, \'75%\': 7.25, \'max\': 14.0}}, \'correlations\': {\'n\': {\'n\': 1.0}}, \'missing_values\': {\'applicants\': 0, \'n\': 0}, \'unique_counts\': {\'applicants\': 20, \'n\': 8}, \'categorical_summaries\': {\'applicants\': {\'Procter & Gamble\': 1, \'3 In 1 Dental Pllc\': 1, \'Balwani Gul P\': 1, \'Alfa Biogene Int B V\': 1, \'Vital Solutions Swiss Ag\': 1, \'Univ Washington State\': 1, \'Univ Pretoria\': 1, \'Colgate Palmolive Co\': 1, \'Alfa Biogene Internat B V\': 1, \'Ionia Azure Ag\': 1, \'Hayashibara Co\': 1, \'Halliburton Energy Services Inc\': 1, \'Fujii Hajime\': 1, \'Buchwald-Werner Sybille\': 1, \'Warren Raphael\': 1, \'Undoo Llc\': 1, \'Senomyx Inc\': 1, \'Capsulent\': 1, \'Amino Up Chemical Co Ltd\': 1, \'Chan Jody Wai-Han\': 1}}, \'outliers\': {\'n\': 1}}, \'web_research\': []}  \n**Query Focus:** tell me somthing about the data  \n**Report Date:** [Current Date]  \n\n## **EXECUTIVE SUMMARY**  \n- This report presents key findings and their significance.  \n- The insights are analyzed in relation to industry trends, company behaviors, and economic implications.  \n- Notable patterns and unexpected results are highlighted.  \n\n## **REPORT CONTENTS**  \n\n### **I. DATASET OVERVIEW**  \n- The dataset\'s scope, purpose, and key attributes are outlined.  \n- The timeframe covered and any notable characteristics are detailed.  \n- Real-world context is provided, explaining the industries or entities represented and broader implications.  \n\n### **II. METHODOLOGY**  \n- The analytical approaches used are described.  \n- Statistical methods, models, or tools applied are listed.  \n- Data cleaning, transformations, and preprocessing steps are detailed.  \n\n### **III. KEY FINDINGS**  \n\n#### **A. Primary Insights**  \n- The most significant discoveries are summarized.  \n- Findings are supported with specific data points, percentages, and comparisons.  \n- The insights are linked to real-world contexts, specifying affected companies, sectors, or markets.  \n\n#### **B. Trends and Patterns**  \n- Overarching trends, recurring patterns, and anomalies are identified.  \n- Seasonal, cyclical, or geographic variations are highlighted.  \n- The relevance of these trends in business, economic, or technological contexts is analyzed.  \n\n### **IV. INDUSTRY CONTEXT**  \n- Findings are examined in relation to broader market or industry trends.  \n- Examples of real-world companies or organizations involved are included.  \n- For datasets like "pat_app" (patent applicants), the types of companies filing patents and their technological specializations are specified.  \n- Relevant external data points are incorporated to validate insights.  \n\n### **V. CONCLUSIONS**  \n- The most important takeaways are summarized.  \n- Actionable insights for decision-making are highlighted.  \n- Specific aspects of the original query are addressed with practical applications for businesses or policymakers.  \n\n'}, {'role': 'user', 'content': "Analyze the dataset 'pat_app.csv' in the context of the query: tell me somthing about the data.\n                            Include relevant insights from web research where applicable.\n                            Focus on connecting statistical findings with broader industry/research context."}], 'model': 'llama3-70b-8192', 'temperature': 0.7}}
+2025-02-05 17:00:47 - groq._base_client - DEBUG - Sending HTTP Request: POST https://api.groq.com/openai/v1/chat/completions
+2025-02-05 17:00:47 - httpcore.connection - DEBUG - connect_tcp.started host='api.groq.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-02-05 17:00:47 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x783e21ee9150>
+2025-02-05 17:00:47 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x783e4f7e4200> server_hostname='api.groq.com' timeout=5.0
+2025-02-05 17:00:47 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x783e21d240d0>
+2025-02-05 17:00:47 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-05 17:00:47 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-05 17:00:47 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-05 17:00:47 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-05 17:00:47 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-05 17:00:50 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 05 Feb 2025 17:00:50 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'CF-Ray', b'90d4756db8ac3b45-BOM'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate'), (b'Vary', b'Origin, Accept-Encoding'), (b'Via', b'1.1 google'), (b'alt-svc', b'h3=":443"; ma=86400'), (b'x-groq-region', b'us-west-1'), (b'x-ratelimit-limit-requests', b'14400'), (b'x-ratelimit-limit-tokens', b'6000'), (b'x-ratelimit-remaining-requests', b'14399'), (b'x-ratelimit-remaining-tokens', b'5117'), (b'x-ratelimit-reset-requests', b'6s'), (b'x-ratelimit-reset-tokens', b'8.83s'), (b'x-request-id', b'req_01jkbgx88zfx5800jw21mxv4zf'), (b'Set-Cookie', b'__cf_bm=_Y4PtXuITFPWkKQXt7Wn7dDdA5iYi86v_Hco.1qnjGA-1738774850-1.0.1.1-QRbGITVCSd.RdZ9leacpy_9WeVOu1pZnJPEmn2szGpVKD_lp1QsEFnwQqRywUveALC7h52EDm7ngkk5TZeB6XA; path=/; expires=Wed, 05-Feb-25 17:30:50 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'Content-Encoding', b'gzip')])
+2025-02-05 17:00:50 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-05 17:00:50 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-05 17:00:50 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-05 17:00:50 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-05 17:00:50 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-05 17:00:50 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Wed, 05 Feb 2025 17:00:50 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cf-ray': '90d4756db8ac3b45-BOM', 'cf-cache-status': 'DYNAMIC', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin, Accept-Encoding', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'x-groq-region': 'us-west-1', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '6000', 'x-ratelimit-remaining-requests': '14399', 'x-ratelimit-remaining-tokens': '5117', 'x-ratelimit-reset-requests': '6s', 'x-ratelimit-reset-tokens': '8.83s', 'x-request-id': 'req_01jkbgx88zfx5800jw21mxv4zf', 'set-cookie': '__cf_bm=_Y4PtXuITFPWkKQXt7Wn7dDdA5iYi86v_Hco.1qnjGA-1738774850-1.0.1.1-QRbGITVCSd.RdZ9leacpy_9WeVOu1pZnJPEmn2szGpVKD_lp1QsEFnwQqRywUveALC7h52EDm7ngkk5TZeB6XA; path=/; expires=Wed, 05-Feb-25 17:30:50 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None', 'server': 'cloudflare', 'content-encoding': 'gzip'})
+2025-02-05 17:00:50 - root - INFO - Inference completed in 2.70s
+2025-02-05 17:00:50 - root - INFO - Tokens used - Input: 926, Output: 753, Total: 1679
+2025-02-05 17:00:50 - root - INFO - Processing speed - 622.67 tokens/second
+2025-02-05 17:00:50 - utils.token_tracking - INFO - Adding usage to instance 132208252410576
+2025-02-05 17:00:50 - utils.token_tracking - INFO - Adding new token usage entry - Model: llama3-70b-8192, Prompt ID: dynamic-prompt-patents/data_analysis.txt
+2025-02-05 17:00:50 - utils.token_tracking - INFO - Calculating costs using rates for model llama3-70b-8192
+2025-02-05 17:00:50 - utils.token_tracking - INFO - Calculated costs - Prompt: $0.000648, Completion: $0.000527, Total: $0.001175
+2025-02-05 17:00:50 - utils.token_tracking - INFO - Starting inference with model llama3-70b-8192 at 2025-02-05T17:00:50.146724
+2025-02-05 17:00:50 - utils.token_tracking - INFO - Inference completed in 0.50s
+2025-02-05 17:00:50 - utils.token_tracking - INFO - Tokens used - Input: 926, Output: 753, Total: 1,679
+2025-02-05 17:00:50 - utils.token_tracking - INFO - Processing speed - 3358.00 tokens/second
+2025-02-05 17:00:50 - utils.token_tracking - DEBUG - Created usage entry: TokenUsageEntry(timestamp='2025-02-05T17:00:50.147144', prompt_tokens=926, completion_tokens=753, model='llama3-70b-8192', prompt_id='dynamic-prompt-patents/data_analysis.txt', cost=0.0011753, total_tokens=1679, processing_time=0.5, processing_speed=3358.0)
+2025-02-05 17:00:50 - utils.token_tracking - INFO - Usage timeline updated - Current entries: 1 for instance 132208252410576
+2025-02-05 17:00:50 - utils.token_tracking - INFO - Cumulative statistics updated - Total tokens: 1,679
+2025-02-05 17:00:50 - utils.token_tracking - DEBUG - Timeline state after add: ['llama3-70b-8192']
+2025-02-05 17:00:50 - utils.analysis_evaluator - INFO - Starting comprehensive analysis evaluation
+2025-02-05 17:00:50 - utils.analysis_evaluator - DEBUG - Starting numerical accuracy evaluation
+2025-02-05 17:00:50 - utils.analysis_evaluator - INFO - Found 0 numerical calculations to evaluate
+2025-02-05 17:00:50 - utils.analysis_evaluator - DEBUG - Starting query understanding evaluation
+2025-02-05 17:00:50 - utils.analysis_evaluator - INFO - Analyzing query with 6 unique terms
+2025-02-05 17:00:50 - utils.analysis_evaluator - INFO - Term coverage: 83.33% (5/6)
+2025-02-05 17:00:50 - utils.analysis_evaluator - DEBUG - Analytical element 'methodology': Present
+2025-02-05 17:00:50 - utils.analysis_evaluator - DEBUG - Analytical element 'findings': Present
+2025-02-05 17:00:50 - utils.analysis_evaluator - DEBUG - Analytical element 'statistics': Present
+2025-02-05 17:00:50 - utils.analysis_evaluator - DEBUG - Analytical element 'data_reference': Present
+2025-02-05 17:00:50 - utils.analysis_evaluator - DEBUG - Starting data validation evaluation
+2025-02-05 17:00:50 - utils.analysis_evaluator - DEBUG - Validation check 'missing_data': Missing
+2025-02-05 17:00:50 - utils.analysis_evaluator - DEBUG - Validation check 'outliers': Missing
+2025-02-05 17:00:50 - utils.analysis_evaluator - DEBUG - Validation check 'distribution': Present
+2025-02-05 17:00:50 - utils.analysis_evaluator - DEBUG - Validation check 'data_types': Present
+2025-02-05 17:00:50 - utils.analysis_evaluator - DEBUG - Starting reasoning transparency evaluation
+2025-02-05 17:00:50 - utils.analysis_evaluator - INFO - Analyzing 29 sentences for reasoning transparency
+2025-02-05 17:00:50 - utils.analysis_evaluator - DEBUG - Transparency check 'explains_steps': Missing
+2025-02-05 17:00:50 - utils.analysis_evaluator - DEBUG - Transparency check 'states_assumptions': Missing
+2025-02-05 17:00:50 - utils.analysis_evaluator - DEBUG - Transparency check 'mentions_limitations': Missing
+2025-02-05 17:00:50 - utils.analysis_evaluator - DEBUG - Transparency check 'cites_evidence': Missing
+2025-02-05 17:00:50 - utils.analysis_evaluator - DEBUG - Transparency check 'has_conclusion': Missing
+2025-02-05 17:00:50 - utils.analysis_evaluator - DEBUG - Transparency check 'has_examples': Missing
+2025-02-05 17:00:50 - utils.analysis_evaluator - INFO - Average sentence length: 20.6 words
+2025-02-05 17:00:50 - utils.analysis_evaluator - INFO - Numerical Accuracy score: 0.00%
+2025-02-05 17:00:50 - utils.analysis_evaluator - INFO - Query Understanding score: 91.67%
+2025-02-05 17:00:50 - utils.analysis_evaluator - INFO - Data Validation score: 50.00%
+2025-02-05 17:00:50 - utils.analysis_evaluator - INFO - Reasoning Transparency score: 0.00%
+2025-02-05 17:00:50 - utils.analysis_evaluator - INFO - Overall evaluation score: 35.42%
+2025-02-05 17:00:50 - research_components.db - INFO - Storing analysis evaluation
+2025-02-05 17:00:50 - research_components.db - INFO - Storing content result
+2025-02-05 17:00:50 - research_components.db - INFO - Successfully stored content with ID: 34
+2025-02-05 17:00:50 - research_components.db - INFO - Storing query trace
+2025-02-05 17:00:50 - research_components.db - INFO - Closing database connection
+2025-02-05 17:01:56 - research_components.research - INFO - Starting tool execution - Tool: General Agent
+2025-02-05 17:01:56 - relevance_evaluator - INFO - Creating new AnswerRelevanceEvaluator instance
+2025-02-05 17:01:56 - relevance_evaluator.evaluator - INFO - Initializing AnswerRelevanceEvaluator
+2025-02-05 17:01:56 - relevance_evaluator.evaluator - DEBUG - Setting up spaCy pipeline
+2025-02-05 17:01:56 - relevance_evaluator.evaluator - DEBUG - SpaCy pipeline components: sentencizer
+2025-02-05 17:01:56 - relevance_evaluator.evaluator - DEBUG - Configuring TF-IDF vectorizer
+2025-02-05 17:01:56 - relevance_evaluator.evaluator - DEBUG - Successfully initialized TfidfVectorizer
+2025-02-05 17:01:56 - relevance_evaluator.evaluator - DEBUG - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
+2025-02-05 17:01:56 - root - INFO - Starting news search for query: tell me somthing about the data
+2025-02-05 17:01:56 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): google.serper.dev:443
+2025-02-05 17:01:57 - urllib3.connectionpool - DEBUG - https://google.serper.dev:443 "POST /news?q=tell+me+somthing+about+the+data&gl=us&hl=en&num=10 HTTP/1.1" 200 5214
+2025-02-05 17:01:57 - root - INFO - Processing 10 articles for topic: tell me somthing about the data
+2025-02-05 17:01:57 - root - ERROR - Error in decide_what_to_use: 'snippets'
+2025-02-05 17:01:57 - root - INFO - Starting to scrape 10 news pages
+2025-02-05 17:01:59 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.resources.org:443
+2025-02-05 17:02:01 - urllib3.connectionpool - DEBUG - https://www.resources.org:443 "GET /resources-radio/what-can-cell-phone-data-tell-us-about-outdoor-recreation-with-daniel-phaneuf/ HTTP/1.1" 200 None
+2025-02-05 17:02:03 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.nytimes.com:443
+2025-02-05 17:02:05 - urllib3.connectionpool - DEBUG - https://www.nytimes.com:443 "GET /2024/04/12/podcasts/ai-training-data-privacy-tiktok.html HTTP/1.1" 200 222414
+2025-02-05 17:02:07 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.cnn.com:443
+2025-02-05 17:02:07 - urllib3.connectionpool - DEBUG - https://www.cnn.com:443 "GET /2024/10/17/politics/early-voting-election-what-matters/index.html HTTP/1.1" 302 0
+2025-02-05 17:02:07 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): edition.cnn.com:443
+2025-02-05 17:02:08 - urllib3.connectionpool - DEBUG - https://edition.cnn.com:443 "GET /2024/10/17/politics/early-voting-election-what-matters/index.html HTTP/1.1" 200 615801
+2025-02-05 17:02:11 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.pbs.org:443
+2025-02-05 17:02:13 - urllib3.connectionpool - DEBUG - https://www.pbs.org:443 "GET /newshour/show/what-early-voting-data-signals-about-this-years-election HTTP/1.1" 200 None
+2025-02-05 17:02:15 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): time.com:443
+2025-02-05 17:02:15 - urllib3.connectionpool - DEBUG - https://time.com:443 "GET /6962608/data-annotation-legit-tech-jobs-ai/ HTTP/1.1" 200 60081
+2025-02-05 17:02:17 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): towardsdatascience.com:443
+2025-02-05 17:02:19 - urllib3.connectionpool - DEBUG - https://towardsdatascience.com:443 "GET /what-no-one-will-tell-you-about-data-science-job-applications-bff2d4b5e983 HTTP/1.1" 302 None
+2025-02-05 17:02:19 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): medium.com:443
+2025-02-05 17:02:19 - urllib3.connectionpool - DEBUG - https://medium.com:443 "GET /towards-data-science/what-no-one-will-tell-you-about-data-science-job-applications-bff2d4b5e983 HTTP/1.1" 200 None
+2025-02-05 17:02:21 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.kff.org:443
+2025-02-05 17:02:22 - urllib3.connectionpool - DEBUG - https://www.kff.org:443 "GET /policy-watch/what-do-the-early-medicaid-unwinding-data-tell-us/ HTTP/1.1" 200 None
+2025-02-05 17:02:24 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.informationweek.com:443
+2025-02-05 17:02:27 - urllib3.connectionpool - DEBUG - https://www.informationweek.com:443 "GET /data-management/why-data-analytics-can-t-tell-you-everything HTTP/1.1" 200 None
+2025-02-05 17:02:30 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): cepr.org:443
+2025-02-05 17:02:32 - urllib3.connectionpool - DEBUG - https://cepr.org:443 "GET /voxeu/columns/what-do-new-data-tell-us HTTP/1.1" 200 None
+2025-02-05 17:02:34 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.darkreading.com:443
+2025-02-05 17:02:36 - urllib3.connectionpool - DEBUG - https://www.darkreading.com:443 "GET /data-privacy/states-move-to-enforce-data-security-regulation HTTP/1.1" 200 None
+2025-02-05 17:02:36 - root - INFO - Start inference with model llama3-70b-8192 on host groq
+2025-02-05 17:02:36 - groq._base_client - DEBUG - Request options: {'method': 'post', 'url': '/openai/v1/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': "Analyze and summarize the following search results:\n               \n               Query: tell me somthing about the data\n               Search Results: ### What Can Cell Phone Data Tell Us about Outdoor Recreation?, with Daniel Phaneuf - Jun 25, 2024\nhttps://www.resources.org/resources-radio/what-can-cell-phone-data-tell-us-about-outdoor-recreation-with-daniel-phaneuf/\n\n\n### ‘Hard Fork’: A.I.’s Data Wall, a Surprise Privacy Bill, and What Happened to the TikTok Ban? - Apr 12, 2024\nhttps://www.nytimes.com/2024/04/12/podcasts/ai-training-data-privacy-tiktok.html\n\n\n### What the early voting data can and can’t tell us about Election Day - Oct 17, 2024\nhttps://www.cnn.com/2024/10/17/politics/early-voting-election-what-matters/index.html\n\n\n### What early voting data signals about this year’s election - Nov 1, 2024\nhttps://www.pbs.org/newshour/show/what-early-voting-data-signals-about-this-years-election\n\n\n### Side Hustle or Scam? What to Know About Data Annotation Work - Apr 2, 2024\nhttps://time.com/6962608/data-annotation-legit-tech-jobs-ai/\n\n\n### What no one will tell you about data science job applications - Feb 10, 2019\nhttps://towardsdatascience.com/what-no-one-will-tell-you-about-data-science-job-applications-bff2d4b5e983\n\n\n### What Do the Early Medicaid Unwinding Data Tell Us? - May 31, 2023\nhttps://www.kff.org/policy-watch/what-do-the-early-medicaid-unwinding-data-tell-us/\n\n\n### Why Data Analytics Can't Tell You Everything - Feb 6, 2023\nhttps://www.informationweek.com/data-management/why-data-analytics-can-t-tell-you-everything\n\n\n### What do the new data tell us? - Aug 12, 2022\nhttps://cepr.org/voxeu/columns/what-do-new-data-tell-us\n\n\n### State Data Privacy Regulators Are Coming. What Story Will You Tell Them? - 4 days ago\nhttps://www.darkreading.com/data-privacy/states-move-to-enforce-data-security-regulation\n\n               \n               Provide a comprehensive summary grouped by themes and include relevant links."}, {'role': 'user', 'content': "Summarize and group the search results based on this: 'tell me somthing about the data'. Include links, dates, and snippets from the search results."}], 'model': 'llama3-70b-8192', 'temperature': 0.7}}
+2025-02-05 17:02:36 - groq._base_client - DEBUG - Sending HTTP Request: POST https://api.groq.com/openai/v1/chat/completions
+2025-02-05 17:02:36 - httpcore.connection - DEBUG - close.started
+2025-02-05 17:02:36 - httpcore.connection - DEBUG - close.complete
+2025-02-05 17:02:36 - httpcore.connection - DEBUG - connect_tcp.started host='api.groq.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-02-05 17:02:37 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x783e2144af10>
+2025-02-05 17:02:37 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x783e4f7e4200> server_hostname='api.groq.com' timeout=5.0
+2025-02-05 17:02:37 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x783e2144a150>
+2025-02-05 17:02:37 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-05 17:02:37 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-05 17:02:37 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-05 17:02:37 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-05 17:02:37 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-05 17:02:39 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 05 Feb 2025 17:02:39 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'CF-Ray', b'90d478198f96856f-BOM'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate'), (b'Vary', b'Origin, Accept-Encoding'), (b'Via', b'1.1 google'), (b'alt-svc', b'h3=":443"; ma=86400'), (b'x-groq-region', b'us-west-1'), (b'x-ratelimit-limit-requests', b'14400'), (b'x-ratelimit-limit-tokens', b'6000'), (b'x-ratelimit-remaining-requests', b'14399'), (b'x-ratelimit-remaining-tokens', b'5462'), (b'x-ratelimit-reset-requests', b'6s'), (b'x-ratelimit-reset-tokens', b'5.38s'), (b'x-request-id', b'req_01jkbh0k44fvvas4jn46rjzd86'), (b'Server', b'cloudflare'), (b'Content-Encoding', b'gzip')])
+2025-02-05 17:02:39 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-05 17:02:39 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-05 17:02:39 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-05 17:02:39 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-05 17:02:39 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-05 17:02:39 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Wed, 05 Feb 2025 17:02:39 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cf-ray': '90d478198f96856f-BOM', 'cf-cache-status': 'DYNAMIC', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin, Accept-Encoding', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'x-groq-region': 'us-west-1', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '6000', 'x-ratelimit-remaining-requests': '14399', 'x-ratelimit-remaining-tokens': '5462', 'x-ratelimit-reset-requests': '6s', 'x-ratelimit-reset-tokens': '5.38s', 'x-request-id': 'req_01jkbh0k44fvvas4jn46rjzd86', 'server': 'cloudflare', 'content-encoding': 'gzip'})
+2025-02-05 17:02:39 - root - INFO - Inference completed in 2.76s
+2025-02-05 17:02:39 - root - INFO - Tokens used - Input: 564, Output: 583, Total: 1147
+2025-02-05 17:02:39 - root - INFO - Processing speed - 415.38 tokens/second
+2025-02-05 17:02:39 - utils.token_tracking - INFO - Adding usage to instance 132208252410576
+2025-02-05 17:02:39 - utils.token_tracking - INFO - Adding new token usage entry - Model: llama3-70b-8192, Prompt ID: dynamic-summary-prompt
+2025-02-05 17:02:39 - utils.token_tracking - INFO - Calculating costs using rates for model llama3-70b-8192
+2025-02-05 17:02:39 - utils.token_tracking - INFO - Calculated costs - Prompt: $0.000395, Completion: $0.000408, Total: $0.000803
+2025-02-05 17:02:39 - utils.token_tracking - INFO - Starting inference with model llama3-70b-8192 at 2025-02-05T17:02:39.624619
+2025-02-05 17:02:39 - utils.token_tracking - INFO - Inference completed in 0.50s
+2025-02-05 17:02:39 - utils.token_tracking - INFO - Tokens used - Input: 564, Output: 583, Total: 1,147
+2025-02-05 17:02:39 - utils.token_tracking - INFO - Processing speed - 2294.00 tokens/second
+2025-02-05 17:02:39 - utils.token_tracking - DEBUG - Created usage entry: TokenUsageEntry(timestamp='2025-02-05T17:02:39.624901', prompt_tokens=564, completion_tokens=583, model='llama3-70b-8192', prompt_id='dynamic-summary-prompt', cost=0.0008028999999999998, total_tokens=1147, processing_time=0.5, processing_speed=2294.0)
+2025-02-05 17:02:39 - utils.token_tracking - INFO - Usage timeline updated - Current entries: 2 for instance 132208252410576
+2025-02-05 17:02:39 - utils.token_tracking - INFO - Cumulative statistics updated - Total tokens: 2,826
+2025-02-05 17:02:39 - utils.token_tracking - DEBUG - Timeline state after add: ['llama3-70b-8192', 'llama3-70b-8192']
+2025-02-05 17:02:40 - research_components.db - INFO - Storing accuracy evaluation
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Adding usage to instance 132208252410576
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Adding new token usage entry - Model: llama3-70b-8192, Prompt ID: factual_accuracy
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Calculating costs using rates for model llama3-70b-8192
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Calculated costs - Prompt: $0.000070, Completion: $0.000035, Total: $0.000105
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Starting inference with model llama3-70b-8192 at 2025-02-05T17:02:40.259533
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Inference completed in 0.50s
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Tokens used - Input: 100, Output: 50, Total: 150
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Processing speed - 300.00 tokens/second
+2025-02-05 17:02:40 - utils.token_tracking - DEBUG - Created usage entry: TokenUsageEntry(timestamp='2025-02-05T17:02:40.261828', prompt_tokens=100, completion_tokens=50, model='llama3-70b-8192', prompt_id='factual_accuracy', cost=0.000105, total_tokens=150, processing_time=0.5, processing_speed=300.0)
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Usage timeline updated - Current entries: 3 for instance 132208252410576
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Cumulative statistics updated - Total tokens: 2,976
+2025-02-05 17:02:40 - utils.token_tracking - DEBUG - Timeline state after add: ['llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192']
+2025-02-05 17:02:40 - research_components.db - INFO - Storing source coverage evaluation
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Adding usage to instance 132208252410576
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Adding new token usage entry - Model: llama3-70b-8192, Prompt ID: source_coverage
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Calculating costs using rates for model llama3-70b-8192
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Calculated costs - Prompt: $0.000070, Completion: $0.000035, Total: $0.000105
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Starting inference with model llama3-70b-8192 at 2025-02-05T17:02:40.326043
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Inference completed in 0.50s
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Tokens used - Input: 100, Output: 50, Total: 150
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Processing speed - 300.00 tokens/second
+2025-02-05 17:02:40 - utils.token_tracking - DEBUG - Created usage entry: TokenUsageEntry(timestamp='2025-02-05T17:02:40.327350', prompt_tokens=100, completion_tokens=50, model='llama3-70b-8192', prompt_id='source_coverage', cost=0.000105, total_tokens=150, processing_time=0.5, processing_speed=300.0)
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Usage timeline updated - Current entries: 4 for instance 132208252410576
+2025-02-05 17:02:40 - utils.token_tracking - INFO - Cumulative statistics updated - Total tokens: 3,126
+2025-02-05 17:02:40 - utils.token_tracking - DEBUG - Timeline state after add: ['llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192']
+2025-02-05 17:02:40 - research_components.research - ERROR - Error processing content and evaluations: Incompatible dimension for X and Y matrices: X.shape[1] == 27 while Y.shape[1] == 111
+Traceback (most recent call last):
+  File "/app/research_components/research.py", line 129, in run_tool
+    coherence_score, coherence_details = coherence_evaluator.evaluate_logical_coherence(result)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/utils/logical_coherence.py", line 115, in evaluate_logical_coherence
+    transition_scores = [
+                        ^
+  File "/app/utils/logical_coherence.py", line 116, in <listcomp>
+    cosine_similarity(
+  File "/usr/local/lib/python3.11/site-packages/sklearn/utils/_param_validation.py", line 211, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sklearn/metrics/pairwise.py", line 1577, in cosine_similarity
+    X, Y = check_pairwise_arrays(X, Y)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sklearn/metrics/pairwise.py", line 190, in check_pairwise_arrays
+    raise ValueError(
+ValueError: Incompatible dimension for X and Y matrices: X.shape[1] == 27 while Y.shape[1] == 111
+2025-02-05 17:02:40 - research_components.db - INFO - Storing query trace
+2025-02-05 17:02:40 - research_components.db - INFO - Closing database connection
+2025-02-05 17:04:24 - research_components.research - INFO - Starting tool execution - Tool: Analysis Agent
+2025-02-05 17:04:24 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-05 17:04:24 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-05 17:04:24 - root - INFO - Starting analysis for query: tell me somthing about the data
+2025-02-05 17:04:24 - root - INFO - Data validation results: {'missing_data': {'applicants': 0, 'n': 0}, 'datatypes': {'applicants': dtype('O'), 'n': dtype('int64')}, 'row_count': 20, 'column_count': 2}
+2025-02-05 17:04:24 - root - WARNING - Error in web research: name 'GoogleSerperAPIWrapper' is not defined
+2025-02-05 17:04:24 - root - INFO - Start inference with model llama3-70b-8192 on host groq
+2025-02-05 17:04:24 - groq._base_client - DEBUG - Request options: {'method': 'post', 'url': '/openai/v1/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': '**DATA ANALYSIS REPORT**  \n\n**Subject:** Analysis of {\'filename\': \'pat_app.csv\', \'shape\': (20, 2), \'columns\': [\'applicants\', \'n\'], \'dtypes\': {\'applicants\': dtype(\'O\'), \'n\': dtype(\'int64\')}, \'missing_values\': {\'applicants\': 0, \'n\': 0}, \'analysis_results\': {\'descriptive_stats\': {\'n\': {\'count\': 20.0, \'mean\': 5.75, \'std\': 2.7313964040009777, \'min\': 3.0, \'25%\': 4.0, \'50%\': 5.0, \'75%\': 7.25, \'max\': 14.0}}, \'correlations\': {\'n\': {\'n\': 1.0}}, \'missing_values\': {\'applicants\': 0, \'n\': 0}, \'unique_counts\': {\'applicants\': 20, \'n\': 8}, \'categorical_summaries\': {\'applicants\': {\'Procter & Gamble\': 1, \'3 In 1 Dental Pllc\': 1, \'Balwani Gul P\': 1, \'Alfa Biogene Int B V\': 1, \'Vital Solutions Swiss Ag\': 1, \'Univ Washington State\': 1, \'Univ Pretoria\': 1, \'Colgate Palmolive Co\': 1, \'Alfa Biogene Internat B V\': 1, \'Ionia Azure Ag\': 1, \'Hayashibara Co\': 1, \'Halliburton Energy Services Inc\': 1, \'Fujii Hajime\': 1, \'Buchwald-Werner Sybille\': 1, \'Warren Raphael\': 1, \'Undoo Llc\': 1, \'Senomyx Inc\': 1, \'Capsulent\': 1, \'Amino Up Chemical Co Ltd\': 1, \'Chan Jody Wai-Han\': 1}}, \'outliers\': {\'n\': 1}}, \'web_research\': []}  \n**Query Focus:** tell me somthing about the data  \n**Report Date:** [Current Date]  \n\n## **EXECUTIVE SUMMARY**  \n- This report presents key findings and their significance.  \n- The insights are analyzed in relation to industry trends, company behaviors, and economic implications.  \n- Notable patterns and unexpected results are highlighted.  \n\n## **REPORT CONTENTS**  \n\n### **I. DATASET OVERVIEW**  \n- The dataset\'s scope, purpose, and key attributes are outlined.  \n- The timeframe covered and any notable characteristics are detailed.  \n- Real-world context is provided, explaining the industries or entities represented and broader implications.  \n\n### **II. METHODOLOGY**  \n- The analytical approaches used are described.  \n- Statistical methods, models, or tools applied are listed.  \n- Data cleaning, transformations, and preprocessing steps are detailed.  \n\n### **III. KEY FINDINGS**  \n\n#### **A. Primary Insights**  \n- The most significant discoveries are summarized.  \n- Findings are supported with specific data points, percentages, and comparisons.  \n- The insights are linked to real-world contexts, specifying affected companies, sectors, or markets.  \n\n#### **B. Trends and Patterns**  \n- Overarching trends, recurring patterns, and anomalies are identified.  \n- Seasonal, cyclical, or geographic variations are highlighted.  \n- The relevance of these trends in business, economic, or technological contexts is analyzed.  \n\n### **IV. INDUSTRY CONTEXT**  \n- Findings are examined in relation to broader market or industry trends.  \n- Examples of real-world companies or organizations involved are included.  \n- For datasets like "pat_app" (patent applicants), the types of companies filing patents and their technological specializations are specified.  \n- Relevant external data points are incorporated to validate insights.  \n\n### **V. CONCLUSIONS**  \n- The most important takeaways are summarized.  \n- Actionable insights for decision-making are highlighted.  \n- Specific aspects of the original query are addressed with practical applications for businesses or policymakers.  \n\n'}, {'role': 'user', 'content': "Analyze the dataset 'pat_app.csv' in the context of the query: tell me somthing about the data.\n                            Include relevant insights from web research where applicable.\n                            Focus on connecting statistical findings with broader industry/research context."}], 'model': 'llama3-70b-8192', 'temperature': 0.7}}
+2025-02-05 17:04:24 - groq._base_client - DEBUG - Sending HTTP Request: POST https://api.groq.com/openai/v1/chat/completions
+2025-02-05 17:04:24 - httpcore.connection - DEBUG - close.started
+2025-02-05 17:04:24 - httpcore.connection - DEBUG - close.complete
+2025-02-05 17:04:24 - httpcore.connection - DEBUG - connect_tcp.started host='api.groq.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-02-05 17:04:24 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x783e229b2e50>
+2025-02-05 17:04:24 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x783e4f7e4200> server_hostname='api.groq.com' timeout=5.0
+2025-02-05 17:04:24 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x783e2141b990>
+2025-02-05 17:04:24 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-05 17:04:24 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-05 17:04:24 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-05 17:04:24 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-05 17:04:24 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-05 17:04:30 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 05 Feb 2025 17:04:30 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'CF-Ray', b'90d47ab90c0b46aa-BOM'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate'), (b'Vary', b'Origin, Accept-Encoding'), (b'Via', b'1.1 google'), (b'alt-svc', b'h3=":443"; ma=86400'), (b'x-groq-region', b'us-west-1'), (b'x-ratelimit-limit-requests', b'14400'), (b'x-ratelimit-limit-tokens', b'6000'), (b'x-ratelimit-remaining-requests', b'14399'), (b'x-ratelimit-remaining-tokens', b'5117'), (b'x-ratelimit-reset-requests', b'6s'), (b'x-ratelimit-reset-tokens', b'8.83s'), (b'x-request-id', b'req_01jkbh3w28fyj84pqqbgqey05n'), (b'Server', b'cloudflare'), (b'Content-Encoding', b'gzip')])
+2025-02-05 17:04:30 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-05 17:04:30 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-05 17:04:30 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-05 17:04:30 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-05 17:04:30 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-05 17:04:30 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Wed, 05 Feb 2025 17:04:30 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cf-ray': '90d47ab90c0b46aa-BOM', 'cf-cache-status': 'DYNAMIC', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin, Accept-Encoding', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'x-groq-region': 'us-west-1', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '6000', 'x-ratelimit-remaining-requests': '14399', 'x-ratelimit-remaining-tokens': '5117', 'x-ratelimit-reset-requests': '6s', 'x-ratelimit-reset-tokens': '8.83s', 'x-request-id': 'req_01jkbh3w28fyj84pqqbgqey05n', 'server': 'cloudflare', 'content-encoding': 'gzip'})
+2025-02-05 17:04:30 - root - INFO - Inference completed in 5.94s
+2025-02-05 17:04:30 - root - INFO - Tokens used - Input: 926, Output: 774, Total: 1700
+2025-02-05 17:04:30 - root - INFO - Processing speed - 285.96 tokens/second
+2025-02-05 17:04:30 - utils.token_tracking - INFO - Adding usage to instance 132208252410576
+2025-02-05 17:04:30 - utils.token_tracking - INFO - Adding new token usage entry - Model: llama3-70b-8192, Prompt ID: dynamic-prompt-patents/data_analysis.txt
+2025-02-05 17:04:30 - utils.token_tracking - INFO - Calculating costs using rates for model llama3-70b-8192
+2025-02-05 17:04:30 - utils.token_tracking - INFO - Calculated costs - Prompt: $0.000648, Completion: $0.000542, Total: $0.001190
+2025-02-05 17:04:30 - utils.token_tracking - INFO - Starting inference with model llama3-70b-8192 at 2025-02-05T17:04:30.369658
+2025-02-05 17:04:30 - utils.token_tracking - INFO - Inference completed in 0.50s
+2025-02-05 17:04:30 - utils.token_tracking - INFO - Tokens used - Input: 926, Output: 774, Total: 1,700
+2025-02-05 17:04:30 - utils.token_tracking - INFO - Processing speed - 3400.00 tokens/second
+2025-02-05 17:04:30 - utils.token_tracking - DEBUG - Created usage entry: TokenUsageEntry(timestamp='2025-02-05T17:04:30.370425', prompt_tokens=926, completion_tokens=774, model='llama3-70b-8192', prompt_id='dynamic-prompt-patents/data_analysis.txt', cost=0.00119, total_tokens=1700, processing_time=0.5, processing_speed=3400.0)
+2025-02-05 17:04:30 - utils.token_tracking - INFO - Usage timeline updated - Current entries: 5 for instance 132208252410576
+2025-02-05 17:04:30 - utils.token_tracking - INFO - Cumulative statistics updated - Total tokens: 4,826
+2025-02-05 17:04:30 - utils.token_tracking - DEBUG - Timeline state after add: ['llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192']
+2025-02-05 17:04:30 - utils.analysis_evaluator - INFO - Starting comprehensive analysis evaluation
+2025-02-05 17:04:30 - utils.analysis_evaluator - DEBUG - Starting numerical accuracy evaluation
+2025-02-05 17:04:30 - utils.analysis_evaluator - INFO - Found 0 numerical calculations to evaluate
+2025-02-05 17:04:30 - utils.analysis_evaluator - DEBUG - Starting query understanding evaluation
+2025-02-05 17:04:30 - utils.analysis_evaluator - INFO - Analyzing query with 6 unique terms
+2025-02-05 17:04:30 - utils.analysis_evaluator - INFO - Term coverage: 66.67% (4/6)
+2025-02-05 17:04:30 - utils.analysis_evaluator - DEBUG - Analytical element 'methodology': Present
+2025-02-05 17:04:30 - utils.analysis_evaluator - DEBUG - Analytical element 'findings': Present
+2025-02-05 17:04:30 - utils.analysis_evaluator - DEBUG - Analytical element 'statistics': Present
+2025-02-05 17:04:30 - utils.analysis_evaluator - DEBUG - Analytical element 'data_reference': Present
+2025-02-05 17:04:30 - utils.analysis_evaluator - DEBUG - Starting data validation evaluation
+2025-02-05 17:04:30 - utils.analysis_evaluator - DEBUG - Validation check 'missing_data': Missing
+2025-02-05 17:04:30 - utils.analysis_evaluator - DEBUG - Validation check 'outliers': Missing
+2025-02-05 17:04:30 - utils.analysis_evaluator - DEBUG - Validation check 'distribution': Present
+2025-02-05 17:04:30 - utils.analysis_evaluator - DEBUG - Validation check 'data_types': Present
+2025-02-05 17:04:30 - utils.analysis_evaluator - DEBUG - Starting reasoning transparency evaluation
+2025-02-05 17:04:30 - utils.analysis_evaluator - INFO - Analyzing 34 sentences for reasoning transparency
+2025-02-05 17:04:30 - utils.analysis_evaluator - DEBUG - Transparency check 'explains_steps': Missing
+2025-02-05 17:04:30 - utils.analysis_evaluator - DEBUG - Transparency check 'states_assumptions': Missing
+2025-02-05 17:04:30 - utils.analysis_evaluator - DEBUG - Transparency check 'mentions_limitations': Missing
+2025-02-05 17:04:30 - utils.analysis_evaluator - DEBUG - Transparency check 'cites_evidence': Missing
+2025-02-05 17:04:30 - utils.analysis_evaluator - DEBUG - Transparency check 'has_conclusion': Missing
+2025-02-05 17:04:30 - utils.analysis_evaluator - DEBUG - Transparency check 'has_examples': Present
+2025-02-05 17:04:30 - utils.analysis_evaluator - INFO - Average sentence length: 16.9 words
+2025-02-05 17:04:30 - utils.analysis_evaluator - INFO - Numerical Accuracy score: 0.00%
+2025-02-05 17:04:30 - utils.analysis_evaluator - INFO - Query Understanding score: 83.33%
+2025-02-05 17:04:30 - utils.analysis_evaluator - INFO - Data Validation score: 50.00%
+2025-02-05 17:04:30 - utils.analysis_evaluator - INFO - Reasoning Transparency score: 16.67%
+2025-02-05 17:04:30 - utils.analysis_evaluator - INFO - Overall evaluation score: 37.50%
+2025-02-05 17:04:30 - research_components.db - INFO - Storing analysis evaluation
+2025-02-05 17:04:30 - research_components.db - INFO - Storing content result
+2025-02-05 17:04:30 - research_components.db - INFO - Successfully stored content with ID: 35
+2025-02-05 17:04:30 - research_components.db - INFO - Storing query trace
+2025-02-05 17:04:30 - research_components.db - INFO - Closing database connection
+2025-02-05 17:08:28 - research_components.research - INFO - Starting tool execution - Tool: Analysis Agent
+2025-02-05 17:08:28 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-05 17:08:28 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-05 17:08:28 - root - INFO - Starting analysis for query: tell me something about the data
+2025-02-05 17:08:28 - root - INFO - Data validation results: {'missing_data': {'applicants': 0, 'n': 0}, 'datatypes': {'applicants': dtype('O'), 'n': dtype('int64')}, 'row_count': 20, 'column_count': 2}
+2025-02-05 17:08:28 - root - WARNING - Error in web research: name 'GoogleSerperAPIWrapper' is not defined
+2025-02-05 17:08:28 - root - INFO - Start inference with model llama3-70b-8192 on host groq
+2025-02-05 17:08:28 - groq._base_client - DEBUG - Request options: {'method': 'post', 'url': '/openai/v1/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': '**DATA ANALYSIS REPORT**  \n\n**Subject:** Analysis of {\'filename\': \'pat_app.csv\', \'shape\': (20, 2), \'columns\': [\'applicants\', \'n\'], \'dtypes\': {\'applicants\': dtype(\'O\'), \'n\': dtype(\'int64\')}, \'missing_values\': {\'applicants\': 0, \'n\': 0}, \'analysis_results\': {\'descriptive_stats\': {\'n\': {\'count\': 20.0, \'mean\': 5.75, \'std\': 2.7313964040009777, \'min\': 3.0, \'25%\': 4.0, \'50%\': 5.0, \'75%\': 7.25, \'max\': 14.0}}, \'correlations\': {\'n\': {\'n\': 1.0}}, \'missing_values\': {\'applicants\': 0, \'n\': 0}, \'unique_counts\': {\'applicants\': 20, \'n\': 8}, \'categorical_summaries\': {\'applicants\': {\'Procter & Gamble\': 1, \'3 In 1 Dental Pllc\': 1, \'Balwani Gul P\': 1, \'Alfa Biogene Int B V\': 1, \'Vital Solutions Swiss Ag\': 1, \'Univ Washington State\': 1, \'Univ Pretoria\': 1, \'Colgate Palmolive Co\': 1, \'Alfa Biogene Internat B V\': 1, \'Ionia Azure Ag\': 1, \'Hayashibara Co\': 1, \'Halliburton Energy Services Inc\': 1, \'Fujii Hajime\': 1, \'Buchwald-Werner Sybille\': 1, \'Warren Raphael\': 1, \'Undoo Llc\': 1, \'Senomyx Inc\': 1, \'Capsulent\': 1, \'Amino Up Chemical Co Ltd\': 1, \'Chan Jody Wai-Han\': 1}}, \'outliers\': {\'n\': 1}}, \'web_research\': []}  \n**Query Focus:** tell me something about the data  \n**Report Date:** [Current Date]  \n\n## **EXECUTIVE SUMMARY**  \n- This report presents key findings and their significance.  \n- The insights are analyzed in relation to industry trends, company behaviors, and economic implications.  \n- Notable patterns and unexpected results are highlighted.  \n\n## **REPORT CONTENTS**  \n\n### **I. DATASET OVERVIEW**  \n- The dataset\'s scope, purpose, and key attributes are outlined.  \n- The timeframe covered and any notable characteristics are detailed.  \n- Real-world context is provided, explaining the industries or entities represented and broader implications.  \n\n### **II. METHODOLOGY**  \n- The analytical approaches used are described.  \n- Statistical methods, models, or tools applied are listed.  \n- Data cleaning, transformations, and preprocessing steps are detailed.  \n\n### **III. KEY FINDINGS**  \n\n#### **A. Primary Insights**  \n- The most significant discoveries are summarized.  \n- Findings are supported with specific data points, percentages, and comparisons.  \n- The insights are linked to real-world contexts, specifying affected companies, sectors, or markets.  \n\n#### **B. Trends and Patterns**  \n- Overarching trends, recurring patterns, and anomalies are identified.  \n- Seasonal, cyclical, or geographic variations are highlighted.  \n- The relevance of these trends in business, economic, or technological contexts is analyzed.  \n\n### **IV. INDUSTRY CONTEXT**  \n- Findings are examined in relation to broader market or industry trends.  \n- Examples of real-world companies or organizations involved are included.  \n- For datasets like "pat_app" (patent applicants), the types of companies filing patents and their technological specializations are specified.  \n- Relevant external data points are incorporated to validate insights.  \n\n### **V. CONCLUSIONS**  \n- The most important takeaways are summarized.  \n- Actionable insights for decision-making are highlighted.  \n- Specific aspects of the original query are addressed with practical applications for businesses or policymakers.  \n\n'}, {'role': 'user', 'content': "Analyze the dataset 'pat_app.csv' in the context of the query: tell me something about the data.\n                            Include relevant insights from web research where applicable.\n                            Focus on connecting statistical findings with broader industry/research context."}], 'model': 'llama3-70b-8192', 'temperature': 0.7}}
+2025-02-05 17:08:28 - groq._base_client - DEBUG - Sending HTTP Request: POST https://api.groq.com/openai/v1/chat/completions
+2025-02-05 17:08:28 - httpcore.connection - DEBUG - close.started
+2025-02-05 17:08:28 - httpcore.connection - DEBUG - close.complete
+2025-02-05 17:08:28 - httpcore.connection - DEBUG - connect_tcp.started host='api.groq.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-02-05 17:08:28 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x783e20436c10>
+2025-02-05 17:08:28 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x783e4f7e4200> server_hostname='api.groq.com' timeout=5.0
+2025-02-05 17:08:28 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x783e20436350>
+2025-02-05 17:08:28 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-05 17:08:28 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-05 17:08:28 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-05 17:08:28 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-05 17:08:28 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-05 17:08:31 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 05 Feb 2025 17:08:31 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'CF-Ray', b'90d480b03f873b45-BOM'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate'), (b'Vary', b'Origin, Accept-Encoding'), (b'Via', b'1.1 google'), (b'alt-svc', b'h3=":443"; ma=86400'), (b'x-groq-region', b'us-west-1'), (b'x-ratelimit-limit-requests', b'14400'), (b'x-ratelimit-limit-tokens', b'6000'), (b'x-ratelimit-remaining-requests', b'14399'), (b'x-ratelimit-remaining-tokens', b'5117'), (b'x-ratelimit-reset-requests', b'6s'), (b'x-ratelimit-reset-tokens', b'8.83s'), (b'x-request-id', b'req_01jkbhbanmfyfvjt6zf21dkzfq'), (b'Server', b'cloudflare'), (b'Content-Encoding', b'gzip')])
+2025-02-05 17:08:31 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-05 17:08:31 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-05 17:08:31 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-05 17:08:31 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-05 17:08:31 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-05 17:08:31 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Wed, 05 Feb 2025 17:08:31 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cf-ray': '90d480b03f873b45-BOM', 'cf-cache-status': 'DYNAMIC', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin, Accept-Encoding', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'x-groq-region': 'us-west-1', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '6000', 'x-ratelimit-remaining-requests': '14399', 'x-ratelimit-remaining-tokens': '5117', 'x-ratelimit-reset-requests': '6s', 'x-ratelimit-reset-tokens': '8.83s', 'x-request-id': 'req_01jkbhbanmfyfvjt6zf21dkzfq', 'server': 'cloudflare', 'content-encoding': 'gzip'})
+2025-02-05 17:08:31 - root - INFO - Inference completed in 2.91s
+2025-02-05 17:08:31 - root - INFO - Tokens used - Input: 924, Output: 730, Total: 1654
+2025-02-05 17:08:31 - root - INFO - Processing speed - 569.05 tokens/second
+2025-02-05 17:08:31 - utils.token_tracking - INFO - Adding usage to instance 132208252410576
+2025-02-05 17:08:31 - utils.token_tracking - INFO - Adding new token usage entry - Model: llama3-70b-8192, Prompt ID: dynamic-prompt-patents/data_analysis.txt
+2025-02-05 17:08:31 - utils.token_tracking - INFO - Calculating costs using rates for model llama3-70b-8192
+2025-02-05 17:08:31 - utils.token_tracking - INFO - Calculated costs - Prompt: $0.000647, Completion: $0.000511, Total: $0.001158
+2025-02-05 17:08:31 - utils.token_tracking - INFO - Starting inference with model llama3-70b-8192 at 2025-02-05T17:08:31.415627
+2025-02-05 17:08:31 - utils.token_tracking - INFO - Inference completed in 0.50s
+2025-02-05 17:08:31 - utils.token_tracking - INFO - Tokens used - Input: 924, Output: 730, Total: 1,654
+2025-02-05 17:08:31 - utils.token_tracking - INFO - Processing speed - 3308.00 tokens/second
+2025-02-05 17:08:31 - utils.token_tracking - DEBUG - Created usage entry: TokenUsageEntry(timestamp='2025-02-05T17:08:31.416613', prompt_tokens=924, completion_tokens=730, model='llama3-70b-8192', prompt_id='dynamic-prompt-patents/data_analysis.txt', cost=0.0011578, total_tokens=1654, processing_time=0.5, processing_speed=3308.0)
+2025-02-05 17:08:31 - utils.token_tracking - INFO - Usage timeline updated - Current entries: 6 for instance 132208252410576
+2025-02-05 17:08:31 - utils.token_tracking - INFO - Cumulative statistics updated - Total tokens: 6,480
+2025-02-05 17:08:31 - utils.token_tracking - DEBUG - Timeline state after add: ['llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192', 'llama3-70b-8192']
+2025-02-05 17:08:31 - utils.analysis_evaluator - INFO - Starting comprehensive analysis evaluation
+2025-02-05 17:08:31 - utils.analysis_evaluator - DEBUG - Starting numerical accuracy evaluation
+2025-02-05 17:08:31 - utils.analysis_evaluator - INFO - Found 0 numerical calculations to evaluate
+2025-02-05 17:08:31 - utils.analysis_evaluator - DEBUG - Starting query understanding evaluation
+2025-02-05 17:08:31 - utils.analysis_evaluator - INFO - Analyzing query with 6 unique terms
+2025-02-05 17:08:31 - utils.analysis_evaluator - INFO - Term coverage: 100.00% (6/6)
+2025-02-05 17:08:31 - utils.analysis_evaluator - DEBUG - Analytical element 'methodology': Present
+2025-02-05 17:08:31 - utils.analysis_evaluator - DEBUG - Analytical element 'findings': Present
+2025-02-05 17:08:31 - utils.analysis_evaluator - DEBUG - Analytical element 'statistics': Present
+2025-02-05 17:08:31 - utils.analysis_evaluator - DEBUG - Analytical element 'data_reference': Present
+2025-02-05 17:08:31 - utils.analysis_evaluator - DEBUG - Starting data validation evaluation
+2025-02-05 17:08:31 - utils.analysis_evaluator - DEBUG - Validation check 'missing_data': Missing
+2025-02-05 17:08:31 - utils.analysis_evaluator - DEBUG - Validation check 'outliers': Present
+2025-02-05 17:08:31 - utils.analysis_evaluator - DEBUG - Validation check 'distribution': Present
+2025-02-05 17:08:31 - utils.analysis_evaluator - DEBUG - Validation check 'data_types': Present
+2025-02-05 17:08:31 - utils.analysis_evaluator - DEBUG - Starting reasoning transparency evaluation
+2025-02-05 17:08:31 - utils.analysis_evaluator - INFO - Analyzing 45 sentences for reasoning transparency
+2025-02-05 17:08:31 - utils.analysis_evaluator - DEBUG - Transparency check 'explains_steps': Missing
+2025-02-05 17:08:31 - utils.analysis_evaluator - DEBUG - Transparency check 'states_assumptions': Present
+2025-02-05 17:08:31 - utils.analysis_evaluator - DEBUG - Transparency check 'mentions_limitations': Missing
+2025-02-05 17:08:31 - utils.analysis_evaluator - DEBUG - Transparency check 'cites_evidence': Missing
+2025-02-05 17:08:31 - utils.analysis_evaluator - DEBUG - Transparency check 'has_conclusion': Missing
+2025-02-05 17:08:31 - utils.analysis_evaluator - DEBUG - Transparency check 'has_examples': Present
+2025-02-05 17:08:31 - utils.analysis_evaluator - INFO - Average sentence length: 11.7 words
+2025-02-05 17:08:31 - utils.analysis_evaluator - INFO - Numerical Accuracy score: 0.00%
+2025-02-05 17:08:31 - utils.analysis_evaluator - INFO - Query Understanding score: 100.00%
+2025-02-05 17:08:31 - utils.analysis_evaluator - INFO - Data Validation score: 75.00%
+2025-02-05 17:08:31 - utils.analysis_evaluator - INFO - Reasoning Transparency score: 33.33%
+2025-02-05 17:08:31 - utils.analysis_evaluator - INFO - Overall evaluation score: 52.08%
+2025-02-05 17:08:31 - research_components.db - INFO - Storing analysis evaluation
+2025-02-05 17:08:31 - research_components.db - INFO - Storing content result
+2025-02-05 17:08:31 - research_components.db - INFO - Successfully stored content with ID: 36
+2025-02-05 17:08:31 - research_components.db - INFO - Storing query trace
+2025-02-05 17:08:31 - research_components.db - INFO - Closing database connection
+2025-02-05 17:08:53 - research_components.research - INFO - Starting tool execution - Tool: General Agent
+2025-02-05 17:08:53 - relevance_evaluator - INFO - Creating new AnswerRelevanceEvaluator instance
+2025-02-05 17:08:53 - relevance_evaluator.evaluator - INFO - Initializing AnswerRelevanceEvaluator
+2025-02-05 17:08:53 - relevance_evaluator.evaluator - DEBUG - Setting up spaCy pipeline
+2025-02-05 17:08:53 - relevance_evaluator.evaluator - DEBUG - SpaCy pipeline components: sentencizer
+2025-02-05 17:08:53 - relevance_evaluator.evaluator - DEBUG - Configuring TF-IDF vectorizer
+2025-02-05 17:08:53 - relevance_evaluator.evaluator - DEBUG - Successfully initialized TfidfVectorizer
+2025-02-05 17:08:53 - relevance_evaluator.evaluator - DEBUG - Vectorizer parameters: {'analyzer': 'word', 'binary': False, 'decode_error': 'strict', 'dtype': <class 'numpy.float64'>, 'encoding': 'utf-8', 'input': 'content', 'lowercase': True, 'max_df': 1.0, 'max_features': 5000, 'min_df': 1, 'ngram_range': (1, 1), 'norm': 'l2', 'preprocessor': None, 'smooth_idf': True, 'stop_words': 'english', 'strip_accents': 'unicode', 'sublinear_tf': False, 'token_pattern': '(?u)\\b\\w\\w+\\b', 'tokenizer': None, 'use_idf': True, 'vocabulary': None}
+2025-02-05 17:08:53 - root - INFO - Starting news search for query: what is data?
+2025-02-05 17:08:53 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): google.serper.dev:443
+2025-02-05 17:08:54 - urllib3.connectionpool - DEBUG - https://google.serper.dev:443 "POST /news?q=what+is+data%3F&gl=us&hl=en&num=10 HTTP/1.1" 200 5598
+2025-02-05 17:08:54 - root - INFO - Processing 10 articles for topic: what is data?
+2025-02-05 17:08:54 - root - ERROR - Error in decide_what_to_use: 'snippets'
+2025-02-05 17:08:54 - root - INFO - Starting to scrape 10 news pages
+2025-02-05 17:08:56 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): abcnews.go.com:443
+2025-02-05 17:08:57 - urllib3.connectionpool - DEBUG - https://abcnews.go.com:443 "GET /US/deepseek-coding-capability-transfer-users-data-directly-chinese/story?id=118465451 HTTP/1.1" 200 None
+2025-02-05 17:08:59 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.prnewswire.com:443
+2025-02-05 17:08:59 - urllib3.connectionpool - DEBUG - https://www.prnewswire.com:443 "GET /news-releases/immutas-2025-state-of-data-security-report-highlights-the-consequences-of-a-broken-data-provisioning-system-302368778.html HTTP/1.1" 200 None
+2025-02-05 17:09:01 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): cals.ncsu.edu:443
+2025-02-05 17:09:03 - urllib3.connectionpool - DEBUG - https://cals.ncsu.edu:443 "GET /crop-and-soil-sciences/news/debjani-sihi-joins-nc-state-to-advance-agriculture-with-ai-and-big-data/ HTTP/1.1" 200 18071
+2025-02-05 17:09:05 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.kff.org:443
+2025-02-05 17:09:06 - urllib3.connectionpool - DEBUG - https://www.kff.org:443 "GET /policy-watch/a-look-at-federal-health-data-taken-offline/ HTTP/1.1" 200 None
