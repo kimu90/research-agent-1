@@ -1,42 +1,34 @@
-SPECIES DATA CONTEXT EXTRACTION PROMPT
+DATA-DRIVEN RESEARCH SYNTHESIS PROMPT
 
-Objective:
-Extract and contextualize raw data insights for [SPECIES_NAME] research
+Objective: Generate a data-integrated research overview for [SPECIES_NAME] that directly incorporates provided dataset metrics
 
-Data Extraction Guidelines:
+Required Data Integration:
+- Extract and cite specific numerical values from the dataset
+- Reference exact measurements and statistics when available
+- Use quantitative trends to support qualitative statements
+- Incorporate statistical patterns from the provided data
+- Connect data points to broader research themes
 
-1. Quantitative Data Extraction
-   - Identify numerical values, percentages, and measurable research metrics
-   - Capture specific research parameters
-   - Extract precise scientific measurements and statistical findings
+Structure Guidelines:
+- Begin with most statistically significant findings from the data
+- Flow naturally between data-supported topics
+- Avoid generic literature review statements without data backing
+- Integrate numerical evidence throughout the narrative
+- Reference specific metrics while maintaining readability
+- Exclude methodology descriptions and data source references
 
-2. Data Contextualization
-   - Provide raw data points
-   - Highlight specific numerical insights
-   - Focus on factual, measurable research outcomes
+Output Parameters:
+- Length: 400-600 words
+- Style: Professional, authoritative research summary
+- Format: Flowing paragraphs without numbering or subsections
+- Variables: Use [SPECIES_NAME] consistently
+- Tone: Data-driven but accessible
 
-3. Key Data Points to Capture
-   A. Pharmacological Research
-      - Exact compound concentrations
-      - Specific antioxidant and anti-inflammatory measurements
-      - Quantitative therapeutic potential indicators
+Focus Areas:
+- Research trends supported by dataset metrics
+- Quantified research impacts and outcomes
+- Measured ecological and biological parameters
+- Statistical evidence of significance
+- Data-verified future research directions
 
-   B. Ecological Measurements
-      - Precise habitat distribution data
-      - Specific climate adaptation metrics
-      - Quantitative conservation status parameters
-
-   C. Nutritional Composition
-      - Exact nutritional profile measurements
-      - Specific vitamin and mineral concentrations
-      - Precise processing efficiency metrics
-
-4. Research Data Representation
-   - Prioritize raw numerical data
-   - Avoid interpretative descriptions
-   - Focus on extractable, verifiable scientific measurements
-
-Extraction Constraints:
-- Use only data directly from research sources
-- Maintain scientific accuracy
-- Provide context without subjective interpretation
+Note: Every major claim should be supported by at least one specific data point from the provided dataset.
