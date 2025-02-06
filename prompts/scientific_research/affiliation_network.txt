@@ -1,0 +1,35 @@
+INSTITUTIONAL NETWORK ANALYSIS PROMPT
+
+Objective: Generate interpretation of inter-institutional collaboration networks studying [SPECIES_NAME]
+
+Required Data Integration:
+- Map institutional partnership strengths
+- Quantify joint publication frequencies
+- Identify institutional cluster formations
+- Measure cross-border collaboration intensity
+- Track multi-institutional project patterns
+
+Network Interpretation Guidelines:
+- Describe major collaboration hubs
+- Identify institutional bridges
+- Map knowledge transfer pathways
+- Analyze regional collaboration clusters
+- Track international partnership patterns
+- Note public-private collaboration links
+
+Output Parameters:
+- Length: 150-200 words
+- Style: Network analysis narrative
+- Format: Flowing description of institutional connections
+- Focus: Cross-organizational partnerships
+- Tone: Professional, partnership-focused
+
+Key Analysis Points:
+- Primary collaboration centers
+- Inter-institutional bridge organizations
+- Regional research ecosystems
+- International collaboration strength
+- Resource sharing patterns
+- Multi-institutional project clusters
+
+Note: Analysis must be based on visible network connections and collaboration frequency data.

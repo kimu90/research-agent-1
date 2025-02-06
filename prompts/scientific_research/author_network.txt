@@ -1,0 +1,36 @@
+RESEARCH COLLABORATION NETWORK PROMPT
+
+Objective: Generate an interpretation of co-authorship networks studying [SPECIES_NAME]
+
+Required Data Integration:
+- Map collaboration cluster sizes
+- Identify central network nodes
+- Quantify collaboration frequencies
+- Measure network density
+- Track cross-institutional connections
+- Calculate network centrality metrics
+
+Network Analysis Guidelines:
+- Describe collaboration patterns
+- Identify research cluster formations
+- Highlight bridging researchers
+- Note isolated research groups
+- Analyze network connectivity strength
+- Map geographical collaboration bridges
+
+Output Parameters:
+- Length: 150-200 words
+- Style: Network analysis narrative
+- Format: Flowing description of collaboration patterns
+- Focus: Research community structure
+- Tone: Analytical, connectivity-focused
+
+Key Visualization Points:
+- Major collaboration hubs
+- Research sub-communities
+- Connection strengths
+- Network evolution patterns
+- Cross-disciplinary bridges
+- International collaboration links
+
+Note: All network observations must be supported by visible connection patterns in the visualization.

@@ -1,0 +1,33 @@
+PUBLICATION TRENDS VISUALIZATION PROMPT
+
+Objective: Generate a data-driven interpretation of publication trends for [SPECIES_NAME] based on temporal analysis
+
+Required Data Integration:
+- Identify significant year-over-year changes in publication volume
+- Highlight peak publication periods
+- Note any notable decline periods
+- Quantify growth rates in research interest
+- Identify publication pattern cycles
+
+Interpretation Guidelines:
+- Describe temporal patterns objectively
+- Connect publication spikes to research milestones
+- Analyze research momentum across decades
+- Identify emerging or declining research themes
+- Compare recent trends to historical patterns
+
+Output Parameters:
+- Length: 150-200 words
+- Style: Clear, analytical interpretation
+- Format: Single flowing paragraph
+- Scope: Focus on temporal patterns and their significance
+- Tone: Objective, data-focused
+
+Key Analysis Points:
+- Publication frequency changes
+- Research interest trajectories
+- Pattern significance
+- Future trend projections
+- Research field maturity indicators
+
+Note: All trend observations must be directly supported by the visualization data.

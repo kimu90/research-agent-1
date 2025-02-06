@@ -1,0 +1,33 @@
+AUTHOR CONTRIBUTION ANALYSIS PROMPT
+
+Objective: Generate a data-driven overview of key research contributors studying [SPECIES_NAME]
+
+Required Data Integration:
+- Identify top contributing authors by publication count
+- Quantify individual researcher outputs
+- Map collaborative networks and research groups
+- Track publication impact metrics
+- Note institutional affiliations where present
+
+Analysis Guidelines:
+- Focus on measurable research output
+- Highlight specialized research focus areas per author
+- Identify research leadership patterns
+- Note geographical distribution of expertise
+- Track author publication trajectories
+
+Output Parameters:
+- Length: 150-200 words
+- Style: Professional recognition of contributions
+- Format: Cohesive paragraph without listing
+- Variables: Use [SPECIES_NAME] consistently
+- Tone: Objective, merit-based
+
+Key Analysis Points:
+- Publication volume per researcher
+- Research specialization patterns
+- Collaboration networks
+- Geographic distribution of expertise
+- Impact of contributions
+
+Note: Analysis should be based strictly on publication metrics and avoid subjective assessment of research quality.

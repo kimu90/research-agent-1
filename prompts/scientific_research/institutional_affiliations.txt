@@ -1,0 +1,35 @@
+INSTITUTIONAL RESEARCH CONTRIBUTION PROMPT
+
+Objective: Analyze institutional leadership in [SPECIES_NAME] research based on publication affiliations
+
+Required Data Integration:
+- Quantify publications per institution
+- Track institutional research focus areas
+- Measure research output frequency
+- Identify leading research centers
+- Map institutional collaboration patterns
+
+Institutional Analysis Guidelines:
+- Rank research output by organization
+- Note geographical distribution of institutions
+- Identify specialized research programs
+- Track funding patterns where visible
+- Analyze public vs private sector involvement
+- Map regional research hubs
+
+Output Parameters:
+- Length: 150-200 words
+- Style: Institutional analysis narrative
+- Format: Cohesive paragraph highlighting key centers
+- Variables: Use [SPECIES_NAME] consistently
+- Tone: Professional, organization-focused
+
+Key Analysis Points:
+- Leading research institutions
+- Regional research distribution
+- Institutional specializations
+- Research program concentrations
+- Cross-institutional partnerships
+- Resource allocation patterns
+
+Note: Analysis should focus on verifiable institutional metrics and avoid speculation about research quality or funding.
