@@ -48,3 +48,281 @@
 2025-02-10 19:08:51 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
 2025-02-10 19:08:51 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
 2025-02-10 19:08:51 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:11:46 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:11:47 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:11:47 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:11:47 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:11:47 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:11:47 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:11:47 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:11:47 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:11:47 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:11:47 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:11:47 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:11:47 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:11:48 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:11:49 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:11:49 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:11:49 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:11:49 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:11:50 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:11:50 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:11:50 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:11:50 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:11:50 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:11:50 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:11:50 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:11:50 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:11:51 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:11:51 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:11:51 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:11:51 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:11:51 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:11:51 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:11:51 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:11:51 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:11:51 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:11:51 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:11:51 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:12:26 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:12:28 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:12:28 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:12:28 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:12:28 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:12:28 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:12:28 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:12:28 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:12:28 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:12:28 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:12:28 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:12:28 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:12:29 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:12:29 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:12:29 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:12:30 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:12:30 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:12:30 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:12:30 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:12:30 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:12:30 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:12:30 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:12:30 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:12:30 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:12:30 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:12:31 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:12:31 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:12:31 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:12:31 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:12:31 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:12:31 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:12:31 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:12:31 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:12:31 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:12:31 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:12:31 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:13:00 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:01 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:13:01 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:01 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:13:01 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:01 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:13:01 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:01 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:01 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:13:01 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:13:01 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:01 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:13:01 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:03 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:13:03 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:03 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:13:03 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:03 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:13:03 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:03 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:03 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:13:03 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:13:03 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:03 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:13:03 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:04 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:13:04 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:04 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:13:04 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:04 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:13:04 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:04 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:04 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:13:04 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:13:04 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:04 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:13:38 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:39 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:13:39 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:39 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:13:39 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:39 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:13:39 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:39 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:39 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:13:39 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:13:39 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:39 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:13:39 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:40 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:13:40 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:41 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:13:41 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:41 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:13:41 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:41 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:41 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:13:41 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:13:41 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:41 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:13:41 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:42 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:13:42 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:42 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:13:42 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:42 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:13:42 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:42 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:42 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:13:42 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:13:42 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:13:42 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:14:54 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:14:55 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:14:55 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:14:55 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:14:55 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:14:55 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:14:55 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:14:55 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:14:55 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:14:55 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:14:55 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:14:55 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:14:56 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:14:57 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:14:57 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:14:57 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:14:57 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:14:57 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:14:57 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:14:57 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:14:57 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:14:57 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:14:57 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:14:57 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:14:57 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:14:58 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:14:58 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:14:58 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:14:58 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:14:58 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:14:58 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:14:59 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:14:59 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:14:59 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:14:59 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:14:59 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:15:11 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:12 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:15:12 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:12 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:15:12 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:12 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:15:12 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:12 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:12 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:15:12 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:15:12 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:12 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:15:13 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:14 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:15:14 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:14 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:15:14 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:14 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:15:14 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:14 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:14 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:15:14 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:15:14 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:14 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:15:14 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:15 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:15:15 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:15 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:15:15 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:15 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:15:15 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:15 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:15 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:15:15 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:15:15 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:15 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:15:33 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:35 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:15:35 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:35 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:15:35 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:35 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:15:35 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:35 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:35 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:15:35 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:15:35 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:15:35 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:15:36 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:08 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:10 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:16:10 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:10 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:16:10 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:11 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:16:11 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:11 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:11 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:16:11 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:16:11 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:11 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:16:11 - __main__ - INFO - INIT_DB is true. Running database initialization.
+2025-02-10 19:16:18 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:19 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:16:19 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:19 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:16:19 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:19 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:16:19 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:19 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:19 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:16:19 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:16:19 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:19 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:16:19 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:21 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:16:21 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:21 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:16:21 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:21 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:16:21 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:21 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:21 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:16:21 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:16:21 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:21 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:16:21 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:22 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:16:22 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:22 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:16:22 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:23 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:16:23 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:23 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:23 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:16:23 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:16:23 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:16:23 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator

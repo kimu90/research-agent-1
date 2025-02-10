@@ -264,6 +264,15 @@ def create_answer_relevance_evaluator(
    langfuse_tracker = None
    if langfuse_public_key and langfuse_secret_key:
        try:
+           # Create configuration dictionary
+           langfuse_config = {
+               'public_key': langfuse_public_key,
+               'secret_key': langfuse_secret_key
+           }
+           if langfuse_host:
+               langfuse_config['host'] = langfuse_host
+
+           # Pass configuration to LangfuseTracker
            langfuse_tracker = LangfuseTracker(
                public_key=langfuse_public_key,
                secret_key=langfuse_secret_key,

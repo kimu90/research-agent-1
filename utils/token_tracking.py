@@ -219,6 +219,15 @@ def create_token_usage_tracker(
     langfuse_tracker = None
     if langfuse_public_key and langfuse_secret_key:
         try:
+            # Create configuration dictionary
+            langfuse_config = {
+                'public_key': langfuse_public_key,
+                'secret_key': langfuse_secret_key
+            }
+            if langfuse_host:
+                langfuse_config['host'] = langfuse_host
+
+            # Pass configuration to LangfuseTracker
             langfuse_tracker = LangfuseTracker(
                 public_key=langfuse_public_key,
                 secret_key=langfuse_secret_key,
@@ -227,5 +236,5 @@ def create_token_usage_tracker(
             logger.info("Langfuse integration enabled")
         except Exception as e:
             logger.error(f"Failed to initialize Langfuse: {str(e)}")
-
+    
     return TokenUsageTracker(langfuse_tracker=langfuse_tracker)

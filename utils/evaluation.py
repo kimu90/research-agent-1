@@ -191,25 +191,34 @@ class FactualAccuracyEvaluator:
             return 0.0, {'error': error_msg}
 
 def create_factual_accuracy_evaluator(
-   langfuse_public_key: Optional[str] = None,
-   langfuse_secret_key: Optional[str] = None,
-   langfuse_host: Optional[str] = None
+  langfuse_public_key: Optional[str] = None,
+  langfuse_secret_key: Optional[str] = None,
+  langfuse_host: Optional[str] = None
 ) -> FactualAccuracyEvaluator:
-   # Use environment variables if not explicitly provided
-   langfuse_public_key = langfuse_public_key or os.getenv('LANGFUSE_PUBLIC_KEY')
-   langfuse_secret_key = langfuse_secret_key or os.getenv('LANGFUSE_SECRET_KEY')
-   langfuse_host = langfuse_host or os.getenv('LANGFUSE_HOST')
+  # Use environment variables if not explicitly provided
+  langfuse_public_key = langfuse_public_key or os.getenv('LANGFUSE_PUBLIC_KEY')
+  langfuse_secret_key = langfuse_secret_key or os.getenv('LANGFUSE_SECRET_KEY')
+  langfuse_host = langfuse_host or os.getenv('LANGFUSE_HOST')
 
-   langfuse_tracker = None
-   if langfuse_public_key and langfuse_secret_key:
-       try:
-           langfuse_tracker = LangfuseTracker(
-               public_key=langfuse_public_key,
-               secret_key=langfuse_secret_key,
-               host=langfuse_host
-           )
-           logger.info("Langfuse integration enabled")
-       except Exception as e:
-           logger.error(f"Failed to initialize Langfuse: {str(e)}")
-   
-   return FactualAccuracyEvaluator(langfuse_tracker=langfuse_tracker)
+  langfuse_tracker = None
+  if langfuse_public_key and langfuse_secret_key:
+      try:
+          # Create configuration dictionary
+          langfuse_config = {
+              'public_key': langfuse_public_key,
+              'secret_key': langfuse_secret_key
+          }
+          if langfuse_host:
+              langfuse_config['host'] = langfuse_host
+
+          # Pass configuration to LangfuseTracker
+          langfuse_tracker = LangfuseTracker(
+              public_key=langfuse_public_key,
+              secret_key=langfuse_secret_key,
+              host=langfuse_host
+          )
+          logger.info("Langfuse integration enabled")
+      except Exception as e:
+          logger.error(f"Failed to initialize Langfuse: {str(e)}")
+  
+  return FactualAccuracyEvaluator(langfuse_tracker=langfuse_tracker)
