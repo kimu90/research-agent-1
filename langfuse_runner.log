@@ -1,0 +1,212 @@
+2025-02-10 20:35:05 - root - INFO - Creating new LangfuseRunner instance
+2025-02-10 20:35:05 - root - INFO - Initializing LangfuseRunner
+2025-02-10 20:35:05 - root - DEBUG - Configuration - Host: https://fantastic-waddle-694pv64vjwqv244jp-3000.app.github.dev, Public Key: ******************************************
+2025-02-10 20:35:05 - root - DEBUG - Validating configuration
+2025-02-10 20:35:05 - root - INFO - Successfully initialized Langfuse client
+2025-02-10 20:35:05 - root - DEBUG - Model costs configured: {'default': 0.001}
+2025-02-10 20:35:05 - root - INFO - Creating new LangfuseRunner instance
+2025-02-10 20:35:05 - root - INFO - Initializing LangfuseRunner
+2025-02-10 20:35:05 - root - DEBUG - Configuration - Host: https://fantastic-waddle-694pv64vjwqv244jp-3000.app.github.dev, Public Key: ******************************************
+2025-02-10 20:35:05 - root - DEBUG - Validating configuration
+2025-02-10 20:35:05 - root - INFO - Successfully initialized Langfuse client
+2025-02-10 20:35:05 - root - DEBUG - Model costs configured: {'default': 0.001}
+2025-02-10 20:35:06 - controllers.generate_summary_router - INFO - Received research request: query='Sclerocarya birrea' tool_name='General Agent' prompt_name='scientific_research/trends.txt'
+2025-02-10 20:35:06 - root - INFO - Running tool: General Agent
+2025-02-10 20:35:06 - root - DEBUG - Query: Sclerocarya birrea
+2025-02-10 20:35:06 - root - DEBUG - Dataset: None
+2025-02-10 20:35:06 - root - DEBUG - Analysis type: None
+2025-02-10 20:35:06 - root - DEBUG - Prompt name: scientific_research/trends.txt
+2025-02-10 20:35:06 - root - DEBUG - Created Langfuse trace
+2025-02-10 20:35:06 - root - DEBUG - Started generation trace
+2025-02-10 20:35:06 - root - INFO - Executing General Agent
+2025-02-10 20:35:06 - root - DEBUG - Initializing General Agent
+2025-02-10 20:35:06 - root - INFO - Starting news search for query: Sclerocarya birrea
+2025-02-10 20:35:06 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): google.serper.dev:443
+2025-02-10 20:35:06 - httpcore.connection - DEBUG - connect_tcp.started host='fantastic-waddle-694pv64vjwqv244jp-3000.app.github.dev' port=443 local_address=None timeout=20 socket_options=None
+2025-02-10 20:35:06 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x73e4db1e8950>
+2025-02-10 20:35:06 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x73e4db1980e0> server_hostname='fantastic-waddle-694pv64vjwqv244jp-3000.app.github.dev' timeout=20
+2025-02-10 20:35:06 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x73e4d433bd90>
+2025-02-10 20:35:06 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-10 20:35:06 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-10 20:35:06 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-10 20:35:06 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-10 20:35:06 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-10 20:35:06 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 401, b'Unauthorized', [(b'Date', b'Mon, 10 Feb 2025 20:35:06 GMT'), (b'Content-Length', b'0'), (b'Connection', b'keep-alive'), (b'WWW-Authenticate', b'tunnel'), (b'X-Content-Type-Options', b'nosniff'), (b'RateLimit-Limit', b'HttpRequestRatePerPort:1500/m'), (b'RateLimit-Remaining', b'HttpRequestRatePerPort:1499'), (b'RateLimit-Reset', b'HttpRequestRatePerPort:35s'), (b'VsSaaS-Request-Id', b'b25c93cd-462a-4187-bb0e-3154a529f653'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains'), (b'X-Served-By', b'tunnels-prod-rel-inc1-v3-cluster')])
+2025-02-10 20:35:06 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-10 20:35:06 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-10 20:35:06 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-10 20:35:06 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-10 20:35:06 - urllib3.connectionpool - DEBUG - https://google.serper.dev:443 "POST /news?q=Sclerocarya+birrea&gl=us&hl=en&num=10 HTTP/1.1" 200 5504
+2025-02-10 20:35:06 - root - INFO - Processing 10 articles for topic: Sclerocarya birrea
+2025-02-10 20:35:06 - root - ERROR - Error in decide_what_to_use: 'snippets'
+2025-02-10 20:35:06 - root - INFO - Starting to scrape 10 news pages
+2025-02-10 20:35:08 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.frontiersin.org:443
+2025-02-10 20:35:09 - urllib3.connectionpool - DEBUG - https://www.frontiersin.org:443 "GET /journals/sustainable-food-systems/articles/10.3389/fsufs.2023.1294437/full HTTP/1.1" 200 None
+2025-02-10 20:35:12 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.cifor-icraf.org:443
+2025-02-10 20:35:13 - urllib3.connectionpool - DEBUG - https://www.cifor-icraf.org:443 "GET /knowledge/publication/26059/ HTTP/1.1" 200 30956
+2025-02-10 20:35:15 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.goodhousekeeping.com:443
+2025-02-10 20:35:15 - urllib3.connectionpool - DEBUG - https://www.goodhousekeeping.com:443 "GET /uk/beauty/skincare/a33793243/marula-oil/ HTTP/1.1" 200 None
+2025-02-10 20:35:17 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.medicalnewstoday.com:443
+2025-02-10 20:35:19 - urllib3.connectionpool - DEBUG - https://www.medicalnewstoday.com:443 "GET /articles/marula-oil HTTP/1.1" 200 None
+2025-02-10 20:35:21 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.frontiersin.org:443
+2025-02-10 20:35:22 - urllib3.connectionpool - DEBUG - https://www.frontiersin.org:443 "GET /journals/chemistry/articles/10.3389/fchem.2021.670530/full HTTP/1.1" 200 None
+2025-02-10 20:35:24 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.sciencedirect.com:443
+2025-02-10 20:35:24 - urllib3.connectionpool - DEBUG - https://www.sciencedirect.com:443 "GET /science/article/pii/S0378874115301963 HTTP/1.1" 302 143
+2025-02-10 20:35:25 - urllib3.connectionpool - DEBUG - https://www.sciencedirect.com:443 "GET /unsupported_browser HTTP/1.1" 400 None
+2025-02-10 20:35:25 - root - ERROR - Error scraping https://www.sciencedirect.com/science/article/pii/S0378874115301963: 400 Client Error: Bad Request for url: https://www.sciencedirect.com/unsupported_browser
+2025-02-10 20:35:27 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.cifor-icraf.org:443
+2025-02-10 20:35:27 - urllib3.connectionpool - DEBUG - https://www.cifor-icraf.org:443 "GET /knowledge/publication/27070/ HTTP/1.1" 200 30555
+2025-02-10 20:35:30 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): nit.com.au:443
+2025-02-10 20:35:30 - urllib3.connectionpool - DEBUG - https://nit.com.au:443 "GET /08-08-2024/12979/mangarri-man-the-mighty-marula-tree-could-flourish-in-australias-top-end HTTP/1.1" 403 None
+2025-02-10 20:35:30 - root - ERROR - Error scraping https://nit.com.au/08-08-2024/12979/mangarri-man-the-mighty-marula-tree-could-flourish-in-australias-top-end: 403 Client Error: Forbidden for url: https://nit.com.au/08-08-2024/12979/mangarri-man-the-mighty-marula-tree-could-flourish-in-australias-top-end
+2025-02-10 20:35:32 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): onlinelibrary.wiley.com:443
+2025-02-10 20:35:32 - urllib3.connectionpool - DEBUG - https://onlinelibrary.wiley.com:443 "GET /doi/10.1155/2022/7145113 HTTP/1.1" 403 None
+2025-02-10 20:35:32 - root - ERROR - Error scraping https://onlinelibrary.wiley.com/doi/10.1155/2022/7145113: 403 Client Error: Forbidden for url: https://onlinelibrary.wiley.com/doi/10.1155/2022/7145113
+2025-02-10 20:35:34 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.givaudan.com:443
+2025-02-10 20:35:39 - urllib3.connectionpool - DEBUG - https://www.givaudan.com:443 "GET /fragrance-beauty/active-beauty/products/marula-oil HTTP/1.1" 200 None
+2025-02-10 20:35:39 - root - INFO - Start inference with model llama3-70b-8192 on host groq
+2025-02-10 20:35:39 - groq._base_client - DEBUG - Request options: {'method': 'post', 'url': '/openai/v1/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': "Analyze and summarize the following search results:\n               \n               Query: Sclerocarya birrea\n               Search Results: ### The future of African wild fruits – a drive towards responsible production and consumption of the marula fruit - Jun 25, 2024\nhttps://www.frontiersin.org/journals/sustainable-food-systems/articles/10.3389/fsufs.2023.1294437/full\n\n\n### Preliminary nutritional analysis of marula (Sclerocarya birrea) fruits from two Kenyan provenances - May 22, 2024\nhttps://www.cifor-icraf.org/knowledge/publication/26059/\n\n\n### Meet the wonder oil for your skin and hair - 4 weeks ago\nhttps://www.goodhousekeeping.com/uk/beauty/skincare/a33793243/marula-oil/\n\n\n### Marula oil: Benefits, side effects, and how to use it - Apr 11, 2022\nhttps://www.medicalnewstoday.com/articles/marula-oil\n\n\n### Determination of Phenolics and Flavonoids of Some Useful Medicinal Plants and Bioassay-Guided Fractionation Substances of Sclerocarya birrea (A. Rich) Hochst Stem (Bark) Extract and Their Efficacy Against Salmonella typhi - Jun 26, 2024\nhttps://www.frontiersin.org/journals/chemistry/articles/10.3389/fchem.2021.670530/full\n\n\n### Safety and efficacy of Sclerocarya birrea (A.Rich.) Hochst (Marula) oil: A clinical perspective - Dec 24, 2015\nhttps://www.sciencedirect.com/science/article/pii/S0378874115301963\n\n\n### Ecology and biology of Uapaca kirkiana, Strychnos cocculoides and Sclerocarya birrea in Southern Africa - Aug 31, 2024\nhttps://www.cifor-icraf.org/knowledge/publication/27070/\n\n\n### Mangarri Man: the mighty marula tree could flourish in Australia's top end - Aug 8, 2024\nhttps://nit.com.au/08-08-2024/12979/mangarri-man-the-mighty-marula-tree-could-flourish-in-australias-top-end\n\n\n### Yield and Physicochemical Properties of Marula (Sclerocarya birrea) Seed Oils among Nine International Provenances Tested in Malawi - Dec 24, 2022\nhttps://onlinelibrary.wiley.com/doi/10.1155/2022/7145113\n\n\n### Marula oil - Aug 2, 2023\nhttps://www.givaudan.com/fragrance-beauty/active-beauty/products/marula-oil\n\n               \n               Provide a comprehensive summary grouped by themes and include relevant links."}, {'role': 'user', 'content': "Summarize and group the search results based on this: 'Sclerocarya birrea'. Include links, dates, and snippets from the search results."}], 'model': 'llama3-70b-8192', 'temperature': 0.7}}
+2025-02-10 20:35:39 - groq._base_client - DEBUG - Sending HTTP Request: POST https://api.groq.com/openai/v1/chat/completions
+2025-02-10 20:35:39 - httpcore.connection - DEBUG - connect_tcp.started host='api.groq.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-02-10 20:35:39 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x73e4cc1e4150>
+2025-02-10 20:35:39 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x73e4fc119c70> server_hostname='api.groq.com' timeout=5.0
+2025-02-10 20:35:39 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x73e4cc1e5c90>
+2025-02-10 20:35:39 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-10 20:35:39 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-10 20:35:39 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-10 20:35:39 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-10 20:35:39 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-10 20:35:41 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Mon, 10 Feb 2025 20:35:41 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate'), (b'vary', b'Origin'), (b'x-groq-region', b'us-west-1'), (b'x-ratelimit-limit-requests', b'14400'), (b'x-ratelimit-limit-tokens', b'6000'), (b'x-ratelimit-remaining-requests', b'14399'), (b'x-ratelimit-remaining-tokens', b'5421'), (b'x-ratelimit-reset-requests', b'6s'), (b'x-ratelimit-reset-tokens', b'5.79s'), (b'x-request-id', b'req_01jkrs68znej6b8mcvmv7mtmmg'), (b'via', b'1.1 google'), (b'alt-svc', b'h3=":443"; ma=86400'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=Y2I0QXhwT635jxjvAS2bBu738fNHj6bUXYKUxldIwf4-1739219741-1.0.1.1-NqEHAtD_O7oagXJ6ASxG95eOGSy_Fr9vs6.jXakfswfe8KaI8BFiiOkvtsLdBQ0uq3ZpzAdjD3jkh7aOfgVDjg; path=/; expires=Mon, 10-Feb-25 21:05:41 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'90fee30bef0341cc-BOM'), (b'Content-Encoding', b'gzip')])
+2025-02-10 20:35:41 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-10 20:35:41 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-10 20:35:41 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-10 20:35:41 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-10 20:35:41 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Mon, 10 Feb 2025 20:35:41 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin', 'x-groq-region': 'us-west-1', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '6000', 'x-ratelimit-remaining-requests': '14399', 'x-ratelimit-remaining-tokens': '5421', 'x-ratelimit-reset-requests': '6s', 'x-ratelimit-reset-tokens': '5.79s', 'x-request-id': 'req_01jkrs68znej6b8mcvmv7mtmmg', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'cf-cache-status': 'DYNAMIC', 'set-cookie': '__cf_bm=Y2I0QXhwT635jxjvAS2bBu738fNHj6bUXYKUxldIwf4-1739219741-1.0.1.1-NqEHAtD_O7oagXJ6ASxG95eOGSy_Fr9vs6.jXakfswfe8KaI8BFiiOkvtsLdBQ0uq3ZpzAdjD3jkh7aOfgVDjg; path=/; expires=Mon, 10-Feb-25 21:05:41 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None', 'server': 'cloudflare', 'cf-ray': '90fee30bef0341cc-BOM', 'content-encoding': 'gzip'})
+2025-02-10 20:35:41 - root - INFO - Inference completed in 2.43s
+2025-02-10 20:35:41 - root - INFO - Tokens used - Input: 657, Output: 663, Total: 1320
+2025-02-10 20:35:41 - root - INFO - Processing speed - 544.10 tokens/second
+2025-02-10 20:35:41 - root - DEBUG - General Agent result - Content count: 10
+2025-02-10 20:35:41 - root - INFO - General Agent execution completed
+2025-02-10 20:35:41 - root - INFO - Tool execution completed successfully
+2025-02-10 20:35:41 - root - DEBUG - Prepared trace data: {'duration': 35.556015, 'success': True, 'tool': 'General Agent', 'prompt_used': 'scientific_research/trends.txt', 'timestamp': '2025-02-10T20:35:41.700779'}
+2025-02-10 20:35:41 - root - DEBUG - Trace data prepared: {'duration': 35.556015, 'success': True, 'tool': 'General Agent', 'prompt_used': 'scientific_research/trends.txt', 'timestamp': '2025-02-10T20:35:41.700779'}
+2025-02-10 20:35:41 - root - DEBUG - Flushing Langfuse traces
+2025-02-10 20:35:41 - httpcore.connection - DEBUG - close.started
+2025-02-10 20:35:41 - httpcore.connection - DEBUG - close.complete
+2025-02-10 20:35:41 - httpcore.connection - DEBUG - connect_tcp.started host='fantastic-waddle-694pv64vjwqv244jp-3000.app.github.dev' port=443 local_address=None timeout=20 socket_options=None
+2025-02-10 20:35:41 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x73e4cc1e5c50>
+2025-02-10 20:35:41 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x73e4db1980e0> server_hostname='fantastic-waddle-694pv64vjwqv244jp-3000.app.github.dev' timeout=20
+2025-02-10 20:35:41 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x73e4db1fa750>
+2025-02-10 20:35:41 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-10 20:35:41 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-10 20:35:41 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-10 20:35:41 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-10 20:35:41 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-10 20:35:41 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 401, b'Unauthorized', [(b'Date', b'Mon, 10 Feb 2025 20:35:41 GMT'), (b'Content-Length', b'0'), (b'Connection', b'keep-alive'), (b'WWW-Authenticate', b'tunnel'), (b'X-Content-Type-Options', b'nosniff'), (b'RateLimit-Limit', b'HttpRequestRatePerPort:1500/m'), (b'RateLimit-Remaining', b'HttpRequestRatePerPort:1499'), (b'RateLimit-Reset', b'HttpRequestRatePerPort:51s'), (b'VsSaaS-Request-Id', b'bcd77ac7-79f0-4941-92fa-1561ade49529'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains'), (b'X-Served-By', b'tunnels-prod-rel-inc1-v3-cluster')])
+2025-02-10 20:35:41 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-10 20:35:41 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-10 20:35:41 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-10 20:35:41 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-10 20:35:41 - controllers.generate_summary_router - INFO - Research completed successfully for query: Sclerocarya birrea
+2025-02-10 20:35:41 - controllers.generate_summary_router - INFO - Returning response for query: Sclerocarya birrea
+2025-02-10 20:36:53 - controllers.generate_summary_router - INFO - Received research request: query='rabbit' tool_name='General Agent' prompt_name='scientific_research/trends.txt'
+2025-02-10 20:36:53 - root - INFO - Running tool: General Agent
+2025-02-10 20:36:53 - root - DEBUG - Query: rabbit
+2025-02-10 20:36:53 - root - DEBUG - Dataset: None
+2025-02-10 20:36:53 - root - DEBUG - Analysis type: None
+2025-02-10 20:36:53 - root - DEBUG - Prompt name: scientific_research/trends.txt
+2025-02-10 20:36:53 - root - DEBUG - Created Langfuse trace
+2025-02-10 20:36:53 - root - DEBUG - Started generation trace
+2025-02-10 20:36:53 - root - INFO - Executing General Agent
+2025-02-10 20:36:53 - root - DEBUG - Initializing General Agent
+2025-02-10 20:36:53 - root - INFO - Starting news search for query: rabbit
+2025-02-10 20:36:53 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): google.serper.dev:443
+2025-02-10 20:36:54 - httpcore.connection - DEBUG - close.started
+2025-02-10 20:36:54 - httpcore.connection - DEBUG - close.complete
+2025-02-10 20:36:54 - httpcore.connection - DEBUG - connect_tcp.started host='fantastic-waddle-694pv64vjwqv244jp-3000.app.github.dev' port=443 local_address=None timeout=20 socket_options=None
+2025-02-10 20:36:54 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x73e4af29a6d0>
+2025-02-10 20:36:54 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x73e4db1980e0> server_hostname='fantastic-waddle-694pv64vjwqv244jp-3000.app.github.dev' timeout=20
+2025-02-10 20:36:54 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x73e4af299010>
+2025-02-10 20:36:54 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-10 20:36:54 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-10 20:36:54 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-10 20:36:54 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-10 20:36:54 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-10 20:36:54 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 401, b'Unauthorized', [(b'Date', b'Mon, 10 Feb 2025 20:36:54 GMT'), (b'Content-Length', b'0'), (b'Connection', b'keep-alive'), (b'WWW-Authenticate', b'tunnel'), (b'X-Content-Type-Options', b'nosniff'), (b'RateLimit-Limit', b'HttpRequestRatePerPort:1500/m'), (b'RateLimit-Remaining', b'HttpRequestRatePerPort:1499'), (b'RateLimit-Reset', b'HttpRequestRatePerPort:33s'), (b'VsSaaS-Request-Id', b'69ddc001-4032-4344-95c5-b5acba716f93'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains'), (b'X-Served-By', b'tunnels-prod-rel-inc1-v3-cluster')])
+2025-02-10 20:36:54 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-10 20:36:54 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-10 20:36:54 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-10 20:36:54 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-10 20:36:54 - urllib3.connectionpool - DEBUG - https://google.serper.dev:443 "POST /news?q=rabbit&gl=us&hl=en&num=10 HTTP/1.1" 200 5376
+2025-02-10 20:36:54 - root - INFO - Processing 10 articles for topic: rabbit
+2025-02-10 20:36:54 - root - ERROR - Error in decide_what_to_use: 'snippets'
+2025-02-10 20:36:54 - root - INFO - Starting to scrape 10 news pages
+2025-02-10 20:36:56 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.northjersey.com:443
+2025-02-10 20:36:58 - urllib3.connectionpool - DEBUG - https://www.northjersey.com:443 "GET /picture-gallery/money/real-estate/2025/02/07/millburns-famed-rabbit-house-built-by-j-w-dow-hits-market-for-2-4m/78300812007/ HTTP/1.1" 200 47383
+2025-02-10 20:37:00 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.bbc.com:443
+2025-02-10 20:37:01 - urllib3.connectionpool - DEBUG - https://www.bbc.com:443 "GET /sport/rugby-union/articles/cd0jm74kj1po HTTP/1.1" 200 53581
+2025-02-10 20:37:03 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.tomsguide.com:443
+2025-02-10 20:37:05 - urllib3.connectionpool - DEBUG - https://www.tomsguide.com:443 "GET /ai/one-year-later-the-rabbit-r1-is-actually-good-now-heres-why HTTP/1.1" 200 155101
+2025-02-10 20:37:07 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): patch.com:443
+2025-02-10 20:37:08 - urllib3.connectionpool - DEBUG - https://patch.com:443 "GET /new-jersey/hoboken/calendar/event/20250216/39d00f94-9590-428f-9958-a14fd276f3a6/the-velveteen-rabbit HTTP/1.1" 308 None
+2025-02-10 20:37:08 - urllib3.connectionpool - DEBUG - https://patch.com:443 "GET /new-jersey/hoboken/calendar/event/20250216/39d00f94-9590-428f-9958-a14fd276f3a6/the-velveteen-rabbit-11a-or-2pm HTTP/1.1" 200 31550
+2025-02-10 20:37:10 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): twincities.eater.com:443
+2025-02-10 20:37:12 - urllib3.connectionpool - DEBUG - https://twincities.eater.com:443 "GET /2025/2/7/24361019/the-rabbit-hole-sports-bar-entertainment-venue-north-loop-openings HTTP/1.1" 200 42144
+2025-02-10 20:37:14 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.cambridgeday.com:443
+2025-02-10 20:37:14 - urllib3.connectionpool - DEBUG - https://www.cambridgeday.com:443 "GET /2025/02/08/how-do-rabbits-survive-the-winter-only-30-do-relying-on-a-layer-of-fat-to-last-into-breeding-time/ HTTP/1.1" 403 None
+2025-02-10 20:37:14 - root - ERROR - Error scraping https://www.cambridgeday.com/2025/02/08/how-do-rabbits-survive-the-winter-only-30-do-relying-on-a-layer-of-fat-to-last-into-breeding-time/: 403 Client Error: Forbidden for url: https://www.cambridgeday.com/2025/02/08/how-do-rabbits-survive-the-winter-only-30-do-relying-on-a-layer-of-fat-to-last-into-breeding-time/
+2025-02-10 20:37:16 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.cracked.com:443
+2025-02-10 20:37:17 - urllib3.connectionpool - DEBUG - https://www.cracked.com:443 "GET /article_45452_i-emailed-bill-murray-and-took-a-trip-down-the-rabbit-hole.html HTTP/1.1" 200 23205
+2025-02-10 20:37:19 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.northjersey.com:443
+2025-02-10 20:37:21 - urllib3.connectionpool - DEBUG - https://www.northjersey.com:443 "GET /story/money/real-estate/2025/02/07/millburn-nj-rabbit-house-listed-for-sale/78296637007/ HTTP/1.1" 200 64312
+2025-02-10 20:37:23 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.ft.com:443
+2025-02-10 20:37:24 - urllib3.connectionpool - DEBUG - https://www.ft.com:443 "GET /content/fb0c4c61-6541-485e-8034-12e115100338 HTTP/1.1" 200 31041
+2025-02-10 20:37:26 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.theguardian.com:443
+2025-02-10 20:37:27 - urllib3.connectionpool - DEBUG - https://www.theguardian.com:443 "GET /film/2025/jan/26/rabbit-trap-review-dev-patel HTTP/1.1" 200 54795
+2025-02-10 20:37:27 - root - INFO - Start inference with model llama3-70b-8192 on host groq
+2025-02-10 20:37:27 - groq._base_client - DEBUG - Request options: {'method': 'post', 'url': '/openai/v1/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': "Analyze and summarize the following search results:\n               \n               Query: rabbit\n               Search Results: ### Millburn's famed Rabbit House built by J.W. Dow hits market for $2.4M - 2 days ago\nhttps://www.northjersey.com/picture-gallery/money/real-estate/2025/02/07/millburns-famed-rabbit-house-built-by-j-w-dow-hits-market-for-2-4m/78300812007/\n\n\n### Fin Smith delivers England Six Nations win over France after nervy beginning - 1 day ago\nhttps://www.bbc.com/sport/rugby-union/articles/cd0jm74kj1po\n\n\n### One year later, the Rabbit R1 is actually good now — here's why - 1 day ago\nhttps://www.tomsguide.com/ai/one-year-later-the-rabbit-r1-is-actually-good-now-heres-why\n\n\n### Local Event: The Velveteen Rabbit - 1 hour ago\nhttps://patch.com/new-jersey/hoboken/calendar/event/20250216/39d00f94-9590-428f-9958-a14fd276f3a6/the-velveteen-rabbit\n\n\n### A Massive Sports Bar Launches in the North Loop in Time For the Super Bowl - 2 days ago\nhttps://twincities.eater.com/2025/2/7/24361019/the-rabbit-hole-sports-bar-entertainment-venue-north-loop-openings\n\n\n### How do rabbits survive the winter? Only 30% do, relying on a layer of fat to last into breeding time - 2 days ago\nhttps://www.cambridgeday.com/2025/02/08/how-do-rabbits-survive-the-winter-only-30-do-relying-on-a-layer-of-fat-to-last-into-breeding-time/\n\n\n### I Emailed Bill Murray and Took A Trip Down the Rabbit Hole - 2 hours ago\nhttps://www.cracked.com/article_45452_i-emailed-bill-murray-and-took-a-trip-down-the-rabbit-hole.html\n\n\n### North Jersey's whimsical Rabbit House, listed for $2.4M, was home of US congressman - 2 days ago\nhttps://www.northjersey.com/story/money/real-estate/2025/02/07/millburn-nj-rabbit-house-listed-for-sale/78296637007/\n\n\n### Australia appoints first rabbit tsar to combat invasive species - 1 month ago\nhttps://www.ft.com/content/fb0c4c61-6541-485e-8034-12e115100338\n\n\n### Rabbit Trap review – Dev Patel gets lost in the woods in messy folk horror - 2 weeks ago\nhttps://www.theguardian.com/film/2025/jan/26/rabbit-trap-review-dev-patel\n\n               \n               Provide a comprehensive summary grouped by themes and include relevant links."}, {'role': 'user', 'content': "Summarize and group the search results based on this: 'rabbit'. Include links, dates, and snippets from the search results."}], 'model': 'llama3-70b-8192', 'temperature': 0.7}}
+2025-02-10 20:37:27 - groq._base_client - DEBUG - Sending HTTP Request: POST https://api.groq.com/openai/v1/chat/completions
+2025-02-10 20:37:27 - httpcore.connection - DEBUG - close.started
+2025-02-10 20:37:27 - httpcore.connection - DEBUG - close.complete
+2025-02-10 20:37:27 - httpcore.connection - DEBUG - connect_tcp.started host='api.groq.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-02-10 20:37:27 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x73e4aeaa5ad0>
+2025-02-10 20:37:27 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x73e4fc119c70> server_hostname='api.groq.com' timeout=5.0
+2025-02-10 20:37:27 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x73e4aeaa6b50>
+2025-02-10 20:37:27 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-10 20:37:27 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-10 20:37:27 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-10 20:37:27 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-10 20:37:27 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-10 20:37:30 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Mon, 10 Feb 2025 20:37:31 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate'), (b'vary', b'Origin'), (b'x-groq-region', b'us-west-1'), (b'x-ratelimit-limit-requests', b'14400'), (b'x-ratelimit-limit-tokens', b'6000'), (b'x-ratelimit-remaining-requests', b'14399'), (b'x-ratelimit-remaining-tokens', b'5419'), (b'x-ratelimit-reset-requests', b'6s'), (b'x-ratelimit-reset-tokens', b'5.81s'), (b'x-request-id', b'req_01jkrs9jmnf31t6w0a0pne241f'), (b'via', b'1.1 google'), (b'alt-svc', b'h3=":443"; ma=86400'), (b'cf-cache-status', b'DYNAMIC'), (b'Server', b'cloudflare'), (b'CF-RAY', b'90fee5b01e0a3de5-BOM'), (b'Content-Encoding', b'gzip')])
+2025-02-10 20:37:30 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-10 20:37:30 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-10 20:37:30 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-10 20:37:30 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-10 20:37:30 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Mon, 10 Feb 2025 20:37:31 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin', 'x-groq-region': 'us-west-1', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '6000', 'x-ratelimit-remaining-requests': '14399', 'x-ratelimit-remaining-tokens': '5419', 'x-ratelimit-reset-requests': '6s', 'x-ratelimit-reset-tokens': '5.81s', 'x-request-id': 'req_01jkrs9jmnf31t6w0a0pne241f', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'cf-cache-status': 'DYNAMIC', 'server': 'cloudflare', 'cf-ray': '90fee5b01e0a3de5-BOM', 'content-encoding': 'gzip'})
+2025-02-10 20:37:30 - root - INFO - Inference completed in 3.65s
+2025-02-10 20:37:30 - root - INFO - Tokens used - Input: 666, Output: 1010, Total: 1676
+2025-02-10 20:37:30 - root - INFO - Processing speed - 459.07 tokens/second
+2025-02-10 20:37:30 - root - DEBUG - General Agent result - Content count: 10
+2025-02-10 20:37:30 - root - INFO - General Agent execution completed
+2025-02-10 20:37:30 - root - INFO - Tool execution completed successfully
+2025-02-10 20:37:30 - root - DEBUG - Prepared trace data: {'duration': 36.933246, 'success': True, 'tool': 'General Agent', 'prompt_used': 'scientific_research/trends.txt', 'timestamp': '2025-02-10T20:37:30.896006'}
+2025-02-10 20:37:30 - root - DEBUG - Trace data prepared: {'duration': 36.933246, 'success': True, 'tool': 'General Agent', 'prompt_used': 'scientific_research/trends.txt', 'timestamp': '2025-02-10T20:37:30.896006'}
+2025-02-10 20:37:30 - root - DEBUG - Flushing Langfuse traces
+2025-02-10 20:37:31 - httpcore.connection - DEBUG - close.started
+2025-02-10 20:37:31 - httpcore.connection - DEBUG - close.complete
+2025-02-10 20:37:31 - httpcore.connection - DEBUG - connect_tcp.started host='fantastic-waddle-694pv64vjwqv244jp-3000.app.github.dev' port=443 local_address=None timeout=20 socket_options=None
+2025-02-10 20:37:31 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x73e4cc1e5410>
+2025-02-10 20:37:31 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x73e4db1980e0> server_hostname='fantastic-waddle-694pv64vjwqv244jp-3000.app.github.dev' timeout=20
+2025-02-10 20:37:31 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x73e4dc638950>
+2025-02-10 20:37:31 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-10 20:37:31 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-10 20:37:31 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-10 20:37:31 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-10 20:37:31 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-10 20:37:31 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 401, b'Unauthorized', [(b'Date', b'Mon, 10 Feb 2025 20:37:31 GMT'), (b'Content-Length', b'0'), (b'Connection', b'keep-alive'), (b'WWW-Authenticate', b'tunnel'), (b'X-Content-Type-Options', b'nosniff'), (b'RateLimit-Limit', b'HttpRequestRatePerPort:1500/m'), (b'RateLimit-Remaining', b'HttpRequestRatePerPort:1499'), (b'RateLimit-Reset', b'HttpRequestRatePerPort:8s'), (b'VsSaaS-Request-Id', b'051b9d34-2bc5-479c-bb51-86af941913a2'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains'), (b'X-Served-By', b'tunnels-prod-rel-inc1-v3-cluster')])
+2025-02-10 20:37:31 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-10 20:37:31 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-10 20:37:31 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-10 20:37:31 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-10 20:37:31 - controllers.generate_summary_router - INFO - Research completed successfully for query: rabbit
+2025-02-10 20:37:31 - controllers.generate_summary_router - INFO - Returning response for query: rabbit
