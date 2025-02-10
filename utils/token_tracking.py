@@ -3,8 +3,6 @@ import logging
 from typing import Dict, List, Optional, Any
 from datetime import datetime
 from dataclasses import dataclass
-import os
-from typing import Optional
 from langfuse import Langfuse
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
@@ -48,7 +46,7 @@ class LangfuseTracker:
         )
         self._executor = ThreadPoolExecutor(max_workers=4)
 
-    async def track_usage(self, trace_id: str, entry: TokenUsageEntry) -> None:
+    def track_usage(self, trace_id: str, entry: TokenUsageEntry) -> None:
         try:
             generation = self.langfuse.get_generation(trace_id)
             generation.score(
@@ -97,7 +95,7 @@ class TokenUsageTracker:
             }
             self._initialized = True
 
-    async def add_usage(
+    def add_usage(
         self,
         prompt_tokens: int,
         completion_tokens: int,
@@ -127,7 +125,7 @@ class TokenUsageTracker:
             self._update_totals(usage_entry)
 
             if trace_id and self.langfuse_tracker:
-                await self.langfuse_tracker.track_usage(trace_id, usage_entry)
+                self.langfuse_tracker.track_usage(trace_id, usage_entry)
 
         except Exception as e:
             self.logger.error(f"Error adding token usage: {str(e)}", exc_info=True)

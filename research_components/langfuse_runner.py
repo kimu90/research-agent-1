@@ -1,28 +1,23 @@
-import logging
 import os
+import logging
 from datetime import datetime
 import asyncio
 from typing import Optional, Dict, Any, Tuple
 from langfuse import Langfuse
 from dotenv import load_dotenv
+
 from utils.evaluation import create_factual_accuracy_evaluator
 from utils.source_coverage import create_source_coverage_evaluator
 from utils.logical_coherence import create_logical_coherence_evaluator
 from utils.answer_relevance import create_answer_relevance_evaluator
-import os
-from typing import Optional
 from utils.automated_tests import create_automated_test_evaluator
 from utils.analysis_evaluator import create_analysis_evaluator
 from utils.token_tracking import create_token_usage_tracker
 from tools import GeneralAgent, AnalysisAgent
 from utils.token_tracking import TokenUsageTracker
+
 # Load environment variables
 load_dotenv()
-
-# Import necessary components
-from tools import GeneralAgent, AnalysisAgent
-
-
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +45,7 @@ class LangfuseRunner:
 
         self.langfuse = Langfuse(**langfuse_config)
         
-        # Use default MODEL_COSTS or get from environment
+        # Use default or environment variable for model costs
         model_costs = {
             'default': float(os.getenv('DEFAULT_MODEL_COST', 0.001))
         }
@@ -76,7 +71,7 @@ class LangfuseRunner:
             }
         }
 
-    async def run_tool(
+    def run_tool(
         self,
         tool_name: str,
         query: str,
@@ -102,18 +97,18 @@ class LangfuseRunner:
             generation = trace.generation(name=f"{tool_name.lower()}-generation")
             
             if tool_name == "General Agent":
-                result = await self._run_general_agent(
+                result = self._run_general_agent(
                     generation, query, tool, prompt_name
                 )
             elif tool_name == "Analysis Agent":
-                result = await self._run_analysis_agent(
+                result = self._run_analysis_agent(
                     generation, query, dataset, tool, prompt_name
                 )
             else:
                 raise ValueError(f"Unknown tool: {tool_name}")
 
             if result:
-                await self._track_metrics(trace, tool_name, result, query)
+                self._track_metrics(trace, tool_name, result, query)
                 generation.end(success=True)
             
             trace_data = self._prepare_trace_data(
@@ -134,9 +129,9 @@ class LangfuseRunner:
         finally:
             self.langfuse.flush()
 
-    async def _run_general_agent(self, generation, query: str, tool: Optional[Any], prompt_name: str):
+    def _run_general_agent(self, generation, query: str, tool: Optional[Any], prompt_name: str):
         tool = tool or GeneralAgent(include_summary=True, prompt_name=prompt_name)
-        result = await tool.invoke(input={"query": query})
+        result = tool.invoke(input={"query": query})
         
         if result:
             content_count = len(result.content) if result.content else 0
@@ -148,10 +143,10 @@ class LangfuseRunner:
             )
         return result
 
-    async def _run_analysis_agent(self, generation, query: str, dataset: str, 
-                                tool: Optional[Any], prompt_name: str):
+    def _run_analysis_agent(self, generation, query: str, dataset: str, 
+                            tool: Optional[Any], prompt_name: str):
         tool = tool or AnalysisAgent(data_folder="./data", prompt_name=prompt_name)
-        result = await tool.invoke_analysis(input={"query": query, "dataset": dataset})
+        result = tool.invoke_analysis(input={"query": query, "dataset": dataset})
         
         if result:
             generation.update(
@@ -162,27 +157,23 @@ class LangfuseRunner:
             )
         return result
 
-    async def _track_metrics(self, trace, tool_name: str, result: Any, query: str):
-        evaluation_tasks = []
-        
+    def _track_metrics(self, trace, tool_name: str, result: Any, query: str):
         if tool_name == "General Agent":
             for name, evaluator in self.evaluators["General Agent"].items():
-                if name == "relevance":
-                    evaluation_tasks.append(
+                try:
+                    if name == "relevance":
                         evaluator.evaluate_answer_relevance(result, query, trace.id)
-                    )
-                else:
-                    evaluation_tasks.append(
+                    else:
                         evaluator.evaluate(result, trace.id)
-                    )
+                except Exception as e:
+                    logger.error(f"Error tracking {name} metric: {str(e)}")
         
         elif tool_name == "Analysis Agent" and result:
-            evaluator = self.evaluators["Analysis Agent"]["analysis"]
-            evaluation_tasks.append(
+            try:
+                evaluator = self.evaluators["Analysis Agent"]["analysis"]
                 evaluator.evaluate_analysis(result, query, trace.id)
-            )
-
-        await asyncio.gather(*evaluation_tasks)
+            except Exception as e:
+                logger.error(f"Error tracking analysis metric: {str(e)}")
 
     def _prepare_trace_data(self, start_time: datetime, success: bool, 
                           tool_name: str, prompt_name: str) -> Dict[str, Any]:

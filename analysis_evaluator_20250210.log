@@ -326,3 +326,210 @@
 2025-02-10 19:16:23 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
 2025-02-10 19:16:23 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
 2025-02-10 19:16:23 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:18:33 - root - INFO - Starting news search for query: Sclerocarya birrea
+2025-02-10 19:18:33 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): google.serper.dev:443
+2025-02-10 19:18:34 - httpcore.connection - DEBUG - connect_tcp.started host='fantastic-waddle-694pv64vjwqv244jp-3000.app.github.dev' port=443 local_address=None timeout=20 socket_options=None
+2025-02-10 19:18:34 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x79bcdc425f10>
+2025-02-10 19:18:34 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x79bcf7c64170> server_hostname='fantastic-waddle-694pv64vjwqv244jp-3000.app.github.dev' timeout=20
+2025-02-10 19:18:34 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x79bcddcba0d0>
+2025-02-10 19:18:34 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-10 19:18:34 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-10 19:18:34 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-10 19:18:34 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-10 19:18:34 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-10 19:18:34 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 401, b'Unauthorized', [(b'Date', b'Mon, 10 Feb 2025 19:18:34 GMT'), (b'Content-Length', b'0'), (b'Connection', b'keep-alive'), (b'WWW-Authenticate', b'tunnel'), (b'X-Content-Type-Options', b'nosniff'), (b'RateLimit-Limit', b'HttpRequestRatePerPort:1500/m'), (b'RateLimit-Remaining', b'HttpRequestRatePerPort:1499'), (b'RateLimit-Reset', b'HttpRequestRatePerPort:48s'), (b'VsSaaS-Request-Id', b'37526f67-030b-46e9-8cda-5c38a93d9aae'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains'), (b'X-Served-By', b'tunnels-prod-rel-inc1-v3-cluster')])
+2025-02-10 19:18:34 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-10 19:18:34 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-10 19:18:34 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-10 19:18:34 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-10 19:18:35 - urllib3.connectionpool - DEBUG - https://google.serper.dev:443 "POST /news?q=Sclerocarya+birrea&gl=us&hl=en&num=10 HTTP/1.1" 200 5524
+2025-02-10 19:18:35 - root - INFO - Processing 10 articles for topic: Sclerocarya birrea
+2025-02-10 19:18:35 - root - ERROR - Error in decide_what_to_use: 'snippets'
+2025-02-10 19:18:35 - root - INFO - Starting to scrape 10 news pages
+2025-02-10 19:18:37 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.frontiersin.org:443
+2025-02-10 19:18:38 - urllib3.connectionpool - DEBUG - https://www.frontiersin.org:443 "GET /journals/sustainable-food-systems/articles/10.3389/fsufs.2023.1294437/full HTTP/1.1" 200 None
+2025-02-10 19:18:40 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.cifor-icraf.org:443
+2025-02-10 19:18:43 - urllib3.connectionpool - DEBUG - https://www.cifor-icraf.org:443 "GET /knowledge/publication/26059/ HTTP/1.1" 200 30935
+2025-02-10 19:18:45 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.goodhousekeeping.com:443
+2025-02-10 19:18:45 - urllib3.connectionpool - DEBUG - https://www.goodhousekeeping.com:443 "GET /uk/beauty/skincare/a33793243/marula-oil/ HTTP/1.1" 200 None
+2025-02-10 19:18:47 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.sciencedirect.com:443
+2025-02-10 19:18:48 - urllib3.connectionpool - DEBUG - https://www.sciencedirect.com:443 "GET /science/article/abs/pii/S0378874115301963 HTTP/1.1" 302 143
+2025-02-10 19:18:49 - urllib3.connectionpool - DEBUG - https://www.sciencedirect.com:443 "GET /unsupported_browser HTTP/1.1" 400 None
+2025-02-10 19:18:49 - root - ERROR - Error scraping https://www.sciencedirect.com/science/article/abs/pii/S0378874115301963: 400 Client Error: Bad Request for url: https://www.sciencedirect.com/unsupported_browser
+2025-02-10 19:18:51 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.medicalnewstoday.com:443
+2025-02-10 19:18:52 - urllib3.connectionpool - DEBUG - https://www.medicalnewstoday.com:443 "GET /articles/marula-oil HTTP/1.1" 200 None
+2025-02-10 19:18:54 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.frontiersin.org:443
+2025-02-10 19:18:55 - urllib3.connectionpool - DEBUG - https://www.frontiersin.org:443 "GET /journals/chemistry/articles/10.3389/fchem.2021.670530/full HTTP/1.1" 200 None
+2025-02-10 19:18:57 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.cifor-icraf.org:443
+2025-02-10 19:19:01 - urllib3.connectionpool - DEBUG - https://www.cifor-icraf.org:443 "GET /knowledge/publication/27070/ HTTP/1.1" 200 30534
+2025-02-10 19:19:03 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): nit.com.au:443
+2025-02-10 19:19:03 - urllib3.connectionpool - DEBUG - https://nit.com.au:443 "GET /08-08-2024/12979/mangarri-man-the-mighty-marula-tree-could-flourish-in-australias-top-end HTTP/1.1" 403 None
+2025-02-10 19:19:03 - root - ERROR - Error scraping https://nit.com.au/08-08-2024/12979/mangarri-man-the-mighty-marula-tree-could-flourish-in-australias-top-end: 403 Client Error: Forbidden for url: https://nit.com.au/08-08-2024/12979/mangarri-man-the-mighty-marula-tree-could-flourish-in-australias-top-end
+2025-02-10 19:19:05 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): onlinelibrary.wiley.com:443
+2025-02-10 19:19:06 - urllib3.connectionpool - DEBUG - https://onlinelibrary.wiley.com:443 "GET /doi/10.1155/2022/7145113 HTTP/1.1" 403 None
+2025-02-10 19:19:06 - root - ERROR - Error scraping https://onlinelibrary.wiley.com/doi/10.1155/2022/7145113: 403 Client Error: Forbidden for url: https://onlinelibrary.wiley.com/doi/10.1155/2022/7145113
+2025-02-10 19:19:08 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.givaudan.com:443
+2025-02-10 19:19:13 - urllib3.connectionpool - DEBUG - https://www.givaudan.com:443 "GET /fragrance-beauty/active-beauty/products/marula-oil HTTP/1.1" 200 None
+2025-02-10 19:19:13 - root - INFO - Start inference with model llama3-70b-8192 on host groq
+2025-02-10 19:19:13 - groq._base_client - DEBUG - Request options: {'method': 'post', 'url': '/openai/v1/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': "Analyze and summarize the following search results:\n               \n               Query: Sclerocarya birrea\n               Search Results: ### The future of African wild fruits – a drive towards responsible production and consumption of the marula fruit - Jun 25, 2024\nhttps://www.frontiersin.org/journals/sustainable-food-systems/articles/10.3389/fsufs.2023.1294437/full\n\n\n### Preliminary nutritional analysis of marula (Sclerocarya birrea) fruits from two Kenyan provenances - May 22, 2024\nhttps://www.cifor-icraf.org/knowledge/publication/26059/\n\n\n### Meet the wonder oil for your skin and hair - 4 weeks ago\nhttps://www.goodhousekeeping.com/uk/beauty/skincare/a33793243/marula-oil/\n\n\n### Safety and efficacy of Sclerocarya birrea (A.Rich.) Hochst (Marula) oil: A clinical perspective - Dec 24, 2015\nhttps://www.sciencedirect.com/science/article/abs/pii/S0378874115301963\n\n\n### Marula oil: Benefits, side effects, and how to use it - Apr 11, 2022\nhttps://www.medicalnewstoday.com/articles/marula-oil\n\n\n### Determination of Phenolics and Flavonoids of Some Useful Medicinal Plants and Bioassay-Guided Fractionation Substances of Sclerocarya birrea (A. Rich) Hochst Stem (Bark) Extract and Their Efficacy Against Salmonella typhi - Jun 26, 2024\nhttps://www.frontiersin.org/journals/chemistry/articles/10.3389/fchem.2021.670530/full\n\n\n### Ecology and biology of Uapaca kirkiana, Strychnos cocculoides and Sclerocarya birrea in Southern Africa - Aug 31, 2024\nhttps://www.cifor-icraf.org/knowledge/publication/27070/\n\n\n### Mangarri Man: the mighty marula tree could flourish in Australia's top end - Aug 8, 2024\nhttps://nit.com.au/08-08-2024/12979/mangarri-man-the-mighty-marula-tree-could-flourish-in-australias-top-end\n\n\n### Yield and Physicochemical Properties of Marula (Sclerocarya birrea) Seed Oils among Nine International Provenances Tested in Malawi - Dec 24, 2022\nhttps://onlinelibrary.wiley.com/doi/10.1155/2022/7145113\n\n\n### Marula oil - Aug 2, 2023\nhttps://www.givaudan.com/fragrance-beauty/active-beauty/products/marula-oil\n\n               \n               Provide a comprehensive summary grouped by themes and include relevant links."}, {'role': 'user', 'content': "Summarize and group the search results based on this: 'Sclerocarya birrea'. Include links, dates, and snippets from the search results."}], 'model': 'llama3-70b-8192', 'temperature': 0.7}}
+2025-02-10 19:19:13 - groq._base_client - DEBUG - Sending HTTP Request: POST https://api.groq.com/openai/v1/chat/completions
+2025-02-10 19:19:13 - httpcore.connection - DEBUG - connect_tcp.started host='api.groq.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-02-10 19:19:14 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x79bcc19e8590>
+2025-02-10 19:19:14 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x79bd1ef3dd00> server_hostname='api.groq.com' timeout=5.0
+2025-02-10 19:19:14 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x79bcc26850d0>
+2025-02-10 19:19:14 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-10 19:19:14 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-10 19:19:14 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-10 19:19:14 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-10 19:19:14 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-10 19:19:16 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Mon, 10 Feb 2025 19:19:16 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate'), (b'vary', b'Origin'), (b'x-groq-region', b'us-west-1'), (b'x-ratelimit-limit-requests', b'14400'), (b'x-ratelimit-limit-tokens', b'6000'), (b'x-ratelimit-remaining-requests', b'14399'), (b'x-ratelimit-remaining-tokens', b'5420'), (b'x-ratelimit-reset-requests', b'6s'), (b'x-ratelimit-reset-tokens', b'5.8s'), (b'x-request-id', b'req_01jkrmtb9xexxtgrv6ab217w5a'), (b'via', b'1.1 google'), (b'alt-svc', b'h3=":443"; ma=86400'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=CXUBWZwfU5b_ABf2ZjBviTSJZCk8.e7BCBOTnG7Hp5U-1739215156-1.0.1.1-GGYaT4HQlIkOxcvDIIiulVxhYrPnya00GQBDbf67TTGwsY8U4IzTUkA0mZ5UR02BP92A5vVzzaf7v201Q32ZHw; path=/; expires=Mon, 10-Feb-25 19:49:16 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'90fe731ace7b41cc-BOM'), (b'Content-Encoding', b'gzip')])
+2025-02-10 19:19:16 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-10 19:19:16 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-10 19:19:16 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-10 19:19:16 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-10 19:19:16 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Mon, 10 Feb 2025 19:19:16 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin', 'x-groq-region': 'us-west-1', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '6000', 'x-ratelimit-remaining-requests': '14399', 'x-ratelimit-remaining-tokens': '5420', 'x-ratelimit-reset-requests': '6s', 'x-ratelimit-reset-tokens': '5.8s', 'x-request-id': 'req_01jkrmtb9xexxtgrv6ab217w5a', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'cf-cache-status': 'DYNAMIC', 'set-cookie': '__cf_bm=CXUBWZwfU5b_ABf2ZjBviTSJZCk8.e7BCBOTnG7Hp5U-1739215156-1.0.1.1-GGYaT4HQlIkOxcvDIIiulVxhYrPnya00GQBDbf67TTGwsY8U4IzTUkA0mZ5UR02BP92A5vVzzaf7v201Q32ZHw; path=/; expires=Mon, 10-Feb-25 19:49:16 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None', 'server': 'cloudflare', 'cf-ray': '90fe731ace7b41cc-BOM', 'content-encoding': 'gzip'})
+2025-02-10 19:19:16 - root - INFO - Inference completed in 2.78s
+2025-02-10 19:19:16 - root - INFO - Tokens used - Input: 659, Output: 730, Total: 1389
+2025-02-10 19:19:16 - root - INFO - Processing speed - 500.29 tokens/second
+2025-02-10 19:19:16 - research_components.langfuse_runner - ERROR - Error in run_tool: object ResearchToolOutput can't be used in 'await' expression
+Traceback (most recent call last):
+  File "/app/research_components/langfuse_runner.py", line 105, in run_tool
+    result = await self._run_general_agent(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/research_components/langfuse_runner.py", line 139, in _run_general_agent
+    result = await tool.invoke(input={"query": query})
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: object ResearchToolOutput can't be used in 'await' expression
+2025-02-10 19:21:12 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:21:13 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:21:13 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:21:13 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:21:14 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:21:14 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:21:14 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:21:14 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:21:14 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:21:14 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:21:14 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:21:14 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:21:14 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:21:15 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:21:15 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:21:15 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:21:16 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:21:16 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:21:16 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:21:16 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:21:16 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:21:16 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:21:16 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:21:16 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:21:16 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:21:17 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:21:17 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:21:17 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:21:17 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:21:17 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:21:17 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:21:17 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:21:17 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:21:17 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:21:17 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:21:17 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:24:45 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:24:47 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:24:47 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:24:47 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:24:47 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:24:47 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:24:47 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:24:47 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:24:47 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:24:47 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:24:47 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:24:47 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:24:47 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:24:48 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:24:48 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:24:48 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:24:48 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:24:49 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:24:49 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:24:49 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:24:49 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:24:49 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:24:49 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:24:49 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:24:49 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:24:50 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:24:50 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:24:50 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:24:50 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:24:50 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:24:50 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:24:50 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:24:50 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:24:50 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:24:50 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:24:50 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:27:32 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:27:33 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:27:34 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:27:34 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:27:34 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:27:34 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:27:34 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:27:34 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:27:34 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:27:34 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:27:34 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:27:34 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:28:01 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:03 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:28:03 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:03 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:28:03 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:03 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:28:03 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:03 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:03 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:28:03 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:28:04 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:04 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:28:04 - __main__ - INFO - INIT_DB is true. Running database initialization.
+2025-02-10 19:28:10 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:11 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:28:11 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:11 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:28:11 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:11 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:28:12 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:12 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:12 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:28:12 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:28:12 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:12 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:28:12 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:13 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:28:13 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:13 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:28:13 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:13 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:28:13 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:13 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:13 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:28:13 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:28:14 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:14 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-10 19:28:14 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:15 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-10 19:28:15 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:15 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-10 19:28:15 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:15 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-10 19:28:15 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:15 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:15 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-10 19:28:15 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-10 19:28:15 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:28:15 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
