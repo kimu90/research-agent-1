@@ -5,6 +5,8 @@ from fastapi.responses import HTMLResponse
 from contextlib import asynccontextmanager
 from langfuse import Langfuse
 import os
+import os
+from typing import Optional
 from dotenv import load_dotenv
 
 from controllers.generate_summary_router import api_router as summary_router

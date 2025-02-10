@@ -5,23 +5,24 @@ import asyncio
 from typing import Optional, Dict, Any, Tuple
 from langfuse import Langfuse
 from dotenv import load_dotenv
-
+from utils.evaluation import create_factual_accuracy_evaluator
+from utils.source_coverage import create_source_coverage_evaluator
+from utils.logical_coherence import create_logical_coherence_evaluator
+from utils.answer_relevance import create_answer_relevance_evaluator
+import os
+from typing import Optional
+from utils.automated_tests import create_automated_test_evaluator
+from utils.analysis_evaluator import create_analysis_evaluator
+from utils.token_tracking import create_token_usage_tracker
+from tools import GeneralAgent, AnalysisAgent
+from utils.token_tracking import TokenUsageTracker
 # Load environment variables
 load_dotenv()
 
 # Import necessary components
-from research_agent.tools import GeneralAgent, AnalysisAgent
-from research_agent.tracers.token_tracker import TokenUsageTracker
+from tools import GeneralAgent, AnalysisAgent
 
-# Evaluator imports
-from research_agent.evaluators import (
-    create_factual_accuracy_evaluator,
-    create_source_coverage_evaluator,
-    create_logical_coherence_evaluator,
-    create_answer_relevance_evaluator,
-    create_automated_test_evaluator,
-    create_analysis_evaluator
-)
+
 
 logger = logging.getLogger(__name__)
 

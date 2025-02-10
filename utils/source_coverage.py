@@ -11,11 +11,12 @@ from concurrent.futures import ThreadPoolExecutor
 import asyncio
 from datetime import datetime
 import logging
-
+import os
+from typing import Optional
 logger = logging.getLogger(__name__)
 
 class LangfuseTracker:
-   def __init__(self, 
+    def __init__(self, 
                 public_key: Optional[str] = None, 
                 secret_key: Optional[str] = None, 
                 host: Optional[str] = None):

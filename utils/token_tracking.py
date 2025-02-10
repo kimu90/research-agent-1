@@ -1,10 +1,17 @@
+import os
+import logging
 from typing import Dict, List, Optional, Any
 from datetime import datetime
-import logging
 from dataclasses import dataclass
+import os
+from typing import Optional
 from langfuse import Langfuse
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
@@ -18,28 +25,28 @@ class TokenUsageEntry:
     prompt_id: Optional[str] = None
     cost: float = 0.0
     total_tokens: int = 0
-    processing_time: float = 0.0
+    processing_time: float = 0.5
     processing_speed: float = 0.0
 
 class LangfuseTracker:
-   def __init__(self, 
-                public_key: Optional[str] = None, 
-                secret_key: Optional[str] = None, 
-                host: Optional[str] = None):
-       # Use environment variables if not explicitly provided
-       public_key = public_key or os.getenv('LANGFUSE_PUBLIC_KEY')
-       secret_key = secret_key or os.getenv('LANGFUSE_SECRET_KEY')
-       host = host or os.getenv('LANGFUSE_HOST')
+    def __init__(self, 
+                 public_key: Optional[str] = None, 
+                 secret_key: Optional[str] = None, 
+                 host: Optional[str] = None):
+        # Use environment variables if not explicitly provided
+        public_key = public_key or os.getenv('LANGFUSE_PUBLIC_KEY')
+        secret_key = secret_key or os.getenv('LANGFUSE_SECRET_KEY')
+        host = host or os.getenv('LANGFUSE_HOST')
 
-       if not public_key or not secret_key:
-           raise ValueError("Langfuse public and secret keys must be provided")
+        if not public_key or not secret_key:
+            raise ValueError("Langfuse public and secret keys must be provided")
 
-       self.langfuse = Langfuse(
-           public_key=public_key, 
-           secret_key=secret_key, 
-           host=host
-       )
-       self._executor = ThreadPoolExecutor(max_workers=4)
+        self.langfuse = Langfuse(
+            public_key=public_key, 
+            secret_key=secret_key, 
+            host=host
+        )
+        self._executor = ThreadPoolExecutor(max_workers=4)
 
     async def track_usage(self, trace_id: str, entry: TokenUsageEntry) -> None:
         try:
@@ -101,7 +108,7 @@ class TokenUsageTracker:
         try:
             cost = self._calculate_cost(prompt_tokens, completion_tokens, model)
             total_tokens = prompt_tokens + completion_tokens
-            processing_time = self._get_processing_time()
+            processing_time = 0.5  # Default processing time
             processing_speed = total_tokens / processing_time if processing_time > 0 else 0
 
             usage_entry = TokenUsageEntry(
@@ -132,9 +139,6 @@ class TokenUsageTracker:
         rates = self._cost_rates[model]
         return ((prompt_tokens / 1000) * rates['prompt'] + 
                 (completion_tokens / 1000) * rates['completion'])
-
-    def _get_processing_time(self) -> float:
-        return 0.5
 
     def _update_totals(self, entry: TokenUsageEntry) -> None:
         self._total_prompt_tokens += entry.prompt_tokens
@@ -203,25 +207,25 @@ class TokenUsageTracker:
         return usage
 
 def create_token_usage_tracker(
-   langfuse_public_key: Optional[str] = None,
-   langfuse_secret_key: Optional[str] = None,
-   langfuse_host: Optional[str] = None
+    langfuse_public_key: Optional[str] = None,
+    langfuse_secret_key: Optional[str] = None,
+    langfuse_host: Optional[str] = None
 ) -> TokenUsageTracker:
-   # Use environment variables if not explicitly provided
-   langfuse_public_key = langfuse_public_key or os.getenv('LANGFUSE_PUBLIC_KEY')
-   langfuse_secret_key = langfuse_secret_key or os.getenv('LANGFUSE_SECRET_KEY')
-   langfuse_host = langfuse_host or os.getenv('LANGFUSE_HOST')
+    # Use environment variables if not explicitly provided
+    langfuse_public_key = langfuse_public_key or os.getenv('LANGFUSE_PUBLIC_KEY')
+    langfuse_secret_key = langfuse_secret_key or os.getenv('LANGFUSE_SECRET_KEY')
+    langfuse_host = langfuse_host or os.getenv('LANGFUSE_HOST')
 
-   langfuse_tracker = None
-   if langfuse_public_key and langfuse_secret_key:
-       try:
-           langfuse_tracker = LangfuseTracker(
-               public_key=langfuse_public_key,
-               secret_key=langfuse_secret_key,
-               host=langfuse_host
-           )
-           logger.info("Langfuse integration enabled")
-       except Exception as e:
-           logger.error(f"Failed to initialize Langfuse: {str(e)}")
-   
-   return TokenUsageTracker(langfuse_tracker=langfuse_tracker)
+    langfuse_tracker = None
+    if langfuse_public_key and langfuse_secret_key:
+        try:
+            langfuse_tracker = LangfuseTracker(
+                public_key=langfuse_public_key,
+                secret_key=langfuse_secret_key,
+                host=langfuse_host
+            )
+            logger.info("Langfuse integration enabled")
+        except Exception as e:
+            logger.error(f"Failed to initialize Langfuse: {str(e)}")
+
+    return TokenUsageTracker(langfuse_tracker=langfuse_tracker)

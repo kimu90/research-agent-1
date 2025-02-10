@@ -1,5 +1,7 @@
 import logging
 from typing import Dict, Any, Optional
+import os
+from typing import Optional
 import numpy as np
 import re
 import sys
@@ -34,7 +36,7 @@ logger = setup_logging()
 logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 
 class LangfuseTracker:
-   def __init__(self, 
+    def __init__(self, 
                 public_key: Optional[str] = None, 
                 secret_key: Optional[str] = None, 
                 host: Optional[str] = None):

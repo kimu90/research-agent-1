@@ -4,13 +4,15 @@ import logging
 import asyncio
 from datetime import datetime
 from langfuse import Langfuse
+import os
+from typing import Optional
 from concurrent.futures import ThreadPoolExecutor
 
 logger = logging.getLogger(__name__)
 logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 
 class LangfuseTracker:
-   def __init__(self, 
+    def __init__(self, 
                 public_key: Optional[str] = None, 
                 secret_key: Optional[str] = None, 
                 host: Optional[str] = None):

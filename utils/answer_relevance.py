@@ -5,6 +5,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 from tools.research.common.model_schemas import ResearchToolOutput, ContentItem
 from typing import List, Dict, Tuple, Union, Any, Optional
 import json
+import os
+from typing import Optional
 import sys
 from logging.handlers import RotatingFileHandler
 import os
@@ -53,7 +55,7 @@ except Exception as e:
     raise
 
 class LangfuseTracker:
-   def __init__(self, 
+    def __init__(self, 
                 public_key: Optional[str] = None, 
                 secret_key: Optional[str] = None, 
                 host: Optional[str] = None):

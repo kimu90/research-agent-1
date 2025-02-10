@@ -1,3 +1,15 @@
 2025-02-10 16:05:48,694 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
 2025-02-10 16:05:56,562 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
 2025-02-10 16:17:43,050 - relevance_evaluator - INFO - <module>:70 - Successfully initialized spaCy model
+2025-02-10 18:02:49,416 - relevance_evaluator - INFO - <module>:50 - Successfully initialized spaCy model
+2025-02-10 18:11:17,294 - relevance_evaluator - INFO - <module>:50 - Successfully initialized spaCy model
+2025-02-10 18:35:53,436 - relevance_evaluator - INFO - <module>:50 - Successfully initialized spaCy model
+2025-02-10 18:49:17,925 - relevance_evaluator - INFO - <module>:50 - Successfully initialized spaCy model
+2025-02-10 18:55:07,481 - relevance_evaluator - INFO - <module>:50 - Successfully initialized spaCy model
+2025-02-10 19:02:55,836 - relevance_evaluator - INFO - <module>:50 - Successfully initialized spaCy model
+2025-02-10 19:08:35,476 - relevance_evaluator - INFO - <module>:52 - Successfully initialized spaCy model
+2025-02-10 19:08:38,478 - relevance_evaluator - ERROR - create_answer_relevance_evaluator:274 - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:08:45,824 - relevance_evaluator - INFO - <module>:52 - Successfully initialized spaCy model
+2025-02-10 19:08:47,376 - relevance_evaluator - ERROR - create_answer_relevance_evaluator:274 - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:08:49,917 - relevance_evaluator - ERROR - create_answer_relevance_evaluator:274 - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-10 19:08:51,656 - relevance_evaluator - ERROR - create_answer_relevance_evaluator:274 - Failed to initialize Langfuse: 'Langfuse' object is not callable
