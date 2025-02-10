@@ -34,13 +34,24 @@ logger = setup_logging()
 logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 
 class LangfuseTracker:
-    def __init__(self, public_key: str, secret_key: str, host: Optional[str] = None):
-        self.langfuse = Langfuse(
-            public_key=public_key,
-            secret_key=secret_key,
-            host=host
-        )
-        self._executor = ThreadPoolExecutor(max_workers=4)
+   def __init__(self, 
+                public_key: Optional[str] = None, 
+                secret_key: Optional[str] = None, 
+                host: Optional[str] = None):
+       # Use environment variables if not explicitly provided
+       public_key = public_key or os.getenv('LANGFUSE_PUBLIC_KEY')
+       secret_key = secret_key or os.getenv('LANGFUSE_SECRET_KEY')
+       host = host or os.getenv('LANGFUSE_HOST')
+
+       if not public_key or not secret_key:
+           raise ValueError("Langfuse public and secret keys must be provided")
+
+       self.langfuse = Langfuse(
+           public_key=public_key, 
+           secret_key=secret_key, 
+           host=host
+       )
+       self._executor = ThreadPoolExecutor(max_workers=4)
 
     async def track_analysis_metric(self, trace_id: str, component: str, 
                                   score: float, details: Dict[str, Any]) -> None:
@@ -305,23 +316,30 @@ class AnalysisEvaluator:
                 self.langfuse_tracker.track_error(trace_id, error_msg, "overall_analysis")
             return {'overall_score': 0.0, 'error': error_msg}
 
-def create_analysis_evaluator(langfuse_public_key: Optional[str] = None,
-                            langfuse_secret_key: Optional[str] = None,
-                            langfuse_host: Optional[str] = None) -> AnalysisEvaluator:
-    """Create and return an instance of AnalysisEvaluator with optional Langfuse integration."""
-    logger = logging.getLogger(__name__)
-    logger.info("Creating new AnalysisEvaluator instance")
-    
-    langfuse_tracker = None
-    if langfuse_public_key and langfuse_secret_key:
-        try:
-            langfuse_tracker = LangfuseTracker(
-                public_key=langfuse_public_key,
-                secret_key=langfuse_secret_key,
-                host=langfuse_host
-            )
-            logger.info("Langfuse integration enabled")
-        except Exception as e:
-            logger.error(f"Failed to initialize Langfuse: {str(e)}")
-    
-    return AnalysisEvaluator(langfuse_tracker=langfuse_tracker)
+def create_analysis_evaluator(
+   langfuse_public_key: Optional[str] = None,
+   langfuse_secret_key: Optional[str] = None,
+   langfuse_host: Optional[str] = None
+) -> AnalysisEvaluator:
+   """Create and return an instance of AnalysisEvaluator with optional Langfuse integration."""
+   logger = logging.getLogger(__name__)
+   logger.info("Creating new AnalysisEvaluator instance")
+   
+   # Use environment variables if not explicitly provided
+   langfuse_public_key = langfuse_public_key or os.getenv('LANGFUSE_PUBLIC_KEY')
+   langfuse_secret_key = langfuse_secret_key or os.getenv('LANGFUSE_SECRET_KEY')
+   langfuse_host = langfuse_host or os.getenv('LANGFUSE_HOST')
+
+   langfuse_tracker = None
+   if langfuse_public_key and langfuse_secret_key:
+       try:
+           langfuse_tracker = LangfuseTracker(
+               public_key=langfuse_public_key,
+               secret_key=langfuse_secret_key,
+               host=langfuse_host
+           )
+           logger.info("Langfuse integration enabled")
+       except Exception as e:
+           logger.error(f"Failed to initialize Langfuse: {str(e)}")
+   
+   return AnalysisEvaluator(langfuse_tracker=langfuse_tracker)

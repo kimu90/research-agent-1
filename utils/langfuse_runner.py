@@ -1,9 +1,19 @@
 import logging
+import os
 from datetime import datetime
 import asyncio
 from typing import Optional, Dict, Any, Tuple
 from langfuse import Langfuse
-from research_agent.config.settings import LANGFUSE_CONFIG, MODEL_COSTS
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
+# Import necessary components
+from research_agent.tools import GeneralAgent, AnalysisAgent
+from research_agent.tracers.token_tracker import TokenUsageTracker
+
+# Evaluator imports
 from research_agent.evaluators import (
     create_factual_accuracy_evaluator,
     create_source_coverage_evaluator,
@@ -12,20 +22,43 @@ from research_agent.evaluators import (
     create_automated_test_evaluator,
     create_analysis_evaluator
 )
-from research_agent.tools import GeneralAgent, AnalysisAgent
-from research_agent.tracers.token_tracker import TokenUsageTracker
 
 logger = logging.getLogger(__name__)
 
 class LangfuseRunner:
-    def __init__(self):
+    def __init__(
+        self, 
+        public_key: Optional[str] = None, 
+        secret_key: Optional[str] = None, 
+        host: Optional[str] = None
+    ):
+        # Use environment variables if not explicitly provided
+        self.public_key = public_key or os.getenv('LANGFUSE_PUBLIC_KEY')
+        self.secret_key = secret_key or os.getenv('LANGFUSE_SECRET_KEY')
+        self.host = host or os.getenv('LANGFUSE_HOST')
+
         self._validate_config()
-        self.langfuse = Langfuse(**LANGFUSE_CONFIG)
-        self.token_tracker = TokenUsageTracker(MODEL_COSTS)
+        
+        # Initialize Langfuse with configuration
+        langfuse_config = {
+            'public_key': self.public_key,
+            'secret_key': self.secret_key
+        }
+        if self.host:
+            langfuse_config['host'] = self.host
+
+        self.langfuse = Langfuse(**langfuse_config)
+        
+        # Use default MODEL_COSTS or get from environment
+        model_costs = {
+            'default': float(os.getenv('DEFAULT_MODEL_COST', 0.001))
+        }
+        self.token_tracker = TokenUsageTracker(model_costs)
+        
         self._setup_evaluators()
 
     def _validate_config(self):
-        if not LANGFUSE_CONFIG['public_key'] or not LANGFUSE_CONFIG['secret_key']:
+        if not self.public_key or not self.secret_key:
             raise ValueError("LANGFUSE_PUBLIC_KEY and LANGFUSE_SECRET_KEY must be set in .env")
 
     def _setup_evaluators(self):
