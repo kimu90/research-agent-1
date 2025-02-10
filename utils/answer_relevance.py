@@ -3,67 +3,47 @@ import spacy
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from tools.research.common.model_schemas import ResearchToolOutput, ContentItem
-from typing import List, Dict, Tuple, Union, Any
+from typing import List, Dict, Tuple, Union, Any, Optional
 import json
 import sys
 from logging.handlers import RotatingFileHandler
 import os
 from datetime import datetime
 from collections import Counter
+from langfuse import Langfuse
+from concurrent.futures import ThreadPoolExecutor
+import asyncio
 
 def setup_logging(log_dir: str = "logs") -> logging.Logger:
-    """
-    Sets up logging configuration with both file and console handlers.
-    
-    Args:
-        log_dir: Directory to store log files
-        
-    Returns:
-        logging.Logger: Configured logger instance
-    """
-    # Create logs directory if it doesn't exist
     os.makedirs(log_dir, exist_ok=True)
-    
-    # Generate log filename with timestamp
     timestamp = datetime.now().strftime('%Y%m%d')
     log_file = os.path.join(log_dir, f'relevance_evaluator_{timestamp}.log')
     
-    # Create logger
     logger = logging.getLogger('relevance_evaluator')
     logger.setLevel(logging.DEBUG)
     
-    # Create formatters
     file_formatter = logging.Formatter(
         '%(asctime)s - %(name)s - %(levelname)s - %(funcName)s:%(lineno)d - %(message)s'
     )
-    console_formatter = logging.Formatter(
-        '%(levelname)s - %(message)s'
-    )
+    console_formatter = logging.Formatter('%(levelname)s - %(message)s')
     
-    # Create rotating file handler (10MB per file, max 5 backup files)
     file_handler = RotatingFileHandler(
-        log_file,
-        maxBytes=10*1024*1024,
-        backupCount=5
+        log_file, maxBytes=10*1024*1024, backupCount=5
     )
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(file_formatter)
     
-    # Create console handler
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setLevel(logging.INFO)
     console_handler.setFormatter(console_formatter)
     
-    # Add handlers to logger
     logger.addHandler(file_handler)
     logger.addHandler(console_handler)
     
     return logger
 
-# Initialize logger
 logger = setup_logging()
 
-# Load spaCy model with error handling
 try:
     nlp = spacy.blank('en')
     nlp.add_pipe('sentencizer')
@@ -72,210 +52,149 @@ except Exception as e:
     logger.critical(f"Failed to initialize spaCy model: {str(e)}", exc_info=True)
     raise
 
-class AnswerRelevanceEvaluator:
-    """
-    Evaluates the relevance of research outputs in relation to input queries.
-    Handles both ResearchToolOutput objects and raw strings.
-    """
-    
-    def __init__(self):
-        self.logger = logging.getLogger('relevance_evaluator.evaluator')
-        self.logger.info("Initializing AnswerRelevanceEvaluator")
+class LangfuseTracker:
+    def __init__(self, public_key: str, secret_key: str, host: Optional[str] = None):
+        self.langfuse = Langfuse(
+            public_key=public_key,
+            secret_key=secret_key,
+            host=host
+        )
+        self._executor = ThreadPoolExecutor(max_workers=4)
+
+    async def track_relevance_metric(self, trace_id: str, 
+                                   score: float, details: Dict[str, Any]) -> None:
+        """Track relevance evaluation metrics in Langfuse."""
         try:
-            self.logger.debug("Setting up spaCy pipeline")
+            generation = self.langfuse.get_generation(trace_id)
+            generation.score(
+                name="answer-relevance",
+                value=score,
+                metadata={
+                    'semantic_similarity': details.get('semantic_similarity', 0.0),
+                    'keyword_coverage': details.get('keyword_coverage', 0.0),
+                    'entity_coverage': details.get('entity_coverage', 0.0),
+                    'information_density': details.get('information_density', 0.0),
+                    'context_alignment': details.get('context_alignment_score', 0.0),
+                    'total_sentences': details.get('total_sentences', 0),
+                    'off_topic_sentences': len(details.get('off_topic_sentences', [])),
+                    'timestamp': datetime.now().isoformat()
+                }
+            )
+        except Exception as e:
+            logger.error(f"Error tracking relevance metrics: {str(e)}", exc_info=True)
+
+    def track_error(self, trace_id: str, error: str) -> None:
+        """Track evaluation errors in Langfuse."""
+        try:
+            trace = self.langfuse.get_trace(trace_id)
+            trace.error(
+                error=error,
+                metadata={
+                    "component": "answer_relevance",
+                    "timestamp": datetime.now().isoformat()
+                }
+            )
+        except Exception as e:
+            logger.error(f"Error tracking error event: {str(e)}", exc_info=True)
+
+class AnswerRelevanceEvaluator:
+    def __init__(self, langfuse_tracker: Optional[LangfuseTracker] = None):
+        self.logger = logging.getLogger('relevance_evaluator.evaluator')
+        self.langfuse_tracker = langfuse_tracker
+        
+        try:
             self.nlp = nlp
-            self.logger.debug(f"SpaCy pipeline components: {', '.join(self.nlp.pipe_names)}")
-            
-            self.logger.debug("Configuring TF-IDF vectorizer")
             self.vectorizer = TfidfVectorizer(
-                max_features=5000, 
+                max_features=5000,
                 stop_words='english',
                 strip_accents='unicode'
             )
-            self.logger.debug("Successfully initialized TfidfVectorizer")
-            self.logger.debug(f"Vectorizer parameters: {self.vectorizer.get_params()}")
-            
         except Exception as e:
             self.logger.error("Failed to initialize components", exc_info=True)
             raise
-    
+
     def calculate_similarity(self, text1: str, text2: str) -> float:
-        """
-        Calculate cosine similarity between two texts using TF-IDF vectors.
-        """
-        self.logger.debug("Calculating similarity between texts")
-        self.logger.debug(f"Text1 length: {len(text1)}, Text2 length: {len(text2)}")
-        self.logger.debug(f"Text1 sample: {text1[:50]}...")
-        self.logger.debug(f"Text2 sample: {text2[:50]}...")
-        self.logger.debug("Vectorizer config: max_features=5000, using english stop words")
-        
         if not text1.strip() or not text2.strip():
-            self.logger.warning("Empty text provided for similarity calculation")
             return 0.0
-            
         try:
             vectors = self.vectorizer.fit_transform([text1, text2])
-            similarity = cosine_similarity(vectors[0:1], vectors[1:2])[0][0]
-            self.logger.debug(f"Similarity calculation successful: {similarity:.4f}")
-            return similarity
+            return float(cosine_similarity(vectors[0:1], vectors[1:2])[0][0])
         except Exception as e:
             self.logger.error(f"Error calculating similarity: {str(e)}", exc_info=True)
             return 0.0
-    
+
     def _extract_text_from_output(self, research_output: Union[ResearchToolOutput, str, List]) -> str:
-        """
-        Extract text content from research output or return the string directly.
-        Handles string, ResearchToolOutput, ContentItem, and list inputs.
-        """
-        self.logger.debug(f"Extracting text from output of type: {type(research_output)}")
-        
         try:
             if isinstance(research_output, str):
-                self.logger.debug("Processing string input")
                 return research_output
-                
             if isinstance(research_output, ResearchToolOutput):
-                self.logger.debug("Processing ResearchToolOutput")
                 return research_output.get_full_text()
-                
             if isinstance(research_output, list):
-                self.logger.debug(f"Processing list input with {len(research_output)} items")
-                # Handle list of ContentItems or strings
                 texts = []
                 for item in research_output:
                     if hasattr(item, 'text'):
-                        self.logger.debug(f"Extracting text from ContentItem: {type(item)}")
                         texts.append(item.text)
                     elif isinstance(item, str):
                         texts.append(item)
                     else:
-                        self.logger.warning(f"Unexpected item type in list: {type(item)}")
                         texts.append(str(item))
                 return " ".join(texts)
-            
-            # Handle single ContentItem
             if hasattr(research_output, 'text'):
-                self.logger.debug("Processing ContentItem")
                 return research_output.text
-            
-            self.logger.warning(f"Unexpected input type: {type(research_output)}")
             return str(research_output)
-            
         except Exception as e:
-            self.logger.error(
-                f"Error extracting text from {type(research_output)}: {str(e)}", 
-                exc_info=True,
-                extra={'research_output_type': str(type(research_output))}
-            )
+            self.logger.error(f"Error extracting text: {str(e)}", exc_info=True)
             return ""
 
-    def evaluate_answer_relevance(self, research_output: Union[ResearchToolOutput, str], query: str) -> Tuple[float, Dict]:
-        """
-        Evaluates the relevance of a research output to a query.
-        """
-        self.logger.info(f"Starting relevance evaluation for query: {query[:100]}...")
-        self.logger.debug(f"Full query length: {len(query)}")
-        
+    async def evaluate_answer_relevance(
+        self,
+        research_output: Union[ResearchToolOutput, str],
+        query: str,
+        trace_id: Optional[str] = None
+    ) -> Tuple[float, Dict]:
         try:
             full_text = self._extract_text_from_output(research_output)
-            
             if not full_text.strip():
-                self.logger.warning("Empty text extracted from research output")
                 return 0.0, self._create_empty_evaluation()
-                
-            self.logger.debug(f"Extracted text length: {len(full_text)}")
-            
-            # Process documents with spaCy
-            self.logger.debug("Processing documents with spaCy")
-            self.logger.debug(f"Query processing started: {query[:100]}...")
+
             query_doc = self.nlp(query)
-            self.logger.debug(f"Query tokens: {[token.text for token in query_doc][:10]}")
-            
-            self.logger.debug("Processing answer document")
             answer_doc = self.nlp(full_text)
-            self.logger.debug(f"Answer document length: {len(answer_doc)}, sentences: {len(list(answer_doc.sents))}")
-            self.logger.debug(f"First few tokens: {[token.text for token in answer_doc][:10]}")
-            
-            # Calculate semantic similarity
+
             similarity = self.calculate_similarity(query, full_text)
-            self.logger.info(f"Semantic similarity score: {similarity:.4f}")
             
-            # Calculate keyword coverage
             query_keywords = {token.lemma_.lower() for token in query_doc 
                             if token.pos_ in ['NOUN', 'VERB', 'ADJ'] and not token.is_stop}
             answer_keywords = {token.lemma_.lower() for token in answer_doc 
                              if token.pos_ in ['NOUN', 'VERB', 'ADJ'] and not token.is_stop}
             
-            self.logger.debug(f"Query keywords found: {len(query_keywords)}")
-            self.logger.debug(f"Query keywords: {list(query_keywords)[:10]}")
-            self.logger.debug(f"Answer keywords found: {len(answer_keywords)}")
-            self.logger.debug(f"Common keywords: {list(query_keywords.intersection(answer_keywords))}")
-            self.logger.debug(f"POS distribution in query: {dict(Counter(token.pos_ for token in query_doc))}")
-            self.logger.debug(f"POS distribution in answer: {dict(Counter(token.pos_ for token in answer_doc))}")
-            
-            
             keyword_coverage = (len(query_keywords.intersection(answer_keywords)) / len(query_keywords) 
                               if query_keywords else 0)
-            self.logger.info(f"Keyword coverage score: {keyword_coverage:.4f}")
             
-            # Entity coverage calculation
             query_entities = set(ent.text.lower() for ent in query_doc.ents)
             answer_entities = set(ent.text.lower() for ent in answer_doc.ents)
             entity_coverage = len(query_entities.intersection(answer_entities))
             
-            self.logger.debug(f"Query entities found: {list(query_entities)}")
-            self.logger.debug(f"Answer entities found: {list(answer_entities)[:10]}")
-            self.logger.debug(f"Matching entities: {list(query_entities.intersection(answer_entities))}")
-            self.logger.debug(f"Entity types in query: {[ent.label_ for ent in query_doc.ents]}")
-            self.logger.debug(f"Entity coverage count: {entity_coverage}")
-            self.logger.debug(f"Entity coverage percentage: {(entity_coverage / len(query_entities) * 100) if query_entities else 0:.2f}%")
-            
-            # Process sentences
             sentences = list(answer_doc.sents)
-            self.logger.debug(f"Processing {len(sentences)} sentences")
-            self.logger.debug(f"Average sentence length: {sum(len(sent) for sent in sentences) / len(sentences) if sentences else 0:.1f} tokens")
-            self.logger.debug(f"First 3 sentences: {[sent.text for sent in sentences[:3]]}")
-            self.logger.debug(f"Sentence length distribution: {[(i, len([s for s in sentences if len(s) == i])) for i in range(1, 6)]}")
-            
             sentence_similarities = [
                 (sent.text, self.calculate_similarity(query, sent.text))
                 for sent in sentences
             ]
             
-            # Identify off-topic sentences
-            off_topic_threshold = 0.2
             off_topic_sentences = [
                 sent_text for sent_text, sent_sim in sentence_similarities
-                if sent_sim < off_topic_threshold
+                if sent_sim < 0.2
             ]
             
-            total_sentences = len(sentences)
-            self.logger.info(
-                f"Sentence analysis - Total: {total_sentences}, "
-                f"Off-topic: {len(off_topic_sentences)}"
-            )
-            
-            # Calculate information density
             words = full_text.split()
             information_density = len(answer_keywords) / len(words) if words else 0
-            self.logger.debug(f"Information density: {information_density:.4f}")
             
-            # Calculate context alignment score
-            off_topic_ratio = len(off_topic_sentences) / total_sentences if total_sentences > 0 else 0
+            off_topic_ratio = len(off_topic_sentences) / len(sentences) if sentences else 0
             context_alignment_score = similarity * (1 - off_topic_ratio)
-            self.logger.debug(f"Context alignment score: {context_alignment_score:.4f}")
-            
-            # Calculate overall relevance score with weighting
-            weights = {
-                'similarity': 0.4,
-                'keyword_coverage': 0.3,
-                'context_alignment': 0.3
-            }
             
             relevance_score = (
-                weights['similarity'] * similarity +
-                weights['keyword_coverage'] * keyword_coverage +
-                weights['context_alignment'] * context_alignment_score
+                0.4 * similarity +
+                0.3 * keyword_coverage +
+                0.3 * context_alignment_score
             )
             
             evaluation_result = {
@@ -285,26 +204,27 @@ class AnswerRelevanceEvaluator:
                 'keyword_coverage': keyword_coverage,
                 'topic_focus': similarity,
                 'off_topic_sentences': off_topic_sentences,
-                'total_sentences': total_sentences,
+                'total_sentences': len(sentences),
                 'query_match_percentage': relevance_score * 100,
                 'information_density': information_density,
                 'context_alignment_score': context_alignment_score
             }
-            
-            self.logger.info(f"Completed relevance evaluation with score: {relevance_score:.4f}")
+
+            if trace_id and self.langfuse_tracker:
+                await self.langfuse_tracker.track_relevance_metric(
+                    trace_id, relevance_score, evaluation_result
+                )
+
             return relevance_score, evaluation_result
-            
+
         except Exception as e:
-            self.logger.error(
-                f"Error in evaluate_answer_relevance: {str(e)}", 
-                exc_info=True,
-                extra={'query': query[:100]}
-            )
+            error_msg = str(e)
+            self.logger.error(f"Error in evaluation: {error_msg}", exc_info=True)
+            if trace_id and self.langfuse_tracker:
+                self.langfuse_tracker.track_error(trace_id, error_msg)
             return 0.0, self._create_empty_evaluation()
-    
+
     def _create_empty_evaluation(self) -> Dict:
-        """Create an empty evaluation result with zero values."""
-        self.logger.warning("Creating empty evaluation result")
         return {
             'relevance_score': 0.0,
             'semantic_similarity': 0.0,
@@ -318,7 +238,21 @@ class AnswerRelevanceEvaluator:
             'context_alignment_score': 0.0
         }
 
-def create_answer_relevance_evaluator() -> AnswerRelevanceEvaluator:
-    """Factory function to create an AnswerRelevanceEvaluator instance."""
-    logger.info("Creating new AnswerRelevanceEvaluator instance")
-    return AnswerRelevanceEvaluator()
+def create_answer_relevance_evaluator(
+    langfuse_public_key: Optional[str] = None,
+    langfuse_secret_key: Optional[str] = None,
+    langfuse_host: Optional[str] = None
+) -> AnswerRelevanceEvaluator:
+    langfuse_tracker = None
+    if langfuse_public_key and langfuse_secret_key:
+        try:
+            langfuse_tracker = LangfuseTracker(
+                public_key=langfuse_public_key,
+                secret_key=langfuse_secret_key,
+                host=langfuse_host
+            )
+            logger.info("Langfuse integration enabled")
+        except Exception as e:
+            logger.error(f"Failed to initialize Langfuse: {str(e)}")
+    
+    return AnswerRelevanceEvaluator(langfuse_tracker=langfuse_tracker)
