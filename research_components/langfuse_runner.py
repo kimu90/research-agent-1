@@ -6,14 +6,16 @@ from langfuse import Langfuse
 from dotenv import load_dotenv
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
+from langfuse.openai import openai
+
+
 import re
 
 from tools import GeneralAgent, AnalysisAgent
 
-# Enhanced logging configuration
 def setup_logging():
     """Configure logging with a custom format and multiple handlers"""
-    log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    log_format = '%(asctime)s - %(name)s - %(levelname)s - [%(filename)s:%(lineno)d] - %(message)s'
     date_format = '%Y-%m-%d %H:%M:%S'
     
     # Create formatter
@@ -30,10 +32,18 @@ def setup_logging():
     console_handler.setLevel(logging.INFO)
     
     # Get root logger and configure
-    logger = logging.getLogger()
+    logger = logging.getLogger('LangfuseRunner')
     logger.setLevel(logging.DEBUG)
+    
+    # Remove any existing handlers to prevent duplication
+    if logger.handlers:
+        logger.handlers.clear()
+        
     logger.addHandler(file_handler)
     logger.addHandler(console_handler)
+    
+    logger.info("Logging system initialized")
+    logger.debug("Debug logging enabled")
     
     return logger
 
@@ -47,19 +57,23 @@ class LangfuseRunner:
         secret_key: Optional[str] = None, 
         host: Optional[str] = None
     ):
-        logger.info("Initializing LangfuseRunner")
+        logger.info("=== Initializing LangfuseRunner ===")
         
         # Use environment variables if not explicitly provided
         self.public_key = public_key or os.getenv('LANGFUSE_PUBLIC_KEY')
         self.secret_key = secret_key or os.getenv('LANGFUSE_SECRET_KEY')
         self.host = host or os.getenv('LANGFUSE_HOST')
         
-        logger.debug(f"Configuration - Host: {self.host}, Public Key: {'*' * len(self.public_key) if self.public_key else 'None'}")
+        logger.debug(f"Configuration loaded - Host: {self.host}")
+        logger.debug(f"Public Key present: {'Yes' if self.public_key else 'No'}")
+        logger.debug(f"Secret Key present: {'Yes' if self.secret_key else 'No'}")
 
         try:
             self._validate_config()
+            logger.info("Configuration validation successful")
         except ValueError as e:
-            logger.error(f"Configuration validation failed: {str(e)}")
+            logger.error(f"Configuration validation failed: {str(e)}", exc_info=True)
+            print(f"ERROR: Failed to validate configuration - {str(e)}")
             raise
 
         # Initialize Langfuse with configuration
@@ -70,11 +84,15 @@ class LangfuseRunner:
             }
             if self.host:
                 langfuse_config['host'] = self.host
+                logger.debug(f"Using custom host: {self.host}")
             
             self.langfuse = Langfuse(**langfuse_config)
             logger.info("Successfully initialized Langfuse client")
+            print("✓ Langfuse client initialized successfully")
         except Exception as e:
-            logger.error(f"Failed to initialize Langfuse client: {str(e)}")
+            error_msg = f"Failed to initialize Langfuse client: {str(e)}"
+            logger.error(error_msg, exc_info=True)
+            print(f"ERROR: {error_msg}")
             raise
         
         # Use default or environment variable for model costs
@@ -82,13 +100,22 @@ class LangfuseRunner:
             'default': float(os.getenv('DEFAULT_MODEL_COST', 0.001))
         }
         logger.debug(f"Model costs configured: {self.model_costs}")
+        print(f"Model costs set - Default: ${self.model_costs['default']:.4f}")
 
     def _validate_config(self):
         """Validate the configuration settings"""
-        logger.debug("Validating configuration")
-        if not self.public_key or not self.secret_key:
-            logger.error("Missing required environment variables")
-            raise ValueError("LANGFUSE_PUBLIC_KEY and LANGFUSE_SECRET_KEY must be set in .env")
+        logger.debug("Starting configuration validation")
+        missing_vars = []
+        
+        if not self.public_key:
+            missing_vars.append("LANGFUSE_PUBLIC_KEY")
+        if not self.secret_key:
+            missing_vars.append("LANGFUSE_SECRET_KEY")
+            
+        if missing_vars:
+            error_msg = f"Missing required environment variables: {', '.join(missing_vars)}"
+            logger.error(error_msg)
+            raise ValueError(error_msg)
 
     def run_tool(
         self,
@@ -99,11 +126,14 @@ class LangfuseRunner:
         tool: Optional[Any] = None,
         prompt_name: str = "research.txt"
     ) -> Tuple[Any, Dict[str, Any]]:
-        logger.info(f"Running tool: {tool_name}")
-        logger.debug(f"Query: {query}")
-        logger.debug(f"Dataset: {dataset}")
-        logger.debug(f"Analysis type: {analysis_type}")
-        logger.debug(f"Prompt name: {prompt_name}")
+        logger.info(f"=== Starting tool execution: {tool_name} ===")
+        print(f"\nExecuting {tool_name}...")
+        
+        logger.debug("Input parameters:")
+        logger.debug(f"- Query: {query}")
+        logger.debug(f"- Dataset: {dataset}")
+        logger.debug(f"- Analysis type: {analysis_type}")
+        logger.debug(f"- Prompt name: {prompt_name}")
 
         trace = self.langfuse.trace(
             name=f"{tool_name.lower().replace(' ', '-')}-execution",
@@ -116,12 +146,13 @@ class LangfuseRunner:
                 "timestamp": datetime.now().isoformat()
             }
         )
-        logger.debug("Created Langfuse trace")
+        logger.debug("Langfuse trace created successfully")
 
         try:
             start_time = datetime.now()
             generation = trace.generation(name=f"{tool_name.lower()}-generation")
             logger.debug("Started generation trace")
+            print("Processing request...")
             
             if tool_name == "General Agent":
                 logger.info("Executing General Agent")
@@ -134,12 +165,18 @@ class LangfuseRunner:
                     generation, query, dataset, tool, prompt_name
                 )
             else:
-                logger.error(f"Invalid tool name: {tool_name}")
-                raise ValueError(f"Unknown tool: {tool_name}")
+                error_msg = f"Invalid tool name: {tool_name}"
+                logger.error(error_msg)
+                print(f"ERROR: {error_msg}")
+                raise ValueError(error_msg)
 
             if result:
                 generation.end(success=True)
                 logger.info("Tool execution completed successfully")
+                print("✓ Tool execution successful")
+            else:
+                logger.warning("Tool execution completed but returned no results")
+                print("⚠ Tool execution completed with no results")
             
             trace_data = self._prepare_trace_data(
                 start_time=start_time,
@@ -153,6 +190,7 @@ class LangfuseRunner:
         except Exception as e:
             error_msg = str(e)
             logger.error(f"Error in run_tool: {error_msg}", exc_info=True)
+            print(f"ERROR: Tool execution failed - {error_msg}")
             trace.error(error_msg)
             generation.end(success=False, error=error_msg)
             return None, {"error": error_msg}
@@ -163,14 +201,17 @@ class LangfuseRunner:
 
     def _run_general_agent(self, generation, query: str, tool: Optional[Any], prompt_name: str):
         logger.debug("Initializing General Agent")
+        print("Initializing General Agent...")
         tool = tool or GeneralAgent(include_summary=True, prompt_name=prompt_name)
         
         try:
+            logger.debug(f"Invoking General Agent with query: {query}")
             result = tool.invoke(input={"query": query})
             
             if result:
                 content_count = len(result.content) if result.content else 0
                 logger.debug(f"General Agent result - Content count: {content_count}")
+                print(f"Generated {content_count} content items")
                 generation.update(
                     metadata={
                         "content_count": content_count,
@@ -178,25 +219,32 @@ class LangfuseRunner:
                     }
                 )
                 logger.info("General Agent execution completed")
+                print("✓ General Agent processing complete")
             else:
                 logger.warning("General Agent returned no results")
+                print("⚠ General Agent returned no results")
                 
             return result
         except Exception as e:
-            logger.error(f"Error in General Agent execution: {str(e)}", exc_info=True)
+            error_msg = f"Error in General Agent execution: {str(e)}"
+            logger.error(error_msg, exc_info=True)
+            print(f"ERROR: General Agent failed - {str(e)}")
             raise
 
     def _run_analysis_agent(self, generation, query: str, dataset: str, 
                             tool: Optional[Any], prompt_name: str):
         logger.debug("Initializing Analysis Agent")
+        print("Initializing Analysis Agent...")
         tool = tool or AnalysisAgent(data_folder="./data", prompt_name=prompt_name)
         
         try:
+            logger.debug(f"Invoking Analysis Agent - Dataset: {dataset}, Query: {query}")
             result = tool.invoke_analysis(input={"query": query, "dataset": dataset})
             
             if result:
                 analysis_length = len(result.analysis) if result.analysis else 0
                 logger.debug(f"Analysis Agent result - Analysis length: {analysis_length}")
+                print(f"Generated analysis of length: {analysis_length}")
                 generation.update(
                     metadata={
                         "dataset": dataset,
@@ -204,12 +252,16 @@ class LangfuseRunner:
                     }
                 )
                 logger.info("Analysis Agent execution completed")
+                print("✓ Analysis Agent processing complete")
             else:
                 logger.warning("Analysis Agent returned no results")
+                print("⚠ Analysis Agent returned no results")
                 
             return result
         except Exception as e:
-            logger.error(f"Error in Analysis Agent execution: {str(e)}", exc_info=True)
+            error_msg = f"Error in Analysis Agent execution: {str(e)}"
+            logger.error(error_msg, exc_info=True)
+            print(f"ERROR: Analysis Agent failed - {str(e)}")
             raise
 
     def _prepare_trace_data(self, start_time: datetime, success: bool, 
@@ -224,8 +276,10 @@ class LangfuseRunner:
             "timestamp": datetime.now().isoformat()
         }
         logger.debug(f"Prepared trace data: {trace_data}")
+        print(f"Execution time: {duration:.2f} seconds")
         return trace_data
 
 def create_tool_runner() -> LangfuseRunner:
     logger.info("Creating new LangfuseRunner instance")
+    print("\nInitializing new LangfuseRunner...")
     return LangfuseRunner()

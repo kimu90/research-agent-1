@@ -1,30 +1,38 @@
+import os
+import json
 import logging
-logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
+import requests
 from datetime import datetime
 from typing import Dict, Optional, Type, Any, List
 import pandas as pd
+from bs4 import BeautifulSoup
 from pydantic import BaseModel, Field
 from langchain.tools import BaseTool
 from utils.model_wrapper import model_wrapper
 from utils.token_tracking import TokenUsageTracker
 from prompt import Prompt
-import os
+from langchain_community.utilities import GoogleSerperAPIWrapper
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler('analysis_agent.log')
+    ]
+)
+logger = logging.getLogger(__name__)
+
+# Suppress noisy logs
+logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 
 class PromptLoader:
-    """
-    Handles dynamic loading of prompts from a specified directory.
-    """
+    """Handles dynamic loading of prompts from a specified directory."""
+    
     @staticmethod
     def load_prompt(prompt_name: str = "research.txt") -> Prompt:
-        """
-        Load a prompt from the prompts directory.
-        
-        Args:
-            prompt_name: Name of the prompt file to load (default: research.txt)
-        
-        Returns:
-            Prompt: Loaded prompt object
-        """
+        """Load a prompt from the prompts directory."""
         try:
             with open(os.path.join("/app/prompts", prompt_name), 'r') as f:
                 prompt_content = f.read()
@@ -35,31 +43,21 @@ class PromptLoader:
                 metadata={"source": prompt_name}
             )
         except FileNotFoundError:
-            logging.error(f"Prompt file not found: {prompt_name}")
+            logger.error(f"Prompt file not found: {prompt_name}")
             return Prompt(
                 id="fallback-prompt",
                 content="""Analyze the following content and provide a comprehensive summary.
                 
                 Research Topic: {{research_topic}}
-                
-                Content:
-                {{content}}
+                Content: {{content}}
                 
                 Provide key insights, main themes, and relevant conclusions."""
             )
+
     @staticmethod
     def list_available_prompts() -> List[str]:
-        """
-        List all available prompt files in the prompts directory.
-        
-        Returns:
-            List of prompt file names
-        """
-        base_path = os.path.join(
-            os.path.dirname(__file__), 
-            "..", 
-            "prompts"
-        )
+        """List all available prompt files."""
+        base_path = os.path.join(os.path.dirname(__file__), "..", "prompts")
         
         try:
             return [
@@ -67,7 +65,7 @@ class PromptLoader:
                 if f.endswith('.txt') and os.path.isfile(os.path.join(base_path, f))
             ]
         except Exception as e:
-            logging.error(f"Error listing prompts: {e}")
+            logger.error(f"Error listing prompts: {e}")
             return []
 
 class AnalysisAgentInput(BaseModel):
@@ -77,6 +75,7 @@ class AnalysisAgentInput(BaseModel):
         default="general",
         description="Type of analysis to perform (e.g., 'general', 'statistical', 'correlation')"
     )
+
 class AnalysisMetrics(BaseModel):
     numerical_accuracy: float = Field(default=0.0)
     query_understanding: float = Field(default=0.0)
@@ -101,16 +100,13 @@ class AnalysisResult(BaseModel):
     metrics: AnalysisMetrics
     usage: Dict[str, Any] = Field(default_factory=dict)
 
-
 class AnalysisAgent(BaseTool):
     name: str = "analysis-agent"
     description: str = "Analyzes datasets using statistical methods"
     args_schema: Type[BaseModel] = AnalysisAgentInput
     current_prompt: Optional[Prompt] = Field(default=None)
     token_tracker: TokenUsageTracker = Field(default_factory=TokenUsageTracker)
-    current_prompt: Optional[Prompt] = Field(default=None)  # Add this line to declare the field
-    data_folder: str = Field(default="./data")  # Add data_folder as a proper field
-
+    data_folder: str = Field(default="./data")
 
     def __init__(
         self,
@@ -120,25 +116,19 @@ class AnalysisAgent(BaseTool):
     ):
         super().__init__()
         if current_prompt:
-            # Custom prompt takes highest precedence
-            self.current_prompt = custom_prompt
+            self.current_prompt = current_prompt
         elif prompt_name:
-            # Load prompt from file if prompt name is provided
             try:
                 self.current_prompt = PromptLoader.load_prompt(prompt_name)
             except Exception as e:
-                logging.warning(f"Failed to load prompt {prompt_name}, falling back to default. Error: {e}")
+                logger.warning(f"Failed to load prompt {prompt_name}, falling back to default. Error: {e}")
                 self.current_prompt = PromptLoader.load_prompt("research.txt")
         else:
-            # Use default content selection prompt if no custom prompt or name is provided
             self.current_prompt = Prompt(
                 id="default-content-selection",
-                content="""Analyze the following news articles and select the most relevant ones:
+                content="""Analyze the following articles:
                 Research Topic: {{research_topic}}
-                
-                Available Articles:
-                {{formatted_snippets}}
-                
+                Available Articles: {{formatted_snippets}}
                 Return the indices of the most relevant articles."""
             )
         
@@ -148,22 +138,25 @@ class AnalysisAgent(BaseTool):
         # Ensure data folder exists
         if not os.path.exists(data_folder):
             os.makedirs(data_folder)
+            
+        # Log environment status
+        serper_key_present = bool(os.getenv('SERPER_API_KEY'))
+        logger.info(f"SERPER_API_KEY present: {serper_key_present}")
+
     def get_available_datasets(self):
+        """List available datasets in data folder."""
+        logger.info(f"Looking for datasets in: {os.path.abspath(self.data_folder)}")
         
-        # Print the full path to verify
-        print(f"Looking for datasets in: {os.path.abspath(self.data_folder)}")
-        
-        # List all CSV files in the data folder
         try:
             datasets = [
                 f for f in os.listdir(self.data_folder) 
                 if f.endswith('.csv')
             ]
             
-            print(f"Found datasets: {datasets}")
+            logger.info(f"Found datasets: {datasets}")
             return datasets
         except Exception as e:
-            print(f"Error finding datasets: {e}")
+            logger.error(f"Error finding datasets: {e}")
             return []
 
     def load_and_validate_data(self, file_name: str) -> pd.DataFrame:
@@ -180,10 +173,10 @@ class AnalysisAgent(BaseTool):
                 'row_count': len(df),
                 'column_count': len(df.columns)
             }
-            logging.info(f"Data validation results: {validation_results}")
+            logger.info(f"Data validation results: {validation_results}")
             return df
         except Exception as e:
-            logging.error(f"Error loading data: {str(e)}")
+            logger.error(f"Error loading data: {str(e)}")
             raise
 
     def perform_statistical_analysis(self, df: pd.DataFrame) -> Dict:
@@ -203,7 +196,6 @@ class AnalysisAgent(BaseTool):
                 } if len(categorical_cols) > 0 else {}
             }
             
-            # Add basic outlier detection for numeric columns
             if len(numeric_cols) > 0:
                 outliers = {}
                 for col in numeric_cols:
@@ -215,8 +207,58 @@ class AnalysisAgent(BaseTool):
             
             return analysis_results
         except Exception as e:
-            logging.error(f"Error in statistical analysis: {str(e)}")
+            logger.error(f"Error in statistical analysis: {str(e)}")
             raise
+
+    def perform_web_research(self, query: str, df_columns: List[str]) -> List[Dict]:
+        """Execute web research with error handling."""
+        try:
+            if not os.getenv('SERPER_API_KEY'):
+                logger.warning("SERPER_API_KEY not found in environment")
+                return []
+
+            google_serper = GoogleSerperAPIWrapper(
+                type="news",
+                k=5,
+                serper_api_key=os.getenv('SERPER_API_KEY')
+            )
+            
+            search_query = f"{query} {' '.join(df_columns[:3])} analysis research"
+            web_results = google_serper.results(search_query)
+            news_results = web_results.get("news", [])
+            
+            web_research = []
+            for news in news_results:
+                try:
+                    url = news.get("link", "")
+                    headers = {
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+                        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+                    }
+                    
+                    response = requests.get(url, headers=headers, timeout=10)
+                    soup = BeautifulSoup(response.text, 'html.parser')
+                    
+                    article_content = ""
+                    for p in soup.find_all('p'):
+                        article_content += p.get_text() + "\n"
+                    
+                    web_research.append({
+                        'title': news.get("title", ""),
+                        'snippet': news.get("snippet", ""),
+                        'url': url,
+                        'content': article_content[:1000]
+                    })
+                    
+                except Exception as scrape_error:
+                    logger.warning(f"Error scraping {url}: {str(scrape_error)}")
+                    continue
+                    
+            return web_research
+            
+        except Exception as e:
+            logger.error(f"Error in web research: {str(e)}", exc_info=True)
+            return []
 
     def invoke_analysis(
         self,
@@ -224,7 +266,7 @@ class AnalysisAgent(BaseTool):
         current_prompt: Optional[Prompt] = None
     ) -> AnalysisResult:
         """Execute the analysis with comprehensive error handling and token tracking."""
-        logging.info(f"Starting analysis for query: {input.get('query', 'No query')}")
+        logger.info(f"Starting analysis for query: {input.get('query', 'No query')}")
         
         try:
             if not input or 'query' not in input or 'dataset' not in input:
@@ -241,49 +283,10 @@ class AnalysisAgent(BaseTool):
             analysis_results = self.perform_statistical_analysis(df)
 
             # Step 2: Perform web research
-            try:
-                google_serper = GoogleSerperAPIWrapper(
-                    type="news", 
-                    k=5,
-                    serper_api_key=os.getenv('SERPER_API_KEY')
-                )
-                
-                # Create search query using dataset context
-                search_query = f"{input['query']} {' '.join(df.columns[:3])} analysis research"
-                web_results = google_serper.results(search_query)
-                news_results = web_results.get("news", [])
-                
-                # Process web results
-                web_research = []
-                for news in news_results:
-                    try:
-                        url = news.get("link", "")
-                        headers = {
-                            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
-                        }
-                        
-                        response = requests.get(url, headers=headers, timeout=10)
-                        soup = BeautifulSoup(response.text, 'html.parser')
-                        
-                        article_content = ""
-                        for p in soup.find_all('p'):
-                            article_content += p.get_text() + "\n"
-                        
-                        web_research.append({
-                            'title': news.get("title", ""),
-                            'snippet': news.get("snippet", ""),
-                            'url': url,
-                            'content': article_content[:1000]
-                        })
-                        
-                    except Exception as scrape_error:
-                        logging.warning(f"Error scraping {url}: {str(scrape_error)}")
-                        continue
-                        
-            except Exception as web_error:
-                logging.warning(f"Error in web research: {str(web_error)}")
-                web_research = []
+            web_research = self.perform_web_research(
+                query=input['query'],
+                df_columns=list(df.columns)
+            )
 
             # Create analysis metrics
             metrics = AnalysisMetrics(
@@ -301,7 +304,7 @@ class AnalysisAgent(BaseTool):
                 clear_methodology=True
             )
 
-            # Prepare dataset info with web research
+            # Prepare dataset info
             dataset_info = {
                 'filename': dataset_file,
                 'shape': df.shape,
@@ -342,158 +345,9 @@ class AnalysisAgent(BaseTool):
             )
 
         except Exception as e:
-            logging.error(f"Error in analysis: {str(e)}")
+            logger.error(f"Error in analysis: {str(e)}", exc_info=True)
             raise
 
     def _run(self, **kwargs) -> AnalysisResult:
         """Execute the analysis tool with the provided parameters."""
         return self.invoke_analysis(input=kwargs)
-
-def run_tool(tool_name: str, query: str, dataset: str = None, tool=None):
-    logging.basicConfig(
-        level=logging.DEBUG,
-        format='%(asctime)s [%(levelname)s] %(message)s - %(filename)s:%(lineno)d',
-        handlers=[
-            logging.StreamHandler(),
-            logging.FileHandler('research_tool.log', mode='a')
-        ]
-    )
-    logger = logging.getLogger(__name__)
-    
-    start_time = datetime.now()
-    db = ContentDB("./data/content.db")    
-    logger.info(f"Starting tool execution - Tool: {tool_name}")
-    logger.info(f"Query received: {query}")
-    
-    trace = QueryTrace(query)
-    trace.data.update({
-        "tool": tool_name,
-        "tools_used": [tool_name],
-        "processing_steps": [],
-        "content_new": 0,
-        "content_reused": 0
-    })
-
-    try:
-        if tool_name == "Analysis Agent":
-            if tool is None:
-                tool = AnalysisAgent(data_folder="./data")
-            
-            # Get available datasets
-            available_datasets = tool.get_available_datasets()
-            if not available_datasets:
-                raise ValueError("No CSV datasets found in data folder")
-            
-            if dataset not in available_datasets:
-                raise ValueError(f"Invalid dataset: {dataset}. Available datasets: {available_datasets}")
-            
-            trace.add_prompt_usage("analysis_agent", "analysis", "")
-            result = tool.invoke_analysis(input={"query": query, "dataset": dataset})
-            
-            if result:
-                try:
-                    evaluation_data = {
-                        'query': query,
-                        'timestamp': datetime.now().isoformat(),
-                        'analysis': result.analysis,
-                        'metrics': {}
-                    }
-
-                    # Run analysis-specific evaluations
-                    if analysis_evaluator:
-                        analysis_metrics = analysis_evaluator.evaluate_analysis(result, query)
-                        trace.data['analysis_metrics'] = analysis_metrics
-                        
-                        evaluation_data.update({
-                            'numerical_accuracy': analysis_metrics.get('numerical_accuracy', {}).get('score', 0.0),
-                            'query_understanding': analysis_metrics.get('query_understanding', {}).get('score', 0.0),
-                            'data_validation': analysis_metrics.get('data_validation', {}).get('score', 0.0),
-                            'reasoning_transparency': analysis_metrics.get('reasoning_transparency', {}).get('score', 0.0),
-                            'overall_score': analysis_metrics.get('overall_score', 0.0),
-                            'metrics_details': json.dumps(analysis_metrics),
-                            'calculation_examples': json.dumps(analysis_metrics.get('numerical_accuracy', {}).get('details', {}).get('calculation_examples', [])),
-                            'term_coverage': analysis_metrics.get('query_understanding', {}).get('details', {}).get('term_coverage', 0.0),
-                            'analytical_elements': json.dumps(analysis_metrics.get('query_understanding', {}).get('details', {})),
-                            'validation_checks': json.dumps(analysis_metrics.get('data_validation', {}).get('details', {})),
-                            'explanation_patterns': json.dumps(analysis_metrics.get('reasoning_transparency', {}).get('details', {}))
-                        })
-                        
-                    # Store complete analysis evaluation
-                    db.store_analysis_evaluation(evaluation_data)
-                    
-                    trace.data.update({
-                        "processing_steps": ["Analysis completed successfully"],
-                        "analysis_metrics": evaluation_data
-                    })
-                    
-                except Exception as eval_error:
-                    logger.error(f"Analysis evaluation failed: {eval_error}")
-                    trace.data['evaluation_error'] = str(eval_error)
-
-        else:
-            error_msg = f"Tool {tool_name} not found"
-            logger.error(error_msg)
-            trace.data.update({
-                "processing_steps": [f"Error: {error_msg}"],
-                "error": error_msg,
-                "success": False
-            })
-            db.close()
-            return None, trace
-
-        # Finalize execution
-        end_time = datetime.now()
-        duration = (end_time - start_time).total_seconds()
-        
-        trace.data.update({
-            "duration": duration,
-            "success": True if result else False,
-            "end_time": end_time.isoformat()
-        })
-        
-        try:
-            token_stats = trace.token_tracker.get_usage_stats()
-            logger.info(f"Final token usage stats: {token_stats}")
-            
-            if token_stats['tokens']['total'] > 0:
-                usage_msg = f"Total tokens used: {token_stats['tokens']['total']}"
-                logger.info(usage_msg)
-                trace.data["processing_steps"].append(usage_msg)
-        except Exception as token_error:
-            logger.warning(f"Could not retrieve token stats: {token_error}")
-        
-        logger.info(f"{tool_name} completed successfully")
-        trace.data["processing_steps"].append(f"{tool_name} completed successfully")
-        
-        try:
-            tracer = CustomTracer()
-            tracer.save_trace(trace)
-        except Exception as trace_save_error:
-            logger.error(f"Failed to save trace: {trace_save_error}")
-        
-        db.close()
-        return result, trace
-    
-    except Exception as e:
-        error_msg = str(e)
-        logger.error(f"Error running {tool_name}: {error_msg}", exc_info=True)
-        
-        end_time = datetime.now()
-        duration = (end_time - start_time).total_seconds()
-        
-        trace.data.update({
-            "end_time": end_time.isoformat(),
-            "duration": duration,
-            "error": error_msg,
-            "success": False,
-            "processing_steps": [f"Execution failed: {error_msg}"]
-        })
-        
-        try:
-            tracer = CustomTracer()
-            tracer.save_trace(trace)
-        except Exception as trace_save_error:
-            logger.error(f"Failed to save error trace: {trace_save_error}")
-        
-        db.close()
-        return None, trace
