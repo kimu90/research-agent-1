@@ -1,0 +1,20 @@
+2025-02-12 21:07:33,631 - controllers.analyze_data_router - INFO - [analyze_data_router.py:148] - Fetching available datasets
+2025-02-12 21:07:33,632 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:153] - AnalysisAgent initialized
+2025-02-12 21:07:33,632 - controllers.analyze_data_router - INFO - [analyze_data_router.py:157] - Successfully retrieved 5 datasets
+2025-02-12 21:07:33,632 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:158] - Available datasets: ['pat_app.csv', 'pat_fos.csv', 'literature_trends.csv', 'lit_fos.csv', 'lit_aff.csv']
+2025-02-12 21:08:51,686 - controllers.analyze_data_router - INFO - [analyze_data_router.py:148] - Fetching available datasets
+2025-02-12 21:08:51,687 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:153] - AnalysisAgent initialized
+2025-02-12 21:08:51,687 - controllers.analyze_data_router - INFO - [analyze_data_router.py:157] - Successfully retrieved 5 datasets
+2025-02-12 21:08:51,687 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:158] - Available datasets: ['pat_app.csv', 'pat_fos.csv', 'literature_trends.csv', 'lit_fos.csv', 'lit_aff.csv']
+2025-02-12 21:09:22,968 - controllers.analyze_data_router - INFO - [analyze_data_router.py:148] - Fetching available datasets
+2025-02-12 21:09:22,968 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:153] - AnalysisAgent initialized
+2025-02-12 21:09:22,969 - controllers.analyze_data_router - INFO - [analyze_data_router.py:157] - Successfully retrieved 5 datasets
+2025-02-12 21:09:22,969 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:158] - Available datasets: ['pat_app.csv', 'pat_fos.csv', 'literature_trends.csv', 'lit_fos.csv', 'lit_aff.csv']
+2025-02-12 21:09:34,800 - controllers.analyze_data_router - INFO - [analyze_data_router.py:91] - === Starting new analysis request ===
+2025-02-12 21:09:34,801 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:92] - Request parameters: {'query': 'sea weed', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-12 21:09:34,801 - controllers.analyze_data_router - INFO - [analyze_data_router.py:95] - Executing analysis with tool: Analysis Agent
+2025-02-12 21:09:34,801 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:96] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-12 21:09:43,587 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:115] - Analysis completed successfully, cleaning output text
+2025-02-12 21:09:43,588 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 3515
+2025-02-12 21:09:43,588 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
+2025-02-12 21:09:43,588 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 315, 'completion_tokens': 655, 'total_tokens': 970, 'model': 'llama3-70b-8192'}

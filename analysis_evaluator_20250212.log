@@ -1,0 +1,195 @@
+2025-02-12 20:58:47 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-12 20:58:49 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-12 20:58:49 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-12 20:58:49 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-12 20:58:49 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-12 20:58:49 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-12 20:58:49 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-12 20:58:49 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-12 20:58:49 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-12 20:58:49 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-12 20:58:49 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-12 20:58:49 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-12 20:58:50 - research_agent.research_agent - INFO - Successfully imported GoogleSerperAPIWrapper
+2025-02-12 20:58:50 - __main__ - INFO - INIT_DB is true. Running database initialization.
+2025-02-12 21:03:30 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-12 21:03:31 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-12 21:03:31 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-12 21:03:31 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-12 21:03:31 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-12 21:03:31 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-12 21:03:31 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-12 21:03:31 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-12 21:03:31 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-12 21:03:31 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-12 21:03:31 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-12 21:03:31 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-12 21:03:31 - research_agent.research_agent - INFO - Successfully imported GoogleSerperAPIWrapper
+2025-02-12 21:03:31 - LangfuseRunner - INFO - Logging system initialized
+2025-02-12 21:03:31 - LangfuseRunner - DEBUG - Debug logging enabled
+2025-02-12 21:03:31 - LangfuseRunner - INFO - Creating new LangfuseRunner instance
+2025-02-12 21:03:31 - LangfuseRunner - INFO - === Initializing LangfuseRunner ===
+2025-02-12 21:03:31 - LangfuseRunner - DEBUG - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-12 21:03:31 - LangfuseRunner - DEBUG - Public Key present: Yes
+2025-02-12 21:03:31 - LangfuseRunner - DEBUG - Secret Key present: Yes
+2025-02-12 21:03:31 - LangfuseRunner - DEBUG - Starting configuration validation
+2025-02-12 21:03:31 - LangfuseRunner - INFO - Configuration validation successful
+2025-02-12 21:03:31 - LangfuseRunner - DEBUG - Using custom host: http://langfuse-server:3000
+2025-02-12 21:03:32 - LangfuseRunner - INFO - Successfully initialized Langfuse client
+2025-02-12 21:03:32 - LangfuseRunner - DEBUG - Model costs configured: {'default': 0.001}
+2025-02-12 21:06:54 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-12 21:06:55 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-12 21:06:55 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-12 21:06:56 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-12 21:06:56 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-12 21:06:56 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-12 21:06:56 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-12 21:06:56 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-12 21:06:56 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-12 21:06:56 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-12 21:06:56 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-12 21:06:56 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-12 21:06:56 - research_agent.research_agent - INFO - Successfully imported GoogleSerperAPIWrapper
+2025-02-12 21:06:56 - LangfuseRunner - INFO - Logging system initialized
+2025-02-12 21:06:56 - LangfuseRunner - DEBUG - Debug logging enabled
+2025-02-12 21:06:56 - LangfuseRunner - INFO - Creating new LangfuseRunner instance
+2025-02-12 21:06:56 - LangfuseRunner - INFO - === Initializing LangfuseRunner ===
+2025-02-12 21:06:56 - LangfuseRunner - DEBUG - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-12 21:06:56 - LangfuseRunner - DEBUG - Public Key present: Yes
+2025-02-12 21:06:56 - LangfuseRunner - DEBUG - Secret Key present: Yes
+2025-02-12 21:06:56 - LangfuseRunner - DEBUG - Starting configuration validation
+2025-02-12 21:06:56 - LangfuseRunner - INFO - Configuration validation successful
+2025-02-12 21:06:56 - LangfuseRunner - DEBUG - Using custom host: http://langfuse-server:3000
+2025-02-12 21:06:56 - LangfuseRunner - INFO - Successfully initialized Langfuse client
+2025-02-12 21:06:56 - LangfuseRunner - DEBUG - Model costs configured: {'default': 0.001}
+2025-02-12 21:06:56 - LangfuseRunner - INFO - Creating new LangfuseRunner instance
+2025-02-12 21:06:56 - LangfuseRunner - INFO - === Initializing LangfuseRunner ===
+2025-02-12 21:06:56 - LangfuseRunner - DEBUG - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-12 21:06:56 - LangfuseRunner - DEBUG - Public Key present: Yes
+2025-02-12 21:06:56 - LangfuseRunner - DEBUG - Secret Key present: Yes
+2025-02-12 21:06:56 - LangfuseRunner - DEBUG - Starting configuration validation
+2025-02-12 21:06:56 - LangfuseRunner - INFO - Configuration validation successful
+2025-02-12 21:06:56 - LangfuseRunner - DEBUG - Using custom host: http://langfuse-server:3000
+2025-02-12 21:06:56 - LangfuseRunner - INFO - Successfully initialized Langfuse client
+2025-02-12 21:06:56 - LangfuseRunner - DEBUG - Model costs configured: {'default': 0.001}
+2025-02-12 21:06:56 - app - ERROR - Failed to initialize Langfuse: CreateNewEntities.__init__() missing 9 required positional arguments: 'database_url', 'organization_id', 'organization_name', 'project_id', 'project_name', 'default_user_email', 'salt', 'public_key', and 'secret_key'
+2025-02-12 21:07:33 - controllers.analyze_data_router - INFO - Fetching available datasets
+2025-02-12 21:07:33 - tools.research.analysis_agent - INFO - SERPER_API_KEY present: True
+2025-02-12 21:07:33 - controllers.analyze_data_router - DEBUG - AnalysisAgent initialized
+2025-02-12 21:07:33 - tools.research.analysis_agent - INFO - Looking for datasets in: /app/data
+2025-02-12 21:07:33 - tools.research.analysis_agent - INFO - Found datasets: ['pat_app.csv', 'pat_fos.csv', 'literature_trends.csv', 'lit_fos.csv', 'lit_aff.csv']
+2025-02-12 21:07:33 - controllers.analyze_data_router - INFO - Successfully retrieved 5 datasets
+2025-02-12 21:07:33 - controllers.analyze_data_router - DEBUG - Available datasets: ['pat_app.csv', 'pat_fos.csv', 'literature_trends.csv', 'lit_fos.csv', 'lit_aff.csv']
+2025-02-12 21:07:33 - controllers.prompts_router - INFO - Retrieving prompts from directory: /app/prompts
+2025-02-12 21:07:33 - controllers.prompts_router - INFO - Retrieved 14 prompts from 5 folders
+2025-02-12 21:08:51 - controllers.prompts_router - INFO - Retrieving prompts from directory: /app/prompts
+2025-02-12 21:08:51 - controllers.prompts_router - INFO - Retrieved 14 prompts from 5 folders
+2025-02-12 21:08:51 - controllers.analyze_data_router - INFO - Fetching available datasets
+2025-02-12 21:08:51 - tools.research.analysis_agent - INFO - SERPER_API_KEY present: True
+2025-02-12 21:08:51 - controllers.analyze_data_router - DEBUG - AnalysisAgent initialized
+2025-02-12 21:08:51 - tools.research.analysis_agent - INFO - Looking for datasets in: /app/data
+2025-02-12 21:08:51 - tools.research.analysis_agent - INFO - Found datasets: ['pat_app.csv', 'pat_fos.csv', 'literature_trends.csv', 'lit_fos.csv', 'lit_aff.csv']
+2025-02-12 21:08:51 - controllers.analyze_data_router - INFO - Successfully retrieved 5 datasets
+2025-02-12 21:08:51 - controllers.analyze_data_router - DEBUG - Available datasets: ['pat_app.csv', 'pat_fos.csv', 'literature_trends.csv', 'lit_fos.csv', 'lit_aff.csv']
+2025-02-12 21:09:22 - controllers.prompts_router - INFO - Retrieving prompts from directory: /app/prompts
+2025-02-12 21:09:22 - controllers.prompts_router - INFO - Retrieved 14 prompts from 5 folders
+2025-02-12 21:09:22 - controllers.analyze_data_router - INFO - Fetching available datasets
+2025-02-12 21:09:22 - tools.research.analysis_agent - INFO - SERPER_API_KEY present: True
+2025-02-12 21:09:22 - controllers.analyze_data_router - DEBUG - AnalysisAgent initialized
+2025-02-12 21:09:22 - tools.research.analysis_agent - INFO - Looking for datasets in: /app/data
+2025-02-12 21:09:22 - tools.research.analysis_agent - INFO - Found datasets: ['pat_app.csv', 'pat_fos.csv', 'literature_trends.csv', 'lit_fos.csv', 'lit_aff.csv']
+2025-02-12 21:09:22 - controllers.analyze_data_router - INFO - Successfully retrieved 5 datasets
+2025-02-12 21:09:22 - controllers.analyze_data_router - DEBUG - Available datasets: ['pat_app.csv', 'pat_fos.csv', 'literature_trends.csv', 'lit_fos.csv', 'lit_aff.csv']
+2025-02-12 21:09:34 - controllers.analyze_data_router - INFO - === Starting new analysis request ===
+2025-02-12 21:09:34 - controllers.analyze_data_router - DEBUG - Request parameters: {'query': 'sea weed', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-12 21:09:34 - controllers.analyze_data_router - INFO - Executing analysis with tool: Analysis Agent
+2025-02-12 21:09:34 - controllers.analyze_data_router - DEBUG - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-12 21:09:34 - LangfuseRunner - INFO - === Starting tool execution: Analysis Agent ===
+2025-02-12 21:09:34 - LangfuseRunner - DEBUG - Input parameters:
+2025-02-12 21:09:34 - LangfuseRunner - DEBUG - - Query: sea weed
+2025-02-12 21:09:34 - LangfuseRunner - DEBUG - - Dataset: lit_fos.csv
+2025-02-12 21:09:34 - LangfuseRunner - DEBUG - - Analysis type: general
+2025-02-12 21:09:34 - LangfuseRunner - DEBUG - - Prompt name: scientific_research/fields.txt
+2025-02-12 21:09:34 - LangfuseRunner - DEBUG - Langfuse trace created successfully
+2025-02-12 21:09:34 - LangfuseRunner - DEBUG - Started generation trace
+2025-02-12 21:09:34 - LangfuseRunner - INFO - Executing Analysis Agent
+2025-02-12 21:09:34 - LangfuseRunner - DEBUG - Initializing Analysis Agent
+2025-02-12 21:09:34 - tools.research.analysis_agent - INFO - SERPER_API_KEY present: True
+2025-02-12 21:09:34 - LangfuseRunner - DEBUG - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: sea weed
+2025-02-12 21:09:34 - tools.research.analysis_agent - INFO - Starting analysis for query: sea weed
+2025-02-12 21:09:34 - tools.research.analysis_agent - INFO - Looking for datasets in: /app/data
+2025-02-12 21:09:34 - tools.research.analysis_agent - INFO - Found datasets: ['pat_app.csv', 'pat_fos.csv', 'literature_trends.csv', 'lit_fos.csv', 'lit_aff.csv']
+2025-02-12 21:09:34 - tools.research.analysis_agent - INFO - Data validation results: {'missing_data': {'fields_of_study': 0, 'n': 0}, 'datatypes': {'fields_of_study': dtype('O'), 'n': dtype('int64')}, 'row_count': 20, 'column_count': 2}
+2025-02-12 21:09:34 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): google.serper.dev:443
+2025-02-12 21:09:35 - httpcore.connection - DEBUG - connect_tcp.started host='langfuse-server' port=3000 local_address=None timeout=20 socket_options=None
+2025-02-12 21:09:35 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x78341415ff90>
+2025-02-12 21:09:35 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-12 21:09:35 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-12 21:09:35 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-12 21:09:35 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-12 21:09:35 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-12 21:09:35 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 401, b'Unauthorized', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"k31w0fd1s33"'), (b'Content-Length', b'111'), (b'Date', b'Wed, 12 Feb 2025 21:09:35 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-12 21:09:35 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-12 21:09:35 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-12 21:09:35 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-12 21:09:35 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-12 21:09:35 - urllib3.connectionpool - DEBUG - https://google.serper.dev:443 "POST /news?q=sea+weed+fields_of_study+n+analysis+research&gl=us&hl=en&num=5 HTTP/1.1" 200 3062
+2025-02-12 21:09:35 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.frontiersin.org:443
+2025-02-12 21:09:37 - urllib3.connectionpool - DEBUG - https://www.frontiersin.org:443 "GET /journals/environmental-archaeology/articles/10.3389/fearc.2024.1465082/full HTTP/1.1" 200 None
+2025-02-12 21:09:37 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.sciencedirect.com:443
+2025-02-12 21:09:37 - urllib3.connectionpool - DEBUG - https://www.sciencedirect.com:443 "GET /science/article/pii/S0960852424013531 HTTP/1.1" 403 None
+2025-02-12 21:09:38 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.nature.com:443
+2025-02-12 21:09:38 - urllib3.connectionpool - DEBUG - https://www.nature.com:443 "GET /articles/s41598-024-69362-y HTTP/1.1" 303 150
+2025-02-12 21:09:38 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): idp.nature.com:443
+2025-02-12 21:09:39 - urllib3.connectionpool - DEBUG - https://idp.nature.com:443 "GET /authorize?response_type=cookie&client_id=grover&redirect_uri=https%3A%2F%2Fwww.nature.com%2Farticles%2Fs41598-024-69362-y HTTP/1.1" 302 0
+2025-02-12 21:09:39 - urllib3.connectionpool - DEBUG - https://idp.nature.com:443 "GET /transit?redirect_uri=https%3A%2F%2Fwww.nature.com%2Farticles%2Fs41598-024-69362-y&code=521bd0e9-2f57-49d0-a9ea-b64f501faf77 HTTP/1.1" 302 0
+2025-02-12 21:09:40 - urllib3.connectionpool - DEBUG - https://www.nature.com:443 "GET /articles/s41598-024-69362-y HTTP/1.1" 200 None
+2025-02-12 21:09:40 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.researchgate.net:443
+2025-02-12 21:09:40 - urllib3.connectionpool - DEBUG - https://www.researchgate.net:443 "GET /publication/354281748_Characterizing_energy_flow_in_kelp_forest_food_webs_a_geochemical_review_and_call_for_additional_research HTTP/1.1" 403 None
+2025-02-12 21:09:40 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): www.sciencedirect.com:443
+2025-02-12 21:09:40 - urllib3.connectionpool - DEBUG - https://www.sciencedirect.com:443 "GET /science/article/pii/S1756464624003050 HTTP/1.1" 403 None
+2025-02-12 21:09:41 - root - INFO - Start inference with model llama3-70b-8192 on host groq
+2025-02-12 21:09:41 - groq._base_client - DEBUG - Request options: {'method': 'post', 'url': '/openai/v1/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': 'DATA-DRIVEN RESEARCH SYNTHESIS PROMPT\n\nObjective: Generate a data-integrated research overview for [SPECIES_NAME] that directly incorporates provided dataset metrics\n\nRequired Data Integration:\n- Extract and cite specific numerical values from the dataset\n- Reference exact measurements and statistics when available\n- Use quantitative trends to support qualitative statements\n- Incorporate statistical patterns from the provided data\n- Connect data points to broader research themes\n\nStructure Guidelines:\n- Begin with most statistically significant findings from the data\n- Flow naturally between data-supported topics\n- Avoid generic literature review statements without data backing\n- Integrate numerical evidence throughout the narrative\n- Reference specific metrics while maintaining readability\n- Exclude methodology descriptions and data source references\n\nOutput Parameters:\n- Length: 400-600 words\n- Style: Professional, authoritative research summary\n- Format: Flowing paragraphs without numbering or subsections\n- Variables: Use [SPECIES_NAME] consistently\n- Tone: Data-driven but accessible\n\nFocus Areas:\n- Research trends supported by dataset metrics\n- Quantified research impacts and outcomes\n- Measured ecological and biological parameters\n- Statistical evidence of significance\n- Data-verified future research directions\n\nNote: Every major claim should be supported by at least one specific data point from the provided dataset.'}, {'role': 'user', 'content': "Analyze the dataset 'lit_fos.csv' in the context of the query: sea weed.\n                            Include relevant insights from web research where applicable.\n                            Focus on connecting statistical findings with broader industry/research context."}], 'model': 'llama3-70b-8192', 'temperature': 0.7}}
+2025-02-12 21:09:41 - groq._base_client - DEBUG - Sending HTTP Request: POST https://api.groq.com/openai/v1/chat/completions
+2025-02-12 21:09:41 - httpcore.connection - DEBUG - connect_tcp.started host='api.groq.com' port=443 local_address=None timeout=5.0 socket_options=None
+2025-02-12 21:09:41 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x78340c5ae890>
+2025-02-12 21:09:41 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x78343bd352e0> server_hostname='api.groq.com' timeout=5.0
+2025-02-12 21:09:41 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7833eef12150>
+2025-02-12 21:09:41 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-12 21:09:41 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-12 21:09:41 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-12 21:09:41 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-12 21:09:41 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-12 21:09:43 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 12 Feb 2025 21:09:43 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate'), (b'vary', b'Origin'), (b'x-groq-region', b'us-west-1'), (b'x-ratelimit-limit-requests', b'14400'), (b'x-ratelimit-limit-tokens', b'6000'), (b'x-ratelimit-remaining-requests', b'14399'), (b'x-ratelimit-remaining-tokens', b'5562'), (b'x-ratelimit-reset-requests', b'6s'), (b'x-ratelimit-reset-tokens', b'4.38s'), (b'x-request-id', b'req_01jkxzy0kvfnn9c6p3fkde2vtv'), (b'via', b'1.1 google'), (b'alt-svc', b'h3=":443"; ma=86400'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=n8mAktuvvbF7fxoY_W4A_TjgyBWF0Ade_YczMkw8D8w-1739394583-1.0.1.1-redI4WiV85Hw5bdA4uEO_hg0x4u2EoTyLzX_wBrcbXFb6QGhPcYUYl8aM2gijk9PGp9tuByuAt6URAW1nE1bXQ; path=/; expires=Wed, 12-Feb-25 21:39:43 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'910f8fa319b847ee-BOM'), (b'Content-Encoding', b'gzip')])
+2025-02-12 21:09:43 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-12 21:09:43 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-12 21:09:43 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-12 21:09:43 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-12 21:09:43 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Wed, 12 Feb 2025 21:09:43 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin', 'x-groq-region': 'us-west-1', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '6000', 'x-ratelimit-remaining-requests': '14399', 'x-ratelimit-remaining-tokens': '5562', 'x-ratelimit-reset-requests': '6s', 'x-ratelimit-reset-tokens': '4.38s', 'x-request-id': 'req_01jkxzy0kvfnn9c6p3fkde2vtv', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'cf-cache-status': 'DYNAMIC', 'set-cookie': '__cf_bm=n8mAktuvvbF7fxoY_W4A_TjgyBWF0Ade_YczMkw8D8w-1739394583-1.0.1.1-redI4WiV85Hw5bdA4uEO_hg0x4u2EoTyLzX_wBrcbXFb6QGhPcYUYl8aM2gijk9PGp9tuByuAt6URAW1nE1bXQ; path=/; expires=Wed, 12-Feb-25 21:39:43 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None', 'server': 'cloudflare', 'cf-ray': '910f8fa319b847ee-BOM', 'content-encoding': 'gzip'})
+2025-02-12 21:09:43 - root - INFO - Inference completed in 2.34s
+2025-02-12 21:09:43 - root - INFO - Tokens used - Input: 315, Output: 655, Total: 970
+2025-02-12 21:09:43 - root - INFO - Processing speed - 414.42 tokens/second
+2025-02-12 21:09:43 - LangfuseRunner - DEBUG - Analysis Agent result - Analysis length: 3522
+2025-02-12 21:09:43 - LangfuseRunner - INFO - Analysis Agent execution completed
+2025-02-12 21:09:43 - LangfuseRunner - INFO - Tool execution completed successfully
+2025-02-12 21:09:43 - LangfuseRunner - DEBUG - Prepared trace data: {'duration': 8.552077, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-12T21:09:43.355793'}
+2025-02-12 21:09:43 - LangfuseRunner - DEBUG - Trace data prepared: {'duration': 8.552077, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-12T21:09:43.355793'}
+2025-02-12 21:09:43 - LangfuseRunner - DEBUG - Flushing Langfuse traces
+2025-02-12 21:09:43 - httpcore.connection - DEBUG - close.started
+2025-02-12 21:09:43 - httpcore.connection - DEBUG - close.complete
+2025-02-12 21:09:43 - httpcore.connection - DEBUG - connect_tcp.started host='langfuse-server' port=3000 local_address=None timeout=20 socket_options=None
+2025-02-12 21:09:43 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x783454079110>
+2025-02-12 21:09:43 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-12 21:09:43 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-12 21:09:43 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-12 21:09:43 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-12 21:09:43 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-12 21:09:43 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 401, b'Unauthorized', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"k31w0fd1s33"'), (b'Content-Length', b'111'), (b'Date', b'Wed, 12 Feb 2025 21:09:43 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-12 21:09:43 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-12 21:09:43 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-12 21:09:43 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-12 21:09:43 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-12 21:09:43 - controllers.analyze_data_router - DEBUG - Analysis completed successfully, cleaning output text
+2025-02-12 21:09:43 - controllers.analyze_data_router - DEBUG - Text cleaned, final length: 3515
+2025-02-12 21:09:43 - controllers.analyze_data_router - INFO - Analysis request completed successfully
+2025-02-12 21:09:43 - controllers.analyze_data_router - DEBUG - Response usage data: {'prompt_tokens': 315, 'completion_tokens': 655, 'total_tokens': 970, 'model': 'llama3-70b-8192'}

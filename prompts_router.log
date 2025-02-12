@@ -1,0 +1,6 @@
+2025-02-12 21:07:33,658 - controllers.prompts_router - INFO - [prompts_router.py:51] - Retrieving prompts from directory: /app/prompts
+2025-02-12 21:07:33,680 - controllers.prompts_router - INFO - [prompts_router.py:106] - Retrieved 14 prompts from 5 folders
+2025-02-12 21:08:51,547 - controllers.prompts_router - INFO - [prompts_router.py:51] - Retrieving prompts from directory: /app/prompts
+2025-02-12 21:08:51,549 - controllers.prompts_router - INFO - [prompts_router.py:106] - Retrieved 14 prompts from 5 folders
+2025-02-12 21:09:22,961 - controllers.prompts_router - INFO - [prompts_router.py:51] - Retrieving prompts from directory: /app/prompts
+2025-02-12 21:09:22,963 - controllers.prompts_router - INFO - [prompts_router.py:106] - Retrieved 14 prompts from 5 folders
