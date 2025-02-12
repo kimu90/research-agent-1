@@ -6,7 +6,10 @@ anyio==4.4.0
 async-timeout==4.0.3
 attrs==23.2.0
 langfuse
-
+asyncpg
+bcrypt
+fire
+loguru
 # Web Framework
 fastapi==0.100.0
 uvicorn==0.22.0

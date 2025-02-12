@@ -1,20 +1,24 @@
+import os
 import logging
+import re
+from typing import Optional, Dict, Any, List
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
-from typing import Optional, Dict, Any, List
+import pandas as pd
+
+# Import research components
 from research_components.langfuse_runner import create_tool_runner
 from tools.research.analysis_agent import AnalysisAgent
-import re
 
 # Set up logging
-logger = logging.getLogger("research_api")
+logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 # Create handlers
 console_handler = logging.StreamHandler()
-file_handler = logging.FileHandler("research_api.log")
+file_handler = logging.FileHandler("analysis_router.log")
 
-# Create formatters and add it to handlers
+# Create formatters
 log_format = '%(asctime)s - %(name)s - %(levelname)s - [%(filename)s:%(lineno)d] - %(message)s'
 console_formatter = logging.Formatter(log_format)
 file_formatter = logging.Formatter(log_format)
@@ -25,9 +29,14 @@ file_handler.setFormatter(file_formatter)
 logger.addHandler(console_handler)
 logger.addHandler(file_handler)
 
+# Router and tool runner setup
 api_router = APIRouter()
 tool_runner = create_tool_runner()
 
+# Configuration
+DATA_FOLDER = os.getenv("DATASETS_FOLDER", "./data")
+
+# Request and Response Models
 class AnalyzeRequest(BaseModel):
     query: str = Field(..., min_length=2, max_length=200)
     tool_name: Optional[str] = "Analysis Agent"
@@ -41,8 +50,44 @@ class AnalyzeResponse(BaseModel):
     usage: Dict[str, Any]
     prompt_used: str
 
+class DatasetInfoResponse(BaseModel):
+    filename: str
+    columns: List[str]
+    rows: int
+    missing_values: Dict[str, int]
+    dtypes: Dict[str, str]
+
+def clean_text(text: str) -> str:
+    """
+    Clean and format text by removing unnecessary formatting.
+    
+    Args:
+    - text: Input text to be cleaned
+    
+    Returns:
+    - Cleaned text
+    """
+    try:
+        # Remove markdown-like formatting
+        text = re.sub(r"\*\*|##|\*", "", text)
+        # Remove excessive newlines
+        text = re.sub(r"\n\s*\n", "\n", text)
+        return text.strip()
+    except Exception as e:
+        logger.error(f"Error cleaning text: {str(e)}")
+        return text  # Return original text if cleaning fails
+
 @api_router.post("/analyze-data", response_model=AnalyzeResponse)
 def generate_analysis(request: AnalyzeRequest):
+    """
+    Generate a data analysis based on the given request.
+    
+    Args:
+    - request: Analysis request with query, dataset, and other parameters
+    
+    Returns:
+    - Detailed analysis response
+    """
     logger.info("=== Starting new analysis request ===")
     logger.debug(f"Request parameters: {request.dict()}")
     
@@ -50,6 +95,7 @@ def generate_analysis(request: AnalyzeRequest):
         logger.info(f"Executing analysis with tool: {request.tool_name}")
         logger.debug(f"Analysis parameters - Dataset: {request.dataset}, Type: {request.analysis_type}")
         
+        # Run the analysis tool
         result, trace = tool_runner.run_tool(
             tool_name=request.tool_name,
             query=request.query,
@@ -58,6 +104,7 @@ def generate_analysis(request: AnalyzeRequest):
             prompt_name=request.prompt_name
         )
         
+        # Validate result
         if not result:
             logger.error("Analysis produced no valid results")
             raise HTTPException(
@@ -67,15 +114,11 @@ def generate_analysis(request: AnalyzeRequest):
         
         logger.debug("Analysis completed successfully, cleaning output text")
         
-        def clean_text(text):
-            logger.debug("Cleaning analysis text")
-            text = re.sub(r"\*\*|##|\*", "", text)
-            text = re.sub(r"\n\s*\n", "\n", text)
-            return text.strip()
-        
+        # Clean the analysis text
         cleaned_analysis = clean_text(result.analysis)
         logger.debug(f"Text cleaned, final length: {len(cleaned_analysis)}")
         
+        # Prepare response
         response_data = {
             "analysis": cleaned_analysis,
             "trace_data": trace,
@@ -88,18 +131,28 @@ def generate_analysis(request: AnalyzeRequest):
         
         return response_data
         
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Analysis generation failed: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Analysis generation failed: {str(e)}")
 
-@api_router.get("/datasets")
+@api_router.get("/datasets", response_model=List[str])
 def get_datasets():
+    """
+    Retrieve a list of available datasets.
+    
+    Returns:
+    - List of dataset filenames
+    """
     logger.info("Fetching available datasets")
     
     try:
-        tool = AnalysisAgent(data_folder="./data")
+        # Initialize Analysis Agent
+        tool = AnalysisAgent(data_folder=DATA_FOLDER)
         logger.debug("AnalysisAgent initialized")
         
+        # Get available datasets
         datasets = tool.get_available_datasets()
         logger.info(f"Successfully retrieved {len(datasets)} datasets")
         logger.debug(f"Available datasets: {datasets}")
@@ -113,17 +166,29 @@ def get_datasets():
             detail=f"Error retrieving datasets: {str(e)}"
         )
 
-@api_router.get("/dataset/{dataset_name}/info")
+@api_router.get("/dataset/{dataset_name}/info", response_model=DatasetInfoResponse)
 def get_dataset_info(dataset_name: str):
+    """
+    Retrieve detailed information about a specific dataset.
+    
+    Args:
+    - dataset_name: Name of the dataset to retrieve info for
+    
+    Returns:
+    - Detailed dataset information
+    """
     logger.info(f"Fetching info for dataset: {dataset_name}")
     
     try:
-        tool = AnalysisAgent(data_folder="./data")
+        # Initialize Analysis Agent
+        tool = AnalysisAgent(data_folder=DATA_FOLDER)
         logger.debug("AnalysisAgent initialized")
         
+        # Get available datasets
         available_datasets = tool.get_available_datasets()
         logger.debug(f"Available datasets: {available_datasets}")
         
+        # Validate dataset exists
         if dataset_name not in available_datasets:
             logger.warning(f"Dataset not found: {dataset_name}")
             raise HTTPException(
@@ -131,9 +196,11 @@ def get_dataset_info(dataset_name: str):
                 detail=f"Dataset '{dataset_name}' not found"
             )
         
+        # Load dataset
         logger.info(f"Loading dataset: {dataset_name}")
         df = tool.load_and_validate_data(dataset_name)
         
+        # Prepare dataset info
         dataset_info = {
             "filename": dataset_name,
             "columns": list(df.columns),
@@ -149,10 +216,41 @@ def get_dataset_info(dataset_name: str):
         
     except HTTPException:
         raise
-        
     except Exception as e:
         logger.error(f"Failed to retrieve dataset info: {str(e)}", exc_info=True)
         raise HTTPException(
             status_code=500,
             detail=f"Error retrieving dataset info: {str(e)}"
         )
+
+@api_router.get("/health")
+def health_check():
+    """
+    Perform a health check on the analysis service.
+    
+    Returns:
+    - Health status information
+    """
+    try:
+        # Initialize Analysis Agent
+        tool = AnalysisAgent(data_folder=DATA_FOLDER)
+        
+        # Get available datasets
+        datasets = tool.get_available_datasets()
+        
+        return {
+            "status": "healthy",
+            "service": "species-analysis-api",
+            "version": "1.0.0",
+            "data_folder": DATA_FOLDER,
+            "total_datasets": len(datasets),
+            "available_analysis_types": ["general", "detailed", "comparative"]
+        }
+    except Exception as e:
+        logger.error(f"Health check failed: {str(e)}")
+        return {
+            "status": "degraded",
+            "error": str(e),
+            "service": "species-analysis-api",
+            "version": "1.0.0"
+        }
