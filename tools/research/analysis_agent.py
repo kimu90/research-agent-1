@@ -6,6 +6,8 @@ from datetime import datetime
 from typing import Dict, Optional, Type, Any, List
 import pandas as pd
 from bs4 import BeautifulSoup
+from langfuse import Langfuse
+
 from pydantic import BaseModel, Field
 from langchain.tools import BaseTool
 from utils.model_wrapper import model_wrapper
@@ -28,22 +30,34 @@ logger = logging.getLogger(__name__)
 logging.getLogger('watchdog.observers.inotify_buffer').setLevel(logging.WARNING)
 
 class PromptLoader:
-    """Handles dynamic loading of prompts from a specified directory."""
+    """Handles loading of prompts from Langfuse."""
     
     @staticmethod
-    def load_prompt(prompt_name: str = "research.txt") -> Prompt:
-        """Load a prompt from the prompts directory."""
+    def load_prompt(langfuse_client: Langfuse, prompt_name: str = "general-analysis", 
+                   version: str = None, variant: str = None) -> Prompt:
+        """Load a prompt from Langfuse."""
         try:
-            with open(os.path.join("/app/prompts", prompt_name), 'r') as f:
-                prompt_content = f.read()
+            if version:
+                langfuse_prompt = langfuse_client.get_prompt_version(prompt_name, version)
+            elif variant:
+                variant_name = f"{prompt_name}-{variant}"
+                langfuse_prompt = langfuse_client.get_prompt(variant_name)
+            else:
+                langfuse_prompt = langfuse_client.get_prompt(prompt_name)
             
             return Prompt(
-                id=f"dynamic-prompt-{prompt_name}",
-                content=prompt_content,
-                metadata={"source": prompt_name}
+                id=langfuse_prompt.name,
+                content=langfuse_prompt.prompt,
+                metadata={
+                    "source": "langfuse",
+                    "version": version,
+                    "variant": variant,
+                    "config": langfuse_prompt.config
+                }
             )
-        except FileNotFoundError:
-            logger.error(f"Prompt file not found: {prompt_name}")
+        except Exception as e:
+            logger.error(f"Error loading Langfuse prompt: {e}")
+            # Fallback prompt
             return Prompt(
                 id="fallback-prompt",
                 content="""Analyze the following content and provide a comprehensive summary.
@@ -55,17 +69,13 @@ class PromptLoader:
             )
 
     @staticmethod
-    def list_available_prompts() -> List[str]:
-        """List all available prompt files."""
-        base_path = os.path.join(os.path.dirname(__file__), "..", "prompts")
-        
+    def list_available_prompts(langfuse_client: Langfuse) -> List[str]:
+        """List all available prompts from Langfuse."""
         try:
-            return [
-                f for f in os.listdir(base_path) 
-                if f.endswith('.txt') and os.path.isfile(os.path.join(base_path, f))
-            ]
+            prompts = langfuse_client.list_prompts()
+            return [prompt.name for prompt in prompts]
         except Exception as e:
-            logger.error(f"Error listing prompts: {e}")
+            logger.error(f"Error listing Langfuse prompts: {e}")
             return []
 
 class AnalysisAgentInput(BaseModel):
@@ -107,33 +117,36 @@ class AnalysisAgent(BaseTool):
     current_prompt: Optional[Prompt] = Field(default=None)
     token_tracker: TokenUsageTracker = Field(default_factory=TokenUsageTracker)
     data_folder: str = Field(default="./data")
+    langfuse_client: Optional[Langfuse] = None
 
     def __init__(
         self,
-        current_prompt: Optional[Prompt] = None,
+        langfuse_client: Langfuse,
         data_folder: str = "./data",
-        prompt_name: Optional[str] = None
+        prompt_name: str = "general-analysis",
+        prompt_version: Optional[str] = None,
+        prompt_variant: Optional[str] = None
     ):
         super().__init__()
-        if current_prompt:
-            self.current_prompt = current_prompt
-        elif prompt_name:
-            try:
-                self.current_prompt = PromptLoader.load_prompt(prompt_name)
-            except Exception as e:
-                logger.warning(f"Failed to load prompt {prompt_name}, falling back to default. Error: {e}")
-                self.current_prompt = PromptLoader.load_prompt("research.txt")
-        else:
-            self.current_prompt = Prompt(
-                id="default-content-selection",
-                content="""Analyze the following articles:
-                Research Topic: {{research_topic}}
-                Available Articles: {{formatted_snippets}}
-                Return the indices of the most relevant articles."""
+        self.langfuse_client = langfuse_client
+        self.data_folder = data_folder
+        
+        try:
+            self.current_prompt = PromptLoader.load_prompt(
+                langfuse_client=langfuse_client,
+                prompt_name=prompt_name,
+                version=prompt_version,
+                variant=prompt_variant
+            )
+            logger.info(f"Loaded prompt: {prompt_name} (version: {prompt_version}, variant: {prompt_variant})")
+        except Exception as e:
+            logger.warning(f"Failed to load Langfuse prompt, falling back to default. Error: {e}")
+            self.current_prompt = PromptLoader.load_prompt(
+                langfuse_client=langfuse_client,
+                prompt_name="general-analysis"
             )
         
         self.token_tracker = TokenUsageTracker()
-        self.data_folder = data_folder
         
         # Ensure data folder exists
         if not os.path.exists(data_folder):
@@ -263,14 +276,24 @@ class AnalysisAgent(BaseTool):
     def invoke_analysis(
         self,
         input: Dict[str, str],
-        current_prompt: Optional[Prompt] = None
+        prompt_version: Optional[str] = None,
+        prompt_variant: Optional[str] = None
     ) -> AnalysisResult:
-        """Execute the analysis with comprehensive error handling and token tracking."""
+        """Execute the analysis with Langfuse prompt management and token tracking."""
         logger.info(f"Starting analysis for query: {input.get('query', 'No query')}")
         
         try:
             if not input or 'query' not in input or 'dataset' not in input:
                 raise ValueError("Query and dataset must be provided")
+
+            # Load new prompt version/variant if specified
+            if prompt_version or prompt_variant:
+                self.current_prompt = PromptLoader.load_prompt(
+                    langfuse_client=self.langfuse_client,
+                    prompt_name=self.current_prompt.id,
+                    version=prompt_version,
+                    variant=prompt_variant
+                )
 
             dataset_file = input['dataset']
             available_datasets = self.get_available_datasets()
@@ -315,22 +338,56 @@ class AnalysisAgent(BaseTool):
                 'web_research': web_research
             }
 
-            prompt_to_use = current_prompt or self.current_prompt
-            system_prompt = prompt_to_use.compile(
+            # Compile prompt with Langfuse tracking
+            system_prompt = self.current_prompt.compile(
                 query=input['query'],
                 dataset_info=str(dataset_info)
             )
 
-            analysis_text = model_wrapper(
-                system_prompt=system_prompt,
-                prompt=prompt_to_use,
-                user_prompt=f"""Analyze the dataset '{dataset_file}' in the context of the query: {input['query']}.
-                            Include relevant insights from web research where applicable.
-                            Focus on connecting statistical findings with broader industry/research context.""",
-                model="llama3-70b-8192",
-                host="groq",
-                temperature=0.7,
-                token_tracker=self.token_tracker
+            # Create Langfuse generation for tracking
+            generation = self.langfuse_client.generation(
+                name="analysis-generation",
+                metadata={
+                    "prompt_name": self.current_prompt.id,
+                    "prompt_version": prompt_version,
+                    "prompt_variant": prompt_variant,
+                    "dataset": dataset_file
+                }
+            )
+
+            try:
+                analysis_text = model_wrapper(
+                    system_prompt=system_prompt,
+                    prompt=self.current_prompt,
+                    user_prompt=f"""Analyze the dataset '{dataset_file}' in the context of the query: {input['query']}.
+                                Include relevant insights from web research where applicable.
+                                Focus on connecting statistical findings with broader industry/research context.""",
+                    model="llama3-70b-8192",
+                    host="groq",
+                    temperature=0.7,
+                    token_tracker=self.token_tracker
+                )
+
+                # Log successful generation
+                generation.end(
+                    success=True,
+                    prompt_tokens=self.token_tracker._total_prompt_tokens,
+                    completion_tokens=self.token_tracker._total_completion_tokens
+                )
+
+            except Exception as model_error:
+                generation.end(
+                    success=False,
+                    error_message=str(model_error)
+                )
+                raise
+
+            # Track prompt performance
+            self.langfuse_client.score(
+                name="analysis_quality",
+                value=metrics.numerical_accuracy,
+                comment="Analysis quality score based on metrics",
+                trace_id=generation.trace_id
             )
 
             # Updated to match new trace data structure
@@ -342,7 +399,13 @@ class AnalysisAgent(BaseTool):
                     'completion_tokens': self.token_tracker._total_completion_tokens,
                     'total_tokens': self.token_tracker._total_tokens,
                     'model': 'llama3-70b-8192',
-                    'timestamp': datetime.now().isoformat()  # Added for trace compatibility
+                    'timestamp': datetime.now().isoformat(),
+                    'prompt_info': {
+                        'name': self.current_prompt.id,
+                        'version': prompt_version,
+                        'variant': prompt_variant,
+                        'generation_id': generation.id
+                    }
                 }
             )
 

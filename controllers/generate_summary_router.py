@@ -33,6 +33,9 @@ class ResearchRequest(BaseModel):
     query: str
     tool_name: Optional[str] = "General Agent"
     prompt_name: Optional[str] = "research.txt"
+    prompt_version: Optional[str] = None  # To request a specific version of a prompt
+    prompt_variant: Optional[str] = None  # For A/B testing different prompt versions
+    prompt_tags: Optional[List[str]] = []  # To tag and track prompt usage
 
 class ResearchResponse(BaseModel):
     summary: str

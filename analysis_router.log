@@ -287,3 +287,65 @@ AttributeError: 'StatefulTraceClient' object has no attribute 'error'
 2025-02-13 10:45:34,775 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:82] - Request parameters: {'query': 'Thalassia testudinum', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general', 'run_evaluation': True}
 2025-02-13 10:46:01,449 - controllers.analyze_data_router - INFO - [analyze_data_router.py:111] - Analysis request completed successfully
 2025-02-13 10:46:01,450 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:112] - Response usage data: {'prompt_tokens': 321, 'completion_tokens': 1072, 'total_tokens': 1393, 'model': 'llama3-70b-8192', 'timestamp': '2025-02-13T10:45:39.632919'}
+2025-02-13 11:18:19,364 - controllers.analyze_data_router - INFO - [analyze_data_router.py:81] - === Starting new analysis request ===
+2025-02-13 11:18:19,365 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:82] - Request parameters: {'query': 'Sclerocarya birrea', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general', 'run_evaluation': True}
+2025-02-13 11:18:52,688 - controllers.analyze_data_router - INFO - [analyze_data_router.py:111] - Analysis request completed successfully
+2025-02-13 11:18:52,688 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:112] - Response usage data: {'prompt_tokens': 641, 'completion_tokens': 1765, 'total_tokens': 2406, 'model': 'llama3-70b-8192', 'timestamp': '2025-02-13T11:18:30.028211'}
+2025-02-13 11:30:49,948 - controllers.analyze_data_router - INFO - [analyze_data_router.py:81] - === Starting new analysis request ===
+2025-02-13 11:30:49,949 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:82] - Request parameters: {'query': 'Thalassia testudinum', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general', 'run_evaluation': True}
+2025-02-13 11:31:16,090 - controllers.analyze_data_router - INFO - [analyze_data_router.py:111] - Analysis request completed successfully
+2025-02-13 11:31:16,091 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:112] - Response usage data: {'prompt_tokens': 962, 'completion_tokens': 2723, 'total_tokens': 3685, 'model': 'llama3-70b-8192', 'timestamp': '2025-02-13T11:30:54.361102'}
+2025-02-13 12:03:09,239 - controllers.analyze_data_router - INFO - [analyze_data_router.py:81] - === Starting new analysis request ===
+2025-02-13 12:03:09,239 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:82] - Request parameters: {'query': 'sea weed', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general', 'run_evaluation': True}
+2025-02-13 12:03:39,289 - controllers.analyze_data_router - INFO - [analyze_data_router.py:111] - Analysis request completed successfully
+2025-02-13 12:03:39,290 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:112] - Response usage data: {'prompt_tokens': 1277, 'completion_tokens': 3521, 'total_tokens': 4798, 'model': 'llama3-70b-8192', 'timestamp': '2025-02-13T12:03:20.978794'}
+2025-02-13 14:56:39,495 - controllers.analyze_data_router - INFO - [analyze_data_router.py:84] - === Starting new analysis request ===
+2025-02-13 14:56:39,502 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:85] - Request parameters: {'query': 'sea weed', 'tool_name': 'Analysis Agent', 'dataset': 'string', 'prompt_name': 'research.txt', 'analysis_type': 'general', 'run_evaluation': True, 'prompt_version': 'string', 'prompt_variant': 'string', 'prompt_tags': []}
+2025-02-13 14:56:39,502 - controllers.analyze_data_router - ERROR - [analyze_data_router.py:135] - Analysis generation failed: 'LangfuseRunner' object has no attribute 'run_tool'
+Traceback (most recent call last):
+  File "/app/controllers/analyze_data_router.py", line 89, in generate_analysis
+    result, trace_data = tool_runner.run_tool(
+                         ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'LangfuseRunner' object has no attribute 'run_tool'
+2025-02-13 14:56:39,502 - controllers.analyze_data_router - ERROR - [analyze_data_router.py:137] - Failed prompt details: research.txt, version: string
+2025-02-13 14:59:03,082 - controllers.analyze_data_router - INFO - [analyze_data_router.py:84] - === Starting new analysis request ===
+2025-02-13 14:59:03,082 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:85] - Request parameters: {'query': 'Identify  patterns', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos_data.csv', 'prompt_name': 'general', 'analysis_type': 'general', 'run_evaluation': True, 'prompt_version': '1.2', 'prompt_variant': 'detailed', 'prompt_tags': ['production', 'sales']}
+2025-02-13 14:59:03,083 - controllers.analyze_data_router - ERROR - [analyze_data_router.py:135] - Analysis generation failed: 'LangfuseRunner' object has no attribute 'run_tool'
+Traceback (most recent call last):
+  File "/app/controllers/analyze_data_router.py", line 89, in generate_analysis
+    result, trace_data = tool_runner.run_tool(
+                         ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'LangfuseRunner' object has no attribute 'run_tool'
+2025-02-13 14:59:03,083 - controllers.analyze_data_router - ERROR - [analyze_data_router.py:137] - Failed prompt details: general, version: 1.2
+2025-02-13 15:01:25,111 - controllers.analyze_data_router - INFO - [analyze_data_router.py:84] - === Starting new analysis request ===
+2025-02-13 15:01:25,112 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:85] - Request parameters: {'query': 'Identify  patterns', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos_data.csv', 'prompt_name': 'general', 'analysis_type': 'general', 'run_evaluation': True, 'prompt_version': '1.2', 'prompt_variant': 'detailed', 'prompt_tags': ['production', 'sales']}
+2025-02-13 15:01:25,112 - controllers.analyze_data_router - ERROR - [analyze_data_router.py:135] - Analysis generation failed: LangfuseRunner.run_tool() got an unexpected keyword argument 'prompt_tags'
+Traceback (most recent call last):
+  File "/app/controllers/analyze_data_router.py", line 89, in generate_analysis
+    result, trace_data = tool_runner.run_tool(
+                         ^^^^^^^^^^^^^^^^^^^^^
+TypeError: LangfuseRunner.run_tool() got an unexpected keyword argument 'prompt_tags'
+2025-02-13 15:01:25,113 - controllers.analyze_data_router - ERROR - [analyze_data_router.py:137] - Failed prompt details: general, version: 1.2
+2025-02-13 15:03:16,293 - controllers.analyze_data_router - INFO - [analyze_data_router.py:84] - === Starting new analysis request ===
+2025-02-13 15:03:16,293 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:85] - Request parameters: {'query': 'what is the pattern', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'research', 'analysis_type': 'general', 'run_evaluation': True, 'prompt_version': '1.2', 'prompt_variant': 'detailed', 'prompt_tags': []}
+2025-02-13 15:03:16,293 - controllers.analyze_data_router - ERROR - [analyze_data_router.py:135] - Analysis generation failed: LangfuseRunner.run_tool() got an unexpected keyword argument 'prompt_tags'
+Traceback (most recent call last):
+  File "/app/controllers/analyze_data_router.py", line 89, in generate_analysis
+    result, trace_data = tool_runner.run_tool(
+                         ^^^^^^^^^^^^^^^^^^^^^
+TypeError: LangfuseRunner.run_tool() got an unexpected keyword argument 'prompt_tags'
+2025-02-13 15:03:16,294 - controllers.analyze_data_router - ERROR - [analyze_data_router.py:137] - Failed prompt details: research, version: 1.2
+2025-02-13 15:07:12,104 - controllers.analyze_data_router - INFO - [analyze_data_router.py:84] - === Starting new analysis request ===
+2025-02-13 15:07:12,105 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:85] - Request parameters: {'query': 'string', 'tool_name': 'Analysis Agent', 'dataset': 'string', 'prompt_name': 'research.txt', 'analysis_type': 'general', 'run_evaluation': True, 'prompt_version': 'string', 'prompt_variant': 'string', 'prompt_tags': []}
+2025-02-13 15:07:13,203 - controllers.analyze_data_router - ERROR - [analyze_data_router.py:102] - Analysis produced no valid results
+2025-02-13 15:09:51,753 - controllers.analyze_data_router - INFO - [analyze_data_router.py:84] - === Starting new analysis request ===
+2025-02-13 15:09:51,753 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:85] - Request parameters: {'query': 'string', 'tool_name': 'Analysis Agent', 'dataset': 'string', 'prompt_name': 'research.txt', 'analysis_type': 'general', 'run_evaluation': True, 'prompt_version': 'string', 'prompt_variant': 'string', 'prompt_tags': []}
+2025-02-13 15:09:51,969 - controllers.analyze_data_router - ERROR - [analyze_data_router.py:102] - Analysis produced no valid results
+2025-02-13 15:20:20,599 - controllers.analyze_data_router - INFO - [analyze_data_router.py:84] - === Starting new analysis request ===
+2025-02-13 15:20:20,599 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:85] - Request parameters: {'query': 'patterm?', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'general', 'analysis_type': 'general', 'run_evaluation': True, 'prompt_version': 'string', 'prompt_variant': 'string', 'prompt_tags': []}
+2025-02-13 15:20:21,060 - controllers.analyze_data_router - ERROR - [analyze_data_router.py:102] - Analysis produced no valid results
+2025-02-13 15:28:00,101 - controllers.analyze_data_router - INFO - [analyze_data_router.py:84] - === Starting new analysis request ===
+2025-02-13 15:28:00,101 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:85] - Request parameters: {'query': 'patterm?', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'general', 'analysis_type': 'general', 'run_evaluation': True, 'prompt_version': 'string', 'prompt_variant': 'string', 'prompt_tags': []}
+2025-02-13 15:28:33,227 - controllers.analyze_data_router - INFO - [analyze_data_router.py:126] - Analysis request completed successfully
+2025-02-13 15:28:33,228 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:127] - Response usage data: {'prompt_tokens': 98, 'completion_tokens': 815, 'total_tokens': 913, 'model': 'llama3-70b-8192', 'timestamp': '2025-02-13T15:28:12.343929', 'prompt_info': {'name': 'fallback-prompt', 'version': None, 'variant': None, 'generation_id': 'f1c6ba56-2b4f-4adf-bc5b-22f3faa27f49'}}
+2025-02-13 15:28:33,229 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:128] - Prompt performance metrics: None

@@ -50,6 +50,9 @@ class AnalyzeRequest(BaseModel):
     prompt_name: Optional[str] = "research.txt"
     analysis_type: str = Field(default="general")
     run_evaluation: bool = Field(default=True)
+    prompt_version: Optional[str] = None  # To request a specific version of a prompt
+    prompt_variant: Optional[str] = None  # For A/B testing different prompt versions
+    prompt_tags: Optional[List[str]] = []  # To tag and track prompt usage
 
 class AnalyzeResponse(BaseModel):
     analysis: str
@@ -82,12 +85,16 @@ async def generate_analysis(request: AnalyzeRequest):
     logger.debug(f"Request parameters: {request.dict()}")
     
     try:
+        # Add prompt tracking and variations
         result, trace_data = tool_runner.run_tool(
             tool_name=request.tool_name,
             query=request.query,
             dataset=request.dataset,
             analysis_type=request.analysis_type,
             prompt_name=request.prompt_name,
+            prompt_version=request.prompt_version,  # New
+            prompt_variant=request.prompt_variant,  # New
+            prompt_tags=request.prompt_tags,        # New
             run_evaluation=request.run_evaluation
         )
         
@@ -100,16 +107,25 @@ async def generate_analysis(request: AnalyzeRequest):
         
         cleaned_analysis = clean_text(result.analysis)
         
+        # Enhanced response data with prompt information
         response_data = {
             "analysis": cleaned_analysis,
             "trace_data": trace_data,
             "usage": result.usage,
-            "prompt_used": request.prompt_name,
+            "prompt_info": {                    # New structured prompt info
+                "name": request.prompt_name,
+                "version": request.prompt_version,
+                "variant": request.prompt_variant,
+                "tags": request.prompt_tags,
+                "performance_metrics": trace_data.get("prompt_metrics")  # New
+            },
             "evaluation_results": trace_data.get("evaluation_results")
         }
         
+        # Add prompt performance logging
         logger.info("Analysis request completed successfully")
         logger.debug(f"Response usage data: {result.usage}")
+        logger.debug(f"Prompt performance metrics: {trace_data.get('prompt_metrics')}")
         
         return CustomJSONResponse(content=response_data)
         
@@ -117,6 +133,8 @@ async def generate_analysis(request: AnalyzeRequest):
         raise
     except Exception as e:
         logger.error(f"Analysis generation failed: {str(e)}", exc_info=True)
+        # Enhanced error tracking with prompt info
+        logger.error(f"Failed prompt details: {request.prompt_name}, version: {request.prompt_version}")
         raise HTTPException(status_code=500, detail=f"Analysis generation failed: {str(e)}")
 
 @api_router.get("/datasets", response_model=List[str])
