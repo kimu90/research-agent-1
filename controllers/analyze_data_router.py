@@ -7,7 +7,6 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 import pandas as pd
 
-# Import research components
 from research_components.langfuse_runner import create_tool_runner
 from tools.research.analysis_agent import AnalysisAgent
 
@@ -37,7 +36,6 @@ tool_runner = create_tool_runner()
 # Configuration
 DATA_FOLDER = os.getenv("DATASETS_FOLDER", "./data")
 
-# Custom JSON Response class
 class CustomJSONResponse(JSONResponse):
     def __init__(self, content: Any, **kwargs) -> None:
         super().__init__(content, **kwargs)
@@ -45,19 +43,20 @@ class CustomJSONResponse(JSONResponse):
         self.headers["Cache-Control"] = "no-store"
         self.headers["X-Content-Type-Options"] = "nosniff"
 
-# Request and Response Models
 class AnalyzeRequest(BaseModel):
     query: str = Field(..., min_length=2, max_length=200)
     tool_name: Optional[str] = "Analysis Agent"
     dataset: str
     prompt_name: Optional[str] = "research.txt"
     analysis_type: str = Field(default="general")
+    run_evaluation: bool = Field(default=True)
 
 class AnalyzeResponse(BaseModel):
     analysis: str
     trace_data: Dict[str, Any]
     usage: Dict[str, Any]
     prompt_used: str
+    evaluation_results: Optional[Dict[str, Any]] = None
 
 class DatasetInfoResponse(BaseModel):
     filename: str
@@ -67,53 +66,31 @@ class DatasetInfoResponse(BaseModel):
     dtypes: Dict[str, str]
 
 def clean_text(text: str) -> str:
-    """
-    Clean and format text by removing unnecessary formatting.
-    
-    Args:
-    - text: Input text to be cleaned
-    
-    Returns:
-    - Cleaned text
-    """
+    """Clean and format text by removing unnecessary formatting."""
     try:
-        # Remove markdown-like formatting
         text = re.sub(r"\*\*|##|\*", "", text)
-        # Remove excessive newlines
         text = re.sub(r"\n\s*\n", "\n", text)
         return text.strip()
     except Exception as e:
         logger.error(f"Error cleaning text: {str(e)}")
-        return text  # Return original text if cleaning fails
+        return text
 
 @api_router.post("/", response_model=AnalyzeResponse)
 async def generate_analysis(request: AnalyzeRequest):
-    """
-    Generate a data analysis based on the given request.
-    
-    Args:
-    - request: Analysis request with query, dataset, and other parameters
-    
-    Returns:
-    - Detailed analysis response
-    """
+    """Generate a data analysis based on the given request."""
     logger.info("=== Starting new analysis request ===")
     logger.debug(f"Request parameters: {request.dict()}")
     
     try:
-        logger.info(f"Executing analysis with tool: {request.tool_name}")
-        logger.debug(f"Analysis parameters - Dataset: {request.dataset}, Type: {request.analysis_type}")
-        
-        # Run the analysis tool
-        result, trace = tool_runner.run_tool(
+        result, trace_data = tool_runner.run_tool(
             tool_name=request.tool_name,
             query=request.query,
             dataset=request.dataset,
             analysis_type=request.analysis_type,
-            prompt_name=request.prompt_name
+            prompt_name=request.prompt_name,
+            run_evaluation=request.run_evaluation
         )
         
-        # Validate result
         if not result:
             logger.error("Analysis produced no valid results")
             raise HTTPException(
@@ -121,18 +98,14 @@ async def generate_analysis(request: AnalyzeRequest):
                 detail="Analysis failed to produce valid results"
             )
         
-        logger.debug("Analysis completed successfully, cleaning output text")
-        
-        # Clean the analysis text
         cleaned_analysis = clean_text(result.analysis)
-        logger.debug(f"Text cleaned, final length: {len(cleaned_analysis)}")
         
-        # Prepare response
         response_data = {
             "analysis": cleaned_analysis,
-            "trace_data": trace,
+            "trace_data": trace_data,
             "usage": result.usage,
-            "prompt_used": request.prompt_name
+            "prompt_used": request.prompt_name,
+            "evaluation_results": trace_data.get("evaluation_results")
         }
         
         logger.info("Analysis request completed successfully")
@@ -148,20 +121,11 @@ async def generate_analysis(request: AnalyzeRequest):
 
 @api_router.get("/datasets", response_model=List[str])
 async def get_datasets():
-    """
-    Retrieve a list of available datasets.
-    
-    Returns:
-    - List of dataset filenames
-    """
+    """Retrieve a list of available datasets."""
     logger.info("Fetching available datasets")
     
     try:
-        # Initialize Analysis Agent
         tool = AnalysisAgent(data_folder=DATA_FOLDER)
-        logger.debug("AnalysisAgent initialized")
-        
-        # Get available datasets
         datasets = tool.get_available_datasets()
         logger.info(f"Successfully retrieved {len(datasets)} datasets")
         logger.debug(f"Available datasets: {datasets}")
@@ -177,39 +141,21 @@ async def get_datasets():
 
 @api_router.get("/dataset/{dataset_name}/info", response_model=DatasetInfoResponse)
 async def get_dataset_info(dataset_name: str):
-    """
-    Retrieve detailed information about a specific dataset.
-    
-    Args:
-    - dataset_name: Name of the dataset to retrieve info for
-    
-    Returns:
-    - Detailed dataset information
-    """
+    """Retrieve detailed information about a specific dataset."""
     logger.info(f"Fetching info for dataset: {dataset_name}")
     
     try:
-        # Initialize Analysis Agent
         tool = AnalysisAgent(data_folder=DATA_FOLDER)
-        logger.debug("AnalysisAgent initialized")
         
-        # Get available datasets
-        available_datasets = tool.get_available_datasets()
-        logger.debug(f"Available datasets: {available_datasets}")
-        
-        # Validate dataset exists
-        if dataset_name not in available_datasets:
+        if dataset_name not in tool.get_available_datasets():
             logger.warning(f"Dataset not found: {dataset_name}")
             raise HTTPException(
                 status_code=404,
                 detail=f"Dataset '{dataset_name}' not found"
             )
         
-        # Load dataset
-        logger.info(f"Loading dataset: {dataset_name}")
         df = tool.load_and_validate_data(dataset_name)
         
-        # Prepare dataset info
         dataset_info = {
             "filename": dataset_name,
             "columns": list(df.columns),
@@ -234,17 +180,9 @@ async def get_dataset_info(dataset_name: str):
 
 @api_router.get("/health")
 async def health_check():
-    """
-    Perform a health check on the analysis service.
-    
-    Returns:
-    - Health status information
-    """
+    """Perform a health check on the analysis service."""
     try:
-        # Initialize Analysis Agent
         tool = AnalysisAgent(data_folder=DATA_FOLDER)
-        
-        # Get available datasets
         datasets = tool.get_available_datasets()
         
         response_data = {

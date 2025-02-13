@@ -333,6 +333,7 @@ class AnalysisAgent(BaseTool):
                 token_tracker=self.token_tracker
             )
 
+            # Updated to match new trace data structure
             return AnalysisResult(
                 analysis=analysis_text,
                 metrics=metrics,
@@ -340,7 +341,8 @@ class AnalysisAgent(BaseTool):
                     'prompt_tokens': self.token_tracker._total_prompt_tokens,
                     'completion_tokens': self.token_tracker._total_completion_tokens,
                     'total_tokens': self.token_tracker._total_tokens,
-                    'model': 'llama3-70b-8192'
+                    'model': 'llama3-70b-8192',
+                    'timestamp': datetime.now().isoformat()  # Added for trace compatibility
                 }
             )
 

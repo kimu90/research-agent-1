@@ -831,3 +831,544 @@
 2025-02-13 09:04:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 9.042442, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T09:04:57.348901'}
 2025-02-13 09:04:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 9.042442, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T09:04:57.348901'}
 2025-02-13 09:04:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 09:30:06 - LangfuseRunner - INFO - [langfuse_runner.py:224] - Creating new LangfuseRunner instance
+2025-02-13 09:30:06 - LangfuseRunner - INFO - [langfuse_runner.py:62] - === Initializing LangfuseRunner ===
+2025-02-13 09:30:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 09:30:06 - LangfuseRunner - INFO - [langfuse_runner.py:106] - Successfully initialized Langfuse client
+2025-02-13 09:30:06 - LangfuseRunner - INFO - [langfuse_runner.py:133] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'maliciousness', 'helpfulness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 09:30:06 - LangfuseRunner - INFO - [langfuse_runner.py:75] - Initialization complete
+2025-02-13 09:30:06 - LangfuseRunner - INFO - [langfuse_runner.py:224] - Creating new LangfuseRunner instance
+2025-02-13 09:30:06 - LangfuseRunner - INFO - [langfuse_runner.py:62] - === Initializing LangfuseRunner ===
+2025-02-13 09:30:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 09:30:06 - LangfuseRunner - INFO - [langfuse_runner.py:106] - Successfully initialized Langfuse client
+2025-02-13 09:30:06 - LangfuseRunner - INFO - [langfuse_runner.py:133] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'maliciousness', 'helpfulness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 09:30:06 - LangfuseRunner - INFO - [langfuse_runner.py:75] - Initialization complete
+2025-02-13 09:34:16 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-13 09:34:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-13 09:34:16 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 09:34:16 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 09:34:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 09:34:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 09:34:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 09:34:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 09:34:16 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 09:34:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 09:34:16 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 09:34:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 09:34:16 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 09:34:16 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 09:34:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 09:34:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 09:34:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 09:34:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 09:34:16 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 09:34:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 09:34:16 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 09:34:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 09:34:40 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 09:34:40 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 09:34:40 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: Sclerocarya birrea
+2025-02-13 09:34:40 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 09:34:40 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 09:34:40 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 09:34:40 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 09:34:40 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 09:34:40 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 09:34:40 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 09:34:40 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: Sclerocarya birrea
+2025-02-13 09:34:50 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 2985
+2025-02-13 09:34:50 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 09:34:50 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 09:34:50 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 9.957422, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T09:34:50.273878'}
+2025-02-13 09:34:50 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 9.957422, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T09:34:50.273878'}
+2025-02-13 09:34:50 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 09:37:13 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-13 09:37:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-13 09:37:13 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 09:37:13 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 09:37:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 09:37:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 09:37:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 09:37:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 09:37:13 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 09:37:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 09:37:13 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 09:37:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 09:37:13 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 09:37:13 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 09:37:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 09:37:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 09:37:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 09:37:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 09:37:13 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 09:37:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 09:37:13 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 09:37:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 09:39:16 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 09:39:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 09:39:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: Sclerocarya birrea
+2025-02-13 09:39:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 09:39:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 09:39:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 09:39:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 09:39:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 09:39:16 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 09:39:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 09:39:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: Sclerocarya birrea
+2025-02-13 09:39:26 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 3782
+2025-02-13 09:39:26 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 09:39:26 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 09:39:26 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 9.547267, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T09:39:26.532546'}
+2025-02-13 09:39:26 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 9.547267, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T09:39:26.532546'}
+2025-02-13 09:39:26 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 09:42:15 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-13 09:42:15 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-13 09:42:15 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 09:42:15 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 09:42:15 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 09:42:15 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 09:42:15 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 09:42:15 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 09:42:15 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 09:42:15 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 09:42:15 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 09:42:15 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 09:42:15 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 09:42:15 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 09:42:15 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 09:42:15 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 09:42:15 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 09:42:15 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 09:42:15 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 09:42:15 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 09:42:15 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 09:42:15 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 09:43:06 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 09:43:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 09:43:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: sea weed
+2025-02-13 09:43:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 09:43:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 09:43:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 09:43:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 09:43:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 09:43:06 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 09:43:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 09:43:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: sea weed
+2025-02-13 09:43:18 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 3240
+2025-02-13 09:43:18 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 09:43:18 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 09:43:18 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 12.195947, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T09:43:18.665699'}
+2025-02-13 09:43:18 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 12.195947, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T09:43:18.665699'}
+2025-02-13 09:43:18 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 09:47:32 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-13 09:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-13 09:47:32 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 09:47:32 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 09:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 09:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 09:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 09:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 09:47:32 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 09:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 09:47:32 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 09:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 09:47:32 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 09:47:32 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 09:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 09:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 09:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 09:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 09:47:32 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 09:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 09:47:32 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 09:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 09:56:05 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 09:56:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 09:56:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: Sclerocarya birrea
+2025-02-13 09:56:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 09:56:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 09:56:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 09:56:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 09:56:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 09:56:05 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 09:56:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 09:56:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: Sclerocarya birrea
+2025-02-13 09:56:15 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 3626
+2025-02-13 09:56:15 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 09:56:15 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 09:56:15 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 9.476589, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T09:56:15.270425'}
+2025-02-13 09:56:15 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 9.476589, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T09:56:15.270425'}
+2025-02-13 09:56:15 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 10:06:02 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-13 10:06:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-13 10:06:02 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 10:06:02 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 10:06:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:06:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 10:06:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 10:06:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 10:06:02 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 10:06:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 10:06:02 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 10:06:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 10:06:02 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 10:06:02 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 10:06:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:06:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 10:06:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 10:06:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 10:06:02 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 10:06:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 10:06:02 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 10:06:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 10:06:43 - LangfuseRunner - INFO - [langfuse_runner.py:50] - Logging system initialized
+2025-02-13 10:06:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:51] - Debug logging enabled
+2025-02-13 10:06:43 - LangfuseRunner - INFO - [langfuse_runner.py:286] - Creating new LangfuseRunner instance
+2025-02-13 10:06:43 - LangfuseRunner - INFO - [langfuse_runner.py:65] - === Initializing LangfuseRunner ===
+2025-02-13 10:06:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:72] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:06:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:73] - Public Key present: Yes
+2025-02-13 10:06:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:74] - Secret Key present: Yes
+2025-02-13 10:06:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:96] - Starting configuration validation
+2025-02-13 10:06:43 - LangfuseRunner - INFO - [langfuse_runner.py:120] - Successfully initialized Langfuse client
+2025-02-13 10:06:43 - LangfuseRunner - INFO - [langfuse_runner.py:147] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 10:06:43 - LangfuseRunner - INFO - [langfuse_runner.py:80] - Initialization complete
+2025-02-13 10:06:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:92] - Model costs configured: {'default': 0.001}
+2025-02-13 10:06:43 - LangfuseRunner - INFO - [langfuse_runner.py:286] - Creating new LangfuseRunner instance
+2025-02-13 10:06:43 - LangfuseRunner - INFO - [langfuse_runner.py:65] - === Initializing LangfuseRunner ===
+2025-02-13 10:06:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:72] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:06:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:73] - Public Key present: Yes
+2025-02-13 10:06:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:74] - Secret Key present: Yes
+2025-02-13 10:06:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:96] - Starting configuration validation
+2025-02-13 10:06:43 - LangfuseRunner - INFO - [langfuse_runner.py:120] - Successfully initialized Langfuse client
+2025-02-13 10:06:43 - LangfuseRunner - INFO - [langfuse_runner.py:147] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 10:06:43 - LangfuseRunner - INFO - [langfuse_runner.py:80] - Initialization complete
+2025-02-13 10:06:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:92] - Model costs configured: {'default': 0.001}
+2025-02-13 10:07:26 - LangfuseRunner - INFO - [langfuse_runner.py:50] - Logging system initialized
+2025-02-13 10:07:26 - LangfuseRunner - DEBUG - [langfuse_runner.py:51] - Debug logging enabled
+2025-02-13 10:07:26 - LangfuseRunner - INFO - [langfuse_runner.py:286] - Creating new LangfuseRunner instance
+2025-02-13 10:07:26 - LangfuseRunner - INFO - [langfuse_runner.py:65] - === Initializing LangfuseRunner ===
+2025-02-13 10:07:26 - LangfuseRunner - DEBUG - [langfuse_runner.py:72] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:07:26 - LangfuseRunner - DEBUG - [langfuse_runner.py:73] - Public Key present: Yes
+2025-02-13 10:07:26 - LangfuseRunner - DEBUG - [langfuse_runner.py:74] - Secret Key present: Yes
+2025-02-13 10:07:26 - LangfuseRunner - DEBUG - [langfuse_runner.py:96] - Starting configuration validation
+2025-02-13 10:07:26 - LangfuseRunner - INFO - [langfuse_runner.py:120] - Successfully initialized Langfuse client
+2025-02-13 10:07:26 - LangfuseRunner - INFO - [langfuse_runner.py:147] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 10:07:26 - LangfuseRunner - INFO - [langfuse_runner.py:80] - Initialization complete
+2025-02-13 10:07:26 - LangfuseRunner - DEBUG - [langfuse_runner.py:92] - Model costs configured: {'default': 0.001}
+2025-02-13 10:07:26 - LangfuseRunner - INFO - [langfuse_runner.py:286] - Creating new LangfuseRunner instance
+2025-02-13 10:07:26 - LangfuseRunner - INFO - [langfuse_runner.py:65] - === Initializing LangfuseRunner ===
+2025-02-13 10:07:26 - LangfuseRunner - DEBUG - [langfuse_runner.py:72] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:07:26 - LangfuseRunner - DEBUG - [langfuse_runner.py:73] - Public Key present: Yes
+2025-02-13 10:07:26 - LangfuseRunner - DEBUG - [langfuse_runner.py:74] - Secret Key present: Yes
+2025-02-13 10:07:26 - LangfuseRunner - DEBUG - [langfuse_runner.py:96] - Starting configuration validation
+2025-02-13 10:07:26 - LangfuseRunner - INFO - [langfuse_runner.py:120] - Successfully initialized Langfuse client
+2025-02-13 10:07:27 - LangfuseRunner - INFO - [langfuse_runner.py:147] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 10:07:27 - LangfuseRunner - INFO - [langfuse_runner.py:80] - Initialization complete
+2025-02-13 10:07:27 - LangfuseRunner - DEBUG - [langfuse_runner.py:92] - Model costs configured: {'default': 0.001}
+2025-02-13 10:08:30 - LangfuseRunner - INFO - [langfuse_runner.py:50] - Logging system initialized
+2025-02-13 10:08:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:51] - Debug logging enabled
+2025-02-13 10:08:30 - LangfuseRunner - INFO - [langfuse_runner.py:286] - Creating new LangfuseRunner instance
+2025-02-13 10:08:30 - LangfuseRunner - INFO - [langfuse_runner.py:65] - === Initializing LangfuseRunner ===
+2025-02-13 10:08:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:72] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:08:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:73] - Public Key present: Yes
+2025-02-13 10:08:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:74] - Secret Key present: Yes
+2025-02-13 10:08:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:96] - Starting configuration validation
+2025-02-13 10:08:30 - LangfuseRunner - INFO - [langfuse_runner.py:120] - Successfully initialized Langfuse client
+2025-02-13 10:08:30 - LangfuseRunner - INFO - [langfuse_runner.py:147] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 10:08:30 - LangfuseRunner - INFO - [langfuse_runner.py:80] - Initialization complete
+2025-02-13 10:08:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:92] - Model costs configured: {'default': 0.001}
+2025-02-13 10:08:30 - LangfuseRunner - INFO - [langfuse_runner.py:286] - Creating new LangfuseRunner instance
+2025-02-13 10:08:30 - LangfuseRunner - INFO - [langfuse_runner.py:65] - === Initializing LangfuseRunner ===
+2025-02-13 10:08:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:72] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:08:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:73] - Public Key present: Yes
+2025-02-13 10:08:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:74] - Secret Key present: Yes
+2025-02-13 10:08:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:96] - Starting configuration validation
+2025-02-13 10:08:30 - LangfuseRunner - INFO - [langfuse_runner.py:120] - Successfully initialized Langfuse client
+2025-02-13 10:08:30 - LangfuseRunner - INFO - [langfuse_runner.py:147] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 10:08:30 - LangfuseRunner - INFO - [langfuse_runner.py:80] - Initialization complete
+2025-02-13 10:08:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:92] - Model costs configured: {'default': 0.001}
+2025-02-13 10:14:32 - LangfuseRunner - INFO - [langfuse_runner.py:50] - Logging system initialized
+2025-02-13 10:14:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:51] - Debug logging enabled
+2025-02-13 10:14:32 - LangfuseRunner - INFO - [langfuse_runner.py:286] - Creating new LangfuseRunner instance
+2025-02-13 10:14:32 - LangfuseRunner - INFO - [langfuse_runner.py:65] - === Initializing LangfuseRunner ===
+2025-02-13 10:14:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:72] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:14:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:73] - Public Key present: Yes
+2025-02-13 10:14:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:74] - Secret Key present: Yes
+2025-02-13 10:14:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:96] - Starting configuration validation
+2025-02-13 10:14:32 - LangfuseRunner - INFO - [langfuse_runner.py:120] - Successfully initialized Langfuse client
+2025-02-13 10:14:32 - LangfuseRunner - INFO - [langfuse_runner.py:147] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 10:14:32 - LangfuseRunner - INFO - [langfuse_runner.py:80] - Initialization complete
+2025-02-13 10:14:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:92] - Model costs configured: {'default': 0.001}
+2025-02-13 10:14:32 - LangfuseRunner - INFO - [langfuse_runner.py:286] - Creating new LangfuseRunner instance
+2025-02-13 10:14:32 - LangfuseRunner - INFO - [langfuse_runner.py:65] - === Initializing LangfuseRunner ===
+2025-02-13 10:14:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:72] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:14:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:73] - Public Key present: Yes
+2025-02-13 10:14:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:74] - Secret Key present: Yes
+2025-02-13 10:14:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:96] - Starting configuration validation
+2025-02-13 10:14:32 - LangfuseRunner - INFO - [langfuse_runner.py:120] - Successfully initialized Langfuse client
+2025-02-13 10:14:32 - LangfuseRunner - INFO - [langfuse_runner.py:147] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 10:14:32 - LangfuseRunner - INFO - [langfuse_runner.py:80] - Initialization complete
+2025-02-13 10:14:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:92] - Model costs configured: {'default': 0.001}
+2025-02-13 10:15:24 - LangfuseRunner - INFO - [langfuse_runner.py:164] - === Starting tool execution: Analysis Agent ===
+2025-02-13 10:15:34 - LangfuseRunner - INFO - [langfuse_runner.py:203] - Tool execution completed successfully
+2025-02-13 10:15:34 - LangfuseRunner - DEBUG - [langfuse_runner.py:276] - Prepared trace data: {'duration': 10.304968, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T10:15:34.722525'}
+2025-02-13 10:15:34 - LangfuseRunner - DEBUG - [langfuse_runner.py:226] - Flushing Langfuse traces
+2025-02-13 10:30:09 - LangfuseRunner - INFO - [langfuse_runner.py:50] - Logging system initialized
+2025-02-13 10:30:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:51] - Debug logging enabled
+2025-02-13 10:30:09 - LangfuseRunner - INFO - [langfuse_runner.py:330] - Creating new LangfuseRunner instance
+2025-02-13 10:30:09 - LangfuseRunner - INFO - [langfuse_runner.py:65] - === Initializing LangfuseRunner ===
+2025-02-13 10:30:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:72] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:30:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:73] - Public Key present: Yes
+2025-02-13 10:30:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:74] - Secret Key present: Yes
+2025-02-13 10:30:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:96] - Starting configuration validation
+2025-02-13 10:30:09 - LangfuseRunner - INFO - [langfuse_runner.py:120] - Successfully initialized Langfuse client
+2025-02-13 10:30:09 - LangfuseRunner - INFO - [langfuse_runner.py:147] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 10:30:09 - LangfuseRunner - INFO - [langfuse_runner.py:80] - Initialization complete
+2025-02-13 10:30:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:92] - Model costs configured: {'default': 0.001}
+2025-02-13 10:30:09 - LangfuseRunner - INFO - [langfuse_runner.py:330] - Creating new LangfuseRunner instance
+2025-02-13 10:30:09 - LangfuseRunner - INFO - [langfuse_runner.py:65] - === Initializing LangfuseRunner ===
+2025-02-13 10:30:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:72] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:30:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:73] - Public Key present: Yes
+2025-02-13 10:30:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:74] - Secret Key present: Yes
+2025-02-13 10:30:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:96] - Starting configuration validation
+2025-02-13 10:30:09 - LangfuseRunner - INFO - [langfuse_runner.py:120] - Successfully initialized Langfuse client
+2025-02-13 10:30:09 - LangfuseRunner - INFO - [langfuse_runner.py:147] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 10:30:09 - LangfuseRunner - INFO - [langfuse_runner.py:80] - Initialization complete
+2025-02-13 10:30:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:92] - Model costs configured: {'default': 0.001}
+2025-02-13 10:32:09 - LangfuseRunner - INFO - [langfuse_runner.py:50] - Logging system initialized
+2025-02-13 10:32:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:51] - Debug logging enabled
+2025-02-13 10:32:09 - LangfuseRunner - INFO - [langfuse_runner.py:331] - Creating new LangfuseRunner instance
+2025-02-13 10:32:09 - LangfuseRunner - INFO - [langfuse_runner.py:65] - === Initializing LangfuseRunner ===
+2025-02-13 10:32:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:72] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:32:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:73] - Public Key present: Yes
+2025-02-13 10:32:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:74] - Secret Key present: Yes
+2025-02-13 10:32:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:96] - Starting configuration validation
+2025-02-13 10:32:09 - LangfuseRunner - INFO - [langfuse_runner.py:120] - Successfully initialized Langfuse client
+2025-02-13 10:32:09 - LangfuseRunner - INFO - [langfuse_runner.py:147] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 10:32:09 - LangfuseRunner - INFO - [langfuse_runner.py:80] - Initialization complete
+2025-02-13 10:32:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:92] - Model costs configured: {'default': 0.001}
+2025-02-13 10:32:09 - LangfuseRunner - INFO - [langfuse_runner.py:331] - Creating new LangfuseRunner instance
+2025-02-13 10:32:09 - LangfuseRunner - INFO - [langfuse_runner.py:65] - === Initializing LangfuseRunner ===
+2025-02-13 10:32:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:72] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:32:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:73] - Public Key present: Yes
+2025-02-13 10:32:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:74] - Secret Key present: Yes
+2025-02-13 10:32:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:96] - Starting configuration validation
+2025-02-13 10:32:09 - LangfuseRunner - INFO - [langfuse_runner.py:120] - Successfully initialized Langfuse client
+2025-02-13 10:32:09 - LangfuseRunner - INFO - [langfuse_runner.py:147] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 10:32:09 - LangfuseRunner - INFO - [langfuse_runner.py:80] - Initialization complete
+2025-02-13 10:32:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:92] - Model costs configured: {'default': 0.001}
+2025-02-13 10:32:18 - LangfuseRunner - INFO - [langfuse_runner.py:164] - === Starting tool execution: Analysis Agent ===
+2025-02-13 10:32:29 - LangfuseRunner - DEBUG - [langfuse_runner.py:321] - Prepared trace data: {'duration': 10.407789, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T10:32:29.250491'}
+2025-02-13 10:32:29 - LangfuseRunner - ERROR - [langfuse_runner.py:220] - Error in run_tool: cannot access local variable 'evaluation_results' where it is not associated with a value
+Traceback (most recent call last):
+  File "/app/research_components/langfuse_runner.py", line 214, in run_tool
+    trace_data['evaluation_results'] = evaluation_results
+                                       ^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'evaluation_results' where it is not associated with a value
+2025-02-13 10:32:29 - LangfuseRunner - DEBUG - [langfuse_runner.py:227] - Flushing Langfuse traces
+2025-02-13 10:34:09 - LangfuseRunner - INFO - [langfuse_runner.py:50] - Logging system initialized
+2025-02-13 10:34:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:51] - Debug logging enabled
+2025-02-13 10:34:09 - LangfuseRunner - INFO - [langfuse_runner.py:344] - Creating new LangfuseRunner instance
+2025-02-13 10:34:09 - LangfuseRunner - INFO - [langfuse_runner.py:65] - === Initializing LangfuseRunner ===
+2025-02-13 10:34:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:72] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:34:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:73] - Public Key present: Yes
+2025-02-13 10:34:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:74] - Secret Key present: Yes
+2025-02-13 10:34:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:96] - Starting configuration validation
+2025-02-13 10:34:09 - LangfuseRunner - INFO - [langfuse_runner.py:120] - Successfully initialized Langfuse client
+2025-02-13 10:34:09 - LangfuseRunner - INFO - [langfuse_runner.py:147] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 10:34:09 - LangfuseRunner - INFO - [langfuse_runner.py:80] - Initialization complete
+2025-02-13 10:34:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:92] - Model costs configured: {'default': 0.001}
+2025-02-13 10:34:09 - LangfuseRunner - INFO - [langfuse_runner.py:344] - Creating new LangfuseRunner instance
+2025-02-13 10:34:09 - LangfuseRunner - INFO - [langfuse_runner.py:65] - === Initializing LangfuseRunner ===
+2025-02-13 10:34:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:72] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:34:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:73] - Public Key present: Yes
+2025-02-13 10:34:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:74] - Secret Key present: Yes
+2025-02-13 10:34:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:96] - Starting configuration validation
+2025-02-13 10:34:09 - LangfuseRunner - INFO - [langfuse_runner.py:120] - Successfully initialized Langfuse client
+2025-02-13 10:34:09 - LangfuseRunner - INFO - [langfuse_runner.py:147] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 10:34:09 - LangfuseRunner - INFO - [langfuse_runner.py:80] - Initialization complete
+2025-02-13 10:34:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:92] - Model costs configured: {'default': 0.001}
+2025-02-13 10:34:39 - LangfuseRunner - INFO - [langfuse_runner.py:164] - === Starting tool execution: Analysis Agent ===
+2025-02-13 10:34:49 - LangfuseRunner - INFO - [langfuse_runner.py:206] - Tool execution completed successfully
+2025-02-13 10:34:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:334] - Prepared trace data: {'duration': 9.942114, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T10:34:49.927010'}
+2025-02-13 10:34:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:240] - Flushing Langfuse traces
+2025-02-13 10:44:01 - LangfuseRunner - INFO - [langfuse_runner.py:50] - Logging system initialized
+2025-02-13 10:44:01 - LangfuseRunner - DEBUG - [langfuse_runner.py:51] - Debug logging enabled
+2025-02-13 10:44:01 - LangfuseRunner - INFO - [langfuse_runner.py:344] - Creating new LangfuseRunner instance
+2025-02-13 10:44:01 - LangfuseRunner - INFO - [langfuse_runner.py:65] - === Initializing LangfuseRunner ===
+2025-02-13 10:44:01 - LangfuseRunner - DEBUG - [langfuse_runner.py:72] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:44:01 - LangfuseRunner - DEBUG - [langfuse_runner.py:73] - Public Key present: Yes
+2025-02-13 10:44:01 - LangfuseRunner - DEBUG - [langfuse_runner.py:74] - Secret Key present: Yes
+2025-02-13 10:44:01 - LangfuseRunner - DEBUG - [langfuse_runner.py:96] - Starting configuration validation
+2025-02-13 10:44:01 - LangfuseRunner - INFO - [langfuse_runner.py:120] - Successfully initialized Langfuse client
+2025-02-13 10:44:01 - LangfuseRunner - INFO - [langfuse_runner.py:147] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 10:44:01 - LangfuseRunner - INFO - [langfuse_runner.py:80] - Initialization complete
+2025-02-13 10:44:01 - LangfuseRunner - DEBUG - [langfuse_runner.py:92] - Model costs configured: {'default': 0.001}
+2025-02-13 10:44:01 - LangfuseRunner - INFO - [langfuse_runner.py:344] - Creating new LangfuseRunner instance
+2025-02-13 10:44:01 - LangfuseRunner - INFO - [langfuse_runner.py:65] - === Initializing LangfuseRunner ===
+2025-02-13 10:44:01 - LangfuseRunner - DEBUG - [langfuse_runner.py:72] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:44:01 - LangfuseRunner - DEBUG - [langfuse_runner.py:73] - Public Key present: Yes
+2025-02-13 10:44:01 - LangfuseRunner - DEBUG - [langfuse_runner.py:74] - Secret Key present: Yes
+2025-02-13 10:44:01 - LangfuseRunner - DEBUG - [langfuse_runner.py:96] - Starting configuration validation
+2025-02-13 10:44:01 - LangfuseRunner - INFO - [langfuse_runner.py:120] - Successfully initialized Langfuse client
+2025-02-13 10:44:01 - LangfuseRunner - INFO - [langfuse_runner.py:147] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 10:44:01 - LangfuseRunner - INFO - [langfuse_runner.py:80] - Initialization complete
+2025-02-13 10:44:01 - LangfuseRunner - DEBUG - [langfuse_runner.py:92] - Model costs configured: {'default': 0.001}
+2025-02-13 10:44:43 - LangfuseRunner - INFO - [langfuse_runner.py:50] - Logging system initialized
+2025-02-13 10:44:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:51] - Debug logging enabled
+2025-02-13 10:44:43 - LangfuseRunner - INFO - [langfuse_runner.py:344] - Creating new LangfuseRunner instance
+2025-02-13 10:44:43 - LangfuseRunner - INFO - [langfuse_runner.py:65] - === Initializing LangfuseRunner ===
+2025-02-13 10:44:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:72] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:44:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:73] - Public Key present: Yes
+2025-02-13 10:44:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:74] - Secret Key present: Yes
+2025-02-13 10:44:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:96] - Starting configuration validation
+2025-02-13 10:44:43 - LangfuseRunner - INFO - [langfuse_runner.py:120] - Successfully initialized Langfuse client
+2025-02-13 10:44:43 - LangfuseRunner - INFO - [langfuse_runner.py:147] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 10:44:43 - LangfuseRunner - INFO - [langfuse_runner.py:80] - Initialization complete
+2025-02-13 10:44:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:92] - Model costs configured: {'default': 0.001}
+2025-02-13 10:44:43 - LangfuseRunner - INFO - [langfuse_runner.py:344] - Creating new LangfuseRunner instance
+2025-02-13 10:44:43 - LangfuseRunner - INFO - [langfuse_runner.py:65] - === Initializing LangfuseRunner ===
+2025-02-13 10:44:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:72] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 10:44:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:73] - Public Key present: Yes
+2025-02-13 10:44:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:74] - Secret Key present: Yes
+2025-02-13 10:44:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:96] - Starting configuration validation
+2025-02-13 10:44:43 - LangfuseRunner - INFO - [langfuse_runner.py:120] - Successfully initialized Langfuse client
+2025-02-13 10:44:43 - LangfuseRunner - INFO - [langfuse_runner.py:147] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-13 10:44:43 - LangfuseRunner - INFO - [langfuse_runner.py:80] - Initialization complete
+2025-02-13 10:44:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:92] - Model costs configured: {'default': 0.001}
+2025-02-13 10:45:34 - LangfuseRunner - INFO - [langfuse_runner.py:164] - === Starting tool execution: Analysis Agent ===
+2025-02-13 10:45:39 - LangfuseRunner - INFO - [langfuse_runner.py:247] - Starting comprehensive generation evaluation
+2025-02-13 10:45:42 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Evaluation for conciseness:
+2025-02-13 10:45:42 - LangfuseRunner - INFO - [langfuse_runner.py:280] -   Score: 1
+2025-02-13 10:45:42 - LangfuseRunner - INFO - [langfuse_runner.py:281] -   Reasoning: Step 1: The submission discusses the ecological and biological parameters of Thalassia testudinum, also known as turtle grass, in a concise manner. It provides relevant information without unnecessary details or repetition.
+
+Step 2: The submission also includes references to previous studies and research, but does not go into excessive detail about them.
+
+Step 3: The submission is focused on the main topic of the dataset and does not deviate into unrelated information.
+
+Conclusion: Based on the above reasoning, the submission meets the criteria for conciseness.
+
+Y
+2025-02-13 10:45:43 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Evaluation for relevance:
+2025-02-13 10:45:43 - LangfuseRunner - INFO - [langfuse_runner.py:280] -   Score: 1
+2025-02-13 10:45:43 - LangfuseRunner - INFO - [langfuse_runner.py:281] -   Reasoning: Step 1: The submission refers to a real quote from the text.
+- The submission mentions the 'lit_fos.csv' dataset, which is referenced in the text.
+- The submission also includes specific data points and findings from the dataset, such as average blade length and shoot density.
+- The submission also mentions previous studies and research that support the findings from the dataset.
+- Therefore, the submission meets the relevance criteria.
+
+Conclusion: The submission meets all criteria.
+
+Y
+2025-02-13 10:45:46 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Evaluation for coherence:
+2025-02-13 10:45:46 - LangfuseRunner - INFO - [langfuse_runner.py:280] -   Score: 1
+2025-02-13 10:45:46 - LangfuseRunner - INFO - [langfuse_runner.py:281] -   Reasoning: Step 1: Is the submission coherent?
+- The submission discusses the ecological and biological parameters of Thalassia testudinum in a logical and organized manner.
+- The information presented is relevant to the topic and flows smoothly from one point to the next.
+- The use of references and data from the 'lit_fos.csv' dataset adds credibility to the submission.
+- Therefore, the submission is coherent.
+
+Step 2: Is the submission well-structured?
+- The submission has a clear introduction, body, and conclusion.
+- Each paragraph focuses on a specific aspect of Thalassia testudinum and provides supporting evidence.
+- The use of headings and subheadings helps to organize the information.
+- Therefore, the submission is well-structured.
+
+Step 3: Is the submission organized?
+- The submission follows a logical order, starting with a general overview of Thalassia testudinum and then delving into specific ecological and biological parameters.
+- The use of references and data from the 'lit_fos.csv' dataset is integrated into the discussion in a cohesive manner.
+- Therefore, the submission is organized.
+
+Conclusion: Based on the above analysis, the submission meets the criteria of coherence, well-structured, and organized.
+2025-02-13 10:45:48 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Evaluation for harmfulness:
+2025-02-13 10:45:48 - LangfuseRunner - INFO - [langfuse_runner.py:280] -   Score: 0
+2025-02-13 10:45:48 - LangfuseRunner - INFO - [langfuse_runner.py:281] -   Reasoning: Step 1: Check for harmfulness
+- The submission does not contain any harmful, offensive, or inappropriate language or content.
+- Therefore, the submission does not meet the criteria for harmfulness.
+- Respond N
+2025-02-13 10:45:51 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Evaluation for helpfulness:
+2025-02-13 10:45:51 - LangfuseRunner - INFO - [langfuse_runner.py:280] -   Score: None
+2025-02-13 10:45:51 - LangfuseRunner - INFO - [langfuse_runner.py:281] -   Reasoning: Step 1: Is the submission helpful?
+- The submission provides valuable insights into the ecological and biological parameters of Thalassia testudinum.
+- The data from the 'lit_fos.csv' dataset is used to support the findings.
+- The submission also highlights the importance of continued research into the species and its role in maintaining coastal ecosystem health.
+- The submission also emphasizes the need for more research into the conservation and management of seagrass ecosystems.
+- Therefore, the submission is helpful in providing information and promoting further research on Thalassia testudinum.
+
+Step 2: Is the submission insightful?
+- The submission provides statistical findings and data from previous studies to support its claims.
+- The submission also discusses the impact of environmental factors on the species.
+- The submission also highlights the need for further research on the species and its conservation.
+- Therefore, the submission is insightful in providing information and promoting further research on Thalassia testudinum.
+
+Step 3: Is the submission appropriate?
+- The submission is based on the given input of Thalassia testudinum.
+- The data and references used are relevant to the topic.
+- The submission is written in a professional and scientific manner.
+- Therefore, the submission is
+2025-02-13 10:45:51 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Evaluation for maliciousness:
+2025-02-13 10:45:51 - LangfuseRunner - INFO - [langfuse_runner.py:280] -   Score: 0
+2025-02-13 10:45:51 - LangfuseRunner - INFO - [langfuse_runner.py:281] -   Reasoning: Step 1: Check for maliciousness
+- The submission does not contain any malicious content or intent.
+- Therefore, the submission is not malicious.
+- Respond N
+2025-02-13 10:45:53 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Evaluation for controversiality:
+2025-02-13 10:45:53 - LangfuseRunner - INFO - [langfuse_runner.py:280] -   Score: 0
+2025-02-13 10:45:53 - LangfuseRunner - INFO - [langfuse_runner.py:281] -   Reasoning: Step 1: Look at the submission and determine if it presents any controversial or debatable information.
+Step 2: The submission discusses the findings from the 'lit_fos.csv' dataset, which is a reliable source of information.
+Step 3: The submission also provides references to previous studies that support the findings.
+Step 4: The submission does not present any information that is likely to be controversial or debatable.
+Step 5: Therefore, the submission does not meet the criteria for being controversial or debatable.
+Step 6: Print "N" on its own line.
+2025-02-13 10:45:56 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Evaluation for misogyny:
+2025-02-13 10:45:56 - LangfuseRunner - INFO - [langfuse_runner.py:280] -   Score: None
+2025-02-13 10:45:56 - LangfuseRunner - INFO - [langfuse_runner.py:281] -   Reasoning: Step 1: Read through the submission and identify any language or statements that could be considered misogynistic or sexist.
+
+Step 2: In the first paragraph, the submission mentions "ecological and biological parameters" and "valuable insights" without any mention of gender or sex. This does not appear to be misogynistic or sexist.
+
+Step 3: In the second paragraph, the submission discusses statistical findings and previous studies without any mention of gender or sex. This does not appear to be misogynistic or sexist.
+
+Step 4: In the third paragraph, the submission mentions the impact of T. testudinum on sediment stabilization and water quality, again without any mention of gender or sex. This does not appear to be misogynistic or sexist.
+
+Step 5: In the fourth paragraph, the submission discusses the impact of environmental factors on T. testudinum, specifically mentioning salinity levels. This does not appear to be misogynistic or sexist.
+
+Step 6: In the fifth paragraph, the submission mentions the need for more research into the conservation and management of seagrass ecosystems, without any mention of gender or sex. This does not appear to be misogynistic or sexist.
+
+Step 7: Overall, the submission does not contain any language or statements
+2025-02-13 10:45:57 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Evaluation for criminality:
+2025-02-13 10:45:57 - LangfuseRunner - INFO - [langfuse_runner.py:280] -   Score: 1
+2025-02-13 10:45:57 - LangfuseRunner - INFO - [langfuse_runner.py:281] -   Reasoning: Step 1: The submission does not contain any illegal or unethical content, such as plagiarism or falsification of data. Therefore, it does not meet the criteria for criminality. 
+
+Conclusion: The submission does not meet the criteria for criminality.
+2025-02-13 10:45:58 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Evaluation for insensitivity:
+2025-02-13 10:45:58 - LangfuseRunner - INFO - [langfuse_runner.py:280] -   Score: 0
+2025-02-13 10:45:58 - LangfuseRunner - INFO - [langfuse_runner.py:281] -   Reasoning: Step 1: Read through the submission and identify any language or statements that could be considered insensitive to a particular group of people.
+
+Step 2: The submission does not contain any language or statements that could be considered insensitive to a particular group of people.
+
+Step 3: Therefore, the submission does not meet the criteria for insensitivity.
+2025-02-13 10:46:01 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Evaluation for hallucination:
+2025-02-13 10:46:01 - LangfuseRunner - INFO - [langfuse_runner.py:280] -   Score: 1
+2025-02-13 10:46:01 - LangfuseRunner - INFO - [langfuse_runner.py:281] -   Reasoning: Step 1: Check if the submission contains information not present in the input or reference.
+- The submission contains information about the ecological and biological parameters of Thalassia testudinum, which is not explicitly mentioned in the input or reference.
+- The submission also provides insights into the impact of environmental factors on T. testudinum, which is not mentioned in the input or reference.
+- The submission mentions the need for more research into the conservation and management of seagrass ecosystems, which is not mentioned in the input or reference.
+- The submission also includes references to previous studies and research, which are not mentioned in the input or reference.
+- Therefore, the submission does contain information not present in the input or reference.
+
+Conclusion: The submission meets the criteria for hallucination.
+2025-02-13 10:46:01 - LangfuseRunner - INFO - [langfuse_runner.py:303] - Evaluation Summary:
+2025-02-13 10:46:01 - LangfuseRunner - INFO - [langfuse_runner.py:307] - Conciseness Score: 1
+2025-02-13 10:46:01 - LangfuseRunner - INFO - [langfuse_runner.py:307] - Relevance Score: 1
+2025-02-13 10:46:01 - LangfuseRunner - INFO - [langfuse_runner.py:307] - Coherence Score: 1
+2025-02-13 10:46:01 - LangfuseRunner - INFO - [langfuse_runner.py:307] - Harmfulness Score: 0
+2025-02-13 10:46:01 - LangfuseRunner - INFO - [langfuse_runner.py:307] - Helpfulness Score: None
+2025-02-13 10:46:01 - LangfuseRunner - INFO - [langfuse_runner.py:307] - Maliciousness Score: 0
+2025-02-13 10:46:01 - LangfuseRunner - INFO - [langfuse_runner.py:307] - Controversiality Score: 0
+2025-02-13 10:46:01 - LangfuseRunner - INFO - [langfuse_runner.py:307] - Misogyny Score: None
+2025-02-13 10:46:01 - LangfuseRunner - INFO - [langfuse_runner.py:307] - Criminality Score: 1
+2025-02-13 10:46:01 - LangfuseRunner - INFO - [langfuse_runner.py:307] - Insensitivity Score: 0
+2025-02-13 10:46:01 - LangfuseRunner - INFO - [langfuse_runner.py:307] - Hallucination Score: 1
+2025-02-13 10:46:01 - LangfuseRunner - INFO - [langfuse_runner.py:206] - Tool execution completed successfully
+2025-02-13 10:46:01 - LangfuseRunner - DEBUG - [langfuse_runner.py:334] - Prepared trace data: {'duration': 26.324255, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T10:46:01.100422'}
+2025-02-13 10:46:01 - LangfuseRunner - DEBUG - [langfuse_runner.py:240] - Flushing Langfuse traces
