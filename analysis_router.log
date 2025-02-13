@@ -30,3 +30,187 @@
 2025-02-12 22:03:04,220 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 3577
 2025-02-12 22:03:04,221 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
 2025-02-12 22:03:04,221 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 320, 'completion_tokens': 771, 'total_tokens': 1091, 'model': 'llama3-70b-8192'}
+2025-02-12 22:08:06,244 - controllers.analyze_data_router - INFO - [analyze_data_router.py:148] - Fetching available datasets
+2025-02-12 22:08:06,244 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:153] - AnalysisAgent initialized
+2025-02-12 22:08:06,245 - controllers.analyze_data_router - INFO - [analyze_data_router.py:157] - Successfully retrieved 5 datasets
+2025-02-12 22:08:06,245 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:158] - Available datasets: ['pat_app.csv', 'pat_fos.csv', 'literature_trends.csv', 'lit_fos.csv', 'lit_aff.csv']
+2025-02-12 22:11:34,692 - controllers.analyze_data_router - INFO - [analyze_data_router.py:91] - === Starting new analysis request ===
+2025-02-12 22:11:34,692 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:92] - Request parameters: {'query': 'tell me something about the data', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-12 22:11:34,692 - controllers.analyze_data_router - INFO - [analyze_data_router.py:95] - Executing analysis with tool: Analysis Agent
+2025-02-12 22:11:34,692 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:96] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-12 22:11:42,958 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:115] - Analysis completed successfully, cleaning output text
+2025-02-12 22:11:42,958 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 3301
+2025-02-12 22:11:42,958 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
+2025-02-12 22:11:42,959 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 1568, 'completion_tokens': 2306, 'total_tokens': 3874, 'model': 'llama3-70b-8192'}
+2025-02-12 22:12:19,927 - controllers.analyze_data_router - INFO - [analyze_data_router.py:91] - === Starting new analysis request ===
+2025-02-12 22:12:19,927 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:92] - Request parameters: {'query': 'sea weed', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-12 22:12:19,927 - controllers.analyze_data_router - INFO - [analyze_data_router.py:95] - Executing analysis with tool: Analysis Agent
+2025-02-12 22:12:19,927 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:96] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-12 22:12:31,152 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:115] - Analysis completed successfully, cleaning output text
+2025-02-12 22:12:31,153 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 3250
+2025-02-12 22:12:31,153 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
+2025-02-12 22:12:31,153 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 1883, 'completion_tokens': 2884, 'total_tokens': 4767, 'model': 'llama3-70b-8192'}
+2025-02-12 22:16:46,784 - controllers.analyze_data_router - INFO - [analyze_data_router.py:148] - Fetching available datasets
+2025-02-12 22:16:46,785 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:153] - AnalysisAgent initialized
+2025-02-12 22:16:46,785 - controllers.analyze_data_router - INFO - [analyze_data_router.py:157] - Successfully retrieved 5 datasets
+2025-02-12 22:16:46,785 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:158] - Available datasets: ['pat_app.csv', 'pat_fos.csv', 'literature_trends.csv', 'lit_fos.csv', 'lit_aff.csv']
+2025-02-12 22:17:12,312 - controllers.analyze_data_router - INFO - [analyze_data_router.py:91] - === Starting new analysis request ===
+2025-02-12 22:17:12,313 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:92] - Request parameters: {'query': 'sea weed', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-12 22:17:12,313 - controllers.analyze_data_router - INFO - [analyze_data_router.py:95] - Executing analysis with tool: Analysis Agent
+2025-02-12 22:17:12,313 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:96] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-12 22:17:19,939 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:115] - Analysis completed successfully, cleaning output text
+2025-02-12 22:17:19,940 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 3227
+2025-02-12 22:17:19,941 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
+2025-02-12 22:17:19,941 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 315, 'completion_tokens': 599, 'total_tokens': 914, 'model': 'llama3-70b-8192'}
+2025-02-13 07:31:14,297 - controllers.analyze_data_router - INFO - [analyze_data_router.py:148] - Fetching available datasets
+2025-02-13 07:31:14,304 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:153] - AnalysisAgent initialized
+2025-02-13 07:31:14,304 - controllers.analyze_data_router - INFO - [analyze_data_router.py:157] - Successfully retrieved 5 datasets
+2025-02-13 07:31:14,304 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:158] - Available datasets: ['pat_app.csv', 'pat_fos.csv', 'literature_trends.csv', 'lit_fos.csv', 'lit_aff.csv']
+2025-02-13 07:31:42,344 - controllers.analyze_data_router - INFO - [analyze_data_router.py:91] - === Starting new analysis request ===
+2025-02-13 07:31:42,344 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:92] - Request parameters: {'query': 'Sclerocarya birrea', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-13 07:31:42,344 - controllers.analyze_data_router - INFO - [analyze_data_router.py:95] - Executing analysis with tool: Analysis Agent
+2025-02-13 07:31:42,345 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:96] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-13 07:31:52,874 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:115] - Analysis completed successfully, cleaning output text
+2025-02-13 07:31:52,875 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 3302
+2025-02-13 07:31:52,875 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
+2025-02-13 07:31:52,876 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 320, 'completion_tokens': 651, 'total_tokens': 971, 'model': 'llama3-70b-8192'}
+2025-02-13 07:33:18,891 - controllers.analyze_data_router - INFO - [analyze_data_router.py:91] - === Starting new analysis request ===
+2025-02-13 07:33:18,892 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:92] - Request parameters: {'query': 'sea weed', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-13 07:33:18,892 - controllers.analyze_data_router - INFO - [analyze_data_router.py:95] - Executing analysis with tool: Analysis Agent
+2025-02-13 07:33:18,892 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:96] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-13 07:33:32,447 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:115] - Analysis completed successfully, cleaning output text
+2025-02-13 07:33:32,447 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 3066
+2025-02-13 07:33:32,447 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
+2025-02-13 07:33:32,447 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 635, 'completion_tokens': 1270, 'total_tokens': 1905, 'model': 'llama3-70b-8192'}
+2025-02-13 07:44:13,517 - controllers.analyze_data_router - INFO - [analyze_data_router.py:91] - === Starting new analysis request ===
+2025-02-13 07:44:13,517 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:92] - Request parameters: {'query': 'Rhizophora spp', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-13 07:44:13,517 - controllers.analyze_data_router - INFO - [analyze_data_router.py:95] - Executing analysis with tool: Analysis Agent
+2025-02-13 07:44:13,517 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:96] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-13 07:44:17,626 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:115] - Analysis completed successfully, cleaning output text
+2025-02-13 07:44:17,627 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 3173
+2025-02-13 07:44:17,627 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
+2025-02-13 07:44:17,627 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 952, 'completion_tokens': 1969, 'total_tokens': 2921, 'model': 'llama3-70b-8192'}
+2025-02-13 07:49:18,239 - controllers.analyze_data_router - INFO - [analyze_data_router.py:148] - Fetching available datasets
+2025-02-13 07:49:18,240 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:153] - AnalysisAgent initialized
+2025-02-13 07:49:18,240 - controllers.analyze_data_router - INFO - [analyze_data_router.py:157] - Successfully retrieved 5 datasets
+2025-02-13 07:49:18,240 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:158] - Available datasets: ['pat_app.csv', 'pat_fos.csv', 'literature_trends.csv', 'lit_fos.csv', 'lit_aff.csv']
+2025-02-13 07:49:31,025 - controllers.analyze_data_router - INFO - [analyze_data_router.py:91] - === Starting new analysis request ===
+2025-02-13 07:49:31,025 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:92] - Request parameters: {'query': 'Sclerocarya birrea', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-13 07:49:31,026 - controllers.analyze_data_router - INFO - [analyze_data_router.py:95] - Executing analysis with tool: Analysis Agent
+2025-02-13 07:49:31,026 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:96] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-13 07:49:41,572 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:115] - Analysis completed successfully, cleaning output text
+2025-02-13 07:49:41,573 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 3709
+2025-02-13 07:49:41,574 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
+2025-02-13 07:49:41,575 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 320, 'completion_tokens': 802, 'total_tokens': 1122, 'model': 'llama3-70b-8192'}
+2025-02-13 07:59:24,656 - controllers.analyze_data_router - INFO - [analyze_data_router.py:91] - === Starting new analysis request ===
+2025-02-13 07:59:24,657 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:92] - Request parameters: {'query': 'sea weed', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'research.txt', 'analysis_type': 'general'}
+2025-02-13 07:59:24,657 - controllers.analyze_data_router - INFO - [analyze_data_router.py:95] - Executing analysis with tool: Analysis Agent
+2025-02-13 07:59:24,657 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:96] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-13 07:59:35,020 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:115] - Analysis completed successfully, cleaning output text
+2025-02-13 07:59:35,021 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 3245
+2025-02-13 07:59:35,022 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
+2025-02-13 07:59:35,022 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 97, 'completion_tokens': 627, 'total_tokens': 724, 'model': 'llama3-70b-8192'}
+2025-02-13 07:59:58,958 - controllers.analyze_data_router - INFO - [analyze_data_router.py:91] - === Starting new analysis request ===
+2025-02-13 07:59:58,959 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:92] - Request parameters: {'query': 'Sclerocarya birrea', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-13 07:59:58,959 - controllers.analyze_data_router - INFO - [analyze_data_router.py:95] - Executing analysis with tool: Analysis Agent
+2025-02-13 07:59:58,959 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:96] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-13 08:00:09,083 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:115] - Analysis completed successfully, cleaning output text
+2025-02-13 08:00:09,084 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 4156
+2025-02-13 08:00:09,084 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
+2025-02-13 08:00:09,084 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 417, 'completion_tokens': 1609, 'total_tokens': 2026, 'model': 'llama3-70b-8192'}
+2025-02-13 08:11:06,217 - controllers.analyze_data_router - INFO - [analyze_data_router.py:91] - === Starting new analysis request ===
+2025-02-13 08:11:06,218 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:92] - Request parameters: {'query': 'sea cucumber', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-13 08:11:06,218 - controllers.analyze_data_router - INFO - [analyze_data_router.py:95] - Executing analysis with tool: Analysis Agent
+2025-02-13 08:11:06,218 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:96] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-13 08:11:17,305 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:115] - Analysis completed successfully, cleaning output text
+2025-02-13 08:11:17,307 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 3632
+2025-02-13 08:11:17,308 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
+2025-02-13 08:11:17,310 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 732, 'completion_tokens': 2350, 'total_tokens': 3082, 'model': 'llama3-70b-8192'}
+2025-02-13 08:24:38,030 - controllers.analyze_data_router - INFO - [analyze_data_router.py:91] - === Starting new analysis request ===
+2025-02-13 08:24:38,030 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:92] - Request parameters: {'query': 'Sclerocarya birrea', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-13 08:24:38,030 - controllers.analyze_data_router - INFO - [analyze_data_router.py:95] - Executing analysis with tool: Analysis Agent
+2025-02-13 08:24:38,030 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:96] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-13 08:24:49,068 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:115] - Analysis completed successfully, cleaning output text
+2025-02-13 08:24:49,069 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 4803
+2025-02-13 08:24:49,070 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
+2025-02-13 08:24:49,070 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 1052, 'completion_tokens': 3493, 'total_tokens': 4545, 'model': 'llama3-70b-8192'}
+2025-02-13 08:32:48,284 - controllers.analyze_data_router - INFO - [analyze_data_router.py:91] - === Starting new analysis request ===
+2025-02-13 08:32:48,284 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:92] - Request parameters: {'query': 'Thalassia testudinum', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-13 08:32:48,285 - controllers.analyze_data_router - INFO - [analyze_data_router.py:95] - Executing analysis with tool: Analysis Agent
+2025-02-13 08:32:48,285 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:96] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-13 08:32:52,746 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:115] - Analysis completed successfully, cleaning output text
+2025-02-13 08:32:52,746 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 3931
+2025-02-13 08:32:52,747 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
+2025-02-13 08:32:52,747 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 1373, 'completion_tokens': 4448, 'total_tokens': 5821, 'model': 'llama3-70b-8192'}
+2025-02-13 08:33:27,523 - controllers.analyze_data_router - INFO - [analyze_data_router.py:91] - === Starting new analysis request ===
+2025-02-13 08:33:27,523 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:92] - Request parameters: {'query': 'snail', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-13 08:33:27,523 - controllers.analyze_data_router - INFO - [analyze_data_router.py:95] - Executing analysis with tool: Analysis Agent
+2025-02-13 08:33:27,523 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:96] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-13 08:33:37,856 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:115] - Analysis completed successfully, cleaning output text
+2025-02-13 08:33:37,857 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 3819
+2025-02-13 08:33:37,858 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
+2025-02-13 08:33:37,858 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 1688, 'completion_tokens': 5285, 'total_tokens': 6973, 'model': 'llama3-70b-8192'}
+2025-02-13 08:36:27,373 - controllers.analyze_data_router - INFO - [analyze_data_router.py:91] - === Starting new analysis request ===
+2025-02-13 08:36:27,374 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:92] - Request parameters: {'query': 'Sclerocarya birrea', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-13 08:36:27,374 - controllers.analyze_data_router - INFO - [analyze_data_router.py:95] - Executing analysis with tool: Analysis Agent
+2025-02-13 08:36:27,374 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:96] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-13 08:36:47,460 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:115] - Analysis completed successfully, cleaning output text
+2025-02-13 08:36:47,461 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 3755
+2025-02-13 08:36:47,461 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
+2025-02-13 08:36:47,462 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 2008, 'completion_tokens': 6169, 'total_tokens': 8177, 'model': 'llama3-70b-8192'}
+2025-02-13 08:37:24,055 - controllers.analyze_data_router - INFO - [analyze_data_router.py:91] - === Starting new analysis request ===
+2025-02-13 08:37:24,055 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:92] - Request parameters: {'query': 'snail', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-13 08:37:24,055 - controllers.analyze_data_router - INFO - [analyze_data_router.py:95] - Executing analysis with tool: Analysis Agent
+2025-02-13 08:37:24,056 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:96] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-13 08:37:31,050 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:115] - Analysis completed successfully, cleaning output text
+2025-02-13 08:37:31,051 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 4033
+2025-02-13 08:37:31,052 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
+2025-02-13 08:37:31,052 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 2323, 'completion_tokens': 7006, 'total_tokens': 9329, 'model': 'llama3-70b-8192'}
+2025-02-13 08:38:02,645 - controllers.analyze_data_router - INFO - [analyze_data_router.py:91] - === Starting new analysis request ===
+2025-02-13 08:38:02,645 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:92] - Request parameters: {'query': 'kangaroo', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-13 08:38:02,645 - controllers.analyze_data_router - INFO - [analyze_data_router.py:95] - Executing analysis with tool: Analysis Agent
+2025-02-13 08:38:02,645 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:96] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-13 08:38:14,114 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:115] - Analysis completed successfully, cleaning output text
+2025-02-13 08:38:14,115 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 3231
+2025-02-13 08:38:14,115 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
+2025-02-13 08:38:14,116 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 2638, 'completion_tokens': 7605, 'total_tokens': 10243, 'model': 'llama3-70b-8192'}
+2025-02-13 08:42:23,946 - controllers.analyze_data_router - INFO - [analyze_data_router.py:91] - === Starting new analysis request ===
+2025-02-13 08:42:23,946 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:92] - Request parameters: {'query': 'Sclerocarya birrea', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-13 08:42:23,946 - controllers.analyze_data_router - INFO - [analyze_data_router.py:95] - Executing analysis with tool: Analysis Agent
+2025-02-13 08:42:23,946 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:96] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-13 08:42:43,681 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:115] - Analysis completed successfully, cleaning output text
+2025-02-13 08:42:43,682 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 4092
+2025-02-13 08:42:43,683 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
+2025-02-13 08:42:43,683 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 320, 'completion_tokens': 973, 'total_tokens': 1293, 'model': 'llama3-70b-8192'}
+2025-02-13 08:42:57,727 - controllers.analyze_data_router - INFO - [analyze_data_router.py:91] - === Starting new analysis request ===
+2025-02-13 08:42:57,728 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:92] - Request parameters: {'query': 'snail', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-13 08:42:57,728 - controllers.analyze_data_router - INFO - [analyze_data_router.py:95] - Executing analysis with tool: Analysis Agent
+2025-02-13 08:42:57,728 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:96] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-13 08:43:05,732 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:115] - Analysis completed successfully, cleaning output text
+2025-02-13 08:43:05,733 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:119] - Text cleaned, final length: 3121
+2025-02-13 08:43:05,733 - controllers.analyze_data_router - INFO - [analyze_data_router.py:129] - Analysis request completed successfully
+2025-02-13 08:43:05,734 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:130] - Response usage data: {'prompt_tokens': 635, 'completion_tokens': 1619, 'total_tokens': 2254, 'model': 'llama3-70b-8192'}
+2025-02-13 08:54:40,096 - controllers.analyze_data_router - INFO - [analyze_data_router.py:100] - === Starting new analysis request ===
+2025-02-13 08:54:40,097 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:101] - Request parameters: {'query': 'Sclerocarya birrea', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-13 08:54:40,097 - controllers.analyze_data_router - INFO - [analyze_data_router.py:104] - Executing analysis with tool: Analysis Agent
+2025-02-13 08:54:40,097 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:105] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-13 08:54:59,469 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:124] - Analysis completed successfully, cleaning output text
+2025-02-13 08:54:59,469 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:128] - Text cleaned, final length: 3170
+2025-02-13 08:54:59,470 - controllers.analyze_data_router - INFO - [analyze_data_router.py:138] - Analysis request completed successfully
+2025-02-13 08:54:59,470 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:139] - Response usage data: {'prompt_tokens': 320, 'completion_tokens': 594, 'total_tokens': 914, 'model': 'llama3-70b-8192'}
+2025-02-13 09:01:05,387 - controllers.analyze_data_router - INFO - [analyze_data_router.py:100] - === Starting new analysis request ===
+2025-02-13 09:01:05,387 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:101] - Request parameters: {'query': 'Sargassum spp', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-13 09:01:05,387 - controllers.analyze_data_router - INFO - [analyze_data_router.py:104] - Executing analysis with tool: Analysis Agent
+2025-02-13 09:01:05,388 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:105] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-13 09:01:09,655 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:124] - Analysis completed successfully, cleaning output text
+2025-02-13 09:01:09,656 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:128] - Text cleaned, final length: 3483
+2025-02-13 09:01:09,656 - controllers.analyze_data_router - INFO - [analyze_data_router.py:138] - Analysis request completed successfully
+2025-02-13 09:01:09,656 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:139] - Response usage data: {'prompt_tokens': 318, 'completion_tokens': 691, 'total_tokens': 1009, 'model': 'llama3-70b-8192'}
+2025-02-13 09:04:48,304 - controllers.analyze_data_router - INFO - [analyze_data_router.py:100] - === Starting new analysis request ===
+2025-02-13 09:04:48,304 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:101] - Request parameters: {'query': 'Sclerocarya birrea', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'scientific_research/fields.txt', 'analysis_type': 'general'}
+2025-02-13 09:04:48,304 - controllers.analyze_data_router - INFO - [analyze_data_router.py:104] - Executing analysis with tool: Analysis Agent
+2025-02-13 09:04:48,304 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:105] - Analysis parameters - Dataset: lit_fos.csv, Type: general
+2025-02-13 09:04:57,836 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:124] - Analysis completed successfully, cleaning output text
+2025-02-13 09:04:57,838 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:128] - Text cleaned, final length: 2850
+2025-02-13 09:04:57,838 - controllers.analyze_data_router - INFO - [analyze_data_router.py:138] - Analysis request completed successfully
+2025-02-13 09:04:57,839 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:139] - Response usage data: {'prompt_tokens': 320, 'completion_tokens': 621, 'total_tokens': 941, 'model': 'llama3-70b-8192'}

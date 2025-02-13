@@ -1,0 +1,10 @@
+2025-02-12 22:08:37,754 - controllers.generate_summary_router - INFO - [generate_summary_router.py:75] - Received research request: query='snails' tool_name='General Agent' prompt_name='scientific_research/fields.txt'
+2025-02-12 22:08:37,755 - controllers.generate_summary_router - DEBUG - [generate_summary_router.py:79] - Running tool: General Agent with query: snails
+2025-02-12 22:09:12,450 - controllers.generate_summary_router - INFO - [generate_summary_router.py:111] - Research completed successfully for query: snails
+2025-02-12 22:09:12,450 - controllers.generate_summary_router - DEBUG - [generate_summary_router.py:112] - Response summary length: 3379
+2025-02-12 22:09:12,451 - controllers.generate_summary_router - DEBUG - [generate_summary_router.py:113] - Number of content items: 10
+2025-02-12 22:09:42,066 - controllers.generate_summary_router - INFO - [generate_summary_router.py:75] - Received research request: query='tell me something about the data' tool_name='General Agent' prompt_name='scientific_research/fields.txt'
+2025-02-12 22:09:42,066 - controllers.generate_summary_router - DEBUG - [generate_summary_router.py:79] - Running tool: General Agent with query: tell me something about the data
+2025-02-12 22:10:26,022 - controllers.generate_summary_router - INFO - [generate_summary_router.py:111] - Research completed successfully for query: tell me something about the data
+2025-02-12 22:10:26,023 - controllers.generate_summary_router - DEBUG - [generate_summary_router.py:112] - Response summary length: 2126
+2025-02-12 22:10:26,024 - controllers.generate_summary_router - DEBUG - [generate_summary_router.py:113] - Number of content items: 10

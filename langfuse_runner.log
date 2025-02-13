@@ -110,3 +110,724 @@
 2025-02-12 22:03:03 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 11.423886, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-12T22:03:03.791177'}
 2025-02-12 22:03:03 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 11.423886, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-12T22:03:03.791177'}
 2025-02-12 22:03:03 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-12 22:06:55 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-12 22:06:55 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-12 22:06:55 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-12 22:06:55 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-12 22:06:55 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-12 22:06:55 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-12 22:06:55 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-12 22:06:55 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-12 22:06:55 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-12 22:06:55 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-12 22:06:55 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-12 22:06:55 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-12 22:06:55 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-12 22:06:55 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-12 22:06:55 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-12 22:06:55 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-12 22:06:55 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-12 22:06:55 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-12 22:06:55 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-12 22:06:55 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-12 22:06:55 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-12 22:06:55 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-12 22:08:37 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: General Agent ===
+2025-02-12 22:08:37 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-12 22:08:37 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: snails
+2025-02-12 22:08:37 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: None
+2025-02-12 22:08:37 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: None
+2025-02-12 22:08:37 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-12 22:08:37 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-12 22:08:37 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-12 22:08:37 - LangfuseRunner - INFO - [langfuse_runner.py:158] - Executing General Agent
+2025-02-12 22:08:37 - LangfuseRunner - DEBUG - [langfuse_runner.py:203] - Initializing General Agent
+2025-02-12 22:08:37 - LangfuseRunner - DEBUG - [langfuse_runner.py:208] - Invoking General Agent with query: snails
+2025-02-12 22:09:12 - LangfuseRunner - DEBUG - [langfuse_runner.py:213] - General Agent result - Content count: 10
+2025-02-12 22:09:12 - LangfuseRunner - INFO - [langfuse_runner.py:221] - General Agent execution completed
+2025-02-12 22:09:12 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-12 22:09:12 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 34.493476, 'success': True, 'tool': 'General Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-12T22:09:12.250563'}
+2025-02-12 22:09:12 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 34.493476, 'success': True, 'tool': 'General Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-12T22:09:12.250563'}
+2025-02-12 22:09:12 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-12 22:09:42 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: General Agent ===
+2025-02-12 22:09:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-12 22:09:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: tell me something about the data
+2025-02-12 22:09:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: None
+2025-02-12 22:09:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: None
+2025-02-12 22:09:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-12 22:09:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-12 22:09:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-12 22:09:42 - LangfuseRunner - INFO - [langfuse_runner.py:158] - Executing General Agent
+2025-02-12 22:09:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:203] - Initializing General Agent
+2025-02-12 22:09:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:208] - Invoking General Agent with query: tell me something about the data
+2025-02-12 22:10:25 - LangfuseRunner - DEBUG - [langfuse_runner.py:213] - General Agent result - Content count: 10
+2025-02-12 22:10:25 - LangfuseRunner - INFO - [langfuse_runner.py:221] - General Agent execution completed
+2025-02-12 22:10:25 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-12 22:10:25 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 43.414437, 'success': True, 'tool': 'General Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-12T22:10:25.482461'}
+2025-02-12 22:10:25 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 43.414437, 'success': True, 'tool': 'General Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-12T22:10:25.482461'}
+2025-02-12 22:10:25 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-12 22:11:34 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-12 22:11:34 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-12 22:11:34 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: tell me something about the data
+2025-02-12 22:11:34 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-12 22:11:34 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-12 22:11:34 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-12 22:11:34 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-12 22:11:34 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-12 22:11:34 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-12 22:11:34 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-12 22:11:34 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: tell me something about the data
+2025-02-12 22:11:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 3354
+2025-02-12 22:11:42 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-12 22:11:42 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-12 22:11:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 7.909408, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-12T22:11:42.603088'}
+2025-02-12 22:11:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 7.909408, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-12T22:11:42.603088'}
+2025-02-12 22:11:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-12 22:12:19 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-12 22:12:19 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-12 22:12:19 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: sea weed
+2025-02-12 22:12:19 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-12 22:12:19 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-12 22:12:19 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-12 22:12:19 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-12 22:12:19 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-12 22:12:19 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-12 22:12:19 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-12 22:12:19 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: sea weed
+2025-02-12 22:12:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 3257
+2025-02-12 22:12:30 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-12 22:12:30 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-12 22:12:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 11.067805, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-12T22:12:30.996905'}
+2025-02-12 22:12:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 11.067805, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-12T22:12:30.996905'}
+2025-02-12 22:12:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-12 22:15:56 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-12 22:15:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-12 22:15:56 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-12 22:15:56 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-12 22:15:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-12 22:15:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-12 22:15:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-12 22:15:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-12 22:15:56 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-12 22:15:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-12 22:15:56 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-12 22:15:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-12 22:15:56 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-12 22:15:56 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-12 22:15:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-12 22:15:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-12 22:15:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-12 22:15:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-12 22:15:56 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-12 22:15:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-12 22:15:56 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-12 22:15:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-12 22:17:12 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-12 22:17:12 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-12 22:17:12 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: sea weed
+2025-02-12 22:17:12 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-12 22:17:12 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-12 22:17:12 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-12 22:17:12 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-12 22:17:12 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-12 22:17:12 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-12 22:17:12 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-12 22:17:12 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: sea weed
+2025-02-12 22:17:19 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 3233
+2025-02-12 22:17:19 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-12 22:17:19 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-12 22:17:19 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 7.482029, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-12T22:17:19.796383'}
+2025-02-12 22:17:19 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 7.482029, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-12T22:17:19.796383'}
+2025-02-12 22:17:19 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 07:09:38 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-13 07:09:38 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-13 07:09:38 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 07:09:38 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 07:09:38 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 07:09:38 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 07:09:38 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 07:09:38 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 07:09:38 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 07:09:38 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 07:09:38 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 07:09:38 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 07:09:39 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 07:09:39 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 07:09:39 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 07:09:39 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 07:09:39 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 07:09:39 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 07:09:39 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 07:09:39 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 07:09:39 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 07:09:39 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 07:16:24 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-13 07:16:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-13 07:16:24 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 07:16:24 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 07:16:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 07:16:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 07:16:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 07:16:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 07:16:24 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 07:16:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 07:16:24 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 07:16:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 07:16:24 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 07:16:24 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 07:16:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 07:16:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 07:16:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 07:16:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 07:16:24 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 07:16:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 07:16:24 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 07:16:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 07:25:54 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-13 07:25:54 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-13 07:25:54 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 07:25:54 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 07:25:54 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 07:25:54 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 07:25:54 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 07:25:54 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 07:25:54 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 07:25:54 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 07:25:54 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 07:25:54 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 07:25:54 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 07:25:54 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 07:25:54 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 07:25:54 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 07:25:54 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 07:25:54 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 07:25:54 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 07:25:54 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 07:25:54 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 07:25:54 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 07:31:42 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 07:31:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 07:31:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: Sclerocarya birrea
+2025-02-13 07:31:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 07:31:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 07:31:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 07:31:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 07:31:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 07:31:42 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 07:31:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 07:31:42 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: Sclerocarya birrea
+2025-02-13 07:31:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 3308
+2025-02-13 07:31:52 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 07:31:52 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 07:31:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 10.487107, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T07:31:52.834562'}
+2025-02-13 07:31:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 10.487107, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T07:31:52.834562'}
+2025-02-13 07:31:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 07:33:18 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 07:33:18 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 07:33:18 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: sea weed
+2025-02-13 07:33:18 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 07:33:18 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 07:33:18 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 07:33:18 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 07:33:18 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 07:33:18 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 07:33:18 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 07:33:18 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: sea weed
+2025-02-13 07:33:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 3073
+2025-02-13 07:33:32 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 07:33:32 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 07:33:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 13.414852, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T07:33:32.308031'}
+2025-02-13 07:33:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 13.414852, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T07:33:32.308031'}
+2025-02-13 07:33:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 07:44:13 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 07:44:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 07:44:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: Rhizophora spp
+2025-02-13 07:44:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 07:44:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 07:44:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 07:44:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 07:44:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 07:44:13 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 07:44:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 07:44:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: Rhizophora spp
+2025-02-13 07:44:17 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 3180
+2025-02-13 07:44:17 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 07:44:17 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 07:44:17 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 3.632659, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T07:44:17.151424'}
+2025-02-13 07:44:17 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 3.632659, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T07:44:17.151424'}
+2025-02-13 07:44:17 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 07:46:36 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-13 07:46:36 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-13 07:46:36 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 07:46:36 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 07:46:36 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 07:46:36 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 07:46:36 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 07:46:36 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 07:46:36 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 07:46:36 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 07:46:36 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 07:46:36 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 07:46:36 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 07:46:36 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 07:46:36 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 07:46:36 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 07:46:36 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 07:46:36 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 07:46:36 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 07:46:36 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 07:46:36 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 07:46:36 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 07:49:31 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 07:49:31 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 07:49:31 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: Sclerocarya birrea
+2025-02-13 07:49:31 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 07:49:31 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 07:49:31 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 07:49:31 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 07:49:31 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 07:49:31 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 07:49:31 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 07:49:31 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: Sclerocarya birrea
+2025-02-13 07:49:41 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 3716
+2025-02-13 07:49:41 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 07:49:41 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 07:49:41 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 10.088557, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T07:49:41.115567'}
+2025-02-13 07:49:41 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 10.088557, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T07:49:41.115567'}
+2025-02-13 07:49:41 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 07:54:30 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-13 07:54:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-13 07:54:30 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 07:54:30 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 07:54:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 07:54:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 07:54:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 07:54:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 07:54:30 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 07:54:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 07:54:30 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 07:54:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 07:54:30 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 07:54:30 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 07:54:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 07:54:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 07:54:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 07:54:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 07:54:30 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 07:54:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 07:54:30 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 07:54:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 07:56:58 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-13 07:56:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-13 07:56:58 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 07:56:58 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 07:56:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 07:56:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 07:56:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 07:56:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 07:56:58 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 07:56:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 07:56:58 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 07:56:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 07:56:58 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 07:56:58 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 07:56:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 07:56:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 07:56:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 07:56:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 07:56:58 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 07:56:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 07:56:58 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 07:56:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 07:59:24 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 07:59:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 07:59:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: sea weed
+2025-02-13 07:59:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 07:59:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 07:59:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: research.txt
+2025-02-13 07:59:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 07:59:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 07:59:24 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 07:59:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 07:59:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: sea weed
+2025-02-13 07:59:34 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 3330
+2025-02-13 07:59:34 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 07:59:34 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 07:59:34 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 9.912411, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'research.txt', 'timestamp': '2025-02-13T07:59:34.572148'}
+2025-02-13 07:59:34 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 9.912411, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'research.txt', 'timestamp': '2025-02-13T07:59:34.572148'}
+2025-02-13 07:59:34 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 07:59:58 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 07:59:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 07:59:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: Sclerocarya birrea
+2025-02-13 07:59:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 07:59:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 07:59:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 07:59:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 07:59:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 07:59:58 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 07:59:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 07:59:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: Sclerocarya birrea
+2025-02-13 08:00:08 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 4166
+2025-02-13 08:00:08 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 08:00:08 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 08:00:08 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 9.908231, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:00:08.869059'}
+2025-02-13 08:00:08 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 9.908231, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:00:08.869059'}
+2025-02-13 08:00:08 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 08:11:06 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 08:11:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 08:11:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: sea cucumber
+2025-02-13 08:11:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 08:11:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 08:11:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 08:11:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 08:11:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 08:11:06 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 08:11:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 08:11:06 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: sea cucumber
+2025-02-13 08:11:17 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 3644
+2025-02-13 08:11:17 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 08:11:17 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 08:11:17 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 10.794979, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:11:17.015496'}
+2025-02-13 08:11:17 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 10.794979, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:11:17.015496'}
+2025-02-13 08:11:17 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 08:24:38 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 08:24:38 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 08:24:38 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: Sclerocarya birrea
+2025-02-13 08:24:38 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 08:24:38 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 08:24:38 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 08:24:38 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 08:24:38 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 08:24:38 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 08:24:38 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 08:24:38 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: Sclerocarya birrea
+2025-02-13 08:24:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 4816
+2025-02-13 08:24:48 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 08:24:48 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 08:24:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 10.647319, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:24:48.678825'}
+2025-02-13 08:24:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 10.647319, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:24:48.678825'}
+2025-02-13 08:24:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 08:32:48 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 08:32:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 08:32:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: Thalassia testudinum
+2025-02-13 08:32:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 08:32:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 08:32:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 08:32:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 08:32:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 08:32:48 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 08:32:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 08:32:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: Thalassia testudinum
+2025-02-13 08:32:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 3941
+2025-02-13 08:32:52 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 08:32:52 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 08:32:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 4.211604, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:32:52.498317'}
+2025-02-13 08:32:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 4.211604, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:32:52.498317'}
+2025-02-13 08:32:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 08:33:27 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 08:33:27 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 08:33:27 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: snail
+2025-02-13 08:33:27 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 08:33:27 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 08:33:27 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 08:33:27 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 08:33:27 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 08:33:27 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 08:33:27 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 08:33:27 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: snail
+2025-02-13 08:33:37 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 3832
+2025-02-13 08:33:37 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 08:33:37 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 08:33:37 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 10.237258, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:33:37.762110'}
+2025-02-13 08:33:37 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 10.237258, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:33:37.762110'}
+2025-02-13 08:33:37 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 08:36:27 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 08:36:27 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 08:36:27 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: Sclerocarya birrea
+2025-02-13 08:36:27 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 08:36:27 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 08:36:27 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 08:36:27 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 08:36:27 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 08:36:27 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 08:36:27 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 08:36:27 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: Sclerocarya birrea
+2025-02-13 08:36:46 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 3765
+2025-02-13 08:36:46 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 08:36:46 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 08:36:46 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 19.58786, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:36:46.964594'}
+2025-02-13 08:36:46 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 19.58786, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:36:46.964594'}
+2025-02-13 08:36:46 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 08:37:24 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 08:37:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 08:37:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: snail
+2025-02-13 08:37:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 08:37:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 08:37:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 08:37:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 08:37:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 08:37:24 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 08:37:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 08:37:24 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: snail
+2025-02-13 08:37:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 4045
+2025-02-13 08:37:30 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 08:37:30 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 08:37:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 6.61594, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:37:30.679774'}
+2025-02-13 08:37:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 6.61594, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:37:30.679774'}
+2025-02-13 08:37:30 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 08:38:02 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 08:38:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 08:38:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: kangaroo
+2025-02-13 08:38:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 08:38:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 08:38:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 08:38:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 08:38:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 08:38:02 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 08:38:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 08:38:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: kangaroo
+2025-02-13 08:38:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 3238
+2025-02-13 08:38:13 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 08:38:13 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 08:38:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 11.070976, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:38:13.718498'}
+2025-02-13 08:38:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 11.070976, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:38:13.718498'}
+2025-02-13 08:38:13 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 08:42:20 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-13 08:42:20 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-13 08:42:20 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 08:42:20 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 08:42:20 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 08:42:20 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 08:42:20 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 08:42:20 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 08:42:20 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 08:42:20 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 08:42:20 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 08:42:20 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 08:42:20 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 08:42:20 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 08:42:20 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 08:42:20 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 08:42:20 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 08:42:20 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 08:42:20 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 08:42:20 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 08:42:20 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 08:42:20 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 08:42:23 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 08:42:23 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 08:42:23 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: Sclerocarya birrea
+2025-02-13 08:42:23 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 08:42:23 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 08:42:23 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 08:42:23 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 08:42:23 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 08:42:23 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 08:42:23 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 08:42:23 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: Sclerocarya birrea
+2025-02-13 08:42:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 4105
+2025-02-13 08:42:43 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 08:42:43 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 08:42:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 19.649311, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:42:43.598245'}
+2025-02-13 08:42:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 19.649311, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:42:43.598245'}
+2025-02-13 08:42:43 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 08:42:57 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 08:42:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 08:42:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: snail
+2025-02-13 08:42:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 08:42:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 08:42:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 08:42:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 08:42:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 08:42:57 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 08:42:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 08:42:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: snail
+2025-02-13 08:43:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 3127
+2025-02-13 08:43:05 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 08:43:05 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 08:43:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 7.786535, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:43:05.515897'}
+2025-02-13 08:43:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 7.786535, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:43:05.515897'}
+2025-02-13 08:43:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 08:46:52 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-13 08:46:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-13 08:46:52 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 08:46:52 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 08:46:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 08:46:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 08:46:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 08:46:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 08:46:52 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 08:46:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 08:46:52 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 08:46:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 08:46:52 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 08:46:52 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 08:46:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 08:46:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 08:46:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 08:46:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 08:46:52 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 08:46:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 08:46:52 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 08:46:52 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 08:47:32 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-13 08:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-13 08:47:32 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 08:47:32 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 08:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 08:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 08:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 08:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 08:47:32 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 08:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 08:47:32 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 08:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 08:47:32 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 08:47:32 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 08:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 08:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 08:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 08:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 08:47:32 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 08:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 08:47:32 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 08:47:32 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 08:48:49 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-13 08:48:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-13 08:48:49 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 08:48:49 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 08:48:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 08:48:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 08:48:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 08:48:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 08:48:49 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 08:48:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 08:48:49 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 08:48:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 08:48:49 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 08:48:49 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 08:48:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 08:48:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 08:48:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 08:48:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 08:48:49 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 08:48:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 08:48:49 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 08:48:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 08:54:25 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-13 08:54:25 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-13 08:54:25 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 08:54:25 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 08:54:25 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 08:54:25 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 08:54:25 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 08:54:25 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 08:54:25 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 08:54:25 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 08:54:25 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 08:54:25 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 08:54:25 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 08:54:25 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 08:54:25 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 08:54:25 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 08:54:25 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 08:54:25 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 08:54:25 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 08:54:25 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 08:54:25 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 08:54:25 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 08:54:40 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 08:54:40 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 08:54:40 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: Sclerocarya birrea
+2025-02-13 08:54:40 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 08:54:40 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 08:54:40 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 08:54:40 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 08:54:40 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 08:54:40 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 08:54:40 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 08:54:40 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: Sclerocarya birrea
+2025-02-13 08:54:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 3176
+2025-02-13 08:54:59 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 08:54:59 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 08:54:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 18.988526, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:54:59.088813'}
+2025-02-13 08:54:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 18.988526, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T08:54:59.088813'}
+2025-02-13 08:54:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 09:00:00 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-13 09:00:00 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-13 09:00:00 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 09:00:00 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 09:00:00 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 09:00:00 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 09:00:00 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 09:00:00 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 09:00:00 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 09:00:00 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 09:00:00 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 09:00:00 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 09:00:00 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 09:00:00 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 09:00:00 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 09:00:00 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 09:00:00 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 09:00:00 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 09:00:00 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 09:00:00 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 09:00:00 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 09:00:00 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 09:01:05 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 09:01:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 09:01:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: Sargassum spp
+2025-02-13 09:01:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 09:01:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 09:01:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 09:01:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 09:01:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 09:01:05 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 09:01:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 09:01:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: Sargassum spp
+2025-02-13 09:01:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 3489
+2025-02-13 09:01:09 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 09:01:09 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 09:01:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 3.826925, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T09:01:09.216777'}
+2025-02-13 09:01:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 3.826925, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T09:01:09.216777'}
+2025-02-13 09:01:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces
+2025-02-13 09:03:59 - LangfuseRunner - INFO - [langfuse_runner.py:45] - Logging system initialized
+2025-02-13 09:03:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:46] - Debug logging enabled
+2025-02-13 09:03:59 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 09:03:59 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 09:03:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 09:03:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 09:03:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 09:03:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 09:03:59 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 09:03:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 09:03:59 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 09:03:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 09:03:59 - LangfuseRunner - INFO - [langfuse_runner.py:283] - Creating new LangfuseRunner instance
+2025-02-13 09:03:59 - LangfuseRunner - INFO - [langfuse_runner.py:60] - === Initializing LangfuseRunner ===
+2025-02-13 09:03:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:67] - Configuration loaded - Host: http://langfuse-server:3000
+2025-02-13 09:03:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:68] - Public Key present: Yes
+2025-02-13 09:03:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:69] - Secret Key present: Yes
+2025-02-13 09:03:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:107] - Starting configuration validation
+2025-02-13 09:03:59 - LangfuseRunner - INFO - [langfuse_runner.py:73] - Configuration validation successful
+2025-02-13 09:03:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:87] - Using custom host: http://langfuse-server:3000
+2025-02-13 09:03:59 - LangfuseRunner - INFO - [langfuse_runner.py:90] - Successfully initialized Langfuse client
+2025-02-13 09:03:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:102] - Model costs configured: {'default': 0.001}
+2025-02-13 09:04:48 - LangfuseRunner - INFO - [langfuse_runner.py:129] - === Starting tool execution: Analysis Agent ===
+2025-02-13 09:04:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:132] - Input parameters:
+2025-02-13 09:04:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:133] - - Query: Sclerocarya birrea
+2025-02-13 09:04:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:134] - - Dataset: lit_fos.csv
+2025-02-13 09:04:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:135] - - Analysis type: general
+2025-02-13 09:04:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:136] - - Prompt name: scientific_research/fields.txt
+2025-02-13 09:04:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:149] - Langfuse trace created successfully
+2025-02-13 09:04:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:154] - Started generation trace
+2025-02-13 09:04:48 - LangfuseRunner - INFO - [langfuse_runner.py:163] - Executing Analysis Agent
+2025-02-13 09:04:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:236] - Initializing Analysis Agent
+2025-02-13 09:04:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:241] - Invoking Analysis Agent - Dataset: lit_fos.csv, Query: Sclerocarya birrea
+2025-02-13 09:04:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:246] - Analysis Agent result - Analysis length: 2855
+2025-02-13 09:04:57 - LangfuseRunner - INFO - [langfuse_runner.py:254] - Analysis Agent execution completed
+2025-02-13 09:04:57 - LangfuseRunner - INFO - [langfuse_runner.py:175] - Tool execution completed successfully
+2025-02-13 09:04:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:278] - Prepared trace data: {'duration': 9.042442, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T09:04:57.348901'}
+2025-02-13 09:04:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:187] - Trace data prepared: {'duration': 9.042442, 'success': True, 'tool': 'Analysis Agent', 'prompt_used': 'scientific_research/fields.txt', 'timestamp': '2025-02-13T09:04:57.348901'}
+2025-02-13 09:04:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:199] - Flushing Langfuse traces

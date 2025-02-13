@@ -1,9 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from contextlib import asynccontextmanager
-
 from dotenv import load_dotenv
 import os
 import logging
@@ -23,7 +22,6 @@ load_dotenv()
 
 # Async initialization function for Langfuse
 async def initialize_langfuse():
-    """Initialize Langfuse entities before starting the app."""
     try:
         initializer = CreateNewEntities()
         await initializer.main()
@@ -34,10 +32,8 @@ async def initialize_langfuse():
 # Lifespan management for Langfuse
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Perform Langfuse initialization on startup
     await initialize_langfuse()
     
-    # Instantiate Langfuse client
     langfuse = Langfuse(
         public_key=os.getenv("LANGFUSE_PUBLIC_KEY"),
         secret_key=os.getenv("LANGFUSE_SECRET_KEY")
@@ -45,7 +41,6 @@ async def lifespan(app: FastAPI):
     
     yield
     
-    # Ensure all events are flushed to Langfuse on shutdown
     langfuse.flush()
 
 # App Configuration
@@ -60,19 +55,6 @@ app = FastAPI(
     }
 )
 
-# Middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# Static Files
-app.mount("/static", StaticFiles(directory="static"), name="static")
-app.mount("/prompts", StaticFiles(directory="prompts"), name="prompts")
-
 # Import and Include Routers
 from controllers.generate_summary_router import api_router as summary_router
 from controllers.analyze_data_router import api_router as analysis_router
@@ -82,10 +64,32 @@ from controllers.prompts_router import api_router as prompts_router
 
 # API Routes
 app.include_router(summary_router, prefix="/api/generate-summary", tags=["Summary"])
-app.include_router(analysis_router, prefix="/api", tags=["Analysis"])
+app.include_router(analysis_router, prefix="/api/analyze-data", tags=["Analysis"])
 app.include_router(report_router, prefix="/api/generate-report", tags=["Report"])
 app.include_router(datasets_router, prefix="/api", tags=["Datasets"])
 app.include_router(prompts_router, prefix="/api", tags=["Prompts"])
+
+# CORS Middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Security Headers Middleware
+@app.middleware("http")
+async def add_security_headers(request, call_next):
+    response = await call_next(request)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["Cache-Control"] = "no-store"
+    response.headers["Content-Security-Policy"] = "frame-ancestors 'none'"
+    return response
+
+# Static Files - mount after API routes
+app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/prompts", StaticFiles(directory="prompts"), name="prompts")
 
 # Base Routes
 @app.get("/", response_class=HTMLResponse)

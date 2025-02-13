@@ -2,7 +2,8 @@ import os
 import logging
 import re
 from typing import Optional, Dict, Any, List
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Response
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 import pandas as pd
 
@@ -35,6 +36,14 @@ tool_runner = create_tool_runner()
 
 # Configuration
 DATA_FOLDER = os.getenv("DATASETS_FOLDER", "./data")
+
+# Custom JSON Response class
+class CustomJSONResponse(JSONResponse):
+    def __init__(self, content: Any, **kwargs) -> None:
+        super().__init__(content, **kwargs)
+        self.headers["Content-Type"] = "application/json; charset=utf-8"
+        self.headers["Cache-Control"] = "no-store"
+        self.headers["X-Content-Type-Options"] = "nosniff"
 
 # Request and Response Models
 class AnalyzeRequest(BaseModel):
@@ -77,8 +86,8 @@ def clean_text(text: str) -> str:
         logger.error(f"Error cleaning text: {str(e)}")
         return text  # Return original text if cleaning fails
 
-@api_router.post("/analyze-data", response_model=AnalyzeResponse)
-def generate_analysis(request: AnalyzeRequest):
+@api_router.post("/", response_model=AnalyzeResponse)
+async def generate_analysis(request: AnalyzeRequest):
     """
     Generate a data analysis based on the given request.
     
@@ -129,7 +138,7 @@ def generate_analysis(request: AnalyzeRequest):
         logger.info("Analysis request completed successfully")
         logger.debug(f"Response usage data: {result.usage}")
         
-        return response_data
+        return CustomJSONResponse(content=response_data)
         
     except HTTPException:
         raise
@@ -138,7 +147,7 @@ def generate_analysis(request: AnalyzeRequest):
         raise HTTPException(status_code=500, detail=f"Analysis generation failed: {str(e)}")
 
 @api_router.get("/datasets", response_model=List[str])
-def get_datasets():
+async def get_datasets():
     """
     Retrieve a list of available datasets.
     
@@ -157,7 +166,7 @@ def get_datasets():
         logger.info(f"Successfully retrieved {len(datasets)} datasets")
         logger.debug(f"Available datasets: {datasets}")
         
-        return datasets
+        return CustomJSONResponse(content=datasets)
         
     except Exception as e:
         logger.error(f"Failed to retrieve datasets: {str(e)}", exc_info=True)
@@ -167,7 +176,7 @@ def get_datasets():
         )
 
 @api_router.get("/dataset/{dataset_name}/info", response_model=DatasetInfoResponse)
-def get_dataset_info(dataset_name: str):
+async def get_dataset_info(dataset_name: str):
     """
     Retrieve detailed information about a specific dataset.
     
@@ -212,7 +221,7 @@ def get_dataset_info(dataset_name: str):
         logger.info("Dataset info retrieved successfully")
         logger.debug(f"Dataset info: {dataset_info}")
         
-        return dataset_info
+        return CustomJSONResponse(content=dataset_info)
         
     except HTTPException:
         raise
@@ -224,7 +233,7 @@ def get_dataset_info(dataset_name: str):
         )
 
 @api_router.get("/health")
-def health_check():
+async def health_check():
     """
     Perform a health check on the analysis service.
     
@@ -238,7 +247,7 @@ def health_check():
         # Get available datasets
         datasets = tool.get_available_datasets()
         
-        return {
+        response_data = {
             "status": "healthy",
             "service": "species-analysis-api",
             "version": "1.0.0",
@@ -246,11 +255,16 @@ def health_check():
             "total_datasets": len(datasets),
             "available_analysis_types": ["general", "detailed", "comparative"]
         }
+        
+        return CustomJSONResponse(content=response_data)
+        
     except Exception as e:
         logger.error(f"Health check failed: {str(e)}")
-        return {
-            "status": "degraded",
-            "error": str(e),
-            "service": "species-analysis-api",
-            "version": "1.0.0"
-        }
+        return CustomJSONResponse(
+            content={
+                "status": "degraded",
+                "error": str(e),
+                "service": "species-analysis-api",
+                "version": "1.0.0"
+            }
+        )
