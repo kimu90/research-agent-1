@@ -3,7 +3,8 @@ const DebugAPI = {
     state: {
         currentMode: 'summary',
         isLoading: false,
-        lastResponse: null
+        lastResponse: null,
+        templates: []
     },
     
     init() {
@@ -12,18 +13,15 @@ const DebugAPI = {
     },
     
     getCurrentMode() {
-        console.log('Current mode:', this.state.currentMode);
         return this.state.currentMode;
     },
     
     getIsLoading() {
-        console.log('Loading state:', this.state.isLoading);
         return this.state.isLoading;
     },
     
-    getLastResponse() {
-        console.log('Last response:', this.state.lastResponse);
-        return this.state.lastResponse;
+    getTemplates() {
+        return this.state.templates;
     },
     
     updateState(key, value) {
@@ -35,10 +33,12 @@ const DebugAPI = {
 // Initialize debug API
 DebugAPI.init();
 
-// State management
+// Global state
 let currentMode = 'summary';
 let isLoading = false;
+window.allPrompts = [];
 
+// API Configuration
 const API_ENDPOINTS = {
     summary: '/api/generate-summary',
     data: '/api/analyze-data', 
@@ -59,62 +59,122 @@ const submitButton = document.getElementById('submitButton');
 const summarySelect = document.getElementById('promptTemplate');
 const analysisSelect = document.getElementById('analysisPromptTemplate');
 
-async function loadPromptTemplates() {
-    console.log('Loading prompt templates');
+// Template Management
+async function fetchLangfuseTemplates() {
+    console.log('Fetching templates...');
     try {
         const response = await fetch(API_ENDPOINTS.prompts);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        
+        if (!response.ok) {
+            throw new Error('Failed to fetch templates');
+        }
+
         const data = await response.json();
         console.log('Received templates:', data);
-        
-        populateSelect('promptFolder', data.folders);
-        populateSelect('analysisFolder', data.folders);
-        
-        window.allPrompts = data.prompts;
-        filterPromptTemplates();
-        filterAnalysisTemplates();
+
+        if (!data.templates || !Array.isArray(data.templates)) {
+            throw new Error('Invalid template data received');
+        }
+
+        window.allPrompts = data.templates.map(template => ({
+            id: template.name,
+            content: template.content,
+            config: template.config,
+            labels: template.labels,
+            version: template.version
+        }));
+
+        // Populate categories in both dropdowns
+        if (data.categories) {
+            populateCategories('promptFolder', data.categories);
+            populateCategories('templateCategory', data.categories);
+        }
+
+        // Initialize template dropdowns
+        filterTemplates('promptTemplate');
+        filterTemplates('analysisPromptTemplate');
+
+        return true;
     } catch (error) {
-        console.error('Failed to load templates:', error);
-        showError('Failed to load templates');
+        console.error('Template fetch error:', error);
+        showError(`Failed to load templates: ${error.message}`);
+        return false;
     }
 }
 
-function populateSelect(selectId, folders) {
+function populateCategories(selectId, categories) {
     const select = document.getElementById(selectId);
     if (!select) return;
-    
-    select.innerHTML = '<option value="">All Folders</option>';
-    folders.forEach(folder => {
-        select.appendChild(new Option(folder, folder));
+
+    select.innerHTML = '<option value="">All Categories</option>';
+    categories.forEach(category => {
+        select.appendChild(new Option(category, category));
     });
 }
 
-function filterPromptTemplates() {
-    filterTemplates('promptFolder', 'promptTemplate');
-}
-
-function filterAnalysisTemplates() {
-    filterTemplates('analysisFolder', 'analysisPromptTemplate');
-}
-
-function filterTemplates(folderSelectId, templateSelectId) {
-    const selectedFolder = document.getElementById(folderSelectId).value;
+function filterTemplates(templateSelectId, category = null) {
     const templateSelect = document.getElementById(templateSelectId);
-    
+    if (!templateSelect) return;
+
     templateSelect.innerHTML = '<option value="">Select Template...</option>';
-    
-    if (selectedFolder && window.allPrompts) {
-        const filteredPrompts = window.allPrompts.filter(p => 
-            p.metadata.folder === selectedFolder
-        );
-        filteredPrompts.forEach(prompt => {
-            const fileName = prompt.id.split('/').pop().replace('.txt', '');
-            templateSelect.appendChild(new Option(fileName, prompt.id));
-        });
+
+    const filteredPrompts = window.allPrompts.filter(prompt => {
+        if (category) {
+            return prompt.labels.includes(category);
+        }
+        return true;
+    });
+
+    console.log(`Filtered prompts for ${templateSelectId}:`, filteredPrompts);
+
+    filteredPrompts.forEach(prompt => {
+        const option = new Option(prompt.id, prompt.id);
+        option.dataset.content = prompt.content;
+        option.dataset.config = JSON.stringify(prompt.config);
+        option.dataset.labels = prompt.labels.join(',');
+        templateSelect.appendChild(option);
+    });
+}
+
+function handleTemplateSelection(templateSelectId) {
+    const templateSelect = document.getElementById(templateSelectId);
+    const descriptionId = templateSelectId === 'analysisPromptTemplate' ? 
+        'analysisPromptDescription' : 
+        (templateSelectId === 'promptTemplate' ? 'templateDescription' : null);
+
+    if (!descriptionId) return;
+
+    const descriptionDiv = document.getElementById(descriptionId);
+    const selectedOption = templateSelect.options[templateSelect.selectedIndex];
+
+    if (selectedOption && selectedOption.value) {
+        const content = selectedOption.dataset.content;
+        const config = JSON.parse(selectedOption.dataset.config || '{}');
+        const labels = selectedOption.dataset.labels?.split(',') || [];
+
+        let descriptionHtml = '<div class="template-info">';
+        if (content) {
+            descriptionHtml += `<p><strong>Template:</strong> ${content}</p>`;
+        }
+        if (config) {
+            descriptionHtml += `
+                <p><strong>Model:</strong> ${config.model || 'Not specified'}</p>
+                <p><strong>Temperature:</strong> ${config.temperature || 'Not specified'}</p>
+            `;
+        }
+        if (labels.length > 0) {
+            descriptionHtml += `<p><strong>Labels:</strong> ${labels.join(', ')}</p>`;
+        }
+        descriptionHtml += '</div>';
+
+        descriptionDiv.innerHTML = descriptionHtml;
+        descriptionDiv.classList.add('active');
+    } else {
+        descriptionDiv.innerHTML = '';
+        descriptionDiv.classList.remove('active');
     }
 }
 
+// Dataset Management
 async function loadDatasets() {
     console.log('Loading datasets');
     const datasetSelect = document.getElementById('dataset');
@@ -123,7 +183,6 @@ async function loadDatasets() {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         
         const datasets = await response.json();
-        
         if (!Array.isArray(datasets)) throw new Error('Invalid datasets data');
 
         datasetSelect.innerHTML = '<option value="">Select Dataset...</option>';
@@ -136,8 +195,8 @@ async function loadDatasets() {
     }
 }
 
+// UI Utilities
 function addMessage(content, isUser = false) {
-    console.log('Adding message:', { content, isUser });
     const messageDiv = document.createElement('div');
     messageDiv.className = `message ${isUser ? 'user' : 'assistant'}`;
     messageDiv.textContent = typeof content === 'object' ? 
@@ -149,7 +208,7 @@ function addMessage(content, isUser = false) {
 function showError(message) {
     console.error('Error:', message);
     const errorDiv = document.createElement('div');
-    errorDiv.className = 'error message';
+    errorDiv.className = 'message error';
     errorDiv.textContent = `Error: ${message}`;
     messagesContainer.appendChild(errorDiv);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -163,54 +222,24 @@ function updateFiltersVisibility(mode) {
         "Enter analysis query..." : "Enter species name...";
 }
 
-function formatDataAnalysisResponse(data) {
-    if (!data) return 'No response data received';
-    
-    let formattedResponse = 'Analysis Results:\n\n';
-    
-    if (data.analysis) formattedResponse += data.analysis + '\n\n';
-    
-    if (data.metrics) {
-        formattedResponse += 'Metrics:\n';
-        Object.entries(data.metrics).forEach(([key, value]) => {
-            formattedResponse += `${key}: ${typeof value === 'object' ? 
-                JSON.stringify(value) : value}\n`;
-        });
-    }
-    
-    if (data.metadata) {
-        formattedResponse += '\nMetadata:\n';
-        if (data.metadata.dataset) formattedResponse += `Dataset: ${data.metadata.dataset}\n`;
-        if (data.metadata.prompt_name) formattedResponse += `Prompt: ${data.metadata.prompt_name}\n`;
-        if (data.metadata.timestamp) formattedResponse += `Timestamp: ${data.metadata.timestamp}`;
-    }
-    
-    return formattedResponse;
-}
-
+// Form Handling
 async function handleFormSubmit(e) {
     e.preventDefault();
-    console.log('Form submission started');
     
     if (isLoading) {
         console.log('Already loading, submission blocked');
         return;
     }
- 
+
     const inputText = speciesInput.value.trim();
-    console.log('Input text:', inputText);
-    
     if (!inputText) {
-        const errorMessage = 'Please enter ' + (currentMode === 'data' ? 'an analysis query' : 'a species name');
-        console.log('Empty input error:', errorMessage);
-        showError(errorMessage);
+        showError('Please enter ' + (currentMode === 'data' ? 'an analysis query' : 'a species name'));
         return;
     }
- 
+
     let payload = {};
     let endpoint = API_ENDPOINTS[currentMode];
-    console.log('Selected endpoint:', endpoint);
- 
+
     try {
         switch(currentMode) {
             case 'data':
@@ -219,14 +248,6 @@ async function handleFormSubmit(e) {
                     throw new Error('Please select a dataset');
                 }
                 
-                if (inputText.length < 2) {
-                    throw new Error('Query must be at least 2 characters');
-                }
- 
-                if (inputText.length > 200) {
-                    throw new Error('Query must not exceed 200 characters');
-                }
- 
                 payload = {
                     query: inputText,
                     dataset: dataset,
@@ -251,14 +272,14 @@ async function handleFormSubmit(e) {
                 };
                 break;
         }
-        
-        console.log('Request payload:', payload);
+
         isLoading = true;
+        DebugAPI.updateState('isLoading', true);
         submitButton.disabled = true;
+        
         addMessage(inputText, true);
         addMessage('Loading...', false);
- 
-        console.log('Sending request to:', endpoint);
+
         const response = await fetch(endpoint, {
             method: 'POST',
             headers: {
@@ -267,83 +288,66 @@ async function handleFormSubmit(e) {
             },
             body: JSON.stringify(payload),
         });
-        
-        console.log('Response status:', response.status);
-        console.log('Response headers:', Object.fromEntries(response.headers));
- 
-        // Log the raw response
+
         const responseText = await response.text();
-        console.log('Raw response:', responseText);
-        
-        // Try parsing the response
-        let result;
-        try {
-            result = JSON.parse(responseText);
-            console.log('Parsed response:', result);
-        } catch (error) {
-            console.error('Failed to parse response:', error);
-            throw new Error(`Invalid response format: ${error.message}`);
-        }
- 
+        let result = JSON.parse(responseText);
+
         if (response.ok) {
-            // Remove loading message before adding the response
             const loadingMessage = messagesContainer.querySelector('.message:last-child');
-            if (loadingMessage && loadingMessage.textContent === 'Loading...') {
+            if (loadingMessage?.textContent === 'Loading...') {
                 messagesContainer.removeChild(loadingMessage);
             }
- 
+
             let formatted = 'No content';
             if (currentMode === 'summary') {
-                if (result.summary) {
-                    formatted = result.summary;
-                } else if (result.content && result.content.length > 0) {
-                    formatted = result.content.map(item => 
-                        `Title: ${item.title}\nURL: ${item.url}\nSnippet: ${item.snippet}`
-                    ).join('\n\n');
-                }
+                formatted = result.summary || (result.content || [])
+                    .map(item => `Title: ${item.title}\nURL: ${item.url}\nSnippet: ${item.snippet}`)
+                    .join('\n\n');
             } else if (currentMode === 'data') {
-                if (result.analysis) {
-                    formatted = result.analysis;
-                    console.log('Analysis received:', formatted);
-                } else {
-                    console.log('No analysis in response');
-                    formatted = 'No analysis results available';
-                }
+                formatted = result.analysis || 'No analysis results available';
             } else {
                 formatted = result;
             }
- 
-            console.log('Adding formatted response to UI:', formatted);
+
             addMessage(formatted, false);
+            DebugAPI.updateState('lastResponse', result);
         } else {
             throw new Error(result.detail || result.message || 'Server returned an error');
         }
     } catch (error) {
         console.error('Error during submission:', error);
-        // Remove loading message before showing error
         const loadingMessage = messagesContainer.querySelector('.message:last-child');
-        if (loadingMessage && loadingMessage.textContent === 'Loading...') {
+        if (loadingMessage?.textContent === 'Loading...') {
             messagesContainer.removeChild(loadingMessage);
         }
         showError(error.message || 'Failed to submit the query');
     } finally {
         isLoading = false;
+        DebugAPI.updateState('isLoading', false);
         submitButton.disabled = false;
-        console.log('Form submission completed');
+        speciesInput.value = '';
     }
- 
-    speciesInput.value = '';
- }
-// Theme toggle
-const themeToggle = document.getElementById('themeToggle');
-if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-        document.documentElement.classList.toggle('dark');
-        themeToggle.textContent = document.documentElement.classList.contains('dark') ? '🌙' : '☀️';
-    });
 }
 
-// Event Listeners
+// Category Filtering
+document.getElementById('promptFolder')?.addEventListener('change', (e) => {
+    filterTemplates('promptTemplate', e.target.value);
+});
+
+document.getElementById('templateCategory')?.addEventListener('change', (e) => {
+    filterTemplates('analysisPromptTemplate', e.target.value);
+});
+
+// Template Selection
+summarySelect?.addEventListener('change', () => {
+    handleTemplateSelection('promptTemplate');
+});
+
+analysisSelect?.addEventListener('change', () => {
+    handleTemplateSelection('analysisPromptTemplate');
+});
+
+// Mode Selection
 modeButtons.forEach(button => {
     button.addEventListener('click', () => {
         const mode = button.getAttribute('data-mode');
@@ -357,14 +361,29 @@ modeButtons.forEach(button => {
     });
 });
 
-document.getElementById('promptFolder')?.addEventListener('change', filterPromptTemplates);
-document.getElementById('analysisFolder')?.addEventListener('change', filterAnalysisTemplates);
-inputForm.addEventListener('submit', handleFormSubmit);
+// Theme Toggle
+const themeToggle = document.getElementById('themeToggle');
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+        themeToggle.textContent = document.documentElement.classList.contains('dark') ? '🌙' : '☀️';
+    });
+}
 
-// Initialize on page load
+// Form Submit
+inputForm?.addEventListener('submit', handleFormSubmit);
+
+// Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Application initialized');
-    loadPromptTemplates();
-    loadDatasets();
-    updateFiltersVisibility(currentMode);
+    console.log('Application initializing...');
+    Promise.all([
+        fetchLangfuseTemplates(),
+        loadDatasets()
+    ]).then(() => {
+        updateFiltersVisibility(currentMode);
+        console.log('Application initialized successfully');
+    }).catch(error => {
+        console.error('Initialization error:', error);
+        showError('Failed to initialize application');
+    });
 });

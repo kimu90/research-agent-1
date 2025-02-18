@@ -16,18 +16,20 @@
    
    <div class="container">
        <div class="sidebar">
+           <!-- Mode Selection -->
            <div class="mode-section">
                <button class="mode-button active" data-mode="summary">Species Summary</button>
                <button class="mode-button" data-mode="data">Data Analysis</button>
                <button class="mode-button" data-mode="report">Generate Report</button>
            </div>
 
+           <!-- Summary Options -->
            <div class="sidebar-section active" id="summaryFilters">
                <h3>Summary Options</h3>
                <div class="filter-group">
-                   <label for="promptFolder">Folder</label>
+                   <label for="promptFolder">Template Category</label>
                    <select id="promptFolder">
-                       <option value="">All Folders</option>
+                       <option value="">All Categories</option>
                    </select>
                </div>
                <div class="filter-group">
@@ -35,11 +37,15 @@
                    <select id="promptTemplate">
                        <option value="">Select Template...</option>
                    </select>
+                   <div class="description" id="templateDescription"></div>
                </div>
            </div>
 
+           <!-- Analysis Options -->
            <div class="sidebar-section" id="dataFilters">
                <h3>Analysis Options</h3>
+               
+               <!-- Dataset Selection -->
                <div class="filter-group">
                    <label for="dataset">Dataset</label>
                    <select id="dataset">
@@ -47,12 +53,15 @@
                    </select>
                    <div class="description" id="datasetDescription"></div>
                </div>
+               
+               <!-- Template Selection -->
                <div class="filter-group">
-                   <label for="analysisFolder">Analysis Folder</label>
-                   <select id="analysisFolder">
-                       <option value="">All Folders</option>
+                   <label for="templateCategory">Template Category</label>
+                   <select id="templateCategory">
+                       <option value="">All Categories</option>
                    </select>
                </div>
+               
                <div class="filter-group">
                    <label for="analysisPromptTemplate">Analysis Template</label>
                    <select id="analysisPromptTemplate">
@@ -62,6 +71,7 @@
                </div>
            </div>
 
+           <!-- Report Options -->
            <div class="sidebar-section" id="reportFilters">
                <h3>Report Options</h3>
                <div class="filter-group">
@@ -76,6 +86,7 @@
            </div>
        </div>
 
+       <!-- Main Content Area -->
        <div class="main-content">
            <div class="chat-container">
                <div class="messages" id="messages" role="log" aria-live="polite"></div>
@@ -96,6 +107,5 @@
    </div>
 
    <script src="/static/js/main.js" defer></script>
-   
 </body>
 </html>

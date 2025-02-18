@@ -1,0 +1,653 @@
+2025-02-18 08:56:36,437 - controllers.prompts_router - INFO - [prompts_router.py:88] - Retrieving prompts from Langfuse. Category: None, Version: None
+2025-02-18 08:56:36,501 - controllers.prompts_router - ERROR - [prompts_router.py:138] - Error retrieving prompts from Langfuse: 'Langfuse' object has no attribute 'get_prompts'
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 98, in get_prompts
+    all_prompts = langfuse.get_prompts()
+                  ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Langfuse' object has no attribute 'get_prompts'
+2025-02-18 08:59:42,606 - controllers.prompts_router - INFO - [prompts_router.py:88] - Retrieving prompts from Langfuse. Category: None, Version: None
+2025-02-18 08:59:42,696 - controllers.prompts_router - ERROR - [prompts_router.py:138] - Error retrieving prompts from Langfuse: 'Langfuse' object has no attribute 'get_prompts'
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 98, in get_prompts
+    all_prompts = langfuse.get_prompts()
+                  ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Langfuse' object has no attribute 'get_prompts'
+2025-02-18 10:12:01,142 - controllers.prompts_router - INFO - [prompts_router.py:82] - [req_1739873521] Starting GET /prompts request. Category filter: None
+2025-02-18 10:12:01,143 - controllers.prompts_router - DEBUG - [prompts_router.py:86] - [req_1739873521] Initializing Langfuse client
+2025-02-18 10:12:01,216 - controllers.prompts_router - DEBUG - [prompts_router.py:88] - [req_1739873521] Langfuse client initialized successfully
+2025-02-18 10:12:01,217 - controllers.prompts_router - DEBUG - [prompts_router.py:98] - [req_1739873521] Attempting to fetch 5 prompts: ['general-analysis', 'detailed-analysis', 'comparative-analysis', 'data-analysis', 'species-analysis']
+2025-02-18 10:12:01,218 - controllers.prompts_router - DEBUG - [prompts_router.py:107] - [req_1739873521] Fetching prompt: general-analysis
+2025-02-18 10:12:01,644 - controllers.prompts_router - ERROR - [prompts_router.py:143] - [req_1739873521] Error fetching prompt general-analysis: status_code: 404, body: {'message': "Prompt not found: 'general-analysis' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 110, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'general-analysis' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:12:01,649 - controllers.prompts_router - DEBUG - [prompts_router.py:107] - [req_1739873521] Fetching prompt: detailed-analysis
+2025-02-18 10:12:02,274 - controllers.prompts_router - ERROR - [prompts_router.py:143] - [req_1739873521] Error fetching prompt detailed-analysis: status_code: 404, body: {'message': "Prompt not found: 'detailed-analysis' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 110, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'detailed-analysis' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:12:02,275 - controllers.prompts_router - DEBUG - [prompts_router.py:107] - [req_1739873521] Fetching prompt: comparative-analysis
+2025-02-18 10:12:02,917 - controllers.prompts_router - ERROR - [prompts_router.py:143] - [req_1739873521] Error fetching prompt comparative-analysis: status_code: 404, body: {'message': "Prompt not found: 'comparative-analysis' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 110, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'comparative-analysis' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:12:02,918 - controllers.prompts_router - DEBUG - [prompts_router.py:107] - [req_1739873521] Fetching prompt: data-analysis
+2025-02-18 10:12:03,897 - controllers.prompts_router - ERROR - [prompts_router.py:143] - [req_1739873521] Error fetching prompt data-analysis: status_code: 404, body: {'message': "Prompt not found: 'data-analysis' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 110, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'data-analysis' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:12:03,899 - controllers.prompts_router - DEBUG - [prompts_router.py:107] - [req_1739873521] Fetching prompt: species-analysis
+2025-02-18 10:12:04,011 - controllers.prompts_router - ERROR - [prompts_router.py:143] - [req_1739873521] Error fetching prompt species-analysis: status_code: 404, body: {'message': "Prompt not found: 'species-analysis' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 110, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'species-analysis' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:12:04,012 - controllers.prompts_router - INFO - [prompts_router.py:148] - [req_1739873521] Fetch summary:
+2025-02-18 10:12:04,016 - controllers.prompts_router - INFO - [prompts_router.py:149] - [req_1739873521] - Successfully retrieved: 0 prompts
+2025-02-18 10:12:04,016 - controllers.prompts_router - INFO - [prompts_router.py:150] - [req_1739873521] - Failed to retrieve: 5 prompts
+2025-02-18 10:12:04,016 - controllers.prompts_router - INFO - [prompts_router.py:152] - [req_1739873521] - Failed prompts: ['general-analysis', 'detailed-analysis', 'comparative-analysis', 'data-analysis', 'species-analysis']
+2025-02-18 10:12:04,017 - controllers.prompts_router - INFO - [prompts_router.py:153] - [req_1739873521] - Categories found: []
+2025-02-18 10:12:04,017 - controllers.prompts_router - INFO - [prompts_router.py:160] - [req_1739873521] Successfully completed request
+2025-02-18 10:20:25,934 - controllers.prompts_router - INFO - [prompts_router.py:82] - [req_1739874025] Starting GET /prompts request. Category filter: None
+2025-02-18 10:20:25,935 - controllers.prompts_router - DEBUG - [prompts_router.py:86] - [req_1739874025] Initializing Langfuse client
+2025-02-18 10:20:26,033 - controllers.prompts_router - DEBUG - [prompts_router.py:88] - [req_1739874025] Langfuse client initialized successfully
+2025-02-18 10:20:26,034 - controllers.prompts_router - DEBUG - [prompts_router.py:97] - [req_1739874025] Attempting to fetch 4 prompts: ['general', 'detailed', 'comparative', 'species']
+2025-02-18 10:20:26,034 - controllers.prompts_router - DEBUG - [prompts_router.py:106] - [req_1739874025] Fetching prompt: general
+2025-02-18 10:20:26,394 - controllers.prompts_router - ERROR - [prompts_router.py:142] - [req_1739874025] Error fetching prompt general: status_code: 404, body: {'message': "Prompt not found: 'general' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 109, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'general' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:20:26,400 - controllers.prompts_router - DEBUG - [prompts_router.py:106] - [req_1739874025] Fetching prompt: detailed
+2025-02-18 10:20:26,478 - controllers.prompts_router - ERROR - [prompts_router.py:142] - [req_1739874025] Error fetching prompt detailed: status_code: 404, body: {'message': "Prompt not found: 'detailed' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 109, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'detailed' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:20:26,481 - controllers.prompts_router - DEBUG - [prompts_router.py:106] - [req_1739874025] Fetching prompt: comparative
+2025-02-18 10:20:27,023 - controllers.prompts_router - ERROR - [prompts_router.py:142] - [req_1739874025] Error fetching prompt comparative: status_code: 404, body: {'message': "Prompt not found: 'comparative' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 109, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'comparative' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:20:27,024 - controllers.prompts_router - DEBUG - [prompts_router.py:106] - [req_1739874025] Fetching prompt: species
+2025-02-18 10:20:27,992 - controllers.prompts_router - ERROR - [prompts_router.py:142] - [req_1739874025] Error fetching prompt species: status_code: 404, body: {'message': "Prompt not found: 'species' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 109, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'species' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:20:27,993 - controllers.prompts_router - INFO - [prompts_router.py:147] - [req_1739874025] Fetch summary:
+2025-02-18 10:20:27,993 - controllers.prompts_router - INFO - [prompts_router.py:148] - [req_1739874025] - Successfully retrieved: 0 prompts
+2025-02-18 10:20:27,993 - controllers.prompts_router - INFO - [prompts_router.py:149] - [req_1739874025] - Failed to retrieve: 4 prompts
+2025-02-18 10:20:27,993 - controllers.prompts_router - INFO - [prompts_router.py:151] - [req_1739874025] - Failed prompts: ['general', 'detailed', 'comparative', 'species']
+2025-02-18 10:20:27,994 - controllers.prompts_router - INFO - [prompts_router.py:152] - [req_1739874025] - Categories found: []
+2025-02-18 10:20:27,994 - controllers.prompts_router - INFO - [prompts_router.py:159] - [req_1739874025] Successfully completed request
+2025-02-18 10:23:25,751 - controllers.prompts_router - INFO - [prompts_router.py:82] - [req_1739874205] Starting GET /prompts request. Category filter: None
+2025-02-18 10:23:25,751 - controllers.prompts_router - DEBUG - [prompts_router.py:86] - [req_1739874205] Initializing Langfuse client
+2025-02-18 10:23:25,836 - controllers.prompts_router - DEBUG - [prompts_router.py:88] - [req_1739874205] Langfuse client initialized successfully
+2025-02-18 10:23:25,836 - controllers.prompts_router - DEBUG - [prompts_router.py:96] - [req_1739874205] Attempting to fetch 3 prompts: ['general', 'detailed', 'comparative']
+2025-02-18 10:23:25,837 - controllers.prompts_router - DEBUG - [prompts_router.py:105] - [req_1739874205] Fetching prompt: general
+2025-02-18 10:23:26,291 - controllers.prompts_router - ERROR - [prompts_router.py:141] - [req_1739874205] Error fetching prompt general: status_code: 404, body: {'message': "Prompt not found: 'general' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 108, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'general' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:23:26,294 - controllers.prompts_router - DEBUG - [prompts_router.py:105] - [req_1739874205] Fetching prompt: detailed
+2025-02-18 10:23:27,305 - controllers.prompts_router - ERROR - [prompts_router.py:141] - [req_1739874205] Error fetching prompt detailed: status_code: 404, body: {'message': "Prompt not found: 'detailed' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 108, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'detailed' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:23:27,307 - controllers.prompts_router - DEBUG - [prompts_router.py:105] - [req_1739874205] Fetching prompt: comparative
+2025-02-18 10:23:27,500 - controllers.prompts_router - ERROR - [prompts_router.py:141] - [req_1739874205] Error fetching prompt comparative: status_code: 404, body: {'message': "Prompt not found: 'comparative' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 108, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'comparative' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:23:27,502 - controllers.prompts_router - INFO - [prompts_router.py:146] - [req_1739874205] Fetch summary:
+2025-02-18 10:23:27,503 - controllers.prompts_router - INFO - [prompts_router.py:147] - [req_1739874205] - Successfully retrieved: 0 prompts
+2025-02-18 10:23:27,503 - controllers.prompts_router - INFO - [prompts_router.py:148] - [req_1739874205] - Failed to retrieve: 3 prompts
+2025-02-18 10:23:27,503 - controllers.prompts_router - INFO - [prompts_router.py:150] - [req_1739874205] - Failed prompts: ['general', 'detailed', 'comparative']
+2025-02-18 10:23:27,503 - controllers.prompts_router - INFO - [prompts_router.py:151] - [req_1739874205] - Categories found: []
+2025-02-18 10:23:27,503 - controllers.prompts_router - INFO - [prompts_router.py:158] - [req_1739874205] Successfully completed request
+2025-02-18 10:24:55,108 - controllers.prompts_router - INFO - [prompts_router.py:82] - [req_1739874295] Starting GET /prompts request. Category filter: None
+2025-02-18 10:24:55,109 - controllers.prompts_router - DEBUG - [prompts_router.py:86] - [req_1739874295] Initializing Langfuse client
+2025-02-18 10:24:55,174 - controllers.prompts_router - DEBUG - [prompts_router.py:88] - [req_1739874295] Langfuse client initialized successfully
+2025-02-18 10:24:55,175 - controllers.prompts_router - DEBUG - [prompts_router.py:96] - [req_1739874295] Attempting to fetch 3 prompts: ['general', 'detailed', 'comparative']
+2025-02-18 10:24:55,176 - controllers.prompts_router - DEBUG - [prompts_router.py:105] - [req_1739874295] Fetching prompt: general
+2025-02-18 10:24:56,122 - controllers.prompts_router - ERROR - [prompts_router.py:141] - [req_1739874295] Error fetching prompt general: status_code: 404, body: {'message': "Prompt not found: 'general' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 108, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'general' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:24:56,125 - controllers.prompts_router - DEBUG - [prompts_router.py:105] - [req_1739874295] Fetching prompt: detailed
+2025-02-18 10:24:56,650 - controllers.prompts_router - ERROR - [prompts_router.py:141] - [req_1739874295] Error fetching prompt detailed: status_code: 404, body: {'message': "Prompt not found: 'detailed' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 108, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'detailed' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:24:56,651 - controllers.prompts_router - DEBUG - [prompts_router.py:105] - [req_1739874295] Fetching prompt: comparative
+2025-02-18 10:24:56,877 - controllers.prompts_router - ERROR - [prompts_router.py:141] - [req_1739874295] Error fetching prompt comparative: status_code: 404, body: {'message': "Prompt not found: 'comparative' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 108, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'comparative' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:24:56,878 - controllers.prompts_router - INFO - [prompts_router.py:146] - [req_1739874295] Fetch summary:
+2025-02-18 10:24:56,878 - controllers.prompts_router - INFO - [prompts_router.py:147] - [req_1739874295] - Successfully retrieved: 0 prompts
+2025-02-18 10:24:56,878 - controllers.prompts_router - INFO - [prompts_router.py:148] - [req_1739874295] - Failed to retrieve: 3 prompts
+2025-02-18 10:24:56,878 - controllers.prompts_router - INFO - [prompts_router.py:150] - [req_1739874295] - Failed prompts: ['general', 'detailed', 'comparative']
+2025-02-18 10:24:56,878 - controllers.prompts_router - INFO - [prompts_router.py:151] - [req_1739874295] - Categories found: []
+2025-02-18 10:24:56,878 - controllers.prompts_router - INFO - [prompts_router.py:158] - [req_1739874295] Successfully completed request
+2025-02-18 10:29:51,842 - controllers.prompts_router - INFO - [prompts_router.py:82] - [req_1739874591] Starting GET /prompts request. Category filter: None
+2025-02-18 10:29:51,842 - controllers.prompts_router - DEBUG - [prompts_router.py:86] - [req_1739874591] Initializing Langfuse client
+2025-02-18 10:29:51,907 - controllers.prompts_router - DEBUG - [prompts_router.py:88] - [req_1739874591] Langfuse client initialized successfully
+2025-02-18 10:29:51,908 - controllers.prompts_router - DEBUG - [prompts_router.py:96] - [req_1739874591] Attempting to fetch 3 prompts: ['general', 'detailed', 'comparative']
+2025-02-18 10:29:51,908 - controllers.prompts_router - DEBUG - [prompts_router.py:105] - [req_1739874591] Fetching prompt: general
+2025-02-18 10:29:52,652 - controllers.prompts_router - ERROR - [prompts_router.py:141] - [req_1739874591] Error fetching prompt general: status_code: 404, body: {'message': "Prompt not found: 'general' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 108, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'general' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:29:52,654 - controllers.prompts_router - DEBUG - [prompts_router.py:105] - [req_1739874591] Fetching prompt: detailed
+2025-02-18 10:29:53,416 - controllers.prompts_router - ERROR - [prompts_router.py:141] - [req_1739874591] Error fetching prompt detailed: status_code: 404, body: {'message': "Prompt not found: 'detailed' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 108, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'detailed' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:29:53,417 - controllers.prompts_router - DEBUG - [prompts_router.py:105] - [req_1739874591] Fetching prompt: comparative
+2025-02-18 10:29:53,702 - controllers.prompts_router - ERROR - [prompts_router.py:141] - [req_1739874591] Error fetching prompt comparative: status_code: 404, body: {'message': "Prompt not found: 'comparative' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 108, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'comparative' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:29:53,703 - controllers.prompts_router - INFO - [prompts_router.py:146] - [req_1739874591] Fetch summary:
+2025-02-18 10:29:53,703 - controllers.prompts_router - INFO - [prompts_router.py:147] - [req_1739874591] - Successfully retrieved: 0 prompts
+2025-02-18 10:29:53,703 - controllers.prompts_router - INFO - [prompts_router.py:148] - [req_1739874591] - Failed to retrieve: 3 prompts
+2025-02-18 10:29:53,703 - controllers.prompts_router - INFO - [prompts_router.py:150] - [req_1739874591] - Failed prompts: ['general', 'detailed', 'comparative']
+2025-02-18 10:29:53,703 - controllers.prompts_router - INFO - [prompts_router.py:151] - [req_1739874591] - Categories found: []
+2025-02-18 10:29:53,703 - controllers.prompts_router - INFO - [prompts_router.py:158] - [req_1739874591] Successfully completed request
+2025-02-18 10:34:26,569 - controllers.prompts_router - INFO - [prompts_router.py:81] - [req_1739874866] Starting GET /prompts request
+2025-02-18 10:34:26,569 - controllers.prompts_router - DEBUG - [prompts_router.py:85] - [req_1739874866] Initializing Langfuse client
+2025-02-18 10:34:26,630 - controllers.prompts_router - DEBUG - [prompts_router.py:87] - [req_1739874866] Langfuse client initialized successfully
+2025-02-18 10:34:26,630 - controllers.prompts_router - DEBUG - [prompts_router.py:96] - [req_1739874866] Attempting to fetch 4 prompts: ['general', 'detailed', 'comparative', 'species']
+2025-02-18 10:34:26,631 - controllers.prompts_router - DEBUG - [prompts_router.py:105] - [req_1739874866] Fetching prompt: general
+2025-02-18 10:34:27,507 - controllers.prompts_router - ERROR - [prompts_router.py:136] - [req_1739874866] Error fetching prompt general: status_code: 404, body: {'message': "Prompt not found: 'general' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 108, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'general' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:34:27,510 - controllers.prompts_router - DEBUG - [prompts_router.py:105] - [req_1739874866] Fetching prompt: detailed
+2025-02-18 10:34:28,315 - controllers.prompts_router - ERROR - [prompts_router.py:136] - [req_1739874866] Error fetching prompt detailed: status_code: 404, body: {'message': "Prompt not found: 'detailed' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 108, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'detailed' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:34:28,317 - controllers.prompts_router - DEBUG - [prompts_router.py:105] - [req_1739874866] Fetching prompt: comparative
+2025-02-18 10:34:28,910 - controllers.prompts_router - ERROR - [prompts_router.py:136] - [req_1739874866] Error fetching prompt comparative: status_code: 404, body: {'message': "Prompt not found: 'comparative' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 108, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'comparative' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:34:28,913 - controllers.prompts_router - DEBUG - [prompts_router.py:105] - [req_1739874866] Fetching prompt: species
+2025-02-18 10:34:28,974 - controllers.prompts_router - ERROR - [prompts_router.py:136] - [req_1739874866] Error fetching prompt species: status_code: 404, body: {'message': "Prompt not found: 'species' with label 'production'", 'error': 'LangfuseNotFoundError'}
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 108, in get_prompts
+    prompt = langfuse.get_prompt(prompt_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1179, in get_prompt
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1143, in get_prompt
+    return self._fetch_prompt_and_update_cache(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1255, in _fetch_prompt_and_update_cache
+    raise e
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1242, in _fetch_prompt_and_update_cache
+    prompt_response = fetch_prompts()
+                      ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/backoff/_sync.py", line 105, in retry
+    ret = target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/client.py", line 1231, in fetch_prompts
+    return self.client.prompts.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/langfuse/api/resources/prompts/client.py", line 101, in get
+    raise NotFoundError(
+langfuse.api.resources.commons.errors.not_found_error.NotFoundError: status_code: 404, body: {'message': "Prompt not found: 'species' with label 'production'", 'error': 'LangfuseNotFoundError'}
+2025-02-18 10:34:28,977 - controllers.prompts_router - INFO - [prompts_router.py:141] - [req_1739874866] Fetch summary:
+2025-02-18 10:34:28,977 - controllers.prompts_router - INFO - [prompts_router.py:142] - [req_1739874866] - Successfully retrieved: 0 prompts
+2025-02-18 10:34:28,978 - controllers.prompts_router - INFO - [prompts_router.py:143] - [req_1739874866] - Failed to retrieve: 4 prompts
+2025-02-18 10:34:28,978 - controllers.prompts_router - INFO - [prompts_router.py:145] - [req_1739874866] - Failed prompts: ['general', 'detailed', 'comparative', 'species']
+2025-02-18 10:34:28,979 - controllers.prompts_router - INFO - [prompts_router.py:146] - [req_1739874866] - Categories found: []
+2025-02-18 10:34:28,980 - controllers.prompts_router - INFO - [prompts_router.py:153] - [req_1739874866] Successfully completed request
+2025-02-18 10:38:44,632 - controllers.prompts_router - INFO - [prompts_router.py:81] - [req_1739875124] Starting GET /prompts request
+2025-02-18 10:38:44,632 - controllers.prompts_router - ERROR - [prompts_router.py:136] - [req_1739875124] Error retrieving prompts: name 'PROMPT_CONFIGS' is not defined
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 88, in get_prompts
+    for name, config in PROMPT_CONFIGS.items():
+                        ^^^^^^^^^^^^^^
+NameError: name 'PROMPT_CONFIGS' is not defined
+2025-02-18 10:40:10,443 - controllers.prompts_router - INFO - [prompts_router.py:150] - [req_1739875210] Starting GET /prompts request
+2025-02-18 10:40:10,444 - controllers.prompts_router - ERROR - [prompts_router.py:205] - [req_1739875210] Error retrieving prompts: 1 validation error for PromptTemplate
+version
+  Field required [type=missing, input_value={'name': 'general', 'cont...general', 'detailed']}}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.10/v/missing
+Traceback (most recent call last):
+  File "/app/controllers/prompts_router.py", line 159, in get_prompts
+    template = PromptTemplate(
+               ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pydantic/main.py", line 214, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PromptTemplate
+version
+  Field required [type=missing, input_value={'name': 'general', 'cont...general', 'detailed']}}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.10/v/missing
+2025-02-18 10:41:59,056 - controllers.prompts_router - INFO - [prompts_router.py:151] - [req_1739875319] Starting GET /prompts request
+2025-02-18 10:41:59,058 - controllers.prompts_router - INFO - [prompts_router.py:181] - [req_1739875319] Prompt retrieval summary:
+2025-02-18 10:41:59,058 - controllers.prompts_router - INFO - [prompts_router.py:182] - - Total prompts: 4
+2025-02-18 10:41:59,058 - controllers.prompts_router - INFO - [prompts_router.py:183] - - Categories found: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-18 10:41:59,133 - controllers.prompts_router - WARNING - [prompts_router.py:193] - Langfuse tracking failed: 'Langfuse' object has no attribute 'track_prompt_retrieval'
+2025-02-18 10:41:59,134 - controllers.prompts_router - INFO - [prompts_router.py:201] - [req_1739875319] Prompt retrieval completed successfully

@@ -39,27 +39,64 @@ PROMPT_CONFIGS = {
         Consider the key patterns, trends, and insights that emerge from the data. 
         Provide a comprehensive analysis that highlights significant findings.""",
         "config": {"model": "gpt-4", "temperature": 0.7},
+        "labels": ["analysis", "general", "basic"],
         "variants": {
-            "concise": "Provide a brief analysis of {{dataset}} focusing on {{focus_area}}",
-            "detailed": "Perform an in-depth analysis of {{dataset}}, examining {{focus_area}}"
+            "concise": {
+                "template": "Provide a brief analysis of {{dataset}} focusing on {{focus_area}}",
+                "labels": ["analysis", "general", "concise"]
+            },
+            "detailed": {
+                "template": "Perform an in-depth analysis of {{dataset}}, examining {{focus_area}}",
+                "labels": ["analysis", "general", "detailed"]
+            }
         }
     },
     "detailed": {
         "template": """Perform a detailed analysis of {{dataset}} focusing on {{metrics}}. 
         Include statistical measures, outliers, and relationships between variables.""",
         "config": {"model": "gpt-4", "temperature": 0.5},
+        "labels": ["analysis", "detailed", "statistical"],
         "variants": {
-            "technical": "Technical analysis of {{dataset}} with focus on {{metrics}}",
-            "business": "Business-focused analysis of {{dataset}} examining {{metrics}}"
+            "technical": {
+                "template": "Technical analysis of {{dataset}} with focus on {{metrics}}",
+                "labels": ["analysis", "detailed", "technical"]
+            },
+            "business": {
+                "template": "Business-focused analysis of {{dataset}} examining {{metrics}}",
+                "labels": ["analysis", "detailed", "business"]
+            }
         }
     },
     "comparative": {
         "template": """Compare the following aspects of {{dataset}}: {{aspects}}. 
         Analyze similarities, differences, and relationships.""",
         "config": {"model": "gpt-4", "temperature": 0.3},
+        "labels": ["analysis", "comparative"],
         "variants": {
-            "simple": "Basic comparison of {{aspects}} in {{dataset}}",
-            "complex": "Detailed comparison with statistical analysis of {{aspects}} in {{dataset}}"
+            "simple": {
+                "template": "Basic comparison of {{aspects}} in {{dataset}}",
+                "labels": ["analysis", "comparative", "simple"]
+            },
+            "complex": {
+                "template": "Detailed comparison with statistical analysis of {{aspects}} in {{dataset}}",
+                "labels": ["analysis", "comparative", "complex"]
+            }
+        }
+    },
+    "species": {
+        "template": """Analyze the species data focusing on {{focus_area}}. 
+        Consider biological characteristics, habitat preferences, and population trends.""",
+        "config": {"model": "gpt-4", "temperature": 0.5},
+        "labels": ["analysis", "species", "biological"],
+        "variants": {
+            "ecological": {
+                "template": "Analyze ecological aspects of species in {{dataset}}",
+                "labels": ["analysis", "species", "ecological"]
+            },
+            "conservation": {
+                "template": "Analyze conservation status and threats in {{dataset}}",
+                "labels": ["analysis", "species", "conservation"]
+            }
         }
     }
 }
@@ -95,6 +132,75 @@ def setup_logging():
 
 logger = setup_logging()
 
+# Add prompt configurations with clear categories
+PROMPT_CONFIGS = {
+    "general": {
+        "template": """Analyze the dataset with a focus on {{focus_area}}. 
+        Consider the key patterns, trends, and insights that emerge from the data. 
+        Provide a comprehensive analysis that highlights significant findings.""",
+        "config": {"model": "gpt-4", "temperature": 0.7},
+        "labels": ["analysis", "general", "basic"],
+        "variants": {
+            "concise": {
+                "template": "Provide a brief analysis of {{dataset}} focusing on {{focus_area}}",
+                "labels": ["analysis", "general", "concise"]
+            },
+            "detailed": {
+                "template": "Perform an in-depth analysis of {{dataset}}, examining {{focus_area}}",
+                "labels": ["analysis", "general", "detailed"]
+            }
+        }
+    },
+    "detailed": {
+        "template": """Perform a detailed analysis of {{dataset}} focusing on {{metrics}}. 
+        Include statistical measures, outliers, and relationships between variables.""",
+        "config": {"model": "gpt-4", "temperature": 0.5},
+        "labels": ["analysis", "detailed", "statistical"],
+        "variants": {
+            "technical": {
+                "template": "Technical analysis of {{dataset}} with focus on {{metrics}}",
+                "labels": ["analysis", "detailed", "technical"]
+            },
+            "business": {
+                "template": "Business-focused analysis of {{dataset}} examining {{metrics}}",
+                "labels": ["analysis", "detailed", "business"]
+            }
+        }
+    },
+    "comparative": {
+        "template": """Compare the following aspects of {{dataset}}: {{aspects}}. 
+        Analyze similarities, differences, and relationships.""",
+        "config": {"model": "gpt-4", "temperature": 0.3},
+        "labels": ["analysis", "comparative"],
+        "variants": {
+            "simple": {
+                "template": "Basic comparison of {{aspects}} in {{dataset}}",
+                "labels": ["analysis", "comparative", "simple"]
+            },
+            "complex": {
+                "template": "Detailed comparison with statistical analysis of {{aspects}} in {{dataset}}",
+                "labels": ["analysis", "comparative", "complex"]
+            }
+        }
+    },
+    "species": {
+        "template": """Analyze the species data focusing on {{focus_area}}. 
+        Consider biological characteristics, habitat preferences, and population trends.""",
+        "config": {"model": "gpt-4", "temperature": 0.5},
+        "labels": ["analysis", "species", "biological"],
+        "variants": {
+            "ecological": {
+                "template": "Analyze ecological aspects of species in {{dataset}}",
+                "labels": ["analysis", "species", "ecological"]
+            },
+            "conservation": {
+                "template": "Analyze conservation status and threats in {{dataset}}",
+                "labels": ["analysis", "species", "conservation"]
+            }
+        }
+    }
+}
+
 class LangfuseRunner:
     def __init__(
         self,
@@ -109,6 +215,8 @@ class LangfuseRunner:
         self.secret_key = secret_key or os.getenv('LANGFUSE_SECRET_KEY')
         self.host = host or os.getenv('LANGFUSE_HOST')
         self.eval_model = eval_model
+        self._all_labels = set()  # Store all unique labels
+        self.prompts = {}  # Store initialized prompts
         
         try:
             self._validate_config()
@@ -124,49 +232,55 @@ class LangfuseRunner:
             raise
 
     def _initialize_prompts(self):
-        """Initialize prompt templates in Langfuse"""
+        """Initialize prompt templates in Langfuse with enhanced label handling"""
         try:
-            self.prompts = {}
+            # Collect all unique labels first
             for analysis_type, config in PROMPT_CONFIGS.items():
-                # Create base prompt
-                prompt = self.langfuse.create_prompt(
-                    name=f"{analysis_type}-analysis",
-                    prompt=config["template"],
-                    config=config["config"],
-                    labels=["production", analysis_type]
-                )
-                self.prompts[analysis_type] = prompt
-
-                # Create variants
-                for variant_name, variant_template in config["variants"].items():
-                    self.langfuse.create_prompt(
-                        name=f"{analysis_type}-{variant_name}",
-                        prompt=variant_template,
+                self._all_labels.update(config.get("labels", []))
+                for variant_config in config.get("variants", {}).values():
+                    if isinstance(variant_config, dict):  # Check if it's a dict with labels
+                        self._all_labels.update(variant_config.get("labels", []))
+            
+            logger.info(f"Found labels: {sorted(list(self._all_labels))}")
+            
+            # Create base prompts
+            for analysis_type, config in PROMPT_CONFIGS.items():
+                try:
+                    prompt = self.langfuse.create_prompt(
+                        name=f"{analysis_type}-analysis",
+                        prompt=config["template"],
                         config=config["config"],
-                        labels=["variant", analysis_type, variant_name]
+                        labels=config.get("labels", ["analysis"])
                     )
+                    self.prompts[analysis_type] = prompt
+                    logger.debug(f"Created base prompt: {analysis_type}-analysis")
+
+                    # Create variants
+                    for variant_name, variant_config in config.get("variants", {}).items():
+                        variant_template = variant_config
+                        variant_labels = ["analysis"]
+                        
+                        if isinstance(variant_config, dict):
+                            variant_template = variant_config["template"]
+                            variant_labels.extend(variant_config.get("labels", []))
+                        
+                        self.langfuse.create_prompt(
+                            name=f"{analysis_type}-{variant_name}",
+                            prompt=variant_template,
+                            config=config["config"],
+                            labels=variant_labels
+                        )
+                        logger.debug(f"Created variant prompt: {analysis_type}-{variant_name}")
+                
+                except Exception as prompt_error:
+                    logger.error(f"Failed to create prompt for {analysis_type}: {str(prompt_error)}")
+                    continue
             
             logger.info(f"Initialized prompts for types: {list(self.prompts.keys())}")
         except Exception as e:
             error_msg = f"Failed to initialize prompts: {str(e)}"
             logger.error(error_msg, exc_info=True)
             raise
-
-    def get_prompt(self, analysis_type: str, version: str = None, variant: str = None):
-        """Get appropriate prompt based on analysis type and version"""
-        try:
-            base_prompt = self.prompts.get(analysis_type, self.prompts["general"])
-            
-            if version:
-                return self.langfuse.get_prompt_version(base_prompt.name, version)
-            elif variant:
-                variant_name = f"{analysis_type}-{variant}"
-                return self.langfuse.get_prompt(variant_name)
-            
-            return base_prompt
-        except Exception as e:
-            logger.error(f"Error getting prompt: {str(e)}")
-            return self.prompts["general"]
 
     def _validate_config(self):
         """Validate the configuration settings"""
@@ -200,6 +314,131 @@ class LangfuseRunner:
             logger.error(error_msg, exc_info=True)
             raise
 
+    def get_prompt(self, analysis_type: str, version: str = None, variant: str = None):
+        """Get appropriate prompt based on analysis type and version"""
+        try:
+            base_prompt = self.prompts.get(analysis_type, self.prompts.get("general"))
+            if not base_prompt:
+                logger.warning(f"No prompt found for {analysis_type}, using general")
+                return self.prompts.get("general")
+            
+            if version:
+                return self.langfuse.get_prompt_version(base_prompt.name, version)
+            elif variant:
+                variant_name = f"{analysis_type}-{variant}"
+                return self.langfuse.get_prompt(variant_name)
+            
+            return base_prompt
+        except Exception as e:
+            logger.error(f"Error getting prompt: {str(e)}")
+            return self.prompts.get("general")
+
+    def search_prompts(self, query: str = None, labels: List[str] = None) -> List[Dict[str, Any]]:
+        """
+        Search prompts by query string and/or labels.
+        """
+        try:
+            matching_prompts = []
+            
+            for prompt_name, prompt in self.prompts.items():
+                # Get prompt details
+                try:
+                    prompt_details = self.langfuse.get_prompt(prompt_name)
+                    if not prompt_details:
+                        continue
+                        
+                    # Check search criteria
+                    if self._matches_criteria(
+                        prompt_details.name,
+                        prompt_details.prompt,
+                        prompt_details.labels,
+                        query,
+                        labels
+                    ):
+                        matching_prompts.append({
+                            "name": prompt_details.name,
+                            "content": prompt_details.prompt,
+                            "config": prompt_details.config,
+                            "labels": prompt_details.labels,
+                            "version": prompt_details.version
+                        })
+                except Exception as prompt_error:
+                    logger.warning(f"Error fetching details for {prompt_name}: {str(prompt_error)}")
+                    continue
+            
+            return matching_prompts
+            
+        except Exception as e:
+            logger.error(f"Error searching prompts: {str(e)}")
+            return []
+
+    def _matches_criteria(self, name: str, content: str, prompt_labels: List[str], 
+                         query: str = None, labels: List[str] = None) -> bool:
+        """Check if a prompt matches search criteria"""
+        # Check query
+        if query:
+            query = query.lower()
+            if not (query in name.lower() or query in content.lower()):
+                return False
+        
+        # Check labels
+        if labels:
+            if not all(label in prompt_labels for label in labels):
+                return False
+        
+        return True
+
+    def get_available_labels(self) -> List[str]:
+        """Get all available labels"""
+        return sorted(list(self._all_labels))
+
+    def _initialize_evaluators(self):
+        """Initialize evaluators for different criteria"""
+        try:
+            llm = OpenAI(temperature=0, model=self.eval_model)
+            
+            self.evaluators = {}
+            # Initialize standard evaluators
+            for criterion, enabled in EVAL_TYPES.items():
+                if criterion != "hallucination" and enabled:
+                    self.evaluators[criterion] = load_evaluator("criteria", criteria=criterion, llm=llm)
+            
+            # Special case for hallucination
+            if EVAL_TYPES.get("hallucination"):
+                criteria = {
+                    "hallucination": "Does this submission contain information not present in the input or reference?"
+                }
+                self.evaluators["hallucination"] = LabeledCriteriaEvalChain.from_llm(
+                    llm=llm,
+                    criteria=criteria
+                )
+            
+            logger.info(f"Initialized evaluators: {list(self.evaluators.keys())}")
+        except Exception as e:
+            error_msg = f"Failed to initialize evaluators: {str(e)}"
+            logger.error(error_msg, exc_info=True)
+            raise
+
+    def _prepare_trace_data(
+        self,
+        start_time: datetime,
+        success: bool,
+        tool_name: str,
+        prompt_info: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """Prepare trace data with execution metrics and prompt information"""
+        duration = (datetime.now() - start_time).total_seconds()
+        
+        trace_data = {
+            "duration": duration,
+            "success": success,
+            "tool": tool_name,
+            "prompt": prompt_info,
+            "timestamp": datetime.now().isoformat()
+        }
+        logger.debug(f"Prepared trace data: {trace_data}")
+        print(f"Execution time: {duration:.2f} seconds")
+        return trace_data
     def _initialize_evaluators(self):
         """Initialize evaluators for different criteria"""
         try:
@@ -438,26 +677,7 @@ class LangfuseRunner:
             logger.debug("Flushing Langfuse traces")
             self.langfuse.flush()
 
-    def _prepare_trace_data(
-        self,
-        start_time: datetime,
-        success: bool,
-        tool_name: str,
-        prompt_info: Dict[str, Any]
-    ) -> Dict[str, Any]:
-        """Prepare trace data with execution metrics and prompt information"""
-        duration = (datetime.now() - start_time).total_seconds()
-        
-        trace_data = {
-            "duration": duration,
-            "success": success,
-            "tool": tool_name,
-            "prompt": prompt_info,
-            "timestamp": datetime.now().isoformat()
-        }
-        logger.debug(f"Prepared trace data: {trace_data}")
-        print(f"Execution time: {duration:.2f} seconds")
-        return trace_data
+   
 
 def create_tool_runner(
     public_key: Optional[str] = None,
