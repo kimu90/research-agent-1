@@ -1,0 +1,707 @@
+2025-02-19 14:53:21 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 14:53:23 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-19 14:53:23 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 14:53:23 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-19 14:53:23 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 14:53:23 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-19 14:53:23 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 14:53:23 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 14:53:23 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-19 14:53:23 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-19 14:53:23 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 14:53:23 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-19 14:53:25 - research_agent.research_agent - INFO - Successfully imported GoogleSerperAPIWrapper
+2025-02-19 14:53:25 - __main__ - INFO - INIT_DB is true. Running database initialization.
+2025-02-19 14:53:34 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 14:53:35 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-19 14:53:35 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 14:53:35 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-19 14:53:35 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 14:53:35 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-19 14:53:35 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 14:53:35 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 14:53:35 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-19 14:53:35 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-19 14:53:35 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 14:53:35 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-19 14:53:36 - research_agent.research_agent - INFO - Successfully imported GoogleSerperAPIWrapper
+2025-02-19 14:53:36 - LangfuseRunner - INFO - Logging system initialized
+2025-02-19 14:53:36 - LangfuseRunner - DEBUG - Debug logging enabled
+2025-02-19 14:53:36 - LangfuseRunner - INFO - Creating new LangfuseRunner instance
+2025-02-19 14:53:36 - LangfuseRunner - INFO - === Initializing LangfuseRunner ===
+2025-02-19 14:53:36 - LangfuseRunner - DEBUG - Starting configuration validation
+2025-02-19 14:53:36 - LangfuseRunner - INFO - Successfully initialized Langfuse client
+2025-02-19 14:53:36 - LangfuseRunner - INFO - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-19 14:53:36 - LangfuseRunner - INFO - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-19 14:53:36 - httpcore.connection - DEBUG - connect_tcp.started host='langfuse-server' port=3000 local_address=None timeout=20 socket_options=None
+2025-02-19 14:53:36 - httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectError(gaierror(-2, 'Name or service not known'))
+2025-02-19 14:53:36 - langfuse - ERROR - Unexpected error occurred. Please check your request and contact support: https://langfuse.com/support.
+2025-02-19 14:53:36 - LangfuseRunner - ERROR - Failed to create prompt for general: [Errno -2] Name or service not known
+2025-02-19 14:53:36 - httpcore.connection - DEBUG - connect_tcp.started host='langfuse-server' port=3000 local_address=None timeout=20 socket_options=None
+2025-02-19 14:53:36 - httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectError(gaierror(-2, 'Name or service not known'))
+2025-02-19 14:53:36 - langfuse - ERROR - Unexpected error occurred. Please check your request and contact support: https://langfuse.com/support.
+2025-02-19 14:53:36 - LangfuseRunner - ERROR - Failed to create prompt for detailed: [Errno -2] Name or service not known
+2025-02-19 14:53:36 - httpcore.connection - DEBUG - connect_tcp.started host='langfuse-server' port=3000 local_address=None timeout=20 socket_options=None
+2025-02-19 14:53:36 - httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectError(gaierror(-2, 'Name or service not known'))
+2025-02-19 14:53:36 - langfuse - ERROR - Unexpected error occurred. Please check your request and contact support: https://langfuse.com/support.
+2025-02-19 14:53:36 - LangfuseRunner - ERROR - Failed to create prompt for comparative: [Errno -2] Name or service not known
+2025-02-19 14:53:36 - httpcore.connection - DEBUG - connect_tcp.started host='langfuse-server' port=3000 local_address=None timeout=20 socket_options=None
+2025-02-19 14:53:36 - httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectError(gaierror(-2, 'Name or service not known'))
+2025-02-19 14:53:36 - langfuse - ERROR - Unexpected error occurred. Please check your request and contact support: https://langfuse.com/support.
+2025-02-19 14:53:36 - LangfuseRunner - ERROR - Failed to create prompt for species: [Errno -2] Name or service not known
+2025-02-19 14:53:36 - LangfuseRunner - INFO - Initialized prompts for types: []
+2025-02-19 14:53:36 - LangfuseRunner - INFO - Initialization complete
+2025-02-19 14:53:36 - LangfuseRunner - INFO - Creating new LangfuseRunner instance
+2025-02-19 14:53:36 - LangfuseRunner - INFO - === Initializing LangfuseRunner ===
+2025-02-19 14:53:36 - LangfuseRunner - DEBUG - Starting configuration validation
+2025-02-19 14:53:36 - LangfuseRunner - INFO - Successfully initialized Langfuse client
+2025-02-19 14:53:37 - LangfuseRunner - INFO - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-19 14:53:37 - LangfuseRunner - INFO - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-19 14:53:37 - httpcore.connection - DEBUG - connect_tcp.started host='langfuse-server' port=3000 local_address=None timeout=20 socket_options=None
+2025-02-19 14:53:37 - httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectError(gaierror(-2, 'Name or service not known'))
+2025-02-19 14:53:37 - langfuse - ERROR - Unexpected error occurred. Please check your request and contact support: https://langfuse.com/support.
+2025-02-19 14:53:37 - LangfuseRunner - ERROR - Failed to create prompt for general: [Errno -2] Name or service not known
+2025-02-19 14:53:37 - httpcore.connection - DEBUG - connect_tcp.started host='langfuse-server' port=3000 local_address=None timeout=20 socket_options=None
+2025-02-19 14:53:37 - httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectError(gaierror(-2, 'Name or service not known'))
+2025-02-19 14:53:37 - langfuse - ERROR - Unexpected error occurred. Please check your request and contact support: https://langfuse.com/support.
+2025-02-19 14:53:37 - LangfuseRunner - ERROR - Failed to create prompt for detailed: [Errno -2] Name or service not known
+2025-02-19 14:53:37 - httpcore.connection - DEBUG - connect_tcp.started host='langfuse-server' port=3000 local_address=None timeout=20 socket_options=None
+2025-02-19 14:53:37 - httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectError(gaierror(-2, 'Name or service not known'))
+2025-02-19 14:53:37 - langfuse - ERROR - Unexpected error occurred. Please check your request and contact support: https://langfuse.com/support.
+2025-02-19 14:53:37 - LangfuseRunner - ERROR - Failed to create prompt for comparative: [Errno -2] Name or service not known
+2025-02-19 14:53:37 - httpcore.connection - DEBUG - connect_tcp.started host='langfuse-server' port=3000 local_address=None timeout=20 socket_options=None
+2025-02-19 14:53:37 - httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectError(gaierror(-2, 'Name or service not known'))
+2025-02-19 14:53:37 - langfuse - ERROR - Unexpected error occurred. Please check your request and contact support: https://langfuse.com/support.
+2025-02-19 14:53:37 - LangfuseRunner - ERROR - Failed to create prompt for species: [Errno -2] Name or service not known
+2025-02-19 14:53:37 - LangfuseRunner - INFO - Initialized prompts for types: []
+2025-02-19 14:53:37 - LangfuseRunner - INFO - Initialization complete
+2025-02-19 14:53:37 - app - ERROR - Failed to initialize Langfuse: CreateNewEntities.__init__() missing 9 required positional arguments: 'database_url', 'organization_id', 'organization_name', 'project_id', 'project_name', 'default_user_email', 'salt', 'public_key', and 'secret_key'
+2025-02-19 14:57:55 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:12:42 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:12:45 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-19 15:12:45 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:12:45 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-19 15:12:45 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:12:45 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-19 15:12:45 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:12:45 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:12:45 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-19 15:12:45 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-19 15:12:45 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:12:45 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-19 15:12:46 - research_agent.research_agent - INFO - Successfully imported GoogleSerperAPIWrapper
+2025-02-19 15:12:46 - __main__ - INFO - INIT_DB is true. Running database initialization.
+2025-02-19 15:12:53 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:12:55 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-19 15:12:55 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:12:55 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-19 15:12:55 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:12:55 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-19 15:12:55 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:12:55 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:12:55 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-19 15:12:55 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-19 15:12:55 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:12:55 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-19 15:12:56 - research_agent.research_agent - INFO - Successfully imported GoogleSerperAPIWrapper
+2025-02-19 15:12:56 - LangfuseRunner - INFO - Logging system initialized
+2025-02-19 15:12:56 - LangfuseRunner - DEBUG - Debug logging enabled
+2025-02-19 15:12:56 - LangfuseRunner - INFO - Creating new LangfuseRunner instance
+2025-02-19 15:12:56 - LangfuseRunner - INFO - === Initializing LangfuseRunner ===
+2025-02-19 15:12:56 - LangfuseRunner - DEBUG - Starting configuration validation
+2025-02-19 15:12:56 - LangfuseRunner - INFO - Successfully initialized Langfuse client
+2025-02-19 15:12:56 - LangfuseRunner - INFO - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-19 15:12:56 - LangfuseRunner - INFO - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-19 15:12:56 - httpcore.connection - DEBUG - connect_tcp.started host='langfuse-server' port=3000 local_address=None timeout=20 socket_options=None
+2025-02-19 15:12:56 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7208110fe4d0>
+2025-02-19 15:12:56 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:56 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:56 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:56 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:56 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"ulpyfex3j9g7"'), (b'Content-Length', b'583'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created base prompt: general-analysis
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"nzixcyb3pqc1"'), (b'Content-Length', b'433'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created variant prompt: general-concise
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"yfvmg2xb9wc6"'), (b'Content-Length', b'438'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created variant prompt: general-detailed
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"t6bsflh6y2eo"'), (b'Content-Length', b'528'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created base prompt: detailed-analysis
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"ni7om45w5wc0"'), (b'Content-Length', b'432'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created variant prompt: detailed-technical
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"8cbo29ytvec1"'), (b'Content-Length', b'433'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created variant prompt: detailed-business
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"m25kkwh3cadk"'), (b'Content-Length', b'488'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created base prompt: comparative-analysis
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"14rf7r5yvc3bn"'), (b'Content-Length', b'419'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created variant prompt: comparative-simple
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"tt3vkwkzfaci"'), (b'Content-Length', b'450'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created variant prompt: comparative-complex
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"171dfugevxtea"'), (b'Content-Length', b'514'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created base prompt: species-analysis
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"qdvr26mbeobt"'), (b'Content-Length', b'425'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created variant prompt: species-ecological
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"9ltai3chlybz"'), (b'Content-Length', b'431'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created variant prompt: species-conservation
+2025-02-19 15:12:59 - LangfuseRunner - INFO - Initialized prompts for types: ['general', 'detailed', 'comparative', 'species']
+2025-02-19 15:12:59 - LangfuseRunner - INFO - Initialization complete
+2025-02-19 15:12:59 - LangfuseRunner - INFO - Creating new LangfuseRunner instance
+2025-02-19 15:12:59 - LangfuseRunner - INFO - === Initializing LangfuseRunner ===
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Starting configuration validation
+2025-02-19 15:12:59 - LangfuseRunner - INFO - Successfully initialized Langfuse client
+2025-02-19 15:12:59 - LangfuseRunner - INFO - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-19 15:12:59 - LangfuseRunner - INFO - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-19 15:12:59 - httpcore.connection - DEBUG - connect_tcp.started host='langfuse-server' port=3000 local_address=None timeout=20 socket_options=None
+2025-02-19 15:12:59 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x72081110cad0>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"wid66n1zwpg7"'), (b'Content-Length', b'583'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created base prompt: general-analysis
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"acwajrmah8c1"'), (b'Content-Length', b'433'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created variant prompt: general-concise
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"3etts6auy7c6"'), (b'Content-Length', b'438'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created variant prompt: general-detailed
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"6ki429axnseo"'), (b'Content-Length', b'528'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created base prompt: detailed-analysis
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"tm7mrlnnkxc0"'), (b'Content-Length', b'432'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created variant prompt: detailed-technical
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"u9p18mgiuuc1"'), (b'Content-Length', b'433'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created variant prompt: detailed-business
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"613aocr2wndk"'), (b'Content-Length', b'488'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created base prompt: comparative-analysis
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"w1kwc40g92bn"'), (b'Content-Length', b'419'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created variant prompt: comparative-simple
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"msftmw4yydci"'), (b'Content-Length', b'450'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created variant prompt: comparative-complex
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"17kc3aari0oea"'), (b'Content-Length', b'514'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created base prompt: species-analysis
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"156ezf9sandbt"'), (b'Content-Length', b'425'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created variant prompt: species-ecological
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"16d8zv7emabz"'), (b'Content-Length', b'431'), (b'Date', b'Wed, 19 Feb 2025 15:12:59 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:12:59 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - Created variant prompt: species-conservation
+2025-02-19 15:12:59 - LangfuseRunner - INFO - Initialized prompts for types: ['general', 'detailed', 'comparative', 'species']
+2025-02-19 15:12:59 - LangfuseRunner - INFO - Initialization complete
+2025-02-19 15:12:59 - app - ERROR - Failed to initialize Langfuse: CreateNewEntities.__init__() missing 9 required positional arguments: 'database_url', 'organization_id', 'organization_name', 'project_id', 'project_name', 'default_user_email', 'salt', 'public_key', and 'secret_key'
+2025-02-19 15:17:41 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:17:43 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-19 15:17:43 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:17:43 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-19 15:17:43 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:17:43 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-19 15:17:43 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:17:43 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:17:43 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-19 15:17:43 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-19 15:17:43 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:17:43 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-19 15:17:44 - research_agent.research_agent - INFO - Successfully imported GoogleSerperAPIWrapper
+2025-02-19 15:17:44 - __main__ - INFO - INIT_DB is true. Running database initialization.
+2025-02-19 15:17:51 - utils.evaluation - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:17:52 - utils.evaluation - INFO - Initialized FactualAccuracyEvaluator
+2025-02-19 15:17:52 - utils.source_coverage - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:17:53 - utils.source_coverage - INFO - Initialized SourceCoverageEvaluator
+2025-02-19 15:17:53 - utils.logical_coherence - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:17:53 - utils.logical_coherence - INFO - Initialized LogicalCoherenceEvaluator
+2025-02-19 15:17:53 - relevance_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:17:53 - utils.automated_tests - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:17:53 - utils.automated_tests - INFO - Initialized AutomatedTestEvaluator
+2025-02-19 15:17:53 - utils.analysis_evaluator - INFO - Creating new AnalysisEvaluator instance
+2025-02-19 15:17:53 - utils.analysis_evaluator - ERROR - Failed to initialize Langfuse: 'Langfuse' object is not callable
+2025-02-19 15:17:53 - utils.analysis_evaluator - INFO - Initializing AnalysisEvaluator
+2025-02-19 15:17:53 - research_agent.research_agent - INFO - Successfully imported GoogleSerperAPIWrapper
+2025-02-19 15:17:54 - LangfuseRunner - INFO - Logging system initialized
+2025-02-19 15:17:54 - LangfuseRunner - DEBUG - Debug logging enabled
+2025-02-19 15:17:54 - LangfuseRunner - INFO - Creating new LangfuseRunner instance
+2025-02-19 15:17:54 - LangfuseRunner - INFO - === Initializing LangfuseRunner ===
+2025-02-19 15:17:54 - LangfuseRunner - DEBUG - Starting configuration validation
+2025-02-19 15:17:54 - LangfuseRunner - INFO - Successfully initialized Langfuse client
+2025-02-19 15:17:54 - LangfuseRunner - INFO - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-19 15:17:54 - LangfuseRunner - INFO - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-19 15:17:54 - httpcore.connection - DEBUG - connect_tcp.started host='langfuse-server' port=3000 local_address=None timeout=20 socket_options=None
+2025-02-19 15:17:54 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7d7c071ab950>
+2025-02-19 15:17:54 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:54 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:54 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:54 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:54 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"aqqz5nqwcsg7"'), (b'Content-Length', b'583'), (b'Date', b'Wed, 19 Feb 2025 15:17:56 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - Created base prompt: general-analysis
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"vdfpu2khgfc1"'), (b'Content-Length', b'433'), (b'Date', b'Wed, 19 Feb 2025 15:17:56 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - Created variant prompt: general-concise
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"yndrwa83kvc6"'), (b'Content-Length', b'438'), (b'Date', b'Wed, 19 Feb 2025 15:17:56 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - Created variant prompt: general-detailed
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"u4ty77w9hyeo"'), (b'Content-Length', b'528'), (b'Date', b'Wed, 19 Feb 2025 15:17:56 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - Created base prompt: detailed-analysis
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"16vl9gmnea3c0"'), (b'Content-Length', b'432'), (b'Date', b'Wed, 19 Feb 2025 15:17:56 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - Created variant prompt: detailed-technical
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"cir6kgv3f7c1"'), (b'Content-Length', b'433'), (b'Date', b'Wed, 19 Feb 2025 15:17:56 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - Created variant prompt: detailed-business
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"y1is5iwwy3dk"'), (b'Content-Length', b'488'), (b'Date', b'Wed, 19 Feb 2025 15:17:56 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - Created base prompt: comparative-analysis
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"hps0o354yhbn"'), (b'Content-Length', b'419'), (b'Date', b'Wed, 19 Feb 2025 15:17:56 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - Created variant prompt: comparative-simple
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"6t8jx4m0soci"'), (b'Content-Length', b'450'), (b'Date', b'Wed, 19 Feb 2025 15:17:56 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - Created variant prompt: comparative-complex
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"9p32p3hu7gea"'), (b'Content-Length', b'514'), (b'Date', b'Wed, 19 Feb 2025 15:17:56 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - Created base prompt: species-analysis
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"o0xiq724mnbt"'), (b'Content-Length', b'425'), (b'Date', b'Wed, 19 Feb 2025 15:17:56 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - Created variant prompt: species-ecological
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"bjte728hbzbz"'), (b'Content-Length', b'431'), (b'Date', b'Wed, 19 Feb 2025 15:17:56 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - Created variant prompt: species-conservation
+2025-02-19 15:17:56 - LangfuseRunner - INFO - Initialized prompts for types: ['general', 'detailed', 'comparative', 'species']
+2025-02-19 15:17:56 - LangfuseRunner - INFO - Initialization complete
+2025-02-19 15:17:56 - LangfuseRunner - INFO - Creating new LangfuseRunner instance
+2025-02-19 15:17:56 - LangfuseRunner - INFO - === Initializing LangfuseRunner ===
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - Starting configuration validation
+2025-02-19 15:17:56 - LangfuseRunner - INFO - Successfully initialized Langfuse client
+2025-02-19 15:17:56 - LangfuseRunner - INFO - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-19 15:17:56 - LangfuseRunner - INFO - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-19 15:17:56 - httpcore.connection - DEBUG - connect_tcp.started host='langfuse-server' port=3000 local_address=None timeout=20 socket_options=None
+2025-02-19 15:17:56 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7d7bfed1f990>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:56 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"181upuus13ng7"'), (b'Content-Length', b'583'), (b'Date', b'Wed, 19 Feb 2025 15:17:57 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - Created base prompt: general-analysis
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"2m1vsghm41c1"'), (b'Content-Length', b'433'), (b'Date', b'Wed, 19 Feb 2025 15:17:57 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - Created variant prompt: general-concise
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"13eb9hftld3c6"'), (b'Content-Length', b'438'), (b'Date', b'Wed, 19 Feb 2025 15:17:57 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - Created variant prompt: general-detailed
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"cdfytmk1aweo"'), (b'Content-Length', b'528'), (b'Date', b'Wed, 19 Feb 2025 15:17:57 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - Created base prompt: detailed-analysis
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"f77iuif0gtc0"'), (b'Content-Length', b'432'), (b'Date', b'Wed, 19 Feb 2025 15:17:57 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - Created variant prompt: detailed-technical
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"74rrkao3myc1"'), (b'Content-Length', b'433'), (b'Date', b'Wed, 19 Feb 2025 15:17:57 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - Created variant prompt: detailed-business
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"fjfeo40qq6dk"'), (b'Content-Length', b'488'), (b'Date', b'Wed, 19 Feb 2025 15:17:57 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - Created base prompt: comparative-analysis
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"yb3oqaxx76bn"'), (b'Content-Length', b'419'), (b'Date', b'Wed, 19 Feb 2025 15:17:57 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - Created variant prompt: comparative-simple
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"8ip2i9pacoci"'), (b'Content-Length', b'450'), (b'Date', b'Wed, 19 Feb 2025 15:17:57 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - Created variant prompt: comparative-complex
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"7xmuss6sh8ea"'), (b'Content-Length', b'514'), (b'Date', b'Wed, 19 Feb 2025 15:17:57 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - Created base prompt: species-analysis
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"hs7nxl7nfzbt"'), (b'Content-Length', b'425'), (b'Date', b'Wed, 19 Feb 2025 15:17:57 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - Created variant prompt: species-ecological
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 201, b'Created', [(b'X-Content-Type-Options', b'nosniff'), (b'Referrer-Policy', b'strict-origin-when-cross-origin'), (b'Permissions-Policy', b'autoplay=*, fullscreen=*, microphone=*'), (b'x-frame-options', b'SAMEORIGIN'), (b'Vary', b'Origin, Accept-Encoding'), (b'Content-Type', b'application/json; charset=utf-8'), (b'ETag', b'"15wfencp0webz"'), (b'Content-Length', b'431'), (b'Date', b'Wed, 19 Feb 2025 15:17:57 GMT'), (b'Connection', b'keep-alive'), (b'Keep-Alive', b'timeout=5')])
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.started
+2025-02-19 15:17:57 - httpcore.http11 - DEBUG - response_closed.complete
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - Created variant prompt: species-conservation
+2025-02-19 15:17:57 - LangfuseRunner - INFO - Initialized prompts for types: ['general', 'detailed', 'comparative', 'species']
+2025-02-19 15:17:57 - LangfuseRunner - INFO - Initialization complete
+2025-02-19 15:17:57 - app - ERROR - Failed to initialize Langfuse: CreateNewEntities.__init__() missing 9 required positional arguments: 'database_url', 'organization_id', 'organization_name', 'project_id', 'project_name', 'default_user_email', 'salt', 'public_key', and 'secret_key'

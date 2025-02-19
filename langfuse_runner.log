@@ -3063,3 +3063,113 @@ Step 2: Print "N" on its own line.
 2025-02-18 10:49:16 - LangfuseRunner - INFO - [langfuse_runner.py:633] - Tool execution completed successfully
 2025-02-18 10:49:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:439] - Prepared trace data: {'duration': 28.304487, 'success': True, 'tool': 'Analysis Agent', 'prompt': {'name': 'general-analysis', 'version': None, 'variant': None, 'config': {'model': 'gpt-4', 'temperature': 0.7}, 'tags': []}, 'timestamp': '2025-02-18T10:49:16.959230'}
 2025-02-18 10:49:16 - LangfuseRunner - DEBUG - [langfuse_runner.py:677] - Flushing Langfuse traces
+2025-02-19 14:53:36 - LangfuseRunner - INFO - [langfuse_runner.py:128] - Logging system initialized
+2025-02-19 14:53:36 - LangfuseRunner - DEBUG - [langfuse_runner.py:129] - Debug logging enabled
+2025-02-19 14:53:36 - LangfuseRunner - INFO - [langfuse_runner.py:688] - Creating new LangfuseRunner instance
+2025-02-19 14:53:36 - LangfuseRunner - INFO - [langfuse_runner.py:212] - === Initializing LangfuseRunner ===
+2025-02-19 14:53:36 - LangfuseRunner - DEBUG - [langfuse_runner.py:287] - Starting configuration validation
+2025-02-19 14:53:36 - LangfuseRunner - INFO - [langfuse_runner.py:311] - Successfully initialized Langfuse client
+2025-02-19 14:53:36 - LangfuseRunner - INFO - [langfuse_runner.py:463] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-19 14:53:36 - LangfuseRunner - INFO - [langfuse_runner.py:244] - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-19 14:53:36 - LangfuseRunner - ERROR - [langfuse_runner.py:276] - Failed to create prompt for general: [Errno -2] Name or service not known
+2025-02-19 14:53:36 - LangfuseRunner - ERROR - [langfuse_runner.py:276] - Failed to create prompt for detailed: [Errno -2] Name or service not known
+2025-02-19 14:53:36 - LangfuseRunner - ERROR - [langfuse_runner.py:276] - Failed to create prompt for comparative: [Errno -2] Name or service not known
+2025-02-19 14:53:36 - LangfuseRunner - ERROR - [langfuse_runner.py:276] - Failed to create prompt for species: [Errno -2] Name or service not known
+2025-02-19 14:53:36 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Initialized prompts for types: []
+2025-02-19 14:53:36 - LangfuseRunner - INFO - [langfuse_runner.py:226] - Initialization complete
+2025-02-19 14:53:36 - LangfuseRunner - INFO - [langfuse_runner.py:688] - Creating new LangfuseRunner instance
+2025-02-19 14:53:36 - LangfuseRunner - INFO - [langfuse_runner.py:212] - === Initializing LangfuseRunner ===
+2025-02-19 14:53:36 - LangfuseRunner - DEBUG - [langfuse_runner.py:287] - Starting configuration validation
+2025-02-19 14:53:36 - LangfuseRunner - INFO - [langfuse_runner.py:311] - Successfully initialized Langfuse client
+2025-02-19 14:53:37 - LangfuseRunner - INFO - [langfuse_runner.py:463] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-19 14:53:37 - LangfuseRunner - INFO - [langfuse_runner.py:244] - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-19 14:53:37 - LangfuseRunner - ERROR - [langfuse_runner.py:276] - Failed to create prompt for general: [Errno -2] Name or service not known
+2025-02-19 14:53:37 - LangfuseRunner - ERROR - [langfuse_runner.py:276] - Failed to create prompt for detailed: [Errno -2] Name or service not known
+2025-02-19 14:53:37 - LangfuseRunner - ERROR - [langfuse_runner.py:276] - Failed to create prompt for comparative: [Errno -2] Name or service not known
+2025-02-19 14:53:37 - LangfuseRunner - ERROR - [langfuse_runner.py:276] - Failed to create prompt for species: [Errno -2] Name or service not known
+2025-02-19 14:53:37 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Initialized prompts for types: []
+2025-02-19 14:53:37 - LangfuseRunner - INFO - [langfuse_runner.py:226] - Initialization complete
+2025-02-19 15:12:56 - LangfuseRunner - INFO - [langfuse_runner.py:128] - Logging system initialized
+2025-02-19 15:12:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:129] - Debug logging enabled
+2025-02-19 15:12:56 - LangfuseRunner - INFO - [langfuse_runner.py:688] - Creating new LangfuseRunner instance
+2025-02-19 15:12:56 - LangfuseRunner - INFO - [langfuse_runner.py:212] - === Initializing LangfuseRunner ===
+2025-02-19 15:12:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:287] - Starting configuration validation
+2025-02-19 15:12:56 - LangfuseRunner - INFO - [langfuse_runner.py:311] - Successfully initialized Langfuse client
+2025-02-19 15:12:56 - LangfuseRunner - INFO - [langfuse_runner.py:463] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-19 15:12:56 - LangfuseRunner - INFO - [langfuse_runner.py:244] - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: general-analysis
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-concise
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-detailed
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: detailed-analysis
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-technical
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-business
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: comparative-analysis
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-simple
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-complex
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: species-analysis
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-ecological
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-conservation
+2025-02-19 15:12:59 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Initialized prompts for types: ['general', 'detailed', 'comparative', 'species']
+2025-02-19 15:12:59 - LangfuseRunner - INFO - [langfuse_runner.py:226] - Initialization complete
+2025-02-19 15:12:59 - LangfuseRunner - INFO - [langfuse_runner.py:688] - Creating new LangfuseRunner instance
+2025-02-19 15:12:59 - LangfuseRunner - INFO - [langfuse_runner.py:212] - === Initializing LangfuseRunner ===
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:287] - Starting configuration validation
+2025-02-19 15:12:59 - LangfuseRunner - INFO - [langfuse_runner.py:311] - Successfully initialized Langfuse client
+2025-02-19 15:12:59 - LangfuseRunner - INFO - [langfuse_runner.py:463] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-19 15:12:59 - LangfuseRunner - INFO - [langfuse_runner.py:244] - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: general-analysis
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-concise
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-detailed
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: detailed-analysis
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-technical
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-business
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: comparative-analysis
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-simple
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-complex
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: species-analysis
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-ecological
+2025-02-19 15:12:59 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-conservation
+2025-02-19 15:12:59 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Initialized prompts for types: ['general', 'detailed', 'comparative', 'species']
+2025-02-19 15:12:59 - LangfuseRunner - INFO - [langfuse_runner.py:226] - Initialization complete
+2025-02-19 15:17:54 - LangfuseRunner - INFO - [langfuse_runner.py:128] - Logging system initialized
+2025-02-19 15:17:54 - LangfuseRunner - DEBUG - [langfuse_runner.py:129] - Debug logging enabled
+2025-02-19 15:17:54 - LangfuseRunner - INFO - [langfuse_runner.py:688] - Creating new LangfuseRunner instance
+2025-02-19 15:17:54 - LangfuseRunner - INFO - [langfuse_runner.py:212] - === Initializing LangfuseRunner ===
+2025-02-19 15:17:54 - LangfuseRunner - DEBUG - [langfuse_runner.py:287] - Starting configuration validation
+2025-02-19 15:17:54 - LangfuseRunner - INFO - [langfuse_runner.py:311] - Successfully initialized Langfuse client
+2025-02-19 15:17:54 - LangfuseRunner - INFO - [langfuse_runner.py:463] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-19 15:17:54 - LangfuseRunner - INFO - [langfuse_runner.py:244] - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: general-analysis
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-concise
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-detailed
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: detailed-analysis
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-technical
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-business
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: comparative-analysis
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-simple
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-complex
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: species-analysis
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-ecological
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-conservation
+2025-02-19 15:17:56 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Initialized prompts for types: ['general', 'detailed', 'comparative', 'species']
+2025-02-19 15:17:56 - LangfuseRunner - INFO - [langfuse_runner.py:226] - Initialization complete
+2025-02-19 15:17:56 - LangfuseRunner - INFO - [langfuse_runner.py:688] - Creating new LangfuseRunner instance
+2025-02-19 15:17:56 - LangfuseRunner - INFO - [langfuse_runner.py:212] - === Initializing LangfuseRunner ===
+2025-02-19 15:17:56 - LangfuseRunner - DEBUG - [langfuse_runner.py:287] - Starting configuration validation
+2025-02-19 15:17:56 - LangfuseRunner - INFO - [langfuse_runner.py:311] - Successfully initialized Langfuse client
+2025-02-19 15:17:56 - LangfuseRunner - INFO - [langfuse_runner.py:463] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-19 15:17:56 - LangfuseRunner - INFO - [langfuse_runner.py:244] - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: general-analysis
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-concise
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-detailed
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: detailed-analysis
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-technical
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-business
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: comparative-analysis
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-simple
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-complex
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: species-analysis
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-ecological
+2025-02-19 15:17:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-conservation
+2025-02-19 15:17:57 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Initialized prompts for types: ['general', 'detailed', 'comparative', 'species']
+2025-02-19 15:17:57 - LangfuseRunner - INFO - [langfuse_runner.py:226] - Initialization complete
