@@ -651,3 +651,15 @@ version
 2025-02-18 10:41:59,058 - controllers.prompts_router - INFO - [prompts_router.py:183] - - Categories found: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
 2025-02-18 10:41:59,133 - controllers.prompts_router - WARNING - [prompts_router.py:193] - Langfuse tracking failed: 'Langfuse' object has no attribute 'track_prompt_retrieval'
 2025-02-18 10:41:59,134 - controllers.prompts_router - INFO - [prompts_router.py:201] - [req_1739875319] Prompt retrieval completed successfully
+2025-02-20 08:51:02,981 - controllers.prompts_router - INFO - [prompts_router.py:151] - [req_1740041462] Starting GET /prompts request
+2025-02-20 08:51:02,987 - controllers.prompts_router - INFO - [prompts_router.py:181] - [req_1740041462] Prompt retrieval summary:
+2025-02-20 08:51:02,987 - controllers.prompts_router - INFO - [prompts_router.py:182] - - Total prompts: 4
+2025-02-20 08:51:02,987 - controllers.prompts_router - INFO - [prompts_router.py:183] - - Categories found: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-20 08:51:03,127 - controllers.prompts_router - WARNING - [prompts_router.py:193] - Langfuse tracking failed: 'Langfuse' object has no attribute 'track_prompt_retrieval'
+2025-02-20 08:51:03,127 - controllers.prompts_router - INFO - [prompts_router.py:201] - [req_1740041462] Prompt retrieval completed successfully
+2025-02-20 08:58:52,186 - controllers.prompts_router - INFO - [prompts_router.py:151] - [req_1740041932] Starting GET /prompts request
+2025-02-20 08:58:52,189 - controllers.prompts_router - INFO - [prompts_router.py:181] - [req_1740041932] Prompt retrieval summary:
+2025-02-20 08:58:52,189 - controllers.prompts_router - INFO - [prompts_router.py:182] - - Total prompts: 4
+2025-02-20 08:58:52,190 - controllers.prompts_router - INFO - [prompts_router.py:183] - - Categories found: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-20 08:58:52,273 - controllers.prompts_router - WARNING - [prompts_router.py:193] - Langfuse tracking failed: 'Langfuse' object has no attribute 'track_prompt_retrieval'
+2025-02-20 08:58:52,273 - controllers.prompts_router - INFO - [prompts_router.py:201] - [req_1740041932] Prompt retrieval completed successfully

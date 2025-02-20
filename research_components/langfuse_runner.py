@@ -215,14 +215,15 @@ class LangfuseRunner:
         self.secret_key = secret_key or os.getenv('LANGFUSE_SECRET_KEY')
         self.host = host or os.getenv('LANGFUSE_HOST')
         self.eval_model = eval_model
-        self._all_labels = set()  # Store all unique labels
-        self.prompts = {}  # Store initialized prompts
+        self._all_labels = set()
+        self.prompts = {}
         
         try:
             self._validate_config()
             self._initialize_langfuse()
             self._initialize_evaluators()
-            self._initialize_prompts()  # New method for prompt initialization
+            self._initialize_prompts()
+            self._initialize_datasets()  # Add this line
             logger.info("Initialization complete")
             print("✓ LangfuseRunner initialized successfully")
         except Exception as e:
@@ -279,6 +280,60 @@ class LangfuseRunner:
             logger.info(f"Initialized prompts for types: {list(self.prompts.keys())}")
         except Exception as e:
             error_msg = f"Failed to initialize prompts: {str(e)}"
+            logger.error(error_msg, exc_info=True)
+            raise
+
+    # Add this method to your LangfuseRunner class
+    def _initialize_datasets(self):
+        """Initialize datasets from CSV files in the data folder"""
+        try:
+            data_folder = "./data"
+            csv_files = [f for f in os.listdir(data_folder) if f.endswith('.csv')]
+            logger.info(f"Found CSV files: {csv_files}")
+            
+            for csv_file in csv_files:
+                try:
+                    # Create dataset name from file name
+                    dataset_name = os.path.splitext(csv_file)[0]
+                    file_path = os.path.join(data_folder, csv_file)
+                    
+                    # Read first few lines to determine structure
+                    with open(file_path, 'r') as f:
+                        import pandas as pd
+                        df = pd.read_csv(file_path)
+                        
+                    # Create dataset in Langfuse
+                    dataset = self.langfuse.create_dataset(
+                        name=dataset_name,
+                        description=f"Dataset created from {csv_file}",
+                        metadata={
+                            "source_file": csv_file,
+                            "columns": list(df.columns),
+                            "row_count": len(df)
+                        }
+                    )
+                    
+                    # Create dataset items
+                    for idx, row in df.iterrows():
+                        self.langfuse.create_dataset_item(
+                            dataset_name=dataset_name,
+                            input=row.to_dict(),
+                            metadata={
+                                "row_index": idx,
+                                "source_file": csv_file
+                            }
+                        )
+                    
+                    logger.info(f"Successfully uploaded dataset: {dataset_name} with {len(df)} items")
+                    print(f"✓ Uploaded dataset: {dataset_name}")
+                    
+                except Exception as file_error:
+                    logger.error(f"Error processing file {csv_file}: {str(file_error)}")
+                    print(f"⚠ Error processing {csv_file}")
+                    continue
+                    
+        except Exception as e:
+            error_msg = f"Failed to initialize datasets: {str(e)}"
             logger.error(error_msg, exc_info=True)
             raise
 

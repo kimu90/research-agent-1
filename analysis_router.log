@@ -354,3 +354,20 @@ TypeError: LangfuseRunner.run_tool() got an unexpected keyword argument 'prompt_
 2025-02-18 10:49:17,096 - controllers.analyze_data_router - INFO - [analyze_data_router.py:126] - Analysis request completed successfully
 2025-02-18 10:49:17,097 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:127] - Response usage data: {'prompt_tokens': 102, 'completion_tokens': 694, 'total_tokens': 796, 'model': 'llama3-70b-8192', 'timestamp': '2025-02-18T10:48:56.051811', 'prompt_info': {'name': 'fallback-prompt', 'version': None, 'variant': None, 'generation_id': '25723db1-13ae-4255-8474-b4747b25e94d'}}
 2025-02-18 10:49:17,098 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:128] - Prompt performance metrics: None
+2025-02-20 08:51:22,425 - controllers.analyze_data_router - INFO - [analyze_data_router.py:84] - === Starting new analysis request ===
+2025-02-20 08:51:22,428 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:85] - Request parameters: {'query': 'Sclerocarya birrea', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'species', 'analysis_type': 'general', 'run_evaluation': True, 'prompt_version': None, 'prompt_variant': None, 'prompt_tags': []}
+2025-02-20 08:51:22,428 - controllers.analyze_data_router - ERROR - [analyze_data_router.py:135] - Analysis generation failed: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/app/controllers/analyze_data_router.py", line 89, in generate_analysis
+    result, trace_data = tool_runner.run_tool(
+                         ^^^^^^^^^^^^^^^^^^^^^
+  File "/app/research_components/langfuse_runner.py", line 577, in run_tool
+    "prompt_name": prompt.name,
+                   ^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'name'
+2025-02-20 08:51:22,438 - controllers.analyze_data_router - ERROR - [analyze_data_router.py:137] - Failed prompt details: species, version: None
+2025-02-20 08:59:22,684 - controllers.analyze_data_router - INFO - [analyze_data_router.py:84] - === Starting new analysis request ===
+2025-02-20 08:59:22,719 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:85] - Request parameters: {'query': 'Sclerocarya birrea', 'tool_name': 'Analysis Agent', 'dataset': 'lit_fos.csv', 'prompt_name': 'general', 'analysis_type': 'general', 'run_evaluation': True, 'prompt_version': None, 'prompt_variant': None, 'prompt_tags': []}
+2025-02-20 08:59:58,629 - controllers.analyze_data_router - INFO - [analyze_data_router.py:126] - Analysis request completed successfully
+2025-02-20 08:59:58,632 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:127] - Response usage data: {'prompt_tokens': 102, 'completion_tokens': 689, 'total_tokens': 791, 'model': 'llama3-70b-8192', 'timestamp': '2025-02-20T08:59:32.752055', 'prompt_info': {'name': 'fallback-prompt', 'version': None, 'variant': None, 'generation_id': 'a814814f-57ae-464c-a9c4-205fa3aaa425'}}
+2025-02-20 08:59:58,634 - controllers.analyze_data_router - DEBUG - [analyze_data_router.py:128] - Prompt performance metrics: None

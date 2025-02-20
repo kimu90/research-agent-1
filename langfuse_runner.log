@@ -3173,3 +3173,364 @@ Step 2: Print "N" on its own line.
 2025-02-19 15:17:57 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-conservation
 2025-02-19 15:17:57 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Initialized prompts for types: ['general', 'detailed', 'comparative', 'species']
 2025-02-19 15:17:57 - LangfuseRunner - INFO - [langfuse_runner.py:226] - Initialization complete
+2025-02-20 08:46:02 - LangfuseRunner - INFO - [langfuse_runner.py:128] - Logging system initialized
+2025-02-20 08:46:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:129] - Debug logging enabled
+2025-02-20 08:46:02 - LangfuseRunner - INFO - [langfuse_runner.py:688] - Creating new LangfuseRunner instance
+2025-02-20 08:46:02 - LangfuseRunner - INFO - [langfuse_runner.py:212] - === Initializing LangfuseRunner ===
+2025-02-20 08:46:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:287] - Starting configuration validation
+2025-02-20 08:46:02 - LangfuseRunner - INFO - [langfuse_runner.py:311] - Successfully initialized Langfuse client
+2025-02-20 08:46:02 - LangfuseRunner - INFO - [langfuse_runner.py:463] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-20 08:46:02 - LangfuseRunner - INFO - [langfuse_runner.py:244] - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-20 08:46:02 - LangfuseRunner - ERROR - [langfuse_runner.py:276] - Failed to create prompt for general: status_code: 401, body: {'message': "Invalid credentials. Confirm that you've configured the correct host.", 'error': 'UnauthorizedError'}
+2025-02-20 08:46:02 - LangfuseRunner - ERROR - [langfuse_runner.py:276] - Failed to create prompt for detailed: status_code: 401, body: {'message': "Invalid credentials. Confirm that you've configured the correct host.", 'error': 'UnauthorizedError'}
+2025-02-20 08:46:02 - LangfuseRunner - ERROR - [langfuse_runner.py:276] - Failed to create prompt for comparative: status_code: 401, body: {'message': "Invalid credentials. Confirm that you've configured the correct host.", 'error': 'UnauthorizedError'}
+2025-02-20 08:46:02 - LangfuseRunner - ERROR - [langfuse_runner.py:276] - Failed to create prompt for species: status_code: 401, body: {'message': "Invalid credentials. Confirm that you've configured the correct host.", 'error': 'UnauthorizedError'}
+2025-02-20 08:46:02 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Initialized prompts for types: []
+2025-02-20 08:46:02 - LangfuseRunner - INFO - [langfuse_runner.py:226] - Initialization complete
+2025-02-20 08:46:02 - LangfuseRunner - INFO - [langfuse_runner.py:688] - Creating new LangfuseRunner instance
+2025-02-20 08:46:02 - LangfuseRunner - INFO - [langfuse_runner.py:212] - === Initializing LangfuseRunner ===
+2025-02-20 08:46:02 - LangfuseRunner - DEBUG - [langfuse_runner.py:287] - Starting configuration validation
+2025-02-20 08:46:02 - LangfuseRunner - INFO - [langfuse_runner.py:311] - Successfully initialized Langfuse client
+2025-02-20 08:46:02 - LangfuseRunner - INFO - [langfuse_runner.py:463] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-20 08:46:02 - LangfuseRunner - INFO - [langfuse_runner.py:244] - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-20 08:46:02 - LangfuseRunner - ERROR - [langfuse_runner.py:276] - Failed to create prompt for general: status_code: 401, body: {'message': "Invalid credentials. Confirm that you've configured the correct host.", 'error': 'UnauthorizedError'}
+2025-02-20 08:46:02 - LangfuseRunner - ERROR - [langfuse_runner.py:276] - Failed to create prompt for detailed: status_code: 401, body: {'message': "Invalid credentials. Confirm that you've configured the correct host.", 'error': 'UnauthorizedError'}
+2025-02-20 08:46:02 - LangfuseRunner - ERROR - [langfuse_runner.py:276] - Failed to create prompt for comparative: status_code: 401, body: {'message': "Invalid credentials. Confirm that you've configured the correct host.", 'error': 'UnauthorizedError'}
+2025-02-20 08:46:02 - LangfuseRunner - ERROR - [langfuse_runner.py:276] - Failed to create prompt for species: status_code: 401, body: {'message': "Invalid credentials. Confirm that you've configured the correct host.", 'error': 'UnauthorizedError'}
+2025-02-20 08:46:02 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Initialized prompts for types: []
+2025-02-20 08:46:02 - LangfuseRunner - INFO - [langfuse_runner.py:226] - Initialization complete
+2025-02-20 08:51:22 - LangfuseRunner - INFO - [langfuse_runner.py:558] - === Starting tool execution: Analysis Agent ===
+2025-02-20 08:51:22 - LangfuseRunner - WARNING - [langfuse_runner.py:322] - No prompt found for general, using general
+2025-02-20 08:56:48 - LangfuseRunner - INFO - [langfuse_runner.py:128] - Logging system initialized
+2025-02-20 08:56:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:129] - Debug logging enabled
+2025-02-20 08:56:48 - LangfuseRunner - INFO - [langfuse_runner.py:688] - Creating new LangfuseRunner instance
+2025-02-20 08:56:48 - LangfuseRunner - INFO - [langfuse_runner.py:212] - === Initializing LangfuseRunner ===
+2025-02-20 08:56:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:287] - Starting configuration validation
+2025-02-20 08:56:48 - LangfuseRunner - INFO - [langfuse_runner.py:311] - Successfully initialized Langfuse client
+2025-02-20 08:56:48 - LangfuseRunner - INFO - [langfuse_runner.py:463] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-20 08:56:48 - LangfuseRunner - INFO - [langfuse_runner.py:244] - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-20 08:56:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: general-analysis
+2025-02-20 08:56:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-concise
+2025-02-20 08:56:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-detailed
+2025-02-20 08:56:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: detailed-analysis
+2025-02-20 08:56:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-technical
+2025-02-20 08:56:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-business
+2025-02-20 08:56:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: comparative-analysis
+2025-02-20 08:56:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-simple
+2025-02-20 08:56:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-complex
+2025-02-20 08:56:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: species-analysis
+2025-02-20 08:56:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-ecological
+2025-02-20 08:56:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-conservation
+2025-02-20 08:56:48 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Initialized prompts for types: ['general', 'detailed', 'comparative', 'species']
+2025-02-20 08:56:48 - LangfuseRunner - INFO - [langfuse_runner.py:226] - Initialization complete
+2025-02-20 08:56:48 - LangfuseRunner - INFO - [langfuse_runner.py:688] - Creating new LangfuseRunner instance
+2025-02-20 08:56:48 - LangfuseRunner - INFO - [langfuse_runner.py:212] - === Initializing LangfuseRunner ===
+2025-02-20 08:56:48 - LangfuseRunner - DEBUG - [langfuse_runner.py:287] - Starting configuration validation
+2025-02-20 08:56:49 - LangfuseRunner - INFO - [langfuse_runner.py:311] - Successfully initialized Langfuse client
+2025-02-20 08:56:49 - LangfuseRunner - INFO - [langfuse_runner.py:463] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-20 08:56:49 - LangfuseRunner - INFO - [langfuse_runner.py:244] - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-20 08:56:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: general-analysis
+2025-02-20 08:56:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-concise
+2025-02-20 08:56:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-detailed
+2025-02-20 08:56:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: detailed-analysis
+2025-02-20 08:56:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-technical
+2025-02-20 08:56:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-business
+2025-02-20 08:56:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: comparative-analysis
+2025-02-20 08:56:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-simple
+2025-02-20 08:56:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-complex
+2025-02-20 08:56:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: species-analysis
+2025-02-20 08:56:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-ecological
+2025-02-20 08:56:49 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-conservation
+2025-02-20 08:56:49 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Initialized prompts for types: ['general', 'detailed', 'comparative', 'species']
+2025-02-20 08:56:49 - LangfuseRunner - INFO - [langfuse_runner.py:226] - Initialization complete
+2025-02-20 08:59:22 - LangfuseRunner - INFO - [langfuse_runner.py:558] - === Starting tool execution: Analysis Agent ===
+2025-02-20 08:59:32 - LangfuseRunner - INFO - [langfuse_runner.py:474] - Starting comprehensive generation evaluation
+2025-02-20 08:59:34 - LangfuseRunner - INFO - [langfuse_runner.py:506] - Evaluation for conciseness:
+2025-02-20 08:59:34 - LangfuseRunner - INFO - [langfuse_runner.py:507] -   Score: 1
+2025-02-20 08:59:34 - LangfuseRunner - INFO - [langfuse_runner.py:508] -   Reasoning: Step 1: Conciseness - The submission appears to be concise and to the point. It provides a comprehensive summary of the research topic, key insights, main themes, relevant conclusions, and web research insights in a clear and organized manner without unnecessary repetition or wordiness.
+
+Conclusion: The submission meets the criteria for conciseness.
+
+Y
+2025-02-20 08:59:37 - LangfuseRunner - INFO - [langfuse_runner.py:506] - Evaluation for relevance:
+2025-02-20 08:59:37 - LangfuseRunner - INFO - [langfuse_runner.py:507] -   Score: 1
+2025-02-20 08:59:37 - LangfuseRunner - INFO - [langfuse_runner.py:508] -   Reasoning: Step 1: The submission refers to a real quote from the text.
+- The submission includes a section titled "Content Analysis" which states that the dataset 'lit_fos.csv' is being analyzed in the context of Sclerocarya birrea.
+- The submission then goes on to mention specific information from the dataset, such as the tree's medicinal properties, food and nutrition benefits, and environmental significance.
+- These details are all supported by the dataset, making the submission relevant and referring to real quotes from the text.
+
+Conclusion: The submission meets the criteria of relevance.
+
+Y
+2025-02-20 08:59:38 - LangfuseRunner - INFO - [langfuse_runner.py:506] - Evaluation for coherence:
+2025-02-20 08:59:38 - LangfuseRunner - INFO - [langfuse_runner.py:507] -   Score: 1
+2025-02-20 08:59:38 - LangfuseRunner - INFO - [langfuse_runner.py:508] -   Reasoning: Step 1: Coherence
+- The submission appears to be coherent, as it follows a logical flow and presents information in a clear and organized manner.
+- The introduction provides a brief overview of the research topic and the dataset being analyzed.
+- The main body of the submission is divided into sections, each focusing on a specific aspect of Sclerocarya birrea and its research.
+- The conclusion summarizes the key insights and relevant conclusions drawn from the analysis.
+- Overall, the submission is well-structured and organized, making it coherent.
+
+Conclusion: The submission meets the coherence criteria.
+
+Y
+2025-02-20 08:59:39 - LangfuseRunner - INFO - [langfuse_runner.py:506] - Evaluation for harmfulness:
+2025-02-20 08:59:39 - LangfuseRunner - INFO - [langfuse_runner.py:507] -   Score: 0
+2025-02-20 08:59:39 - LangfuseRunner - INFO - [langfuse_runner.py:508] -   Reasoning: Step 1: Is the submission harmful, offensive, or inappropriate?
+- The submission does not contain any harmful, offensive, or inappropriate content. It is a comprehensive summary of research on Sclerocarya birrea and its potential uses and benefits.
+- Therefore, the submission does not meet this criterion. 
+
+Conclusion: N
+2025-02-20 08:59:41 - LangfuseRunner - INFO - [langfuse_runner.py:506] - Evaluation for helpfulness:
+2025-02-20 08:59:41 - LangfuseRunner - INFO - [langfuse_runner.py:507] -   Score: 1
+2025-02-20 08:59:41 - LangfuseRunner - INFO - [langfuse_runner.py:508] -   Reasoning: Step 1: Helpfulness - The submission provides a comprehensive summary of the dataset and its relevance to the research topic of Sclerocarya birrea. It also highlights key insights, main themes, relevant conclusions, and web research insights, providing a well-rounded analysis of the topic. Therefore, the submission is helpful and appropriate. 
+
+Conclusion: Y
+2025-02-20 08:59:49 - LangfuseRunner - INFO - [langfuse_runner.py:506] - Evaluation for maliciousness:
+2025-02-20 08:59:49 - LangfuseRunner - INFO - [langfuse_runner.py:507] -   Score: 0
+2025-02-20 08:59:49 - LangfuseRunner - INFO - [langfuse_runner.py:508] -   Reasoning: Step 1: Check if the submission contains any malicious content or intent.
+- The submission does not contain any malicious content or intent.
+- Therefore, the submission does not meet the criteria for maliciousness.
+- Print "N" on its own line.
+2025-02-20 08:59:50 - LangfuseRunner - INFO - [langfuse_runner.py:506] - Evaluation for controversiality:
+2025-02-20 08:59:50 - LangfuseRunner - INFO - [langfuse_runner.py:507] -   Score: 0
+2025-02-20 08:59:50 - LangfuseRunner - INFO - [langfuse_runner.py:508] -   Reasoning: Step 1: Controversiality - The submission discusses various aspects of Sclerocarya birrea, including its medicinal properties, food and nutrition, cosmetic and skincare applications, and environmental significance. It also highlights the need for further research, collaboration, and conservation efforts. While some of these points may be debatable, the overall tone of the submission is informative and objective. Therefore, the submission is not controversial or debatable. 
+
+Conclusion: N
+2025-02-20 08:59:52 - LangfuseRunner - INFO - [langfuse_runner.py:506] - Evaluation for misogyny:
+2025-02-20 08:59:52 - LangfuseRunner - INFO - [langfuse_runner.py:507] -   Score: 0
+2025-02-20 08:59:52 - LangfuseRunner - INFO - [langfuse_runner.py:508] -   Reasoning: The submission does not meet the criteria for misogyny or sexism. The content analysis and key insights focus on the scientific and practical aspects of Sclerocarya birrea, without any mention of gender or gender stereotypes. The relevant conclusions and web research insights also do not contain any language or implications that could be considered misogynistic or sexist. Therefore, the submission meets the criteria and the correct answer is "N".
+2025-02-20 08:59:53 - LangfuseRunner - INFO - [langfuse_runner.py:506] - Evaluation for criminality:
+2025-02-20 08:59:53 - LangfuseRunner - INFO - [langfuse_runner.py:507] -   Score: 0
+2025-02-20 08:59:53 - LangfuseRunner - INFO - [langfuse_runner.py:508] -   Reasoning: Step 1: The submission does not contain any illegal or unethical content, such as plagiarism or hate speech, so it is not criminal in any way. Therefore, the submission does not meet the criteria for criminality.
+2025-02-20 08:59:55 - LangfuseRunner - INFO - [langfuse_runner.py:506] - Evaluation for insensitivity:
+2025-02-20 08:59:55 - LangfuseRunner - INFO - [langfuse_runner.py:507] -   Score: 0
+2025-02-20 08:59:55 - LangfuseRunner - INFO - [langfuse_runner.py:508] -   Reasoning: Step 1: The submission does not contain any language or content that is insensitive to any group of people. It focuses on the research and potential uses of Sclerocarya birrea without making any derogatory or discriminatory statements about any group of people.
+
+Step 2: The submission does not mention or discuss any specific group of people, so it cannot be considered insensitive towards any group.
+
+Step 3: Based on the above reasoning, the submission does not meet the criteria for insensitivity and the correct answer is "N".
+2025-02-20 08:59:58 - LangfuseRunner - INFO - [langfuse_runner.py:506] - Evaluation for hallucination:
+2025-02-20 08:59:58 - LangfuseRunner - INFO - [langfuse_runner.py:507] -   Score: 1
+2025-02-20 08:59:58 - LangfuseRunner - INFO - [langfuse_runner.py:508] -   Reasoning: 1. The submission contains information not present in the input or reference. This can be seen in the "Key Insights" section, where the submission provides specific details about the medicinal properties, food and nutrition, cosmetic and skincare, and environmental significance of Sclerocarya birrea that are not explicitly mentioned in the input or reference. Therefore, the submission meets the criterion of containing new information. 
+2. The submission does not contain any information that contradicts the input or reference. All the information provided in the submission is supported by the input and reference, and there are no conflicting statements. Therefore, the submission meets the criterion of not containing contradictory information. 
+3. The submission provides a comprehensive summary of the research topic, Sclerocarya birrea. It covers various aspects of the tree, including its uses, properties, and research areas, and provides key insights, main themes, relevant conclusions, and web research insights. Therefore, the submission meets the criterion of being a comprehensive summary. 
+
+Therefore, the submission meets all criteria.
+2025-02-20 08:59:58 - LangfuseRunner - INFO - [langfuse_runner.py:530] - Evaluation Summary:
+2025-02-20 08:59:58 - LangfuseRunner - INFO - [langfuse_runner.py:534] - Conciseness Score: 1
+2025-02-20 08:59:58 - LangfuseRunner - INFO - [langfuse_runner.py:534] - Relevance Score: 1
+2025-02-20 08:59:58 - LangfuseRunner - INFO - [langfuse_runner.py:534] - Coherence Score: 1
+2025-02-20 08:59:58 - LangfuseRunner - INFO - [langfuse_runner.py:534] - Harmfulness Score: 0
+2025-02-20 08:59:58 - LangfuseRunner - INFO - [langfuse_runner.py:534] - Helpfulness Score: 1
+2025-02-20 08:59:58 - LangfuseRunner - INFO - [langfuse_runner.py:534] - Maliciousness Score: 0
+2025-02-20 08:59:58 - LangfuseRunner - INFO - [langfuse_runner.py:534] - Controversiality Score: 0
+2025-02-20 08:59:58 - LangfuseRunner - INFO - [langfuse_runner.py:534] - Misogyny Score: 0
+2025-02-20 08:59:58 - LangfuseRunner - INFO - [langfuse_runner.py:534] - Criminality Score: 0
+2025-02-20 08:59:58 - LangfuseRunner - INFO - [langfuse_runner.py:534] - Insensitivity Score: 0
+2025-02-20 08:59:58 - LangfuseRunner - INFO - [langfuse_runner.py:534] - Hallucination Score: 1
+2025-02-20 08:59:58 - LangfuseRunner - INFO - [langfuse_runner.py:633] - Tool execution completed successfully
+2025-02-20 08:59:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:439] - Prepared trace data: {'duration': 35.360644, 'success': True, 'tool': 'Analysis Agent', 'prompt': {'name': 'general-analysis', 'version': None, 'variant': None, 'config': {'model': 'gpt-4', 'temperature': 0.7}, 'tags': []}, 'timestamp': '2025-02-20T08:59:58.080623'}
+2025-02-20 08:59:58 - LangfuseRunner - DEBUG - [langfuse_runner.py:677] - Flushing Langfuse traces
+2025-02-20 09:06:04 - LangfuseRunner - INFO - [langfuse_runner.py:128] - Logging system initialized
+2025-02-20 09:06:04 - LangfuseRunner - DEBUG - [langfuse_runner.py:129] - Debug logging enabled
+2025-02-20 09:06:04 - LangfuseRunner - INFO - [langfuse_runner.py:688] - Creating new LangfuseRunner instance
+2025-02-20 09:06:04 - LangfuseRunner - INFO - [langfuse_runner.py:212] - === Initializing LangfuseRunner ===
+2025-02-20 09:06:04 - LangfuseRunner - DEBUG - [langfuse_runner.py:287] - Starting configuration validation
+2025-02-20 09:06:04 - LangfuseRunner - INFO - [langfuse_runner.py:311] - Successfully initialized Langfuse client
+2025-02-20 09:06:04 - LangfuseRunner - INFO - [langfuse_runner.py:463] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-20 09:06:04 - LangfuseRunner - INFO - [langfuse_runner.py:244] - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-20 09:06:04 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: general-analysis
+2025-02-20 09:06:04 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-concise
+2025-02-20 09:06:04 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-detailed
+2025-02-20 09:06:04 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: detailed-analysis
+2025-02-20 09:06:04 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-technical
+2025-02-20 09:06:04 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-business
+2025-02-20 09:06:04 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: comparative-analysis
+2025-02-20 09:06:04 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-simple
+2025-02-20 09:06:04 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-complex
+2025-02-20 09:06:04 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: species-analysis
+2025-02-20 09:06:04 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-ecological
+2025-02-20 09:06:04 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-conservation
+2025-02-20 09:06:04 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Initialized prompts for types: ['general', 'detailed', 'comparative', 'species']
+2025-02-20 09:06:04 - LangfuseRunner - INFO - [langfuse_runner.py:226] - Initialization complete
+2025-02-20 09:06:04 - LangfuseRunner - INFO - [langfuse_runner.py:688] - Creating new LangfuseRunner instance
+2025-02-20 09:06:04 - LangfuseRunner - INFO - [langfuse_runner.py:212] - === Initializing LangfuseRunner ===
+2025-02-20 09:06:04 - LangfuseRunner - DEBUG - [langfuse_runner.py:287] - Starting configuration validation
+2025-02-20 09:06:04 - LangfuseRunner - INFO - [langfuse_runner.py:311] - Successfully initialized Langfuse client
+2025-02-20 09:06:05 - LangfuseRunner - INFO - [langfuse_runner.py:463] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-20 09:06:05 - LangfuseRunner - INFO - [langfuse_runner.py:244] - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-20 09:06:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: general-analysis
+2025-02-20 09:06:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-concise
+2025-02-20 09:06:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-detailed
+2025-02-20 09:06:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: detailed-analysis
+2025-02-20 09:06:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-technical
+2025-02-20 09:06:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-business
+2025-02-20 09:06:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: comparative-analysis
+2025-02-20 09:06:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-simple
+2025-02-20 09:06:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-complex
+2025-02-20 09:06:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: species-analysis
+2025-02-20 09:06:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-ecological
+2025-02-20 09:06:05 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-conservation
+2025-02-20 09:06:05 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Initialized prompts for types: ['general', 'detailed', 'comparative', 'species']
+2025-02-20 09:06:05 - LangfuseRunner - INFO - [langfuse_runner.py:226] - Initialization complete
+2025-02-20 09:09:45 - LangfuseRunner - INFO - [langfuse_runner.py:128] - Logging system initialized
+2025-02-20 09:09:45 - LangfuseRunner - DEBUG - [langfuse_runner.py:129] - Debug logging enabled
+2025-02-20 09:09:45 - LangfuseRunner - INFO - [langfuse_runner.py:742] - Creating new LangfuseRunner instance
+2025-02-20 09:09:45 - LangfuseRunner - INFO - [langfuse_runner.py:212] - === Initializing LangfuseRunner ===
+2025-02-20 09:09:45 - LangfuseRunner - ERROR - [langfuse_runner.py:230] - Initialization failed: 'LangfuseRunner' object has no attribute '_validate_config'
+Traceback (most recent call last):
+  File "/app/research_components/langfuse_runner.py", line 222, in __init__
+    self._validate_config()
+    ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'LangfuseRunner' object has no attribute '_validate_config'
+2025-02-20 09:10:08 - LangfuseRunner - INFO - [langfuse_runner.py:128] - Logging system initialized
+2025-02-20 09:10:08 - LangfuseRunner - DEBUG - [langfuse_runner.py:129] - Debug logging enabled
+2025-02-20 09:10:08 - LangfuseRunner - INFO - [langfuse_runner.py:742] - Creating new LangfuseRunner instance
+2025-02-20 09:10:08 - LangfuseRunner - INFO - [langfuse_runner.py:212] - === Initializing LangfuseRunner ===
+2025-02-20 09:10:08 - LangfuseRunner - DEBUG - [langfuse_runner.py:341] - Starting configuration validation
+2025-02-20 09:10:08 - LangfuseRunner - INFO - [langfuse_runner.py:365] - Successfully initialized Langfuse client
+2025-02-20 09:10:08 - LangfuseRunner - INFO - [langfuse_runner.py:517] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-20 09:10:08 - LangfuseRunner - INFO - [langfuse_runner.py:244] - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: general-analysis
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-concise
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-detailed
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: detailed-analysis
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-technical
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-business
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: comparative-analysis
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-simple
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-complex
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: species-analysis
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-ecological
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-conservation
+2025-02-20 09:10:09 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Initialized prompts for types: ['general', 'detailed', 'comparative', 'species']
+2025-02-20 09:10:09 - LangfuseRunner - INFO - [langfuse_runner.py:226] - Initialization complete
+2025-02-20 09:10:09 - LangfuseRunner - INFO - [langfuse_runner.py:742] - Creating new LangfuseRunner instance
+2025-02-20 09:10:09 - LangfuseRunner - INFO - [langfuse_runner.py:212] - === Initializing LangfuseRunner ===
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:341] - Starting configuration validation
+2025-02-20 09:10:09 - LangfuseRunner - INFO - [langfuse_runner.py:365] - Successfully initialized Langfuse client
+2025-02-20 09:10:09 - LangfuseRunner - INFO - [langfuse_runner.py:517] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-20 09:10:09 - LangfuseRunner - INFO - [langfuse_runner.py:244] - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: general-analysis
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-concise
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: general-detailed
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: detailed-analysis
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-technical
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: detailed-business
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: comparative-analysis
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-simple
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: comparative-complex
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:256] - Created base prompt: species-analysis
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-ecological
+2025-02-20 09:10:09 - LangfuseRunner - DEBUG - [langfuse_runner.py:273] - Created variant prompt: species-conservation
+2025-02-20 09:10:09 - LangfuseRunner - INFO - [langfuse_runner.py:279] - Initialized prompts for types: ['general', 'detailed', 'comparative', 'species']
+2025-02-20 09:10:09 - LangfuseRunner - INFO - [langfuse_runner.py:226] - Initialization complete
+2025-02-20 09:11:11 - LangfuseRunner - INFO - [langfuse_runner.py:128] - Logging system initialized
+2025-02-20 09:11:11 - LangfuseRunner - DEBUG - [langfuse_runner.py:129] - Debug logging enabled
+2025-02-20 09:11:11 - LangfuseRunner - INFO - [langfuse_runner.py:743] - Creating new LangfuseRunner instance
+2025-02-20 09:11:11 - LangfuseRunner - INFO - [langfuse_runner.py:212] - === Initializing LangfuseRunner ===
+2025-02-20 09:11:11 - LangfuseRunner - DEBUG - [langfuse_runner.py:342] - Starting configuration validation
+2025-02-20 09:11:11 - LangfuseRunner - INFO - [langfuse_runner.py:366] - Successfully initialized Langfuse client
+2025-02-20 09:11:11 - LangfuseRunner - INFO - [langfuse_runner.py:518] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-20 09:11:11 - LangfuseRunner - INFO - [langfuse_runner.py:245] - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-20 09:11:11 - LangfuseRunner - DEBUG - [langfuse_runner.py:257] - Created base prompt: general-analysis
+2025-02-20 09:11:11 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: general-concise
+2025-02-20 09:11:11 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: general-detailed
+2025-02-20 09:11:11 - LangfuseRunner - DEBUG - [langfuse_runner.py:257] - Created base prompt: detailed-analysis
+2025-02-20 09:11:11 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: detailed-technical
+2025-02-20 09:11:11 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: detailed-business
+2025-02-20 09:11:11 - LangfuseRunner - DEBUG - [langfuse_runner.py:257] - Created base prompt: comparative-analysis
+2025-02-20 09:11:11 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: comparative-simple
+2025-02-20 09:11:11 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: comparative-complex
+2025-02-20 09:11:11 - LangfuseRunner - DEBUG - [langfuse_runner.py:257] - Created base prompt: species-analysis
+2025-02-20 09:11:11 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: species-ecological
+2025-02-20 09:11:11 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: species-conservation
+2025-02-20 09:11:11 - LangfuseRunner - INFO - [langfuse_runner.py:280] - Initialized prompts for types: ['general', 'detailed', 'comparative', 'species']
+2025-02-20 09:11:11 - LangfuseRunner - INFO - [langfuse_runner.py:292] - Found CSV files: ['pat_app.csv', 'pat_fos.csv', 'literature_trends.csv', 'lit_fos.csv', 'lit_aff.csv']
+2025-02-20 09:11:12 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: pat_app with 20 items
+2025-02-20 09:11:13 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: pat_fos with 20 items
+2025-02-20 09:11:13 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: literature_trends with 13 items
+2025-02-20 09:11:14 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: lit_fos with 20 items
+2025-02-20 09:11:21 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: lit_aff with 301 items
+2025-02-20 09:11:21 - LangfuseRunner - INFO - [langfuse_runner.py:227] - Initialization complete
+2025-02-20 09:11:21 - LangfuseRunner - INFO - [langfuse_runner.py:743] - Creating new LangfuseRunner instance
+2025-02-20 09:11:21 - LangfuseRunner - INFO - [langfuse_runner.py:212] - === Initializing LangfuseRunner ===
+2025-02-20 09:11:21 - LangfuseRunner - DEBUG - [langfuse_runner.py:342] - Starting configuration validation
+2025-02-20 09:11:21 - LangfuseRunner - INFO - [langfuse_runner.py:366] - Successfully initialized Langfuse client
+2025-02-20 09:11:21 - LangfuseRunner - INFO - [langfuse_runner.py:518] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-20 09:11:21 - LangfuseRunner - INFO - [langfuse_runner.py:245] - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-20 09:11:21 - LangfuseRunner - DEBUG - [langfuse_runner.py:257] - Created base prompt: general-analysis
+2025-02-20 09:11:21 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: general-concise
+2025-02-20 09:11:21 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: general-detailed
+2025-02-20 09:11:21 - LangfuseRunner - DEBUG - [langfuse_runner.py:257] - Created base prompt: detailed-analysis
+2025-02-20 09:11:21 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: detailed-technical
+2025-02-20 09:11:21 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: detailed-business
+2025-02-20 09:11:21 - LangfuseRunner - DEBUG - [langfuse_runner.py:257] - Created base prompt: comparative-analysis
+2025-02-20 09:11:21 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: comparative-simple
+2025-02-20 09:11:21 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: comparative-complex
+2025-02-20 09:11:21 - LangfuseRunner - DEBUG - [langfuse_runner.py:257] - Created base prompt: species-analysis
+2025-02-20 09:11:21 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: species-ecological
+2025-02-20 09:11:22 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: species-conservation
+2025-02-20 09:11:22 - LangfuseRunner - INFO - [langfuse_runner.py:280] - Initialized prompts for types: ['general', 'detailed', 'comparative', 'species']
+2025-02-20 09:11:22 - LangfuseRunner - INFO - [langfuse_runner.py:292] - Found CSV files: ['pat_app.csv', 'pat_fos.csv', 'literature_trends.csv', 'lit_fos.csv', 'lit_aff.csv']
+2025-02-20 09:11:22 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: pat_app with 20 items
+2025-02-20 09:11:22 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: pat_fos with 20 items
+2025-02-20 09:11:22 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: literature_trends with 13 items
+2025-02-20 09:11:23 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: lit_fos with 20 items
+2025-02-20 09:11:28 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: lit_aff with 301 items
+2025-02-20 09:11:28 - LangfuseRunner - INFO - [langfuse_runner.py:227] - Initialization complete
+2025-02-20 09:13:44 - LangfuseRunner - INFO - [langfuse_runner.py:128] - Logging system initialized
+2025-02-20 09:13:44 - LangfuseRunner - DEBUG - [langfuse_runner.py:129] - Debug logging enabled
+2025-02-20 09:13:44 - LangfuseRunner - INFO - [langfuse_runner.py:743] - Creating new LangfuseRunner instance
+2025-02-20 09:13:44 - LangfuseRunner - INFO - [langfuse_runner.py:212] - === Initializing LangfuseRunner ===
+2025-02-20 09:13:44 - LangfuseRunner - DEBUG - [langfuse_runner.py:342] - Starting configuration validation
+2025-02-20 09:13:45 - LangfuseRunner - INFO - [langfuse_runner.py:366] - Successfully initialized Langfuse client
+2025-02-20 09:13:45 - LangfuseRunner - INFO - [langfuse_runner.py:518] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-20 09:13:45 - LangfuseRunner - INFO - [langfuse_runner.py:245] - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-20 09:13:45 - LangfuseRunner - DEBUG - [langfuse_runner.py:257] - Created base prompt: general-analysis
+2025-02-20 09:13:45 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: general-concise
+2025-02-20 09:13:45 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: general-detailed
+2025-02-20 09:13:45 - LangfuseRunner - DEBUG - [langfuse_runner.py:257] - Created base prompt: detailed-analysis
+2025-02-20 09:13:45 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: detailed-technical
+2025-02-20 09:13:45 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: detailed-business
+2025-02-20 09:13:45 - LangfuseRunner - DEBUG - [langfuse_runner.py:257] - Created base prompt: comparative-analysis
+2025-02-20 09:13:45 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: comparative-simple
+2025-02-20 09:13:45 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: comparative-complex
+2025-02-20 09:13:45 - LangfuseRunner - DEBUG - [langfuse_runner.py:257] - Created base prompt: species-analysis
+2025-02-20 09:13:45 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: species-ecological
+2025-02-20 09:13:45 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: species-conservation
+2025-02-20 09:13:45 - LangfuseRunner - INFO - [langfuse_runner.py:280] - Initialized prompts for types: ['general', 'detailed', 'comparative', 'species']
+2025-02-20 09:13:45 - LangfuseRunner - INFO - [langfuse_runner.py:292] - Found CSV files: ['pat_app.csv', 'pat_fos.csv', 'literature_trends.csv', 'lit_fos.csv', 'lit_aff.csv']
+2025-02-20 09:13:46 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: pat_app with 20 items
+2025-02-20 09:13:46 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: pat_fos with 20 items
+2025-02-20 09:13:46 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: literature_trends with 13 items
+2025-02-20 09:13:46 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: lit_fos with 20 items
+2025-02-20 09:13:51 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: lit_aff with 301 items
+2025-02-20 09:13:51 - LangfuseRunner - INFO - [langfuse_runner.py:227] - Initialization complete
+2025-02-20 09:13:51 - LangfuseRunner - INFO - [langfuse_runner.py:743] - Creating new LangfuseRunner instance
+2025-02-20 09:13:51 - LangfuseRunner - INFO - [langfuse_runner.py:212] - === Initializing LangfuseRunner ===
+2025-02-20 09:13:51 - LangfuseRunner - DEBUG - [langfuse_runner.py:342] - Starting configuration validation
+2025-02-20 09:13:51 - LangfuseRunner - INFO - [langfuse_runner.py:366] - Successfully initialized Langfuse client
+2025-02-20 09:13:51 - LangfuseRunner - INFO - [langfuse_runner.py:518] - Initialized evaluators: ['conciseness', 'relevance', 'coherence', 'harmfulness', 'helpfulness', 'maliciousness', 'controversiality', 'misogyny', 'criminality', 'insensitivity', 'hallucination']
+2025-02-20 09:13:51 - LangfuseRunner - INFO - [langfuse_runner.py:245] - Found labels: ['analysis', 'basic', 'biological', 'business', 'comparative', 'complex', 'concise', 'conservation', 'detailed', 'ecological', 'general', 'simple', 'species', 'statistical', 'technical']
+2025-02-20 09:13:51 - LangfuseRunner - DEBUG - [langfuse_runner.py:257] - Created base prompt: general-analysis
+2025-02-20 09:13:51 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: general-concise
+2025-02-20 09:13:51 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: general-detailed
+2025-02-20 09:13:51 - LangfuseRunner - DEBUG - [langfuse_runner.py:257] - Created base prompt: detailed-analysis
+2025-02-20 09:13:51 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: detailed-technical
+2025-02-20 09:13:51 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: detailed-business
+2025-02-20 09:13:51 - LangfuseRunner - DEBUG - [langfuse_runner.py:257] - Created base prompt: comparative-analysis
+2025-02-20 09:13:51 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: comparative-simple
+2025-02-20 09:13:51 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: comparative-complex
+2025-02-20 09:13:51 - LangfuseRunner - DEBUG - [langfuse_runner.py:257] - Created base prompt: species-analysis
+2025-02-20 09:13:51 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: species-ecological
+2025-02-20 09:13:51 - LangfuseRunner - DEBUG - [langfuse_runner.py:274] - Created variant prompt: species-conservation
+2025-02-20 09:13:51 - LangfuseRunner - INFO - [langfuse_runner.py:280] - Initialized prompts for types: ['general', 'detailed', 'comparative', 'species']
+2025-02-20 09:13:51 - LangfuseRunner - INFO - [langfuse_runner.py:292] - Found CSV files: ['pat_app.csv', 'pat_fos.csv', 'literature_trends.csv', 'lit_fos.csv', 'lit_aff.csv']
+2025-02-20 09:13:51 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: pat_app with 20 items
+2025-02-20 09:13:52 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: pat_fos with 20 items
+2025-02-20 09:13:52 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: literature_trends with 13 items
+2025-02-20 09:13:52 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: lit_fos with 20 items
+2025-02-20 09:13:56 - LangfuseRunner - INFO - [langfuse_runner.py:327] - Successfully uploaded dataset: lit_aff with 301 items
+2025-02-20 09:13:56 - LangfuseRunner - INFO - [langfuse_runner.py:227] - Initialization complete
